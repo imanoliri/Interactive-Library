@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .container {
+            width: 80vw;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 20px;
+        }
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            background: #f1f1f1;
+            border-radius: 4px 4px 0 0;
+            margin-right: 2px;
+        }
+        .tab.active {
+            background: #fff;
+            border-bottom: 2px solid #fff;
+            font-weight: bold;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .slider-container {
+            margin-bottom: 10px;
+        }
+        .slider-container label {
+            font-weight: bold;
+        }
+        .slider-container input {
+            width: 100%;
+            margin: 5px 0;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: none;
+        }
+        .submit-options {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .submit-options input[type="checkbox"] {
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+        button.submit-feedback {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button.submit-feedback:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Feedback</h1>
+        <div class="tabs"></div>
+        <div class="tab-contents"></div>
+        <button class="submit-feedback" onclick="submitFeedback()">Submit Feedback</button>
+        <div class="submit-options"><label><input type="checkbox" id="submitAllCheckbox">Submit feedback for all chapters at once?</label></div>
+    </div>
+
+    <script>
+
+        let story_metadata
+        let story_by_chapters
+        async function fetchStoryMetaData() {
+            try {
+                const response_story_metadata = await fetch('story_metadata.json');
+                const response_story_chapters = await fetch('story_by_chapters.json');
+                story_metadata = await response_story_metadata.json();
+                story_by_chapters = await response_story_chapters.json();
+                console.log(story_metadata)
+            } catch (error) {
+                console.error('Error fetching JSON:', error);
+            }
+        }
+        
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchStoryMetaData().then(createFeedbackPage);
+        });
+        
+        let chapterTitles
+        function createFeedbackPage() {
+            chapterTitles = [
+                'Whole Story',
+                ...Object.keys(story_by_chapters)
+            ];
+
+            // Generate tabs and their content dynamically
+            const tabsContainer = document.querySelector('.tabs');
+            const tabContentsContainer = document.querySelector('.tab-contents');
+
+            chapterTitles.forEach((title, index) => {
+                // Create tab
+                const tab = document.createElement('div');
+                tab.className = 'tab';
+                tab.textContent = title;
+                tab.dataset.index = index;
+
+                // Create tab content
+                const tabContent = document.createElement('div');
+                tabContent.className = 'tab-content';
+                tabContent.dataset.index = index;
+                tabContent.innerHTML = `
+                    <div class="slider-container">
+                        <label class="slider-label" for="slider-${index}">Rate this chapter (0-10)</label>
+                        <input id="slider-${index}" type="range" min="0" max="10" value="5" data-changed="false" oninput="updateSliderValue('slider-${index}', 'value-${index}')">
+                        <span id="value-${index}">5</span>
+                    </div>
+                    <textarea id="feedback-${index}" placeholder="Write your feedback here..."></textarea>
+                `;
+
+                // Add event listener to switch tabs
+                tab.addEventListener('click', () => activateTab(index));
+
+                // Append to DOM
+                tabsContainer.appendChild(tab);
+                tabContentsContainer.appendChild(tabContent);
+            });
+
+            // Activate the first tab by default
+            activateTab(0);
+        }
+
+        function activateTab(index) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            document.querySelector(`.tab[data-index="${index}"]`).classList.add('active');
+            document.querySelector(`.tab-content[data-index="${index}"]`).classList.add('active');
+        }
+
+        function updateSliderValue(idSlider, idValue) {
+            slider = document.getElementById(idSlider)
+            valueText = document.getElementById(idValue)
+            valueText.textContent = slider.value;
+            slider.setAttribute('data-changed', 'true');
+            console.log(slider.getAttribute('data-changed'))
+        }
+
+        let userName
+        function submitFeedback() {
+
+            const chapterIndex = document.querySelector('.tab.active').dataset.index;            
+            if (!userName) {
+                userName = prompt("Please enter your name (or leave blank for anonymous):") || "Anonymous";
+            }
+            const submitAll = document.getElementById('submitAllCheckbox').checked;
+            let feedbackData
+            if (submitAll) {
+                // Create feedbackData as a list
+                feedbackData = chapterTitles.map((title, index) => {
+                    slider = document.querySelector(`#slider-${index}`)
+                    return {
+                        username: userName,
+                        storyId: story_metadata["story_id"],
+                        storyName: story_metadata["story_name"],
+                        date: new Date().toISOString(),
+                        chapterIndex: index,
+                        chapterTitle: title,
+                        rating: parseInt(slider.value, 10),
+                        ratingSliderChanged: JSON.parse(slider.getAttribute('data-changed')),
+                        feedback: document.querySelector(`#feedback-${index}`).value.trim() || null
+                    };
+                });
+            } else {
+                // Feedback of only one chapter
+                slider = document.querySelector(`#slider-${chapterIndex}`)
+                feedbackData = [{
+                    username: userName,
+                    storyId: story_metadata["story_id"],
+                    storyName: story_metadata["story_name"],
+                    date: new Date().toISOString(),
+                    chapterIndex: chapterIndex,
+                    chapterTitle: chapterTitles[chapterIndex],
+                    rating: parseInt(slider.value, 10),
+                    ratingSliderChanged: JSON.parse(slider.getAttribute('data-changed')),
+                    feedback: document.querySelector(`#feedback-${chapterIndex}`).value.trim() || null
+                }];
+            }
+
+            console.log(feedbackData);
+
+            // Send feedback to the server
+            fetch('/.netlify/functions/logFeedback', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(feedbackData)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Feedback sent successfully!');
+                    } else {
+                        alert('Failed to send feedback. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
+        }
+        
+    </script>
+</body>
+</html>
