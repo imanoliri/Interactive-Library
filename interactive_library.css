@@ -1,19 +1,11 @@
-.mosaic {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1rem;
-}
-.tile {
-    border-radius: 1rem;
-    overflow: hidden;
-    background: #0f172a;
-    color: #e2e8f0;
-    box-shadow: 0 8px 20px rgba(0,0,0,.15);
-    transition: transform .08s ease, box-shadow .08s ease, opacity .2s ease;
-}
-.tile:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.2); }
-.cover { aspect-ratio: 3/4; width: 100%; object-fit: cover; background: linear-gradient(135deg,#1e293b,#0f172a); }
-.folder-icon, .book-icon { width: 20px; height: 20px; vertical-align: -4px; }
-.fade-in { animation: fade-in .25s ease both; }
-@keyframes fade-in { from {opacity:0; transform: translateY(4px)} to {opacity:1; transform: none} }
-.kbd { font: 12px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; border:1px solid #334155; padding:.1rem .35rem; border-radius:.35rem; background:#0b1220; }
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial;background:#0b1020;color:#e7ecf4}
+header{display:flex;gap:8px;align-items:center;padding:12px 16px}
+#search{flex:1;min-width:160px;padding:8px 10px;border:1px solid #21315c;background:#121a33;color:#e7ecf4;border-radius:10px;outline:none}
+#grid{display:grid;gap:12px;padding:12px 16px;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+a.folder,a.book{display:block;text-decoration:none;color:inherit;background:#121a33;border:1px solid #21315c;border-radius:12px;padding:10px}
+a.book{padding:0}
+.book-cover{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;border-bottom:1px solid #21315c}
+.book-title{display:block;font-weight:600;padding:8px 10px 0}
+.book-sub{display:block;color:#9fb1d8;font-size:12px;padding:2px 10px}
+.book-tags{display:block;color:#a8c7ff;font-size:11px;padding:6px 10px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hidden{display:none}
