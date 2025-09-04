@@ -11,6 +11,7 @@
         {
           "type": "book",
           "name": "Attack_of_the_Dark_God",
+          "cover": "cover.jpg",
           "path": "Valley_of_Dragons/Attack_of_the_Dark_God",
           "entry": "index.html",
           "meta": {
@@ -26,6 +27,7 @@
     {
         "type": "book",
         "name": "Paths_of_Magic",
+        "cover": "cover.jpg",
         "path": "Paths_of_Magic",
         "entry": "index.html",
         "meta": {
