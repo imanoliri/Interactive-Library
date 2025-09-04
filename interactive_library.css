@@ -1,0 +1,19 @@
+.mosaic {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+}
+.tile {
+    border-radius: 1rem;
+    overflow: hidden;
+    background: #0f172a;
+    color: #e2e8f0;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+    transition: transform .08s ease, box-shadow .08s ease, opacity .2s ease;
+}
+.tile:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.2); }
+.cover { aspect-ratio: 3/4; width: 100%; object-fit: cover; background: linear-gradient(135deg,#1e293b,#0f172a); }
+.folder-icon, .book-icon { width: 20px; height: 20px; vertical-align: -4px; }
+.fade-in { animation: fade-in .25s ease both; }
+@keyframes fade-in { from {opacity:0; transform: translateY(4px)} to {opacity:1; transform: none} }
+.kbd { font: 12px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; border:1px solid #334155; padding:.1rem .35rem; border-radius:.35rem; background:#0b1220; }

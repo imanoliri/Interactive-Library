@@ -1,0 +1,10 @@
+{
+    "battle_name": "Battle of Castle Tarn",
+    "battle_map_file": "battle_3__castle_tarn.png",
+    "battle_map_info_html": "battle_3_map_info.html",
+    "nodeSize": 68.3,
+    "nodeXOffset": 0,
+    "nodeYOffset": -35,
+    "nodeXScale": 1,
+    "nodeYScale": 1
+}

@@ -1,0 +1,10 @@
+{
+    "battle_name": "Battle of Durin's Chasm",
+    "battle_map_file": "battle_1__durins_chasm.png",
+    "battle_map_info_html": "battle_1_map_info.html",
+    "nodeSize": 62,
+    "nodeXOffset": 0,
+    "nodeYOffset": 0,
+    "nodeXScale": 1,
+    "nodeYScale": 1
+}

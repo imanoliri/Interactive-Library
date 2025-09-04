@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Battle</title>
+    <link rel="stylesheet" href="battle_4.css">
+</head>
+<body>
+    <h1>Battle</h1>
+    
+    <!-- Difficulty Slider and Button -->
+    <div class="controls">
+        
+    </div>
+    <div id="controls" class="controls">
+        <input type="checkbox" id="meleeNetwork" name="meleeNetwork">
+        <label for="meleeNetwork"> melee Network</label><br>
+        <input type="checkbox" id="archerNetwork" name="archerNetwork">
+        <label for="archerNetwork"> archer Network</label><br>
+        <input type="checkbox" id="flierNetwork" name="flierNetwork">
+        <label for="flierNetwork"> flier Network</label><br>
+        <input type="checkbox" id="siegeNetwork" name="siegeNetwork">
+        <label for="siegeNetwork"> siege Network</label><br>
+
+        <label for="difficultySlider">Difficulty:</label>
+        <span id="sliderValue">1</span>
+        <input type="range" id="difficultySlider" min="1" max="3" step="1" value="1">
+        <button id="setDifficultyButton">Set Difficulty</button>
+        <button id="instructionsButton">Instructions</button>
+        <button id="mapInfoButton">Map Info</button>
+    </div>
+
+    <div id="container">
+        <div id="battlefield" class="battlefield"></div>
+        
+        <div id="unitTableContainer">
+
+            <div id="logContainer">
+                <textarea id="logTextbox" readonly></textarea>
+            </div>
+
+            <h2 style="text-align: center;">Units Table</h2>
+            <div id="healthBar" class="health-bar"></div>
+            <table id="unitTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Team</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Attack<br>Melee</th>
+                        <th>Attack<br>Range</th>
+                        <th>Defense</th>
+                        <th>Health</th>
+                        <th>Node</th>
+                        <th>Deployment<br>Minimum</th>
+                        <th>Deployment<br>Maximum</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="instructionsModal" class="modal">
+        <div class="modal-content">
+            <h2>Instructions</h2>
+            <p id="instructionsText"></p>
+            <button id="closeInstructionsModal">Close</button>
+        </div>
+    </div>
+    <div id="mapInfoModal" class="modal">
+        <div class="modal-content">
+            <h2>Map Information</h2>
+            <p id="mapInfoText"></p>
+            <button id="closeMapInfoModal">Close</button>
+        </div>
+    </div>
+
+    <script src="battle_4.js"></script>
+</body>
+</html>
+
