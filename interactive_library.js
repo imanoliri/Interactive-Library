@@ -38,7 +38,7 @@ function render(){
       a.querySelector('.folder-name').textContent=pretty(n.name);
       const img=a.querySelector('.folder-cover');
       if(n.cover){img.src=`/books/${n.path}/${n.cover}`; img.alt=`${n.name} cover`;} else {img.remove();}
-      a.href='?path='+encodeURIComponent(n.path?`${n.path}/${n.name}`:n.name);
+      a.href='?path='+encodeURIComponent(n.path?`${n.path}`:n.name);
       el.grid.appendChild(a); shown++;
     }else{
       if(q && !bookMatch(n,q)) continue;
@@ -58,9 +58,7 @@ function render(){
 
 function renderCrumbs(){
   const path=pathFromURL();
-  const parts=path.split('/').filter(Boolean);
-  let acc=[], html=`<a href="?">/books</a>`;
-  for(const p of parts){acc.push(p); html+=` <span class="sep">/</span> <a href="?path=${encodeURIComponent(acc.join('/'))}">${esc(pretty(p))}</a>`;}
+  html=`<a href="?">/books</a> <span class="sep">/</span> <a href="?path=${encodeURIComponent(path)}">${path}</a>`
   el.crumbs.innerHTML=html;
 }
 
