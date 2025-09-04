@@ -1,0 +1,40 @@
+{
+  "type": "dir",
+  "name": "books",
+  "path": "",
+  "children": [
+    {
+      "type": "dir",
+      "name": "Valley_of_Dragons",
+      "path": "Valley_of_Dragons",
+      "children": [
+        {
+          "type": "book",
+          "name": "Attack_of_the_Dark_God",
+          "path": "Valley_of_Dragons/Attack_of_the_Dark_God",
+          "entry": "index.html",
+          "meta": {
+            "title": "Valley of Dragons — Book I",
+            "author": "Imanol Irizar",
+            "lang": "en",
+            "tags": ["dragons","choices","fantasy"],
+            "blurb": "An interactive trek through the valley…"
+          }
+        }
+      ]
+    },
+    {
+        "type": "book",
+        "name": "Paths_of_Magic",
+        "path": "Paths_of_Magic",
+        "entry": "index.html",
+        "meta": {
+        "title": "Paths of Magic",
+        "author": "Imanol Irizar",
+        "lang": "en",
+        "tags": ["magic","elements","knowledge"],
+        "blurb": "An inspiring journey through the fantastic worlds of magic…"
+        }
+    }
+  ]
+}
