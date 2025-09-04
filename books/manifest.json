@@ -17,8 +17,8 @@
             "title": "Valley of Dragons — Book I",
             "author": "Imanol Irizar",
             "lang": "en",
-            "tags": ["dragons","choices","fantasy"],
-            "blurb": "An interactive trek through the valley…"
+            "tags": ["dragons","good_vs_evil","fantasy"],
+            "blurb": "An heroic quest to save the valley from the evil God."
           }
         }
       ]
@@ -33,7 +33,7 @@
         "author": "Imanol Irizar",
         "lang": "en",
         "tags": ["magic","elements","knowledge"],
-        "blurb": "An inspiring journey through the fantastic worlds of magic…"
+        "blurb": "An inspiring journey through the fantastic worlds of magic."
         }
     }
   ]
