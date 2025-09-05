@@ -6,15 +6,17 @@
     {
       "type": "dir",
       "name": "Valley_of_Dragons",
+      "cover": "cover.jpg",
       "path": "Valley_of_Dragons",
       "children": [
         {
           "type": "book",
           "name": "Attack_of_the_Dark_God",
+          "cover": "cover.jpg",
           "path": "Valley_of_Dragons/Attack_of_the_Dark_God",
           "entry": "index.html",
           "meta": {
-            "title": "Valley of Dragons — Book I",
+            "title": "Valley of Dragons — Attack of the Dark God",
             "author": "Imanol Irizar",
             "lang": "en",
             "tags": ["dragons","good_vs_evil","fantasy"],
@@ -26,6 +28,7 @@
     {
         "type": "book",
         "name": "Paths_of_Magic",
+        "cover": "cover.jpg",
         "path": "Paths_of_Magic",
         "entry": "index.html",
         "meta": {
