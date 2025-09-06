@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexible Image Circle Puzzle</title>
+    <link rel="stylesheet" href="order_images.css">
+</head>
+<body>
+    <div class="slider-container">
+        <label for="numImagesSlider">Number of Images: <span id="numImagesLabel">6</span></label>
+        <input type="range" id="numImagesSlider" min="3" max="7" value="6">
+    </div>
+    <div class="circle-container" id="circle-container">
+        <div class="center-text">Click in the order of the Story!</div>
+    </div>
+    <div class="popup" id="popup-solved">
+        <p>Congratulations! You solved the puzzle!</p>
+        <div class="button-container">
+            <button onclick="resetPuzzle('popup-solved')">Reset Puzzle</button>
+            <button onclick="changePuzzle('popup-solved')">Change Puzzle</button>
+        </div>
+    </div>
+    <div class="popup" id="popup-failed">
+        <p>Wrong image! Try again.</p>
+        <div class="button-container">
+            <button onclick="resetPuzzle('popup-failed')">Reset Puzzle</button>
+            <button onclick="changePuzzle('popup-failed')">Change Puzzle</button>
+        </div>
+    </div>
+    <script src="order_images.js"></script>
+</body>
+</html>
