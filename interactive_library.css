@@ -27,6 +27,22 @@ header {
     outline: none
 }
 
+.donate-btn {
+    margin-left: auto;
+    padding: 6px 12px;
+    background: #f59e0b;
+    color: #0b1020;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background .15s ease;
+}
+
+.donate-btn:hover {
+    background: #ffb92e;
+}
+
+
 .crumbs {
     padding: 0 16px 6px;
     color: #9fb1d8;
