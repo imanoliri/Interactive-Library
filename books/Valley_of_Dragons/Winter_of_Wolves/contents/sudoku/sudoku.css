@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f8f8f8;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    margin-bottom: 20px;
+}
+
+#empty-cells-slider {
+    width: 200px;
+    margin-top: 5px; /* Add a small margin above the slider */
+}
+
+.sudoku-board {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    width: 90vw; /* Use viewport width for responsiveness */
+    height: 90vw; /* Match height to width to keep it square */
+    max-width: 450px; /* Maximum width for larger screens */
+    max-height: 450px; /* Maximum height for larger screens */
+    border: 2px solid #333;
+    gap: 2px; /* Small gap between cells */
+}
+
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    font-size: calc(1.5vw + 10px); /* Adjust font size for readability */
+    background-color: #fff;
+    cursor: pointer;
+    user-select: none;
+    aspect-ratio: 1 / 1; /* Ensures cells are square */
+}
+
+.cell.fixed {
+    background-color: #ddd;
+    cursor: default;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* Media Query for Smaller Screens */
+@media (max-width: 600px) {
+    .sudoku-board {
+        gap: 1px; /* Reduce gap on smaller screens */
+    }
+
+    .cell {
+        font-size: calc(2vw + 8px); /* Increase font size for readability on small screens */
+    }
+
+    button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}

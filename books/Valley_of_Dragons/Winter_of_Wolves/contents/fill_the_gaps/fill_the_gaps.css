@@ -1,0 +1,106 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  #gap-slider {
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  #gap-count {
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  
+  .tabs {
+    display: flex;
+    margin: 20px 0;
+  }
+  
+  .tab-button {
+    flex: 1;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 5px 5px 0 0;
+    text-align: center;
+    transition: background-color 0.3s;
+  }
+  
+  .tab-button.active {
+    background-color: #007BFF;
+    color: white;
+  }
+  
+  .tab-content {
+    display: none;
+    border: 2px solid transparent;
+    padding: 10px;
+  }
+  
+  .tab-content.active {
+    display: block;
+  }
+  
+  .paragraph-container {
+    margin: 20px 0;
+  }
+  
+  button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  input.gap-input {
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 0 5px;
+    border-radius: 3px;
+  }
+  
+  input.gap-input.correct {
+    border-color: green;
+    background-color: #e6ffe6; /* Light green background for correct input */
+  }
+  
+  input.gap-input.incorrect {
+    border-color: red;
+    background-color: #ffe6e6; /* Light red background for incorrect input */
+  }
+  
