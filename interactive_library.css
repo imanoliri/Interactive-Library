@@ -1,15 +1,108 @@
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial;background:#0b1020;color:#e7ecf4}
-header{display:flex;gap:8px;align-items:center;padding:12px 16px}
-#search{flex:1;min-width:160px;padding:8px 10px;border:1px solid #21315c;background:#121a33;color:#e7ecf4;border-radius:10px;outline:none}
-.crumbs{padding:0 16px 6px;color:#9fb1d8;font-size:13px}
-.crumbs a{color:#5cc8ff;text-decoration:none}
-.crumbs .sep{color:#5b719f;margin:0 6px}
-#grid{display:grid;gap:12px;padding:12px 16px;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
-a.folder,a.book{display:block;text-decoration:none;color:inherit;background:#121a33;border:1px solid #21315c;border-radius:12px;padding:10px}
-.folder-cover{width:100%;aspect-ratio:1;object-fit:cover;display:block;border-bottom:1px solid #21315c}
-a.book{padding:0}
-.book-cover{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;border-bottom:1px solid #21315c}
-.book-title{display:block;font-weight:600;padding:8px 10px 0}
-.book-sub{display:block;color:#9fb1d8;font-size:12px;padding:2px 10px}
-.book-tags{display:block;color:#a8c7ff;font-size:11px;padding:6px 10px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.hidden{display:none}
+* {
+    box-sizing: border-box
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, Segoe UI, Roboto, Helvetica, Arial;
+    background: #0b1020;
+    color: #e7ecf4
+}
+
+header {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 12px 16px
+}
+
+#search {
+    flex: 1;
+    min-width: 160px;
+    padding: 8px 10px;
+    border: 1px solid #21315c;
+    background: #121a33;
+    color: #e7ecf4;
+    border-radius: 10px;
+    outline: none
+}
+
+.crumbs {
+    padding: 0 16px 6px;
+    color: #9fb1d8;
+    font-size: 13px
+}
+
+.crumbs a {
+    color: #5cc8ff;
+    text-decoration: none
+}
+
+.crumbs .sep {
+    color: #5b719f;
+    margin: 0 6px
+}
+
+#grid {
+    display: grid;
+    gap: 12px;
+    padding: 12px 16px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr))
+}
+
+a.folder, a.book {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: #121a33;
+    border: 1px solid #21315c;
+    border-radius: 12px;
+    padding: 10px
+}
+
+.folder-cover {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #21315c
+}
+
+a.book {
+    padding: 0
+}
+
+.book-cover {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #21315c
+}
+
+.book-title {
+    display: block;
+    font-weight: 600;
+    padding: 8px 10px 0
+}
+
+.book-sub {
+    display: block;
+    color: #9fb1d8;
+    font-size: 12px;
+    padding: 2px 10px
+}
+
+.book-tags {
+    display: block;
+    color: #a8c7ff;
+    font-size: 11px;
+    padding: 6px 10px 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.hidden {
+    display: none
+}
