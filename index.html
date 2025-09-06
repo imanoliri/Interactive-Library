@@ -1,43 +1,37 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Interactive Library</title>
-  <link rel="stylesheet" href="interactive_library.css">
-</head>
-<body>
-  <header>
-    <h1>Interactive Library</h1>
-    <input id="search" type="search" placeholder="Search…">
-    <span id="count">0</span>
-  </header>
-
-  <nav id="breadcrumbs" class="crumbs"></nav>
-
-  <main>
-    <section id="grid"></section>
-
-    <template id="tile-folder">
-      <a class="folder" href="#">
-        <img class="folder-cover" alt="">
-        <span class="folder-name"></span>
-        <span class="folder-meta"></span>
-      </a>
-    </template>
-
-    <template id="tile-book">
-      <a class="book" href="#">
-        <img class="book-cover" alt="">
-        <span class="book-title"></span>
-        <span class="book-sub"></span>
-        <span class="book-tags"></span>
-      </a>
-    </template>
-
-    <div id="empty" class="hidden">Nothing here.</div>
-  </main>
-
-  <script src="interactive_library.js"></script>
-</body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Interactive Library</title>
+        <link rel="stylesheet" href="interactive_library.css">
+    </head>
+    <body>
+        <header>
+            <h1>Interactive Library</h1>
+            <input id="search" type="search" placeholder="Search…">
+            <span id="count">0</span>
+        </header>
+        <nav id="breadcrumbs" class="crumbs"></nav>
+        <main>
+            <section id="grid"></section>
+            <template id="tile-folder">
+                <a class="folder" href="#">
+                    <img class="folder-cover" alt="">
+                    <span class="folder-name"></span>
+                    <span class="folder-meta"></span>
+                </a>
+            </template>
+            <template id="tile-book">
+                <a class="book" href="#">
+                    <img class="book-cover" alt="">
+                    <span class="book-title"></span>
+                    <span class="book-sub"></span>
+                    <span class="book-tags"></span>
+                </a>
+            </template>
+            <div id="empty" class="hidden">Nothing here.</div>
+        </main>
+        <script src="interactive_library.js"></script>
+    </body>
 </html>

@@ -1,15 +1,159 @@
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial;background:#0b1020;color:#e7ecf4}
-header{display:flex;gap:8px;align-items:center;padding:12px 16px}
-#search{flex:1;min-width:160px;padding:8px 10px;border:1px solid #21315c;background:#121a33;color:#e7ecf4;border-radius:10px;outline:none}
-.crumbs{padding:0 16px 6px;color:#9fb1d8;font-size:13px}
-.crumbs a{color:#5cc8ff;text-decoration:none}
-.crumbs .sep{color:#5b719f;margin:0 6px}
-#grid{display:grid;gap:12px;padding:12px 16px;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
-a.folder,a.book{display:block;text-decoration:none;color:inherit;background:#121a33;border:1px solid #21315c;border-radius:12px;padding:10px}
-.folder-cover{width:100%;aspect-ratio:1;object-fit:cover;display:block;border-bottom:1px solid #21315c}
-a.book{padding:0}
-.book-cover{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;border-bottom:1px solid #21315c}
-.book-title{display:block;font-weight:600;padding:8px 10px 0}
-.book-sub{display:block;color:#9fb1d8;font-size:12px;padding:2px 10px}
-.book-tags{display:block;color:#a8c7ff;font-size:11px;padding:6px 10px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.hidden{display:none}
+* {
+    box-sizing: border-box
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, Segoe UI, Roboto, Helvetica, Arial;
+    background: #0b1020;
+    color: #e7ecf4
+}
+
+header {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 12px 16px
+}
+
+#search {
+    flex: 1;
+    min-width: 160px;
+    padding: 8px 10px;
+    border: 1px solid #21315c;
+    background: #121a33;
+    color: #e7ecf4;
+    border-radius: 10px;
+    outline: none
+}
+
+.crumbs {
+    padding: 0 16px 6px;
+    color: #9fb1d8;
+    font-size: 13px
+}
+
+.crumbs a {
+    color: #5cc8ff;
+    text-decoration: none
+}
+
+.crumbs .sep {
+    color: #5b719f;
+    margin: 0 6px
+}
+
+#grid {
+    display: grid;
+    gap: 16px;
+    padding: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr))
+}
+
+/* Base tile */
+a.folder, a.book {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: #121a33;
+    border: 1px solid #21315c;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .2);
+    transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease
+}
+
+a.folder:hover, a.book:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .28)
+}
+
+/* Distinguish accents */
+a.folder {
+    border-left: 4px solid #f59e0b;
+    background: linear-gradient(180deg, #101734, #0e1630)
+}
+
+a.book {
+    border-left: 4px solid #3b82f6;
+    background: linear-gradient(180deg, #111a36, #0f1833)
+}
+
+/* Badges */
+a.folder::before, a.book::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 13px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: #0b1020cc;
+    border: 1px solid #2a3a66
+}
+
+a.folder::before {
+    content: "📁  Series";
+    color: #8ec7ff
+}
+
+a.book::before {
+    content: "📖  Book";
+    color: #ffd089
+}
+
+/* Covers */
+.folder-cover {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #21315c;
+    background: linear-gradient(135deg, #1a2755, #0f1a3a)
+}
+
+.book-cover {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #21315c;
+    background: linear-gradient(135deg, #1b2450, #0f1a3a)
+}
+
+/* Text */
+.folder-name, .book-title {
+    display: block;
+    font-weight: 700;
+    padding: 10px 12px 0
+}
+
+.folder-name {
+    color: #ffe2b3
+}
+
+.book-title {
+    color: #cfe6ff
+}
+
+.book-sub {
+    display: block;
+    color: #9fb1d8;
+    font-size: 12px;
+    padding: 2px 12px
+}
+
+.book-tags {
+    display: block;
+    color: #a8c7ff;
+    font-size: 11px;
+    padding: 6px 12px 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.hidden {
+    display: none
+}
