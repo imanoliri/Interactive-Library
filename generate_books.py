@@ -16,6 +16,7 @@ def first_non_index_html(p):
 
 def generate_all_books_from_html(booksdir: str = "books"):
     for bookdir, dirs, files in os.walk(booksdir):
+        bookdir = bookdir.replace("\\", "/")
         html = first_non_index_html(bookdir)
         if not html:
             print(f"skip: {bookdir} (no html that is not 'index.html')")

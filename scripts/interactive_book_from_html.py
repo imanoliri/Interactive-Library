@@ -186,8 +186,9 @@ def add_content_tab(chapters, tab_names, content_dir):
 
 
 def get_content_links(base_path):
+    content_rel_dir = base_path.split("/")[-1]
     return [
-        f"{base_path}/{content_name}/{content_name}.html"
+        f"{content_rel_dir}/{content_name}/{content_name}.html"
         for content_name in os.listdir(base_path)
         if os.path.isfile(f"{base_path}/{content_name}/{content_name}.html")
     ]
@@ -210,7 +211,7 @@ def generate_contents_page(content_links):
         return snake_to_camel_with_spaces(fp.split("/")[-1].split(".")[0])
 
     button_html = "\n\t\t\t\t".join(
-        f"<button onclick=\"window.location.href='{content.replace("\","/"")}'\">{get_name_from_file_path(content)}</button>"
+        f"<button onclick=\"window.location.href='{content}'\">{get_name_from_file_path(content)}</button>"
         for content in content_links
     )
 
