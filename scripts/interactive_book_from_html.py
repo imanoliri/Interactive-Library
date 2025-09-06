@@ -10,14 +10,13 @@ from jinja2 import Template
 from pathlib import Path
 from PIL import Image
 
-from interactive_book_words_to_ignore import function_words, particles_to_ignore
+from scripts.interactive_book_words_to_ignore import function_words, particles_to_ignore
 
 
 # Read the HTML content
 def read_html_book(html_file_path: str):
     with open(html_file_path, "r", encoding="utf-8") as file:
         return file.read()
-
 
 
 def extract_media(html_content):
@@ -84,19 +83,31 @@ def extract_word_count(html_content):
     for particle in particles_to_ignore:
         text = text.replace(particle, "")
 
-    text = text.lower().translate(str.maketrans("", "", string.punctuation))  # lowercase and remove punctuation sign
+    text = text.lower().translate(
+        str.maketrans("", "", string.punctuation)
+    )  # lowercase and remove punctuation sign
     text = re.sub(
         r"\b(\w+?)s\b(?=.*\b\1\b)", r"\1", text
     )  # Use re.sub to replace the plural form with the singular form
-    text = re.sub(r"\s+", " ", text).strip()  # Remove extra spaces left behind and return the cleaned string
+    text = re.sub(
+        r"\s+", " ", text
+    ).strip()  # Remove extra spaces left behind and return the cleaned string
 
     return filter_and_sort_word_count(Counter(text.split()))
 
 
-def filter_and_sort_word_count(word_count, min_word_count: int = 5, max_words: int = 60):
-    word_count = {word: count for word, count in word_count.items() if word.lower() not in function_words}
+def filter_and_sort_word_count(
+    word_count, min_word_count: int = 5, max_words: int = 60
+):
+    word_count = {
+        word: count
+        for word, count in word_count.items()
+        if word.lower() not in function_words
+    }
 
-    word_count = {word: count for word, count in word_count.items() if count >= min_word_count}
+    word_count = {
+        word: count for word, count in word_count.items() if count >= min_word_count
+    }
 
     word_count = dict(list(word_count.items())[:max_words])
 
@@ -104,7 +115,11 @@ def filter_and_sort_word_count(word_count, min_word_count: int = 5, max_words: i
 
 
 def extract_paragraph_texts(html_content):
-    return [p.get_text() for p in BeautifulSoup(html_content, "html.parser").find_all("p") if p.get_text() != ""]
+    return [
+        p.get_text()
+        for p in BeautifulSoup(html_content, "html.parser").find_all("p")
+        if p.get_text() != ""
+    ]
 
 
 # Parse the HTML into tabs
@@ -195,7 +210,7 @@ def generate_contents_page(content_links):
         return snake_to_camel_with_spaces(fp.split("/")[-1].split(".")[0])
 
     button_html = "\n\t\t\t\t".join(
-        f"<button onclick=\"window.location.href='{content}'\">{get_name_from_file_path(content)}</button>"
+        f"<button onclick=\"window.location.href='{content.replace("\","/"")}'\">{get_name_from_file_path(content)}</button>"
         for content in content_links
     )
 
@@ -242,7 +257,9 @@ def generate_static_html(chapters, tab_names, title):
 </html>
     """
     template = Template(html_template)
-    return template.render(chapters=chapters, tab_names=tab_names, title=title.replace("_", " "))
+    return template.render(
+        chapters=chapters, tab_names=tab_names, title=title.replace("_", " ")
+    )
 
 
 def save_to_json(data, filepath):
@@ -266,35 +283,33 @@ def save_html_to_content(data, contents_dir, name):
     save_html(data, filepath)
 
 
-def main():
+def generate_interactive_book_from_html(bookdir: str, html_file_path: str):
 
-    story_metadata = load_from_json("story_metadata.json")
-    html_file_path = story_metadata["html_file_path"]
-    contents_dir = "contents"
-    images_dir = "images"
-    feedback_html_path = "story_feedback.html"
+    contents_dir = f"{bookdir}/contents"
+    images_dir = f"{bookdir}/images"
     title = html_file_path.split("/")[-1].split(".")[0]
-    output_file_path = "index.html"
+    output_file_path = f"{bookdir}/index.html"
 
     # Read html
     html_book = read_html_book(html_file_path)
-    save_to_json(extract_media(html_book), "interactive_book_media.json")
-    save_to_json(extract_images(html_book), "interactive_book_images.json")
+    save_to_json(extract_media(html_book), f"{bookdir}/interactive_book_media.json")
+    save_to_json(extract_images(html_book), f"{bookdir}/interactive_book_images.json")
     images_png_to_jpg(images_dir)
-    save_to_json(extract_word_count(html_book), "interactive_book_word_count.json")
-    save_to_json(extract_paragraph_texts(html_book), "interactive_book_parapragh_texts.json")
+    save_to_json(
+        extract_word_count(html_book), f"{bookdir}/interactive_book_word_count.json"
+    )
+    save_to_json(
+        extract_paragraph_texts(html_book),
+        f"{bookdir}/interactive_book_parapragh_texts.json",
+    )
 
     # Generate html interactive book
     chapters, tab_names = parse_html_book(html_book)
-    save_to_json(get_chapters_to_json(chapters, tab_names), "story_by_chapters.json")
+    save_to_json(
+        get_chapters_to_json(chapters, tab_names), f"{bookdir}/story_by_chapters.json"
+    )
     chapters, tab_names = add_content_tab(chapters, tab_names, contents_dir)
     interactive_book = generate_static_html(chapters, tab_names, title)
-    chapters, tab_names = add_story_feedback_tab(chapters, tab_names, feedback_html_path)
-
 
     # Save book locally
     save_html(interactive_book, output_file_path)
-
-
-if __name__ == "__main__":
-    main()
