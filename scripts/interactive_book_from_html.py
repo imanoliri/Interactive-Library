@@ -148,6 +148,7 @@ def parse_html_book(html_content):
             last_name = element.name
 
         elif element.name == "img":
+            element.attrs.pop("style", None) # Remove the style from any images
             img_src = element.get("src")
             if img_src != last_image:  # Check for image duplication
                 if last_name != "img":
