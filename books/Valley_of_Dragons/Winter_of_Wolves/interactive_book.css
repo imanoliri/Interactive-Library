@@ -1,16 +1,19 @@
 body {
     font-family: 'Roboto', Arial, sans-serif;
+    font-size: clamp(16px, 2vw, 24px);  /* readable on all devices */
+    max-width: 75ch;
+    text-align: justify;
     line-height: 1.6;
     overflow-y: scroll;
     background-color: #f4f4f9;
     color: #4a4a4a;
-    margin: 0;
+    margin: 0 auto;
     padding: 20px;
 }
 
 /* Customize scrollbar */
 body::-webkit-scrollbar {
-    width: 8px;
+    width: 16px;
 }
 body::-webkit-scrollbar-track {
     background: #e2e2e2;
@@ -22,6 +25,7 @@ body::-webkit-scrollbar-thumb {
 
 .tab-content {
     display: block;
+    align-self: center;
 }
 
 .tab-contents {
@@ -36,6 +40,7 @@ body::-webkit-scrollbar-thumb {
     display: flex;
     gap: 10px;
     margin-bottom: 10px;
+    justify-content: center;
 }
 
 .tab-button {
@@ -100,27 +105,27 @@ body::-webkit-scrollbar-thumb {
 }
 
 
-.image-wrapper {
-    display: block;
-    margin: 20px 0;
-    text-align: center; /* Center images */
+.reader {
+    max-width: 75ch;
+    margin-inline: auto;
 }
 
 img {
-    max-width: 100%;
+    display: block;
+    width: 80%;
+    height: 80%;
+    max-width: 80%;
+    max-height: 80%;
+    margin: 0 auto;
     height: auto;
     border-radius: 5px; /* Rounded corners */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle image shadow */
 }
 
-/* Responsive design */
-@media (max-width: 1024px) {
-    th, td {
-        padding: 8px 10px;
-        font-size: 12px;
-    }
-    button {
-        padding: 10px 20px;
-        font-size: 14px;
-    }
-}
+/* img {
+  display: block !important;
+  margin: 0 auto !important;
+  width: 65ch !important;
+  height: 65ch !important;
+  object-fit: contain !important;
+} */
