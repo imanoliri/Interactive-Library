@@ -148,7 +148,7 @@ def parse_html_book(html_content):
             last_name = element.name
 
         elif element.name == "img":
-            element.attrs.pop("style", None) # Remove the style from any images
+            element.attrs.pop("style", None)  # Remove the style from any images
             img_src = element.get("src")
             if img_src != last_image:  # Check for image duplication
                 if last_name != "img":
@@ -244,10 +244,12 @@ def generate_static_html(chapters, tab_names, title):
 </head>
 <body>
     <h1>{{ title }}</h1>
-    <div class="tab-buttons">
+        <div class="tab-selector">
+            <select id="tab-select" aria-label="Choose chapter">
         {% for i in range(chapters|length) %}
-        <button class="tab-button" onclick="showTab({{ i }})">{{ tab_names[i] }}</button>
+                <option value="{{ i }}">{{ tab_names[i] }}</option>
         {% endfor %}
+            </select>
     </div>
     <div class="tab-content">
         {% for chapter in chapters %}

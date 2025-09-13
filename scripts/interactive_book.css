@@ -23,54 +23,64 @@ body::-webkit-scrollbar-thumb {
     border-radius: 10px;
 }
 
-.tab-content {
-    display: block;
-    align-self: center;
-}
-
-.tab-contents {
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.tab-buttons {
-    display: block;
-    gap: 10px;
-    margin-bottom: 10px;
-    justify-content: center;
-}
-
-.tab-button {
-    font-family: arial;
-    line-height: 1.2;
-    color: black;
+/* Container stays centered */
+.tab-selector {
     display: flex;
-    align-items: center;
-    text-align: center;
-    padding: 10px 20px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+/* Dropdown itself: always light by default */
+#tab-select {
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1.3;
+    color: #4a4a4a;
+    padding: 12px 24px;
+    width: 60ch;
+
     border: none;
     border-radius: 5px;
     background-color: #d1d8e0;
-    font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    text-align: center;
+    text-align-last: center; /* centers the selected option text */
 }
 
-.tab-button:hover {
+/* Hover effect (still light tone) */
+#tab-select:hover {
     background-color: #b8c6db;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
 }
 
-.tab-button.active {
-    background-color: #6a89cc;
-    color: white;
-    box-shadow: 0 4px 15px rgba(106, 137, 204, 0.3);
+/* When dropdown is focused, don't force dark anymore */
+#tab-select:focus {
+    outline: none;
+    background-color: #d1d8e0; /* keep light even when active */
+    color: #4a4a4a; 
 }
+
+/* Options inside dropdown */
+#tab-select option {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 28px;   /* slightly smaller to fit list */
+    font-weight: bold;
+    color: #4a4a4a;
+    background: #fff;
+}
+#tab-select option:checked {
+    background-color: #6a89cc;
+    color: #fff;
+}
+
 
 .contents-grid {
     display: flex;
@@ -121,11 +131,3 @@ img {
     border-radius: 5px; /* Rounded corners */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle image shadow */
 }
-
-/* img {
-  display: block !important;
-  margin: 0 auto !important;
-  width: 65ch !important;
-  height: 65ch !important;
-  object-fit: contain !important;
-} */
