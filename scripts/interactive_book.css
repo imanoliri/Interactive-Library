@@ -87,6 +87,7 @@ body::-webkit-scrollbar-thumb {
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 20px;
+    justify-content: center;
 }
 
 .contents-grid button {
@@ -95,7 +96,7 @@ body::-webkit-scrollbar-thumb {
     border-radius: 8px;
     background-color: #a8c1db;
     color: #2a3f55;
-    font-size: x-large;
+    font-size: 36px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;

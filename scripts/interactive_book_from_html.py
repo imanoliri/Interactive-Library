@@ -197,7 +197,7 @@ def get_content_links(base_path):
 
 def generate_contents_page(content_links):
     html_template = """
-            <h1>Contents</h1>
+            <!-- <h1>Contents</h1> -->
             <div class="contents-grid">
                 {buttons}
             </div>
