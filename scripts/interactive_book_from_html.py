@@ -142,12 +142,13 @@ def parse_html_book(html_content):
                 chapters.append(current_chapter)
                 if not tab_names:
                     tab_names.append(default_intro_tab_name)
-            current_chapter = [str(element)]
+            current_chapter = []  # [str(element)]
             tab_names.append(element.get_text(strip=True))
             last_text = element.get_text(strip=True)  # Update last_text
             last_name = element.name
 
         elif element.name == "img":
+            element.attrs.pop("style", None)  # Remove the style from any images
             img_src = element.get("src")
             if img_src != last_image:  # Check for image duplication
                 if last_name != "img":
@@ -196,7 +197,7 @@ def get_content_links(base_path):
 
 def generate_contents_page(content_links):
     html_template = """
-            <h1>Contents</h1>
+            <!-- <h1>Contents</h1> -->
             <div class="contents-grid">
                 {buttons}
             </div>
@@ -218,20 +219,6 @@ def generate_contents_page(content_links):
     return html_template.replace("{buttons}", button_html)
 
 
-def add_story_feedback_tab(chapters, tab_names, feedback_html_link):
-    """Add a Story Feedback tab to the interactive book via a link."""
-    # Create an iframe that loads the external story_feedback.html file
-    feedback_tab_content = f"""
-    <iframe src="{feedback_html_link}" width="100%" height="800px" frameborder="0"></iframe>
-    """
-
-    # Add the iframe as a new tab
-    chapters.append(feedback_tab_content)
-    tab_names.append("Story Feedback")
-
-    return chapters, tab_names
-
-
 def generate_static_html(chapters, tab_names, title):
     html_template = """
 <!DOCTYPE html>
@@ -243,10 +230,12 @@ def generate_static_html(chapters, tab_names, title):
 </head>
 <body>
     <h1>{{ title }}</h1>
-    <div class="tab-buttons">
+        <div class="tab-selector">
+            <select id="tab-select" aria-label="Choose chapter">
         {% for i in range(chapters|length) %}
-        <button class="tab-button" onclick="showTab({{ i }})">{{ tab_names[i] }}</button>
+                <option value="{{ i }}">{{ tab_names[i] }}</option>
         {% endfor %}
+            </select>
     </div>
     <div class="tab-content">
         {% for chapter in chapters %}

@@ -1,16 +1,37 @@
 body {
     font-family: 'Roboto', Arial, sans-serif;
+    font-size: 22px;
+    max-width: 80ch;
+    text-align: justify;
     line-height: 1.6;
     overflow-y: scroll;
     background-color: #f4f4f9;
     color: #4a4a4a;
-    margin: 0;
+    margin: 0 auto;
     padding: 20px;
 }
 
+.reader {
+    max-width: 80ch;
+    margin-inline: auto;
+}
+
+img {
+    display: block;
+    width: 80%;
+    height: 80%;
+    max-width: 80%;
+    max-height: 80%;
+    margin: 0 auto;
+    height: auto;
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle image shadow */
+}
+
+
 /* Customize scrollbar */
 body::-webkit-scrollbar {
-    width: 8px;
+    width: 16px;
 }
 body::-webkit-scrollbar-track {
     background: #e2e2e2;
@@ -20,58 +41,69 @@ body::-webkit-scrollbar-thumb {
     border-radius: 10px;
 }
 
-.tab-content {
-    display: block;
-}
-
-.tab-contents {
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.tab-buttons {
+/* Dropdown stays centered */
+.tab-selector {
     display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
+    justify-content: center;
+    margin-bottom: 15px;
 }
 
-.tab-button {
-    font-family: arial;
-    line-height: 1.2;
-    color: black;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    padding: 10px 20px;
+#tab-select {
+    font-size: 44px;
+    font-weight: bold;
+    line-height: 1.3;
+    color: #4a4a4a;
+    padding: 12px 24px;
+    width: 65ch;
+
     border: none;
     border-radius: 5px;
     background-color: #d1d8e0;
-    font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    text-align: center;
+    text-align-last: center; /* centers the selected option text */
 }
 
-.tab-button:hover {
+/* Hover effect */
+#tab-select:hover {
     background-color: #b8c6db;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
 }
 
-.tab-button.active {
-    background-color: #6a89cc;
-    color: white;
-    box-shadow: 0 4px 15px rgba(106, 137, 204, 0.3);
+#tab-select:focus {
+    outline: none;
+    background-color: #d1d8e0;
+    color: #4a4a4a; 
 }
+
+/* Options inside dropdown */
+#tab-select option {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 28px;   /* slightly smaller to fit list */
+    font-weight: bold;
+    color: #4a4a4a;
+    background: #fff;
+}
+#tab-select option:checked {
+    background-color: #6a89cc;
+    color: #fff;
+}
+
 
 .contents-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 20px;
+    justify-content: center;
 }
 
 .contents-grid button {
@@ -80,7 +112,7 @@ body::-webkit-scrollbar-thumb {
     border-radius: 8px;
     background-color: #a8c1db;
     color: #2a3f55;
-    font-size: x-large;
+    font-size: 36px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
@@ -97,30 +129,4 @@ body::-webkit-scrollbar-thumb {
 .contents-grid button:active {
     transform: translateY(2px) scale(0.95); /* Subtle "press" effect */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Reduced shadow on press */
-}
-
-
-.image-wrapper {
-    display: block;
-    margin: 20px 0;
-    text-align: center; /* Center images */
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle image shadow */
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-    th, td {
-        padding: 8px 10px;
-        font-size: 12px;
-    }
-    button {
-        padding: 10px 20px;
-        font-size: 14px;
-    }
 }
