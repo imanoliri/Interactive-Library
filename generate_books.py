@@ -19,7 +19,7 @@ def generate_all_books_from_html(booksdir: str = "books"):
         bookdir = bookdir.replace("\\", "/")
         html = first_non_index_html(bookdir)
         if not html:
-            print(f"skip: {bookdir} (no html that is not 'index.html')")
+            print(f"skip: {bookdir} (no book found)")
             continue
         print(f"build: {bookdir} -> {html}")
         generate_interactive_book_from_html(bookdir, f"{bookdir}/{html}")
