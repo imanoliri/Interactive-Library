@@ -1,6 +1,6 @@
 body {
     font-family: 'Roboto', Arial, sans-serif;
-    font-size: clamp(16px, 2vw, 24px);  /* readable on all devices */
+    font-size: 24px;
     max-width: 75ch;
     text-align: justify;
     line-height: 1.6;
@@ -37,7 +37,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .tab-buttons {
-    display: flex;
+    display: block;
     gap: 10px;
     margin-bottom: 10px;
     justify-content: center;
