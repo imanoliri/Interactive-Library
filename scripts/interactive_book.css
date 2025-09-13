@@ -1,7 +1,7 @@
 body {
     font-family: 'Roboto', Arial, sans-serif;
-    font-size: 24px;
-    max-width: 75ch;
+    font-size: 22px;
+    max-width: 80ch;
     text-align: justify;
     line-height: 1.6;
     overflow-y: scroll;
@@ -12,7 +12,7 @@ body {
 }
 
 .reader {
-    max-width: 75ch;
+    max-width: 80ch;
     margin-inline: auto;
 }
 
@@ -49,12 +49,12 @@ body::-webkit-scrollbar-thumb {
 }
 
 #tab-select {
-    font-size: 48px;
+    font-size: 44px;
     font-weight: bold;
     line-height: 1.3;
     color: #4a4a4a;
     padding: 12px 24px;
-    width: 60ch;
+    width: 65ch;
 
     border: none;
     border-radius: 5px;
