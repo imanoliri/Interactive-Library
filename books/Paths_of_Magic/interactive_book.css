@@ -37,7 +37,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .tab-buttons {
-    display: flex;
+    display: block;
     gap: 10px;
     margin-bottom: 10px;
     justify-content: center;
