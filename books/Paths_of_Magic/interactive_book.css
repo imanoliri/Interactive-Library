@@ -31,24 +31,23 @@ img {
 
 /* Customize scrollbar */
 body::-webkit-scrollbar {
-    width: 10px;
+    width: 16px;
 }
 body::-webkit-scrollbar-track {
     background: #e2e2e2;
 }
 body::-webkit-scrollbar-thumb {
     background: #6a89cc;
-    border-radius: 30px;
+    border-radius: 10px;
 }
 
-/* Container stays centered */
+/* Dropdown stays centered */
 .tab-selector {
     display: flex;
     justify-content: center;
     margin-bottom: 15px;
 }
 
-/* Dropdown itself: always light by default */
 #tab-select {
     font-size: 48px;
     font-weight: bold;
@@ -72,17 +71,16 @@ body::-webkit-scrollbar-thumb {
     text-align-last: center; /* centers the selected option text */
 }
 
-/* Hover effect (still light tone) */
+/* Hover effect */
 #tab-select:hover {
     background-color: #b8c6db;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
 }
 
-/* When dropdown is focused, don't force dark anymore */
 #tab-select:focus {
     outline: none;
-    background-color: #d1d8e0; /* keep light even when active */
+    background-color: #d1d8e0;
     color: #4a4a4a; 
 }
 
