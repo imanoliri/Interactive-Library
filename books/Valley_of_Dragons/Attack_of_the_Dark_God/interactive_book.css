@@ -11,16 +11,34 @@ body {
     padding: 20px;
 }
 
+.reader {
+    max-width: 75ch;
+    margin-inline: auto;
+}
+
+img {
+    display: block;
+    width: 80%;
+    height: 80%;
+    max-width: 80%;
+    max-height: 80%;
+    margin: 0 auto;
+    height: auto;
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle image shadow */
+}
+
+
 /* Customize scrollbar */
 body::-webkit-scrollbar {
-    width: 16px;
+    width: 10px;
 }
 body::-webkit-scrollbar-track {
     background: #e2e2e2;
 }
 body::-webkit-scrollbar-thumb {
     background: #6a89cc;
-    border-radius: 10px;
+    border-radius: 30px;
 }
 
 /* Container stays centered */
@@ -113,22 +131,4 @@ body::-webkit-scrollbar-thumb {
 .contents-grid button:active {
     transform: translateY(2px) scale(0.95); /* Subtle "press" effect */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Reduced shadow on press */
-}
-
-
-.reader {
-    max-width: 75ch;
-    margin-inline: auto;
-}
-
-img {
-    display: block;
-    width: 80%;
-    height: 80%;
-    max-width: 80%;
-    max-height: 80%;
-    margin: 0 auto;
-    height: auto;
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle image shadow */
 }
