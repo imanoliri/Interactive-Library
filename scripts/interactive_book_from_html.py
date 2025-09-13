@@ -142,7 +142,7 @@ def parse_html_book(html_content):
                 chapters.append(current_chapter)
                 if not tab_names:
                     tab_names.append(default_intro_tab_name)
-            current_chapter = [str(element)]
+            current_chapter = []  # [str(element)]
             tab_names.append(element.get_text(strip=True))
             last_text = element.get_text(strip=True)  # Update last_text
             last_name = element.name
@@ -217,20 +217,6 @@ def generate_contents_page(content_links):
     )
 
     return html_template.replace("{buttons}", button_html)
-
-
-def add_story_feedback_tab(chapters, tab_names, feedback_html_link):
-    """Add a Story Feedback tab to the interactive book via a link."""
-    # Create an iframe that loads the external story_feedback.html file
-    feedback_tab_content = f"""
-    <iframe src="{feedback_html_link}" width="100%" height="800px" frameborder="0"></iframe>
-    """
-
-    # Add the iframe as a new tab
-    chapters.append(feedback_tab_content)
-    tab_names.append("Story Feedback")
-
-    return chapters, tab_names
 
 
 def generate_static_html(chapters, tab_names, title):
