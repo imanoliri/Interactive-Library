@@ -230,12 +230,17 @@ def generate_static_html(chapters, tab_names, title):
 </head>
 <body>
     <h1>{{ title }}</h1>
-        <div class="tab-selector">
-            <select id="tab-select" aria-label="Choose chapter">
-        {% for i in range(chapters|length) %}
-                <option value="{{ i }}">{{ tab_names[i] }}</option>
-        {% endfor %}
-            </select>
+    <button class="poem-btn" data-poem="poem.html">📜 Read the Poem</button>
+    <dialog id="poemDialog">
+        <button class="poem-close" aria-label="Close">&times;</button>
+        <article id="poemContent"></article>
+    </dialog>
+    <div class="tab-selector">
+        <select id="tab-select" aria-label="Choose chapter">
+    {% for i in range(chapters|length) %}
+            <option value="{{ i }}">{{ tab_names[i] }}</option>
+    {% endfor %}
+        </select>
     </div>
     <div class="tab-content">
         {% for chapter in chapters %}
