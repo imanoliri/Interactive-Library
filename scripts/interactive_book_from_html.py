@@ -235,7 +235,7 @@ def generate_static_html(chapters, tab_names, title):
         <button class="poem-btn" data-poem="poem.html">📜 Read the Poem</button>
         <label class="vol">
         <span>Volume</span>
-        <input id="songVolume" type="range" min="0" max="1" step="0.01" value="0.8" onchange="adjustVolume()"/>
+        <input id="songVolume" type="range" min="0" max="1" step="0.01" value="0.8" oninput="adjustVolume()"/>
         </label>
     </div>
     <dialog id="poemDialog">
