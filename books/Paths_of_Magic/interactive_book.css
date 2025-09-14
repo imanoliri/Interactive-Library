@@ -115,7 +115,8 @@ img {
 
 /* Poem */
 #poemDialog {
-    width: 45ch;
+    width: 40ch;
+    min-width: 650px;
     justify-content: center;
     padding: 0;
     border: none;
