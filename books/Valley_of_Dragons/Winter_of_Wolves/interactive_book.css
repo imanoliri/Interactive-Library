@@ -143,8 +143,8 @@ img {
 
 /* Portrait (vertical) */
 @media (orientation: portrait) {
-    #poemContent {
-        font-size: 28px;
+    #poemDialog {
+        width: 55ch;
     }
 }
 
