@@ -127,7 +127,7 @@ img {
 }
 
 #poemContent {
-    font-size: 0.9em;
+    font-size: 20px;
     padding: 1.25rem 1.5rem;
     text-align: center;
     max-height: 85vh;
@@ -139,6 +139,13 @@ img {
     border-radius: 8px;
     box-shadow: inset 0 1px 6px rgba(0, 0, 0, 0.08);
     /* subtle depth */
+}
+
+@media (max-width: 600px) {
+    #poemContent {
+        font-size: 28px;
+        /* phones → make it bigger */
+    }
 }
 
 /* Poem Close button*/
