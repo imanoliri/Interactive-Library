@@ -230,16 +230,16 @@ def generate_static_html(chapters, tab_names, title):
 </head>
 <body>
     <h1>{{ title }}</h1>
-    <button class="poem-btn" data-poem="poem.html">📜 Read the Poem</button>
+    <div class="song-banner">
+        <button class="poem-btn" data-poem="poem.html">📜 Read the Poem</button>
+        <button id="songPlayPause" aria-label="Play/Pause" onclick="playSong()" data-song="song.mp3">▶️ Play</button>
+        <label class="vol">
+        <span>Volume</span>
+        <input id="songVolume" type="range" min="0" max="1" step="0.01" value="0.8" onchange="adjustVolume()"/>
+        </label>
+    </div>
     <dialog id="poemDialog">
         <button class="poem-close" aria-label="Close">&times;</button>
-        <div class="song-player">
-            <button id="songPlayPause" aria-label="Play/Pause" onclick="playSong()" data-song="song.mp3">▶️ Play</button>
-            <label class="vol">
-            <span>Volume</span>
-            <input id="songVolume" type="range" min="0" max="1" step="0.01" value="0.8" onchange="adjustVolume()"/>
-            </label>
-        </div>
         <article id="poemContent"></article>
     </dialog>
     <div class="tab-selector">
