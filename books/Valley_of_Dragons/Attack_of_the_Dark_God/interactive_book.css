@@ -115,7 +115,7 @@ img {
 
 /* Poem */
 #poemDialog {
-    width: 40ch;
+    width: 45ch;
     justify-content: center;
     padding: 0;
     border: none;
@@ -141,12 +141,6 @@ img {
     /* subtle depth */
 }
 
-@media (max-width: 600px) {
-    #poemContent {
-        font-size: 28px;
-        /* phones → make it bigger */
-    }
-}
 
 /* Poem Close button*/
 .poem-close {
