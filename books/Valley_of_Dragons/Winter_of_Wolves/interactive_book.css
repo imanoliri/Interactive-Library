@@ -116,7 +116,6 @@ img {
 /* Poem */
 #poemDialog {
     width: 40ch;
-    min-width: 650px;
     justify-content: center;
     padding: 0;
     border: none;
@@ -140,6 +139,13 @@ img {
     border-radius: 8px;
     box-shadow: inset 0 1px 6px rgba(0, 0, 0, 0.08);
     /* subtle depth */
+}
+
+/* Portrait (vertical) */
+@media (orientation: portrait) {
+    #poemContent {
+        font-size: 28px;
+    }
 }
 
 
