@@ -37,12 +37,40 @@ img {
     width: 75ch;
     gap: 14px;
     padding: 1.25rem 1.5rem;
+    margin: 0 auto;
 }
+
+
+/* PlayPause button */
+#songPlayPause {
+    padding: 14px 28px;
+    width: 15ch;
+    border: 2px solid #6a89cc;
+    border-radius: 8px;
+    background: #a8c1db;
+    color: #2a3f55;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 3px 8px rgba(106, 137, 204, 0.4);
+}
+
+#songPlayPause:hover {
+    background: #8fb1cc;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(106, 137, 204, 0.5);
+}
+
+#songPlayPause:active {
+    transform: translateY(1px) scale(0.97);
+}
+
 
 /* Poem button */
 .poem-btn {
     display: inline-block;
-    width: 30ch;
+    width: 28ch;
     margin: 20px auto;
     padding: 14px 28px;
     border: 2px solid #6a89cc;
@@ -70,31 +98,6 @@ img {
 .poem-btn:active {
     transform: translateY(2px) scale(0.95);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
-
-/* Button styling (matches your palette) */
-#songPlayPause {
-    padding: 14px 28px;
-    width: 15ch;
-    border: 2px solid #6a89cc;
-    border-radius: 8px;
-    background: #a8c1db;
-    color: #2a3f55;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 3px 8px rgba(106, 137, 204, 0.4);
-}
-
-#songPlayPause:hover {
-    background: #8fb1cc;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 12px rgba(106, 137, 204, 0.5);
-}
-
-#songPlayPause:active {
-    transform: translateY(1px) scale(0.97);
 }
 
 /* Volume */
