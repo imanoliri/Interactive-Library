@@ -32,7 +32,7 @@ async function openPoem(url) {
 
     // If it's plain text: show with line breaks preserved.
     // If you actually store real HTML in poem.html, replace the next line with: box.innerHTML = txt;
-    box.textContent = txt
+    box.innerHTML = txt
 
     dlg.showModal()
 
