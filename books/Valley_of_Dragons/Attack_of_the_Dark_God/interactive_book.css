@@ -146,6 +146,10 @@ img {
     #poemDialog {
         width: 55ch;
     }
+
+    #poemContent {
+        font-size: 28px;
+    }
 }
 
 
