@@ -8,32 +8,44 @@
 </head>
 <body>
     <h1>The Paths of Magic</h1>
-        <div class="tab-selector">
-            <select id="tab-select" aria-label="Choose chapter">
-        
-                <option value="0">Intro</option>
-        
-                <option value="1">Chapter 1: Introduction</option>
-        
-                <option value="2">Chapter 2: Land of Water</option>
-        
-                <option value="3">Chapter 3: Land of Trees</option>
-        
-                <option value="4">Chapter 4: Land of Earth</option>
-        
-                <option value="5">Chapter 5: Land of Sun</option>
-        
-                <option value="6">Chapter 6: Land of Wind</option>
-        
-                <option value="7">Chapter 7: Land of Fire</option>
-        
-                <option value="8">Chapter 8: Land of Lightning</option>
-        
-                <option value="9">Chapter 9: Mage Tower</option>
-        
-                <option value="10">Contents</option>
-        
-            </select>
+    <div class="song-banner">
+        <button id="songPlayPause" aria-label="Play/Pause" onclick="playSong()" data-song="song.mp3">▶️ Play</button>
+        <button class="poem-btn" data-poem="poem.html">📜 Read the Poem</button>
+        <label class="vol">
+        <span>Volume</span>
+        <input id="songVolume" type="range" min="0" max="1" step="0.01" value="0.8" oninput="adjustVolume()"/>
+        </label>
+    </div>
+    <dialog id="poemDialog">
+        <button class="poem-close" aria-label="Close">&times;</button>
+        <article id="poemContent"></article>
+    </dialog>
+    <div class="tab-selector">
+        <select id="tab-select" aria-label="Choose chapter">
+    
+            <option value="0">Intro</option>
+    
+            <option value="1">Chapter 1: Introduction</option>
+    
+            <option value="2">Chapter 2: Land of Water</option>
+    
+            <option value="3">Chapter 3: Land of Trees</option>
+    
+            <option value="4">Chapter 4: Land of Earth</option>
+    
+            <option value="5">Chapter 5: Land of Sun</option>
+    
+            <option value="6">Chapter 6: Land of Wind</option>
+    
+            <option value="7">Chapter 7: Land of Fire</option>
+    
+            <option value="8">Chapter 8: Land of Lightning</option>
+    
+            <option value="9">Chapter 9: Mage Tower</option>
+    
+            <option value="10">Contents</option>
+    
+        </select>
     </div>
     <div class="tab-content">
         
