@@ -47,11 +47,12 @@ header {
     display: grid;
     gap: 16px;
     padding: 16px;
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr))
+    grid-template-columns: repeat(auto-fit, minmax(clamp(0px, 50%, 190px), 1fr));
 }
 
 /* Base tile */
-a.folder, a.book {
+a.folder,
+a.book {
     position: relative;
     display: block;
     text-decoration: none;
@@ -64,7 +65,8 @@ a.folder, a.book {
     transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease
 }
 
-a.folder:hover, a.book:hover {
+a.folder:hover,
+a.book:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 24px rgba(0, 0, 0, .28)
 }
@@ -81,7 +83,8 @@ a.book {
 }
 
 /* Badges */
-a.folder::before, a.book::before {
+a.folder::before,
+a.book::before {
     content: "";
     position: absolute;
     top: 8px;
@@ -123,7 +126,8 @@ a.book::before {
 }
 
 /* Text */
-.folder-name, .book-title {
+.folder-name,
+.book-title {
     display: block;
     font-weight: 700;
     padding: 10px 12px 0
