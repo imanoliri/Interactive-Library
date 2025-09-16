@@ -47,7 +47,7 @@ header {
     display: grid;
     gap: 16px;
     padding: 16px;
-    grid-template-columns: repeat(auto-fit, minmax(clamp(0px, 50%, 190px), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(clamp(0px, 50%, 190px), 1fr));
 }
 
 /* Base tile */
