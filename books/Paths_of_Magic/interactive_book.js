@@ -100,3 +100,21 @@ document.getElementById('poemDialog').addEventListener('keydown', e => {
         playBtn.click()
     }
 })
+
+
+// Click on images to show them full screen
+const modal = document.getElementById("fullscreenImgModal");
+const modalImg = document.getElementById("modalImg");
+
+// Get all images in the document
+document.querySelectorAll("img").forEach(img => {
+    img.addEventListener("click", () => {
+        modal.style.display = "flex";
+        modalImg.src = img.src;  // show the clicked image in the modal
+    });
+});
+
+// Close modal on click anywhere
+modal.addEventListener("click", () => {
+    modal.style.display = "none";
+});

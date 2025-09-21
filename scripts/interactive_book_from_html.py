@@ -242,6 +242,9 @@ def generate_static_html(chapters, tab_names, title):
         <button class="poem-close" aria-label="Close">&times;</button>
         <article id="poemContent"></article>
     </dialog>
+    <div id="fullscreenImgModal">
+        <img id="modalImg" style="max-width:90%; max-height:90%;">
+    </div>
     <div class="tab-selector">
         <select id="tab-select" aria-label="Choose chapter">
     {% for i in range(chapters|length) %}
