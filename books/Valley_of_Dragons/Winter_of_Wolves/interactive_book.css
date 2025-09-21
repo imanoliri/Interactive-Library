@@ -198,14 +198,10 @@ img:hover {
 
 /* Image inside modal */
 #modalImg {
-    max-width: 95%;
-    /* limit by viewport width */
-    max-height: 95%;
-    /* limit by viewport height */
-    width: auto;
-    /* let browser compute */
-    height: auto;
-    /* let browser compute */
+    width: 95vw;
+    height: 95vh;
+    object-fit: contain;
+    /* preserve aspect ratio, fill until one side hits the limit */
 }
 
 #modalImg:hover {
