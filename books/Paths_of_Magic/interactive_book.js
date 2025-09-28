@@ -101,6 +101,72 @@ document.getElementById('poemDialog').addEventListener('keydown', e => {
     }
 })
 
+// Slideshow modal
+const JSON_URL = 'interactive_book_images.json';
+
+let images = [];
+let index = 0;
+
+const openBtn = document.getElementById('openSlideshow');
+const slideshow = document.getElementById('slideshow');
+const slideImg = document.getElementById('slide');
+const counter = document.getElementById('counter');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const closeBtn = document.getElementById('closeBtn');
+
+// Load images from JSON
+async function loadImages() {
+    try {
+        const res = await fetch(JSON_URL);
+        images = await res.json();
+    } catch (err) {
+        console.error('Error loading images.json', err);
+        images = [];
+    }
+}
+
+// Show current image
+function show(idx) {
+    if (!images.length) return;
+    index = (idx + images.length) % images.length; // wrap around
+    slideImg.src = images[index];
+    counter.textContent = `${index + 1} / ${images.length}`;
+}
+
+// Open slideshow
+function openSlideshow() {
+    if (!images.length) return;
+    slideshow.setAttribute('aria-hidden', 'false');
+    show(index);
+    document.addEventListener('keydown', onKey);
+}
+
+// Close slideshow
+function closeSlideshow() {
+    slideshow.setAttribute('aria-hidden', 'true');
+    document.removeEventListener('keydown', onKey);
+}
+
+// Keyboard navigation
+function onKey(e) {
+    if (e.key === 'Escape') closeSlideshow();
+    if (e.key === 'ArrowRight') show(index + 1);
+    if (e.key === 'ArrowLeft') show(index - 1);
+}
+
+// Event bindings
+openBtn.addEventListener('click', openSlideshow);
+closeBtn.addEventListener('click', closeSlideshow);
+prevBtn.addEventListener('click', () => show(index - 1));
+nextBtn.addEventListener('click', () => show(index + 1));
+slideshow.addEventListener('click', e => {
+    if (e.target === slideshow) closeSlideshow(); // click outside image to close
+});
+
+// Initialize
+loadImages();
+
 
 // Click on images to show them full screen
 const modal = document.getElementById("fullscreenImgModal");

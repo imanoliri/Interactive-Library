@@ -232,6 +232,7 @@ def generate_static_html(chapters, tab_names, title):
     <h1>{{ title }}</h1>
     <div class="song-banner">
         <button id="songPlayPause" aria-label="Play/Pause" onclick="playSong()" data-song="song.mp3">▶️ Play</button>
+        <button id="openSlideshow" type="button">📽️ Slideshow</button>
         <button class="poem-btn" data-poem="poem.html">📜 Read the Poem</button>
         <label class="vol">
         <span>Volume</span>
@@ -242,6 +243,15 @@ def generate_static_html(chapters, tab_names, title):
         <button class="poem-close" aria-label="Close">&times;</button>
         <article id="poemContent"></article>
     </dialog>
+    <div id="slideshow" class="slideshow" aria-hidden="true">
+        <div class="stage">
+        <button class="close" id="closeBtn" aria-label="Close">✕</button>
+        <button class="nav prev" id="prevBtn" aria-label="Previous">❮</button>
+        <img id="slide" alt="">
+        <button class="nav next" id="nextBtn" aria-label="Next">❯</button>
+        <div class="counter" id="counter">0 / 0</div>
+        </div>
+    </div>
     <div id="fullscreenImgModal">
         <img id="modalImg" style="max-width:90%; max-height:90%;">
     </div>
