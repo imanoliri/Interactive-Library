@@ -4,22 +4,10 @@
   "path": "",
   "children": [
     {
-      "type": "book",
-      "name": "Paths_of_Magic",
-      "path": "Paths_of_Magic",
-      "cover": "cover.jpg",
-      "meta": {
-        "title": "Paths Of Magic",
-        "author": "Unknown",
-        "tags": [],
-        "blurb": ""
-      }
-    },
-    {
       "type": "dir",
       "name": "Valley_of_Dragons",
       "path": "Valley_of_Dragons",
-      "cover": null,
+      "cover": "cover.jpg",
       "children": [
         {
           "type": "book",
@@ -30,19 +18,8 @@
             "title": "Attack Of The Dark God",
             "author": "Unknown",
             "tags": [],
-            "blurb": ""
-          }
-        },
-        {
-          "type": "book",
-          "name": "Clash_Under_the_Mountain",
-          "path": "Valley_of_Dragons/Clash_Under_the_Mountain",
-          "cover": "cover.jpg",
-          "meta": {
-            "title": "Clash Under The Mountain",
-            "author": "Unknown",
-            "tags": [],
-            "blurb": ""
+            "blurb": "",
+            "children_order": []
           }
         },
         {
@@ -54,10 +31,37 @@
             "title": "Winter Of Wolves",
             "author": "Unknown",
             "tags": [],
-            "blurb": ""
+            "blurb": "",
+            "children_order": []
+          }
+        },
+        {
+          "type": "book",
+          "name": "Clash_Under_the_Mountain",
+          "path": "Valley_of_Dragons/Clash_Under_the_Mountain",
+          "cover": "cover.jpg",
+          "meta": {
+            "title": "Clash Under The Mountain",
+            "author": "Unknown",
+            "tags": [],
+            "blurb": "",
+            "children_order": []
           }
         }
       ]
+    },
+    {
+      "type": "book",
+      "name": "Paths_of_Magic",
+      "path": "Paths_of_Magic",
+      "cover": "cover.jpg",
+      "meta": {
+        "title": "Paths Of Magic",
+        "author": "Unknown",
+        "tags": [],
+        "blurb": "",
+        "children_order": []
+      }
     }
   ]
 }
