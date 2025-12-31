@@ -1,0 +1,320 @@
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 22px;
+    max-width: 80ch;
+    text-align: justify;
+    line-height: 1.6;
+    overflow-y: scroll;
+    background-color: #f4f4f9;
+    color: #4a4a4a;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.reader {
+    max-width: 80ch;
+    margin-inline: auto;
+}
+
+img {
+    display: block;
+    width: 80%;
+    height: 80%;
+    max-width: 80%;
+    max-height: 80%;
+    margin: 0 auto;
+    height: auto;
+    border-radius: 5px;
+    /* Rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle image shadow */
+}
+
+img:hover {
+    transform: scale(1.02);
+}
+
+/* Player row */
+.song-banner {
+    display: flex;
+    align-items: center;
+    width: 75ch;
+    gap: 14px;
+    padding: 1.25rem 1.5rem;
+    margin: 0 auto;
+}
+
+
+/* PlayPause button */
+#songPlayPause {
+    padding: 14px 28px;
+    width: 15ch;
+    border: 2px solid #6a89cc;
+    border-radius: 8px;
+    background: #a8c1db;
+    color: #2a3f55;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 3px 8px rgba(106, 137, 204, 0.4);
+}
+
+#songPlayPause:hover {
+    background: #8fb1cc;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(106, 137, 204, 0.5);
+}
+
+#songPlayPause:active {
+    transform: translateY(1px) scale(0.97);
+}
+
+
+/* Poem button */
+.poem-btn {
+    display: inline-block;
+    width: 28ch;
+    margin: 20px auto;
+    padding: 14px 28px;
+    border: 2px solid #6a89cc;
+    border-radius: 10px;
+
+    background-color: #d1d8e0;
+    color: #2a3f55;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 12px rgba(106, 137, 204, 0.4);
+}
+
+.poem-btn:hover {
+    background-color: #b8c6db;
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 6px 16px rgba(106, 137, 204, 0.5);
+    border-color: #3e5a93;
+}
+
+.poem-btn:active {
+    transform: translateY(2px) scale(0.95);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Volume */
+.song-banner .vol {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.song-banner .vol span {
+    font-size: 16px;
+    color: #4a4a4a;
+}
+
+#songVolume {
+    width: 30ch;
+}
+
+/* Poem */
+#poemDialog {
+    width: 40ch;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    border-radius: 12px;
+}
+
+#poemDialog::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+#poemContent {
+    font-size: 20px;
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+    max-height: 88vh;
+    overflow: auto;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    background: #fdfcf7;
+    color: #2e2e2e;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 6px rgba(0, 0, 0, 0.08);
+    /* subtle depth */
+}
+
+/* Portrait (vertical) */
+@media (orientation: portrait) {
+    #poemDialog {
+        width: 55ch;
+    }
+
+    #poemContent {
+        font-size: 30px;
+    }
+}
+
+
+/* Poem Close button*/
+.poem-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #4a4a4a;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.poem-close:hover {
+    color: #d9534f;
+    /* red tint on hover */
+    transform: scale(1.2);
+}
+
+.poem-close:active {
+    transform: scale(0.9);
+}
+
+
+/* Image Fullscreen Modaly */
+#fullscreenImgModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+/* Image inside modal */
+#modalImg {
+    width: 95vw;
+    height: 95vh;
+    object-fit: contain;
+    /* preserve aspect ratio, fill until one side hits the limit */
+}
+
+#modalImg:hover {
+    transform: scale(1.02);
+}
+
+/* Customize scrollbar */
+body::-webkit-scrollbar {
+    width: 16px;
+}
+
+body::-webkit-scrollbar-track {
+    background: #e2e2e2;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #6a89cc;
+    border-radius: 10px;
+}
+
+/* Dropdown stays centered */
+.tab-selector {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+#tab-select {
+    font-size: 44px;
+    font-weight: bold;
+    line-height: 1.3;
+    color: #4a4a4a;
+    padding: 12px 24px;
+    width: 65ch;
+
+    border: none;
+    border-radius: 5px;
+    background-color: #d1d8e0;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    text-align: center;
+    text-align-last: center;
+    /* centers the selected option text */
+}
+
+/* Hover effect */
+#tab-select:hover {
+    background-color: #b8c6db;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#tab-select:focus {
+    outline: none;
+    background-color: #d1d8e0;
+    color: #4a4a4a;
+}
+
+/* Options inside dropdown */
+#tab-select option {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 28px;
+    /* slightly smaller to fit list */
+    font-weight: bold;
+    color: #4a4a4a;
+    background: #fff;
+}
+
+#tab-select option:checked {
+    background-color: #6a89cc;
+    color: #fff;
+}
+
+.contents-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.contents-grid button {
+    padding: 12px 24px;
+    border: 2px solid #5b8db8;
+    border-radius: 8px;
+    background-color: #a8c1db;
+    color: #2a3f55;
+    font-size: 36px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 12px rgba(91, 141, 184, 0.4);
+}
+
+.contents-grid button:hover {
+    background-color: #8fb1cc;
+    transform: translateY(-4px) scale(1.05);
+    /* Lift and slight scaling effect */
+    box-shadow: 0 6px 16px rgba(91, 141, 184, 0.5);
+    /* Stronger shadow on hover */
+    border-color: #3e6a93;
+    /* Darker blue outline on hover */
+}
+
+.contents-grid button:active {
+    transform: translateY(2px) scale(0.95);
+    /* Subtle "press" effect */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    /* Reduced shadow on press */
+}

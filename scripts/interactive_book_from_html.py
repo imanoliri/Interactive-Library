@@ -143,7 +143,9 @@ def parse_html_book(html_content):
                 if not tab_names:
                     tab_names.append(default_intro_tab_name)
             current_chapter = []  # [str(element)]
-            tab_names.append(element.get_text(strip=True))
+            tab_name = element.get_text(strip=True)
+            if tab_name:
+                tab_names.append(tab_name)
             last_text = element.get_text(strip=True)  # Update last_text
             last_name = element.name
 
