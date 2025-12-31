@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="fill_the_gaps.css">
+  <title>Fill in the Gaps</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Fill in the Gaps</h1>
+    
+    <label for="gap-slider">Number of Gaps:</label>
+    <input type="range" id="gap-slider" min="1" max="10" value="3">
+    <span id="gap-count">3</span>
+    
+    <!-- Tab buttons -->
+    <div class="tabs">
+      <button class="tab-button active" onclick="showTab('gaps')">Gaps</button>
+      <button class="tab-button" onclick="showTab('solution')">Solution</button>
+    </div>
+
+    <!-- Tab content -->
+    <div id="gaps" class="tab-content active">
+      <div class="paragraph-container">
+        <p id="paragraph"></p>
+      </div>
+    </div>
+
+    <div id="solution" class="tab-content">
+      <div class="paragraph-container">
+        <p id="full-paragraph"></p>
+      </div>
+    </div>
+    
+    <button id="next-button">Next</button>
+  </div>
+  <script src="fill_the_gaps.js"></script>
+</body>
+</html>

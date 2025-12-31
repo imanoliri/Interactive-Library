@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing Table</title>
+    <link rel="stylesheet" href="writing_table.css">
+
+</head>
+<body>
+    <p>Drag-and-drop / click-and-click to form words. <br />Double-click a cell to clear its content or drag the trash bin to it.</p>
+    <button onclick="clearAllCells()">Clear All</button> <!-- Clear All Button -->
+    <input type="checkbox" id="checkSpeakLettersWhenDropped"> Speak letters when dropped.
+    <input type="checkbox" id="checkSpeakWordsWhenCorrect"> Speak words when correct.
+
+    <div class="grid">
+        <!-- Vowels Row -->
+        <div class="delete-cell" draggable="true" title="Drag me to clear content">🗑️</div>
+        <div class="letter" draggable="true">A</div>
+        <div class="letter" draggable="true">E</div>
+        <div class="letter" draggable="true">I</div>
+        <div class="letter" draggable="true">O</div>
+        <div class="letter" draggable="true">U</div>
+        <div class="heading">Words</div>
+        
+
+        <!-- Consonants Rows -->
+        <div class="letter" draggable="true">B</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">C</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">D</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">F</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">G</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">H</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">J</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">K</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">L</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">M</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">N</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">P</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">Q</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">R</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">S</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">T</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">V</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">W</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">X</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">Y</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+
+        <div class="letter" draggable="true">Z</div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <div class="droppable"></div>
+        <input type="text" class="word-input" placeholder="Type word">
+
+    </div>
+    <script src="writing_table.js"></script>
+</body>
+</html>
