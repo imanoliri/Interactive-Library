@@ -17,12 +17,13 @@ This tool provides a clean interface for browsing and searching through a librar
 
 1.  Download the Google Doc story as a zipped HTML.
 2.  Create a new directory for the new story in the correct place (e.g., inside `books/`).
-3.  Unzip the story zipped HTML there.
+3.  Unzip the story zipped HTML there. Then delete the zip file
 4.  Copy the `contents` directory from another story. It will automatically reference the automatically generated data from this story.
 5.  Execute `python generate_books.py`.
 6.  Copy an image JPG file and name it `cover.jpg` in the directory of the story, where the newly generated `index.html` is.
 7.  Copy the poem file from another story and edit its contents to the correct text for this new story.
 8.  Add a `song.mp3` file to be played as music.
+9.  Execute `scripts/generate_manifest.py`.
 
 ## Architecture
 
