@@ -23,7 +23,7 @@ This tool provides a clean interface for browsing and searching through a librar
 6.  Copy an image JPG file and name it `cover.jpg` in the directory of the story, where the newly generated `index.html` is.
 7.  Copy the poem file from another story and edit its contents to the correct text for this new story.
 8.  Add a `song.mp3` file to be played as music.
-9.  Execute `scripts/generate_manifest.py`.
+9.  Execute `scripts/generate_manifest.py`. If the book is in a series directory and it has a `meta.json` you will need to add the book to the `children_order` array previously.
 
 ## Architecture
 
