@@ -1,23 +1,11 @@
 [
     {
         "type": "img",
+        "src": "images/image11.png"
+    },
+    {
+        "type": "img",
         "src": "images/image17.png"
-    },
-    {
-        "type": "img",
-        "src": "images/image22.png"
-    },
-    {
-        "type": "img",
-        "src": "images/image15.png"
-    },
-    {
-        "type": "img",
-        "src": "images/image7.png"
-    },
-    {
-        "type": "img",
-        "src": "images/image4.png"
     },
     {
         "type": "img",
@@ -25,67 +13,27 @@
     },
     {
         "type": "img",
-        "src": "images/image24.png"
+        "src": "images/image4.png"
     },
     {
         "type": "img",
-        "src": "images/image18.png"
+        "src": "images/image9.png"
     },
     {
         "type": "img",
-        "src": "images/image14.jpg"
+        "src": "images/image19.png"
     },
     {
         "type": "img",
-        "src": "images/image16.png"
+        "src": "images/image12.png"
     },
     {
         "type": "img",
-        "src": "images/image19.jpg"
+        "src": "images/image5.jpg"
     },
     {
         "type": "img",
-        "src": "images/image20.jpg"
-    },
-    {
-        "type": "img",
-        "src": "images/image25.jpg"
-    },
-    {
-        "type": "img",
-        "src": "images/image5.png"
-    },
-    {
-        "type": "img",
-        "src": "images/image8.png"
-    },
-    {
-        "type": "img",
-        "src": "images/image23.png"
-    },
-    {
-        "type": "img",
-        "src": "images/image3.png"
-    },
-    {
-        "type": "img",
-        "src": "images/image1.jpg"
-    },
-    {
-        "type": "img",
-        "src": "images/image9.jpg"
-    },
-    {
-        "type": "img",
-        "src": "images/image11.png"
-    },
-    {
-        "type": "img",
-        "src": "images/image10.jpg"
-    },
-    {
-        "type": "img",
-        "src": "images/image2.jpg"
+        "src": "images/image7.png"
     },
     {
         "type": "img",
@@ -93,7 +41,7 @@
     },
     {
         "type": "img",
-        "src": "images/image12.jpg"
+        "src": "images/image14.jpg"
     },
     {
         "type": "img",
@@ -101,6 +49,46 @@
     },
     {
         "type": "img",
-        "src": "images/image26.jpg"
+        "src": "images/image8.png"
+    },
+    {
+        "type": "img",
+        "src": "images/image18.png"
+    },
+    {
+        "type": "img",
+        "src": "images/image22.png"
+    },
+    {
+        "type": "img",
+        "src": "images/image1.jpg"
+    },
+    {
+        "type": "img",
+        "src": "images/image10.jpg"
+    },
+    {
+        "type": "img",
+        "src": "images/image20.png"
+    },
+    {
+        "type": "img",
+        "src": "images/image15.jpg"
+    },
+    {
+        "type": "img",
+        "src": "images/image2.jpg"
+    },
+    {
+        "type": "img",
+        "src": "images/image3.jpg"
+    },
+    {
+        "type": "img",
+        "src": "images/image16.jpg"
+    },
+    {
+        "type": "img",
+        "src": "images/image23.jpg"
     }
 ]

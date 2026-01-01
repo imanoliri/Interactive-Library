@@ -6,66 +6,62 @@
     {
       "type": "dir",
       "name": "Valley_of_Dragons",
-      "cover": "cover.jpg",
       "path": "Valley_of_Dragons",
+      "cover": "cover.jpg",
       "children": [
         {
           "type": "book",
           "name": "Attack_of_the_Dark_God",
-          "cover": "cover.jpg",
           "path": "Valley_of_Dragons/Attack_of_the_Dark_God",
-          "entry": "index.html",
+          "cover": "cover.jpg",
           "meta": {
-            "title": "Valley of Dragons — Attack of the Dark God",
-            "author": "Imanol Irizar",
-            "lang": "en",
-            "tags": ["dragons","good_vs_evil","fantasy"],
-            "blurb": "An heroic quest to save the valley from the evil God."
+            "title": "Attack Of The Dark God",
+            "author": "Unknown",
+            "tags": [],
+            "blurb": "",
+            "children_order": []
           }
         },
         {
           "type": "book",
           "name": "Winter_of_Wolves",
-          "cover": "cover.jpg",
           "path": "Valley_of_Dragons/Winter_of_Wolves",
-          "entry": "index.html",
+          "cover": "cover.jpg",
           "meta": {
-            "title": "Valley of Dragons — Winter of Wolves",
-            "author": "Imanol Irizar",
-            "lang": "en",
-            "tags": ["dragons","good_vs_evil","fantasy"],
-            "blurb": "An heroic quest to save the valley from the hardships of the Winter of Wolves."
+            "title": "Winter Of Wolves",
+            "author": "Unknown",
+            "tags": [],
+            "blurb": "",
+            "children_order": []
           }
         },
         {
           "type": "book",
           "name": "Clash_Under_the_Mountain",
-          "cover": "cover.jpg",
           "path": "Valley_of_Dragons/Clash_Under_the_Mountain",
-          "entry": "index.html",
+          "cover": "cover.jpg",
           "meta": {
-            "title": "Valley of Dragons — Clash_Under_the_Mountain",
-            "author": "Imanol Irizar",
-            "lang": "en",
-            "tags": ["dragons","good_vs_evil","fantasy"],
-            "blurb": "An heroic quest to save the dwarven kingdom of Khazad-Throm from the goblin menace around them."
+            "title": "Clash Under The Mountain",
+            "author": "Unknown",
+            "tags": [],
+            "blurb": "",
+            "children_order": []
           }
         }
       ]
     },
     {
-        "type": "book",
-        "name": "Paths_of_Magic",
-        "cover": "cover.jpg",
-        "path": "Paths_of_Magic",
-        "entry": "index.html",
-        "meta": {
-        "title": "Paths of Magic",
-        "author": "Imanol Irizar",
-        "lang": "en",
-        "tags": ["magic","elements","knowledge"],
-        "blurb": "An inspiring journey through the fantastic worlds of magic."
-        }
+      "type": "book",
+      "name": "Paths_of_Magic",
+      "path": "Paths_of_Magic",
+      "cover": "cover.jpg",
+      "meta": {
+        "title": "Paths Of Magic",
+        "author": "Unknown",
+        "tags": [],
+        "blurb": "",
+        "children_order": []
+      }
     }
   ]
 }
