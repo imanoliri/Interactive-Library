@@ -21,9 +21,27 @@
         <article id="poemContent"></article>
     </dialog>
     <div id="fullscreenImgModal">
+        <button id="modalClose" aria-label="Close" onclick="syncAndCloseModal()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 32px; height: 32px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <div id="modalInfo" class="modal-info"></div>
+        <div class="modal-song-banner">
+            <button id="modalSongPlayPause" class="modal-audio-btn round-btn" aria-label="Play/Pause" onclick="playSong()">▶️</button>
+            <button class="poem-btn modal-audio-btn round-btn" data-poem="poem.html" aria-label="Poem">📜</button>
+            <div class="modal-vol">
+                <input id="modalSongVolume" type="range" class="vertical-slider" min="0" max="1" step="0.01" value="0.8" oninput="adjustVolume(this.value)"/>
+            </div>
+        </div>
+        <button id="modalPrev" class="modal-nav-btn" aria-label="Previous image">&#10094;</button>
         <img id="modalImg" style="max-width:90%; max-height:90%;">
+        <button id="modalNext" class="modal-nav-btn" aria-label="Next image">&#10095;</button>
+        <div class="modal-chap-nav">
+            <button id="modalPrevChap" class="modal-chap-nav-btn" aria-label="Previous Chapter">« Prev Chapter</button>
+            <button id="modalNextChap" class="modal-chap-nav-btn" aria-label="Next Chapter">Next Chapter »</button>
+        </div>
     </div>
     <div class="tab-selector">
+        <button class="chapter-nav-btn top-nav prev-chap" onclick="navChapter(-1)" aria-label="Previous Chapter">&#10094; Prev</button>
         <select id="tab-select" aria-label="Choose chapter">
     
             <option value="0">Intro</option>
@@ -47,6 +65,7 @@
             <option value="9">Contents</option>
     
         </select>
+        <button class="chapter-nav-btn top-nav next-chap" onclick="navChapter(1)" aria-label="Next Chapter">Next &#10095;</button>
     </div>
     <div class="tab-content">
         
@@ -82,6 +101,10 @@
             </div>
     </div>
         
+    </div>
+    <div class="chapter-footer">
+        <button class="chapter-nav-btn btm-nav prev-chap" onclick="navChapter(-1)" aria-label="Previous Chapter">&#10094; Previous Chapter</button>
+        <button class="chapter-nav-btn btm-nav next-chap" onclick="navChapter(1)" aria-label="Next Chapter">Next Chapter &#10095;</button>
     </div>
     <script src="interactive_book.js"></script>
 </body>

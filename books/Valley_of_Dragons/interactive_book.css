@@ -184,35 +184,6 @@ img:hover {
     transform: scale(0.9);
 }
 
-/* Modal Close button*/
-#modalClose {
-    position: absolute;
-    top: 20px;
-    right: 120px;
-    /* Offset it to the left of the audio controls */
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #ffffff;
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-    z-index: 1002;
-}
-
-#modalClose:hover {
-    background: rgba(217, 83, 79, 0.9);
-    /* red tint on hover */
-    transform: scale(1.05);
-}
-
-#modalClose:active {
-    transform: scale(0.95);
-}
 
 /* Image Fullscreen Modaly */
 #fullscreenImgModal {
@@ -223,21 +194,6 @@ img:hover {
     background: rgba(0, 0, 0, 0.8);
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-}
-
-/* Modal Info Text */
-.modal-info {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    font-size: 20px;
-    padding: 8px 16px;
-    border-radius: 6px;
-    z-index: 1001;
-    pointer-events: none;
 }
 
 /* Modal Navigation Buttons */
@@ -257,68 +213,6 @@ img:hover {
     z-index: 1001;
 }
 
-/* Modal Audio Controls */
-.modal-song-banner {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    z-index: 1001;
-    pointer-events: auto;
-}
-
-.modal-audio-btn {
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-}
-
-.modal-audio-btn.round-btn {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 28px;
-}
-
-.modal-audio-btn:hover {
-    background: rgba(106, 137, 204, 0.9);
-    transform: translateY(-2px);
-}
-
-.modal-audio-btn:active {
-    transform: translateY(1px) scale(0.98);
-}
-
-.modal-song-banner .modal-vol {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 15px 10px;
-    border-radius: 30px;
-}
-
-.vertical-slider {
-    writing-mode: vertical-lr;
-    /* Some browsers */
-    direction: rtl;
-    /* required for vertical-lr to have bottom-to-top increment */
-    appearance: slider-vertical;
-    /* Webkit standard */
-    -webkit-appearance: slider-vertical;
-    width: 10px;
-    height: 120px;
-}
-
 .modal-nav-btn:hover {
     background: rgba(0, 0, 0, 0.8);
 }
@@ -331,46 +225,12 @@ img:hover {
     right: 20px;
 }
 
-/* Modal Chapter Navigation */
-.modal-chap-nav {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-    display: flex;
-    justify-content: space-between;
-    pointer-events: none;
-    z-index: 1001;
-}
-
-.modal-chap-nav-btn {
-    pointer-events: auto;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    font-size: 18px;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: background 0.3s, transform 0.2s;
-    user-select: none;
-}
-
-.modal-chap-nav-btn:hover {
-    background: rgba(106, 137, 204, 0.9);
-    transform: translateY(-2px);
-}
-
-.modal-chap-nav-btn:active {
-    transform: translateY(1px);
-}
-
 /* Image inside modal */
 #modalImg {
-    max-width: 95vw;
-    max-height: 95vh;
-    width: auto;
-    height: auto;
+    width: 95vw;
+    height: 95vh;
+    object-fit: contain;
+    /* preserve aspect ratio, fill until one side hits the limit */
 }
 
 #modalImg:hover {
@@ -395,9 +255,7 @@ body::-webkit-scrollbar-thumb {
 .tab-selector {
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 
 #tab-select {
@@ -406,8 +264,7 @@ body::-webkit-scrollbar-thumb {
     line-height: 1.3;
     color: #4a4a4a;
     padding: 12px 24px;
-    flex: 1;
-    min-width: 0;
+    width: 65ch;
 
     border: none;
     border-radius: 5px;
@@ -489,37 +346,4 @@ body::-webkit-scrollbar-thumb {
     /* Subtle "press" effect */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     /* Reduced shadow on press */
-}
-
-/* Chapter Navigation Buttons */
-.chapter-nav-btn {
-    padding: 12px 20px;
-    border: 2px solid #6a89cc;
-    border-radius: 8px;
-    background: #d1d8e0;
-    color: #2a3f55;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 2px 6px rgba(106, 137, 204, 0.3);
-    white-space: nowrap;
-}
-
-.chapter-nav-btn:hover {
-    background: #b8c6db;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(106, 137, 204, 0.4);
-}
-
-.chapter-nav-btn:active {
-    transform: translateY(1px) scale(0.98);
-}
-
-.chapter-footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 2px solid #d1d8e0;
 }
