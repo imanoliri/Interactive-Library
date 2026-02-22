@@ -248,7 +248,7 @@ function updateModalImage(index) {
 }
 
 let slideshowIntervalId = null;
-let slideshowIntervalSeconds = 3.5;
+let slideshowIntervalSeconds = 6.0;
 
 function changeSlideshowInterval(delta) {
     slideshowIntervalSeconds += delta;
