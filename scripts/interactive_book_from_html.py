@@ -233,6 +233,7 @@ def generate_static_html(chapters, tab_names, title):
 <body>
     <h1>{{ title }}</h1>
     <div class="song-banner">
+        <button id="mainSlideshowBtn" aria-label="Start Slideshow" onclick="startMainSlideshow()">📽️ Slideshow</button>
         <button id="songPlayPause" aria-label="Play/Pause" onclick="playSong()" data-song="song.mp3">▶️ Play</button>
         <button class="poem-btn" data-poem="poem.html">📜 Read the Poem</button>
         <label class="vol">

@@ -247,6 +247,25 @@ function updateModalImage(index) {
     }, 50);
 }
 
+function startMainSlideshow() {
+    // 1. Kick off music if it isn't playing
+    if (songAudio && songAudio.paused) {
+        playSong();
+    }
+
+    // 2. Open the modal explicitly on the very first image
+    if (images.length > 0) {
+        currentImgIndex = 0;
+        updateModalImage(currentImgIndex);
+        modal.style.display = "flex";
+
+        // 3. Force start the auto-advance interval if not active
+        if (!slideshowIntervalId) {
+            toggleSlideshow();
+        }
+    }
+}
+
 let slideshowIntervalId = null;
 let slideshowIntervalSeconds = 6.0;
 

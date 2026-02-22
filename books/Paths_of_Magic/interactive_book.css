@@ -46,7 +46,8 @@ img:hover {
 
 
 /* PlayPause button */
-#songPlayPause {
+#songPlayPause,
+#mainSlideshowBtn {
     padding: 14px 28px;
     width: 15ch;
     border: 2px solid #6a89cc;
