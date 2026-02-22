@@ -250,16 +250,22 @@ def generate_static_html(chapters, tab_names, title):
         <button id="modalNext" class="modal-nav-btn" aria-label="Next image">&#10095;</button>
     </div>
     <div class="tab-selector">
+        <button class="chapter-nav-btn top-nav prev-chap" onclick="navChapter(-1)" aria-label="Previous Chapter">&#10094; Prev</button>
         <select id="tab-select" aria-label="Choose chapter">
     {% for i in range(chapters|length) %}
             <option value="{{ i }}">{{ tab_names[i] }}</option>
     {% endfor %}
         </select>
+        <button class="chapter-nav-btn top-nav next-chap" onclick="navChapter(1)" aria-label="Next Chapter">Next &#10095;</button>
     </div>
     <div class="tab-content">
         {% for chapter in chapters %}
         <div class="tab">{{ chapter|safe }}</div>
         {% endfor %}
+    </div>
+    <div class="chapter-footer">
+        <button class="chapter-nav-btn btm-nav prev-chap" onclick="navChapter(-1)" aria-label="Previous Chapter">&#10094; Previous Chapter</button>
+        <button class="chapter-nav-btn btm-nav next-chap" onclick="navChapter(1)" aria-label="Next Chapter">Next Chapter &#10095;</button>
     </div>
     <script src="interactive_book.js"></script>
 </body>

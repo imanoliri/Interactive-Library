@@ -21,6 +21,32 @@ function showTab(index) {
     if (select && select.value !== String(index)) {
         select.value = String(index)
     }
+
+    // Toggle navigation buttons
+    const prevBtns = document.querySelectorAll('.prev-chap');
+    const nextBtns = document.querySelectorAll('.next-chap');
+
+    prevBtns.forEach(btn => {
+        btn.style.visibility = index === 0 ? 'hidden' : 'visible';
+    });
+
+    nextBtns.forEach(btn => {
+        btn.style.visibility = index === tabs.length - 1 ? 'hidden' : 'visible';
+    });
+}
+
+function navChapter(direction) {
+    const select = document.getElementById('tab-select');
+    if (!select) return;
+
+    const currentIndex = parseInt(select.value, 10);
+    const newIndex = currentIndex + direction;
+
+    const tabs = document.querySelectorAll('.tab');
+    if (newIndex >= 0 && newIndex < tabs.length) {
+        showTab(newIndex);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 }
 
 async function openPoem(url) {

@@ -26,6 +26,7 @@
         <button id="modalNext" class="modal-nav-btn" aria-label="Next image">&#10095;</button>
     </div>
     <div class="tab-selector">
+        <button class="chapter-nav-btn top-nav prev-chap" onclick="navChapter(-1)" aria-label="Previous Chapter">&#10094; Prev</button>
         <select id="tab-select" aria-label="Choose chapter">
     
             <option value="0">Intro</option>
@@ -53,6 +54,7 @@
             <option value="11">Contents</option>
     
         </select>
+        <button class="chapter-nav-btn top-nav next-chap" onclick="navChapter(1)" aria-label="Next Chapter">Next &#10095;</button>
     </div>
     <div class="tab-content">
         
@@ -92,6 +94,10 @@
             </div>
     </div>
         
+    </div>
+    <div class="chapter-footer">
+        <button class="chapter-nav-btn btm-nav prev-chap" onclick="navChapter(-1)" aria-label="Previous Chapter">&#10094; Previous Chapter</button>
+        <button class="chapter-nav-btn btm-nav next-chap" onclick="navChapter(1)" aria-label="Next Chapter">Next Chapter &#10095;</button>
     </div>
     <script src="interactive_book.js"></script>
 </body>
