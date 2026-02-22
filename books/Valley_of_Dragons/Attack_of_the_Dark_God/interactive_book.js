@@ -230,25 +230,25 @@ function updateModalImage(index) {
         prevChapBtn.style.visibility = hasPrevChapImg ? "visible" : "hidden";
         nextChapBtn.style.visibility = hasNextChapImg ? "visible" : "hidden";
     }
+
+    // Sync the background DOM silently to exactly where we are
+    const targetImg = images[index];
+    const parentTab = targetImg.closest('.tab');
+    if (parentTab) {
+        const tabs = Array.from(document.querySelectorAll('.tab'));
+        const tabIndex = tabs.indexOf(parentTab);
+        if (tabIndex !== -1) {
+            showTab(tabIndex);
+        }
+    }
+    // Small delay to ensure display: block on the tab is processed before scrolling
+    setTimeout(() => {
+        targetImg.scrollIntoView({ behavior: 'instant', block: 'center' });
+    }, 50);
 }
 
 function syncAndCloseModal() {
     modal.style.display = "none";
-    if (currentImgIndex >= 0 && currentImgIndex < images.length) {
-        const targetImg = images[currentImgIndex];
-        const parentTab = targetImg.closest('.tab');
-        if (parentTab) {
-            const tabs = Array.from(document.querySelectorAll('.tab'));
-            const tabIndex = tabs.indexOf(parentTab);
-            if (tabIndex !== -1) {
-                showTab(tabIndex);
-            }
-        }
-        // Small delay to ensure display: block on the tab is processed before scrolling
-        setTimeout(() => {
-            targetImg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 50);
-    }
 }
 
 images.forEach((img, index) => {
