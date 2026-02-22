@@ -194,6 +194,21 @@ img:hover {
     background: rgba(0, 0, 0, 0.8);
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+/* Modal Info Text */
+.modal-info {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 20px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    z-index: 1001;
+    pointer-events: none;
 }
 
 /* Modal Navigation Buttons */
@@ -223,6 +238,40 @@ img:hover {
 
 #modalNext {
     right: 20px;
+}
+
+/* Modal Chapter Navigation */
+.modal-chap-nav {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 1001;
+}
+
+.modal-chap-nav-btn {
+    pointer-events: auto;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 18px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.3s, transform 0.2s;
+    user-select: none;
+}
+
+.modal-chap-nav-btn:hover {
+    background: rgba(106, 137, 204, 0.9);
+    transform: translateY(-2px);
+}
+
+.modal-chap-nav-btn:active {
+    transform: translateY(1px);
 }
 
 /* Image inside modal */

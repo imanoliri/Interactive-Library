@@ -131,17 +131,90 @@ document.getElementById('poemDialog').addEventListener('keydown', e => {
 // Click on images to show them full screen
 const modal = document.getElementById("fullscreenImgModal");
 const modalImg = document.getElementById("modalImg");
+const modalInfo = document.getElementById("modalInfo");
 const prevBtn = document.getElementById("modalPrev");
 const nextBtn = document.getElementById("modalNext");
+const prevChapBtn = document.getElementById("modalPrevChap");
+const nextChapBtn = document.getElementById("modalNextChap");
 
 const images = Array.from(document.querySelectorAll("img")).filter(img => img.id !== "modalImg");
 let currentImgIndex = 0;
+
+function getChapterIndexForImage(imgIndex) {
+    if (imgIndex < 0 || imgIndex >= images.length) return -1;
+    const parentTab = images[imgIndex].closest('.tab');
+    if (!parentTab) return -1;
+    const tabs = Array.from(document.querySelectorAll('.tab'));
+    return tabs.indexOf(parentTab);
+}
+
+function updateModalImage(index) {
+    if (index < 0 || index >= images.length) return;
+
+    // Set actual image
+    modalImg.src = images[index].src;
+
+    // Determine the chapter info
+    if (modalInfo) {
+        const tabIndex = getChapterIndexForImage(index);
+        if (tabIndex !== -1) {
+            const selectOptions = document.getElementById('tab-select').options;
+            const chapterName = selectOptions[tabIndex] ? selectOptions[tabIndex].text : "Unknown Chapter";
+            modalInfo.textContent = `${chapterName} (Image ${index + 1} of ${images.length})`;
+        } else {
+            modalInfo.textContent = `Image ${index + 1} of ${images.length}`;
+        }
+    }
+
+    // Toggle Modal Chapter skip buttons visibility
+    if (prevChapBtn && nextChapBtn) {
+        const currentChapIndex = getChapterIndexForImage(index);
+
+        let hasPrevChapImg = false;
+        for (let i = index - 1; i >= 0; i--) {
+            if (getChapterIndexForImage(i) < currentChapIndex) {
+                hasPrevChapImg = true;
+                break;
+            }
+        }
+
+        let hasNextChapImg = false;
+        for (let i = index + 1; i < images.length; i++) {
+            if (getChapterIndexForImage(i) > currentChapIndex) {
+                hasNextChapImg = true;
+                break;
+            }
+        }
+
+        prevChapBtn.style.visibility = hasPrevChapImg ? "visible" : "hidden";
+        nextChapBtn.style.visibility = hasNextChapImg ? "visible" : "hidden";
+    }
+}
+
+function syncAndCloseModal() {
+    modal.style.display = "none";
+    if (currentImgIndex >= 0 && currentImgIndex < images.length) {
+        const targetImg = images[currentImgIndex];
+        const parentTab = targetImg.closest('.tab');
+        if (parentTab) {
+            const tabs = Array.from(document.querySelectorAll('.tab'));
+            const tabIndex = tabs.indexOf(parentTab);
+            if (tabIndex !== -1) {
+                showTab(tabIndex);
+            }
+        }
+        // Small delay to ensure display: block on the tab is processed before scrolling
+        setTimeout(() => {
+            targetImg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 50);
+    }
+}
 
 images.forEach((img, index) => {
     img.addEventListener("click", () => {
         currentImgIndex = index;
         modal.style.display = "flex";
-        modalImg.src = img.src;
+        updateModalImage(currentImgIndex);
     });
 });
 
@@ -149,20 +222,71 @@ if (prevBtn && nextBtn) {
     prevBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         currentImgIndex = (currentImgIndex - 1 + images.length) % images.length;
-        modalImg.src = images[currentImgIndex].src;
+        updateModalImage(currentImgIndex);
     });
 
     nextBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         currentImgIndex = (currentImgIndex + 1) % images.length;
-        modalImg.src = images[currentImgIndex].src;
+        updateModalImage(currentImgIndex);
+    });
+}
+
+if (prevChapBtn && nextChapBtn) {
+    prevChapBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const currentChapIndex = getChapterIndexForImage(currentImgIndex);
+        let targetImgIndex = -1;
+
+        // Search backwards for the FIRST image of the PREVIOUS chapter
+        for (let i = currentImgIndex - 1; i >= 0; i--) {
+            const lookChapIndex = getChapterIndexForImage(i);
+            if (lookChapIndex < currentChapIndex) {
+                // Keep walking backward as long as it matches this previous chapter
+                targetImgIndex = i;
+                for (let j = i - 1; j >= 0; j--) {
+                    if (getChapterIndexForImage(j) === lookChapIndex) {
+                        targetImgIndex = j;
+                    } else {
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+        if (targetImgIndex !== -1) {
+            currentImgIndex = targetImgIndex;
+            updateModalImage(currentImgIndex);
+        }
+    });
+
+    nextChapBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const currentChapIndex = getChapterIndexForImage(currentImgIndex);
+        let targetImgIndex = -1;
+
+        // Search forwards for the FIRST image of the NEXT chapter
+        for (let i = currentImgIndex + 1; i < images.length; i++) {
+            if (getChapterIndexForImage(i) > currentChapIndex) {
+                targetImgIndex = i;
+                break;
+            }
+        }
+
+        if (targetImgIndex !== -1) {
+            currentImgIndex = targetImgIndex;
+            updateModalImage(currentImgIndex);
+        }
     });
 }
 
 // Close modal on click anywhere, except the nav buttons
 modal.addEventListener("click", (e) => {
-    if (e.target !== prevBtn && e.target !== nextBtn) {
-        modal.style.display = "none";
+    if (e.target !== prevBtn && e.target !== nextBtn &&
+        e.target !== prevChapBtn && e.target !== nextChapBtn &&
+        e.target !== modalImg) {
+        syncAndCloseModal();
     }
 });
 
@@ -174,7 +298,7 @@ document.addEventListener("keydown", (e) => {
         } else if (e.key === "ArrowRight") {
             nextBtn.click();
         } else if (e.key === "Escape") {
-            modal.style.display = "none";
+            syncAndCloseModal();
         }
     }
 });

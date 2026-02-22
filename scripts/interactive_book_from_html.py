@@ -245,9 +245,14 @@ def generate_static_html(chapters, tab_names, title):
         <article id="poemContent"></article>
     </dialog>
     <div id="fullscreenImgModal">
+        <div id="modalInfo" class="modal-info"></div>
         <button id="modalPrev" class="modal-nav-btn" aria-label="Previous image">&#10094;</button>
         <img id="modalImg" style="max-width:90%; max-height:90%;">
         <button id="modalNext" class="modal-nav-btn" aria-label="Next image">&#10095;</button>
+        <div class="modal-chap-nav">
+            <button id="modalPrevChap" class="modal-chap-nav-btn" aria-label="Previous Chapter">« Prev Chapter</button>
+            <button id="modalNextChap" class="modal-chap-nav-btn" aria-label="Next Chapter">Next Chapter »</button>
+        </div>
     </div>
     <div class="tab-selector">
         <button class="chapter-nav-btn top-nav prev-chap" onclick="navChapter(-1)" aria-label="Previous Chapter">&#10094; Prev</button>
