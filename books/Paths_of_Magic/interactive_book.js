@@ -160,6 +160,26 @@ const nextChapBtn = document.getElementById("modalNextChap");
 const images = Array.from(document.querySelectorAll("img")).filter(img => img.id !== "modalImg");
 let currentImgIndex = 0;
 
+function resizeModalImg() {
+    if (!modalImg || !modalImg.naturalWidth) return;
+    const intrinsicRatio = modalImg.naturalWidth / modalImg.naturalHeight;
+    const windowRatio = window.innerWidth / window.innerHeight;
+
+    // Tightly fit the image to the 95vw / 95vh bounds to maintain the precise click box
+    if (intrinsicRatio > windowRatio) {
+        modalImg.style.width = '95vw';
+        modalImg.style.height = 'auto';
+    } else {
+        modalImg.style.width = 'auto';
+        modalImg.style.height = '95vh';
+    }
+}
+
+if (modalImg) {
+    modalImg.addEventListener('load', resizeModalImg);
+    window.addEventListener('resize', resizeModalImg);
+}
+
 function getChapterIndexForImage(imgIndex) {
     if (imgIndex < 0 || imgIndex >= images.length) return -1;
     const parentTab = images[imgIndex].closest('.tab');
@@ -173,6 +193,7 @@ function updateModalImage(index) {
 
     // Set actual image
     modalImg.src = images[index].src;
+    resizeModalImg();
 
     // Determine the chapter info
     if (modalInfo) {

@@ -245,6 +245,9 @@ def generate_static_html(chapters, tab_names, title):
         <article id="poemContent"></article>
     </dialog>
     <div id="fullscreenImgModal">
+        <button id="modalClose" aria-label="Close" onclick="syncAndCloseModal()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 32px; height: 32px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
         <div id="modalInfo" class="modal-info"></div>
         <div class="modal-song-banner">
             <button id="modalSongPlayPause" class="modal-audio-btn round-btn" aria-label="Play/Pause" onclick="playSong()">▶️</button>

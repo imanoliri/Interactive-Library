@@ -184,6 +184,35 @@ img:hover {
     transform: scale(0.9);
 }
 
+/* Modal Close button*/
+#modalClose {
+    position: absolute;
+    top: 20px;
+    right: 120px;
+    /* Offset it to the left of the audio controls */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    z-index: 1002;
+}
+
+#modalClose:hover {
+    background: rgba(217, 83, 79, 0.9);
+    /* red tint on hover */
+    transform: scale(1.05);
+}
+
+#modalClose:active {
+    transform: scale(0.95);
+}
 
 /* Image Fullscreen Modaly */
 #fullscreenImgModal {
@@ -338,10 +367,10 @@ img:hover {
 
 /* Image inside modal */
 #modalImg {
-    width: 95vw;
-    height: 95vh;
-    object-fit: contain;
-    /* preserve aspect ratio, fill until one side hits the limit */
+    max-width: 95vw;
+    max-height: 95vh;
+    width: auto;
+    height: auto;
 }
 
 #modalImg:hover {
