@@ -259,6 +259,14 @@ def generate_static_html(chapters, tab_names, title):
         <button id="modalPrev" class="modal-nav-btn" aria-label="Previous image">&#10094;</button>
         <img id="modalImg" style="max-width:90%; max-height:90%;">
         <button id="modalNext" class="modal-nav-btn" aria-label="Next image">&#10095;</button>
+        <div class="slideshow-controls" id="slideshowControls">
+            <button id="modalSlideshowBtn" class="slideshow-btn round-btn" aria-label="Toggle Slideshow" onclick="toggleSlideshow()" title="Start Slideshow">📽️</button>
+            <div class="slideshow-interval-controls">
+                <button class="interval-btn" onclick="changeSlideshowInterval(-0.5)" aria-label="Decrease time">-</button>
+                <span id="slideshowIntervalDisplay">3.5s</span>
+                <button class="interval-btn" onclick="changeSlideshowInterval(0.5)" aria-label="Increase time">+</button>
+            </div>
+        </div>
         <div class="modal-chap-nav">
             <button id="modalPrevChap" class="modal-chap-nav-btn" aria-label="Previous Chapter">« Prev Chapter</button>
             <button id="modalNextChap" class="modal-chap-nav-btn" aria-label="Next Chapter">Next Chapter »</button>

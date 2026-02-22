@@ -331,6 +331,76 @@ img:hover {
     right: 20px;
 }
 
+/* Slideshow Controls */
+.slideshow-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 1001;
+    pointer-events: auto;
+}
+
+.slideshow-btn.round-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    padding: 0;
+    padding-bottom: 4px;
+    /* Hoist the emoji up slightly against font baselines */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    line-height: 1;
+    /* Prevent tall font bounding boxes */
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.slideshow-btn.round-btn:hover {
+    background: rgba(106, 137, 204, 0.9);
+    transform: scale(1.05);
+}
+
+.slideshow-interval-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px 15px;
+    border-radius: 20px;
+    color: white;
+    font-size: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.interval-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 5px;
+    transition: color 0.2s, transform 0.1s;
+}
+
+.interval-btn:hover {
+    color: #4a90e2;
+}
+
+.interval-btn:active {
+    transform: scale(0.9);
+}
+
 /* Modal Chapter Navigation */
 .modal-chap-nav {
     position: absolute;

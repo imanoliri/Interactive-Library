@@ -247,8 +247,59 @@ function updateModalImage(index) {
     }, 50);
 }
 
+let slideshowIntervalId = null;
+let slideshowIntervalSeconds = 3.5;
+
+function changeSlideshowInterval(delta) {
+    slideshowIntervalSeconds += delta;
+    if (slideshowIntervalSeconds < 0.5) slideshowIntervalSeconds = 0.5; // min 0.5s
+    if (slideshowIntervalSeconds > 60) slideshowIntervalSeconds = 60; // max 60s
+
+    const display = document.getElementById('slideshowIntervalDisplay');
+    if (display) {
+        display.textContent = slideshowIntervalSeconds.toFixed(1) + 's';
+    }
+
+    // If currently running, restart the interval with the new time
+    if (slideshowIntervalId) {
+        clearInterval(slideshowIntervalId);
+        slideshowIntervalId = setInterval(() => {
+            const nextArrow = document.getElementById("modalNext");
+            if (nextArrow) nextArrow.click();
+        }, slideshowIntervalSeconds * 1000);
+    }
+}
+
+function toggleSlideshow() {
+    const btn = document.getElementById('modalSlideshowBtn');
+    if (slideshowIntervalId) {
+        clearInterval(slideshowIntervalId);
+        slideshowIntervalId = null;
+        if (btn) {
+            btn.textContent = '📽️';
+            btn.title = 'Start Slideshow';
+            btn.style.background = ''; // reset to CSS default
+        }
+    } else {
+        slideshowIntervalId = setInterval(() => {
+            const nextArrow = document.getElementById("modalNext");
+            if (nextArrow) nextArrow.click();
+        }, slideshowIntervalSeconds * 1000);
+
+        if (btn) {
+            btn.textContent = '⏹️';
+            btn.title = 'Stop Slideshow';
+            btn.style.background = 'rgba(217, 83, 79, 0.9)'; // Stand out red so user knows it is active
+        }
+    }
+}
+
 function syncAndCloseModal() {
     modal.style.display = "none";
+    if (slideshowIntervalId) {
+        // Auto-kill the background process so it doesn't leak memory and jump state around
+        toggleSlideshow();
+    }
 }
 
 images.forEach((img, index) => {
@@ -327,7 +378,8 @@ modal.addEventListener("click", (e) => {
     if (e.target !== prevBtn && e.target !== nextBtn &&
         e.target !== prevChapBtn && e.target !== nextChapBtn &&
         e.target !== modalImg &&
-        !e.target.closest('.modal-song-banner')) {
+        !e.target.closest('.modal-song-banner') &&
+        !e.target.closest('.slideshow-controls')) {
         syncAndCloseModal();
     }
 });
