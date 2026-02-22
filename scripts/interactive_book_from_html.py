@@ -246,6 +246,13 @@ def generate_static_html(chapters, tab_names, title):
     </dialog>
     <div id="fullscreenImgModal">
         <div id="modalInfo" class="modal-info"></div>
+        <div class="modal-song-banner">
+            <button id="modalSongPlayPause" class="modal-audio-btn round-btn" aria-label="Play/Pause" onclick="playSong()">▶️</button>
+            <button class="poem-btn modal-audio-btn round-btn" data-poem="poem.html" aria-label="Poem">📜</button>
+            <div class="modal-vol">
+                <input id="modalSongVolume" type="range" class="vertical-slider" min="0" max="1" step="0.01" value="0.8" oninput="adjustVolume(this.value)"/>
+            </div>
+        </div>
         <button id="modalPrev" class="modal-nav-btn" aria-label="Previous image">&#10094;</button>
         <img id="modalImg" style="max-width:90%; max-height:90%;">
         <button id="modalNext" class="modal-nav-btn" aria-label="Next image">&#10095;</button>

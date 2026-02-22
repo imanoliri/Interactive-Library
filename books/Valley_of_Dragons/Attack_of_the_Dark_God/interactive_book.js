@@ -93,30 +93,50 @@ document.querySelector('.poem-close').addEventListener('click', () => {
 
 // Play/Pause toggle
 const playBtn = document.getElementById('songPlayPause')
+const modalPlayBtn = document.getElementById('modalSongPlayPause')
 const songAudio = new Audio(playBtn.getAttribute('data-song'))
+
+function updatePlayPauseBtns(isPlaying) {
+    const textMain = isPlaying ? '⏸️ Pause' : '▶️ Play'
+    const textModal = isPlaying ? '⏸️' : '▶️'
+    const aria = isPlaying ? 'Pause' : 'Play'
+    if (playBtn) {
+        playBtn.textContent = textMain
+        playBtn.setAttribute('aria-label', aria)
+    }
+    if (modalPlayBtn) {
+        modalPlayBtn.textContent = textModal
+        modalPlayBtn.setAttribute('aria-label', aria)
+    }
+}
+
 function playSong() {
     if (songAudio.paused) {
         try {
             songAudio.play()
-            playBtn.textContent = '⏸️ Pause'
-            playBtn.setAttribute('aria-label', 'Pause')
+            updatePlayPauseBtns(true)
             console.log('Play')
         } catch (err) {
             console.error(err)
         }
     } else {
         songAudio.pause()
-        playBtn.textContent = '▶️ Play'
-        playBtn.setAttribute('aria-label', 'Play')
+        updatePlayPauseBtns(false)
         console.log('Pause')
     }
 }
 
 // Volume
 const volSlider = document.getElementById('songVolume')
-function adjustVolume() {
-    songAudio.volume = volSlider.value
-    localStorage.setItem('songVol', volSlider.value)
+const modalVolSlider = document.getElementById('modalSongVolume')
+
+function adjustVolume(volValue) {
+    const value = typeof volValue !== 'undefined' ? volValue : (volSlider ? volSlider.value : 0.8)
+    songAudio.volume = value
+    localStorage.setItem('songVol', value)
+
+    if (volSlider && volSlider.value !== value) volSlider.value = value
+    if (modalVolSlider && modalVolSlider.value !== value) modalVolSlider.value = value
 }
 
 // Spacebar toggles play/pause while modal open
@@ -285,7 +305,8 @@ if (prevChapBtn && nextChapBtn) {
 modal.addEventListener("click", (e) => {
     if (e.target !== prevBtn && e.target !== nextBtn &&
         e.target !== prevChapBtn && e.target !== nextChapBtn &&
-        e.target !== modalImg) {
+        e.target !== modalImg &&
+        !e.target.closest('.modal-song-banner')) {
         syncAndCloseModal();
     }
 });

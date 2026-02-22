@@ -228,6 +228,68 @@ img:hover {
     z-index: 1001;
 }
 
+/* Modal Audio Controls */
+.modal-song-banner {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    z-index: 1001;
+    pointer-events: auto;
+}
+
+.modal-audio-btn {
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.modal-audio-btn.round-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+}
+
+.modal-audio-btn:hover {
+    background: rgba(106, 137, 204, 0.9);
+    transform: translateY(-2px);
+}
+
+.modal-audio-btn:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+.modal-song-banner .modal-vol {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px 10px;
+    border-radius: 30px;
+}
+
+.vertical-slider {
+    writing-mode: vertical-lr;
+    /* Some browsers */
+    direction: rtl;
+    /* required for vertical-lr to have bottom-to-top increment */
+    appearance: slider-vertical;
+    /* Webkit standard */
+    -webkit-appearance: slider-vertical;
+    width: 10px;
+    height: 120px;
+}
+
 .modal-nav-btn:hover {
     background: rgba(0, 0, 0, 0.8);
 }
