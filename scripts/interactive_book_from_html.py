@@ -245,7 +245,9 @@ def generate_static_html(chapters, tab_names, title):
         <article id="poemContent"></article>
     </dialog>
     <div id="fullscreenImgModal">
+        <button id="modalPrev" class="modal-nav-btn" aria-label="Previous image">&#10094;</button>
         <img id="modalImg" style="max-width:90%; max-height:90%;">
+        <button id="modalNext" class="modal-nav-btn" aria-label="Next image">&#10095;</button>
     </div>
     <div class="tab-selector">
         <select id="tab-select" aria-label="Choose chapter">

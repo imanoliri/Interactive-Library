@@ -196,6 +196,35 @@ img:hover {
     align-items: center;
 }
 
+/* Modal Navigation Buttons */
+.modal-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 40px;
+    padding: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s;
+    user-select: none;
+    z-index: 1001;
+}
+
+.modal-nav-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+#modalPrev {
+    left: 20px;
+}
+
+#modalNext {
+    right: 20px;
+}
+
 /* Image inside modal */
 #modalImg {
     width: 95vw;

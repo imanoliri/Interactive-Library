@@ -105,16 +105,50 @@ document.getElementById('poemDialog').addEventListener('keydown', e => {
 // Click on images to show them full screen
 const modal = document.getElementById("fullscreenImgModal");
 const modalImg = document.getElementById("modalImg");
+const prevBtn = document.getElementById("modalPrev");
+const nextBtn = document.getElementById("modalNext");
 
-// Get all images in the document
-document.querySelectorAll("img").forEach(img => {
+const images = Array.from(document.querySelectorAll("img")).filter(img => img.id !== "modalImg");
+let currentImgIndex = 0;
+
+images.forEach((img, index) => {
     img.addEventListener("click", () => {
+        currentImgIndex = index;
         modal.style.display = "flex";
-        modalImg.src = img.src;  // show the clicked image in the modal
+        modalImg.src = img.src;
     });
 });
 
-// Close modal on click anywhere
-modal.addEventListener("click", () => {
-    modal.style.display = "none";
+if (prevBtn && nextBtn) {
+    prevBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        currentImgIndex = (currentImgIndex - 1 + images.length) % images.length;
+        modalImg.src = images[currentImgIndex].src;
+    });
+
+    nextBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        currentImgIndex = (currentImgIndex + 1) % images.length;
+        modalImg.src = images[currentImgIndex].src;
+    });
+}
+
+// Close modal on click anywhere, except the nav buttons
+modal.addEventListener("click", (e) => {
+    if (e.target !== prevBtn && e.target !== nextBtn) {
+        modal.style.display = "none";
+    }
+});
+
+// Arrow key navigation
+document.addEventListener("keydown", (e) => {
+    if (modal.style.display === "flex") {
+        if (e.key === "ArrowLeft") {
+            prevBtn.click();
+        } else if (e.key === "ArrowRight") {
+            nextBtn.click();
+        } else if (e.key === "Escape") {
+            modal.style.display = "none";
+        }
+    }
 });
