@@ -595,3 +595,79 @@ body::-webkit-scrollbar-thumb {
     padding-top: 20px;
     border-top: 2px solid #d1d8e0;
 }
+
+/* Landscape on phones (small height) */
+@media (max-height: 500px) and (orientation: landscape) {
+    #modalClose {
+        width: 44px;
+        height: 44px;
+        top: 10px;
+        right: 70px;
+    }
+
+    .modal-info {
+        top: 10px;
+        left: 10px;
+        font-size: 14px;
+        padding: 4px 8px;
+    }
+
+    .modal-nav-btn {
+        font-size: 24px;
+        padding: 8px;
+    }
+
+    #modalPrev {
+        left: 10px;
+    }
+
+    #modalNext {
+        right: 10px;
+    }
+
+    .modal-audio-btn.round-btn,
+    .slideshow-btn.round-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+    }
+
+    .slideshow-interval-controls {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    .interval-btn {
+        font-size: 16px;
+    }
+
+    .modal-song-banner {
+        top: 10px;
+        right: 10px;
+        gap: 8px;
+    }
+
+    .modal-song-banner .modal-vol {
+        padding: 8px 6px;
+    }
+
+    .slideshow-controls {
+        bottom: 10px;
+        gap: 6px;
+    }
+
+    .vertical-slider {
+        height: 70px;
+    }
+
+    .modal-chap-nav {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+    }
+
+    .modal-chap-nav-btn {
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+}
