@@ -588,10 +588,128 @@ body::-webkit-scrollbar-thumb {
     transform: translateY(1px) scale(0.98);
 }
 
+/* UI Auto-hide when inactive */
+#fullscreenImgModal #modalClose,
+#fullscreenImgModal .modal-info,
+#fullscreenImgModal .modal-song-banner,
+#fullscreenImgModal .modal-nav-btn,
+#fullscreenImgModal .slideshow-controls,
+#fullscreenImgModal .modal-chap-nav {
+    transition: opacity 0.4s ease, transform 0.4s ease, background 0.3s ease;
+}
+
+#fullscreenImgModal.hide-ui #modalClose,
+#fullscreenImgModal.hide-ui .modal-info,
+#fullscreenImgModal.hide-ui .modal-song-banner {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+}
+
+#fullscreenImgModal.hide-ui #modalPrev {
+    opacity: 0;
+    transform: translate(-30px, -50%);
+    pointer-events: none;
+}
+
+#fullscreenImgModal.hide-ui #modalNext {
+    opacity: 0;
+    transform: translate(30px, -50%);
+    pointer-events: none;
+}
+
+#fullscreenImgModal.hide-ui .slideshow-controls {
+    opacity: 0;
+    transform: translate(-50%, 30px);
+    pointer-events: none;
+}
+
+#fullscreenImgModal.hide-ui .modal-chap-nav {
+    opacity: 0;
+    transform: translateY(30px);
+    pointer-events: none;
+}
+
 .chapter-footer {
     display: flex;
     justify-content: space-between;
     margin-top: 40px;
     padding-top: 20px;
     border-top: 2px solid #d1d8e0;
+}
+
+/* Landscape on phones (small height) */
+@media (max-height: 500px) and (orientation: landscape) {
+    #modalClose {
+        width: 44px;
+        height: 44px;
+        top: 10px;
+        right: 70px;
+    }
+
+    .modal-info {
+        top: 10px;
+        left: 10px;
+        font-size: 14px;
+        padding: 4px 8px;
+    }
+
+    .modal-nav-btn {
+        font-size: 24px;
+        padding: 8px;
+    }
+
+    #modalPrev {
+        left: 10px;
+    }
+
+    #modalNext {
+        right: 10px;
+    }
+
+    .modal-audio-btn.round-btn,
+    .slideshow-btn.round-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+    }
+
+    .slideshow-interval-controls {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    .interval-btn {
+        font-size: 16px;
+    }
+
+    .modal-song-banner {
+        top: 10px;
+        right: 10px;
+        gap: 8px;
+    }
+
+    .modal-song-banner .modal-vol {
+        padding: 8px 6px;
+    }
+
+    .slideshow-controls {
+        bottom: 10px;
+        gap: 6px;
+    }
+
+    .vertical-slider {
+        height: 70px;
+    }
+
+    .modal-chap-nav {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+    }
+
+    .modal-chap-nav-btn {
+        font-size: 14px;
+        padding: 6px 10px;
+    }
 }

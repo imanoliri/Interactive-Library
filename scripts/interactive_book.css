@@ -588,6 +588,48 @@ body::-webkit-scrollbar-thumb {
     transform: translateY(1px) scale(0.98);
 }
 
+/* UI Auto-hide when inactive */
+#fullscreenImgModal #modalClose,
+#fullscreenImgModal .modal-info,
+#fullscreenImgModal .modal-song-banner,
+#fullscreenImgModal .modal-nav-btn,
+#fullscreenImgModal .slideshow-controls,
+#fullscreenImgModal .modal-chap-nav {
+    transition: opacity 0.4s ease, transform 0.4s ease, background 0.3s ease;
+}
+
+#fullscreenImgModal.hide-ui #modalClose,
+#fullscreenImgModal.hide-ui .modal-info,
+#fullscreenImgModal.hide-ui .modal-song-banner {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+}
+
+#fullscreenImgModal.hide-ui #modalPrev {
+    opacity: 0;
+    transform: translate(-30px, -50%);
+    pointer-events: none;
+}
+
+#fullscreenImgModal.hide-ui #modalNext {
+    opacity: 0;
+    transform: translate(30px, -50%);
+    pointer-events: none;
+}
+
+#fullscreenImgModal.hide-ui .slideshow-controls {
+    opacity: 0;
+    transform: translate(-50%, 30px);
+    pointer-events: none;
+}
+
+#fullscreenImgModal.hide-ui .modal-chap-nav {
+    opacity: 0;
+    transform: translateY(30px);
+    pointer-events: none;
+}
+
 .chapter-footer {
     display: flex;
     justify-content: space-between;

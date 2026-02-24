@@ -151,6 +151,60 @@ document.getElementById('poemDialog').addEventListener('keydown', e => {
 // Click on images to show them full screen
 const modal = document.getElementById("fullscreenImgModal");
 const modalImg = document.getElementById("modalImg");
+
+let modalUiTimeout = null;
+let lastAwakenTime = 0;
+let isHoveringUi = false;
+
+function resetModalHideTimeout() {
+    if (modal.classList.contains('hide-ui')) {
+        lastAwakenTime = Date.now();
+    }
+    modal.classList.remove('hide-ui');
+
+    if (modalUiTimeout) {
+        clearTimeout(modalUiTimeout);
+    }
+
+    if (isHoveringUi) return;
+
+    modalUiTimeout = setTimeout(() => {
+        if (!isHoveringUi) {
+            modal.classList.add('hide-ui');
+        }
+    }, 2800);
+}
+
+// Ensure hovered controls block the hide timeout
+const uiSelectors = [
+    '.slideshow-controls',
+    '.modal-song-banner',
+    '#modalClose',
+    '.modal-chap-nav',
+    '.modal-nav-btn'
+];
+
+const uiElements = document.querySelectorAll(uiSelectors.join(', '));
+
+uiElements.forEach(el => {
+    el.addEventListener('pointerenter', (e) => {
+        if (e.pointerType === 'mouse') {
+            isHoveringUi = true;
+            resetModalHideTimeout();
+        }
+    });
+    el.addEventListener('pointerleave', (e) => {
+        if (e.pointerType === 'mouse') {
+            isHoveringUi = false;
+            resetModalHideTimeout();
+        }
+    });
+});
+
+modal.addEventListener('mousemove', resetModalHideTimeout);
+modal.addEventListener('click', resetModalHideTimeout);
+modal.addEventListener('touchstart', resetModalHideTimeout, { passive: true });
+
 const modalInfo = document.getElementById("modalInfo");
 const prevBtn = document.getElementById("modalPrev");
 const nextBtn = document.getElementById("modalNext");
@@ -256,8 +310,10 @@ function startMainSlideshow() {
     // 2. Open the modal explicitly on the very first image
     if (images.length > 0) {
         currentImgIndex = 0;
+        lastAwakenTime = Date.now();
         updateModalImage(currentImgIndex);
         modal.style.display = "flex";
+        resetModalHideTimeout();
 
         // 3. Force start the auto-advance interval if not active
         if (!slideshowIntervalId) {
@@ -324,7 +380,9 @@ function syncAndCloseModal() {
 images.forEach((img, index) => {
     img.addEventListener("click", () => {
         currentImgIndex = index;
+        lastAwakenTime = Date.now();
         modal.style.display = "flex";
+        resetModalHideTimeout();
         updateModalImage(currentImgIndex);
     });
 });
@@ -394,6 +452,9 @@ if (prevChapBtn && nextChapBtn) {
 
 // Close modal on click anywhere, except the nav buttons
 modal.addEventListener("click", (e) => {
+    // Prevent immediate close if we just woke up the UI from hiding, or just opened the modal
+    if (Date.now() - lastAwakenTime < 500) return;
+
     if (e.target !== prevBtn && e.target !== nextBtn &&
         e.target !== prevChapBtn && e.target !== nextChapBtn &&
         e.target !== modalImg &&
