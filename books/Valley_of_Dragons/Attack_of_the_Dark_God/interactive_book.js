@@ -323,11 +323,11 @@ function startMainSlideshow() {
 }
 
 let slideshowIntervalId = null;
-let slideshowIntervalSeconds = 6.0;
+let slideshowIntervalSeconds = 12.0;
 
 function changeSlideshowInterval(delta) {
     slideshowIntervalSeconds += delta;
-    if (slideshowIntervalSeconds < 0.5) slideshowIntervalSeconds = 0.5; // min 0.5s
+    if (slideshowIntervalSeconds < 1.0) slideshowIntervalSeconds = 1.0; // min 1s
     if (slideshowIntervalSeconds > 60) slideshowIntervalSeconds = 60; // max 60s
 
     const display = document.getElementById('slideshowIntervalDisplay');
