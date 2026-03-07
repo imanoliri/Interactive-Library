@@ -303,6 +303,8 @@ function updateModalImage(index) {
     setTimeout(() => {
         targetImg.scrollIntoView({ behavior: 'instant', block: 'center' });
     }, 50);
+
+    if (typeof resetSlideshowTimer === 'function') resetSlideshowTimer();
 }
 
 function startMainSlideshow() {
@@ -340,6 +342,10 @@ function changeSlideshowInterval(delta) {
     }
 
     // If currently running, restart the interval with the new time
+    resetSlideshowTimer();
+}
+
+function resetSlideshowTimer() {
     if (slideshowIntervalId) {
         clearInterval(slideshowIntervalId);
         slideshowIntervalId = setInterval(() => {
