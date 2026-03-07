@@ -126,6 +126,10 @@ function playSong() {
     }
 }
 
+songAudio.addEventListener('ended', () => {
+    updatePlayPauseBtns(false)
+})
+
 // Volume
 const volSlider = document.getElementById('songVolume')
 const modalVolSlider = document.getElementById('modalSongVolume')

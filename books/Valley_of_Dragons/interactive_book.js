@@ -68,6 +68,10 @@ document.querySelector('.poem-close').addEventListener('click', () => {
 // Play/Pause toggle
 const playBtn = document.getElementById('songPlayPause')
 const songAudio = new Audio(playBtn.getAttribute('data-song'))
+
+songAudio.addEventListener('ended', () => {
+    updatePlayPauseBtns(false)
+})
 function playSong() {
     if (songAudio.paused) {
         try {
