@@ -191,8 +191,8 @@ img:hover {
     top: 1.25rem;
     right: 7.5rem;
     /* Offset it to the left of the audio controls */
-    width: 4.75rem;
-    height: 4.75rem;
+    width: 6.5rem;
+    height: 6.5rem;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -250,8 +250,8 @@ img:hover {
     background: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
-    font-size: 3.25rem;
-    padding: 1.5rem;
+    font-size: 6rem;
+    padding: 2.5rem;
     cursor: pointer;
     border-radius: 4px;
     transition: background 0.3s;
@@ -317,8 +317,8 @@ img:hover {
     appearance: slider-vertical;
     /* Webkit standard */
     -webkit-appearance: slider-vertical;
-    width: 0.75rem;
-    height: 8.75rem;
+    width: 1.25rem;
+    height: 14rem;
 }
 
 .modal-nav-btn:hover {
@@ -373,14 +373,17 @@ img:hover {
 }
 
 .slideshow-interval-controls {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
     background: rgba(0, 0, 0, 0.6);
-    padding: 0.5rem 1.125rem;
-    border-radius: 1.5rem;
+    padding: 1rem 1.75rem;
+    border-radius: 2rem;
     color: white;
-    font-size: 1.125rem;
+    font-size: 1.75rem;
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
@@ -388,7 +391,7 @@ img:hover {
     background: none;
     border: none;
     color: white;
-    font-size: 1.75rem;
+    font-size: 2.5rem;
     cursor: pointer;
     line-height: 1;
     padding: 0 0.3rem;
