@@ -191,8 +191,8 @@ img:hover {
     top: 20px;
     right: 120px;
     /* Offset it to the left of the audio controls */
-    width: 60px;
-    height: 60px;
+    width: 76px;
+    height: 76px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -250,8 +250,8 @@ img:hover {
     background: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
-    font-size: 40px;
-    padding: 16px;
+    font-size: 52px;
+    padding: 24px;
     cursor: pointer;
     border-radius: 4px;
     transition: background 0.3s;
@@ -281,14 +281,14 @@ img:hover {
 }
 
 .modal-audio-btn.round-btn {
-    width: 60px;
-    height: 60px;
+    width: 76px;
+    height: 76px;
     border-radius: 50%;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 28px;
+    font-size: 34px;
 }
 
 .modal-audio-btn:hover {
@@ -317,8 +317,8 @@ img:hover {
     appearance: slider-vertical;
     /* Webkit standard */
     -webkit-appearance: slider-vertical;
-    width: 10px;
-    height: 120px;
+    width: 12px;
+    height: 140px;
 }
 
 .modal-nav-btn:hover {
@@ -348,8 +348,8 @@ img:hover {
 }
 
 .slideshow-btn.round-btn {
-    width: 60px;
-    height: 60px;
+    width: 76px;
+    height: 76px;
     border-radius: 50%;
     padding: 0;
     padding-bottom: 4px;
@@ -357,7 +357,7 @@ img:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 28px;
+    font-size: 34px;
     line-height: 1;
     /* Prevent tall font bounding boxes */
     background: rgba(0, 0, 0, 0.6);
@@ -377,10 +377,10 @@ img:hover {
     align-items: center;
     gap: 15px;
     background: rgba(0, 0, 0, 0.6);
-    padding: 5px 15px;
-    border-radius: 20px;
+    padding: 8px 18px;
+    border-radius: 24px;
     color: white;
-    font-size: 16px;
+    font-size: 18px;
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
@@ -388,7 +388,7 @@ img:hover {
     background: none;
     border: none;
     color: white;
-    font-size: 24px;
+    font-size: 28px;
     cursor: pointer;
     line-height: 1;
     padding: 0 5px;
@@ -420,8 +420,8 @@ img:hover {
     background: rgba(0, 0, 0, 0.6);
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    font-size: 18px;
-    padding: 10px 20px;
+    font-size: 20px;
+    padding: 12px 24px;
     cursor: pointer;
     border-radius: 6px;
     transition: background 0.3s, transform 0.2s;
