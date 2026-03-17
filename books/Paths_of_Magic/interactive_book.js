@@ -126,6 +126,10 @@ function playSong() {
     }
 }
 
+songAudio.addEventListener('ended', () => {
+    updatePlayPauseBtns(false)
+})
+
 // Volume
 const volSlider = document.getElementById('songVolume')
 const modalVolSlider = document.getElementById('modalSongVolume')
@@ -151,6 +155,60 @@ document.getElementById('poemDialog').addEventListener('keydown', e => {
 // Click on images to show them full screen
 const modal = document.getElementById("fullscreenImgModal");
 const modalImg = document.getElementById("modalImg");
+
+let modalUiTimeout = null;
+let lastAwakenTime = 0;
+let isHoveringUi = false;
+
+function resetModalHideTimeout() {
+    if (modal.classList.contains('hide-ui')) {
+        lastAwakenTime = Date.now();
+    }
+    modal.classList.remove('hide-ui');
+
+    if (modalUiTimeout) {
+        clearTimeout(modalUiTimeout);
+    }
+
+    if (isHoveringUi) return;
+
+    modalUiTimeout = setTimeout(() => {
+        if (!isHoveringUi) {
+            modal.classList.add('hide-ui');
+        }
+    }, 2800);
+}
+
+// Ensure hovered controls block the hide timeout
+const uiSelectors = [
+    '.slideshow-controls',
+    '.modal-song-banner',
+    '#modalClose',
+    '.modal-chap-nav',
+    '.modal-nav-btn'
+];
+
+const uiElements = document.querySelectorAll(uiSelectors.join(', '));
+
+uiElements.forEach(el => {
+    el.addEventListener('pointerenter', (e) => {
+        if (e.pointerType === 'mouse') {
+            isHoveringUi = true;
+            resetModalHideTimeout();
+        }
+    });
+    el.addEventListener('pointerleave', (e) => {
+        if (e.pointerType === 'mouse') {
+            isHoveringUi = false;
+            resetModalHideTimeout();
+        }
+    });
+});
+
+modal.addEventListener('mousemove', resetModalHideTimeout);
+modal.addEventListener('click', resetModalHideTimeout);
+modal.addEventListener('touchstart', resetModalHideTimeout, { passive: true });
+
 const modalInfo = document.getElementById("modalInfo");
 const prevBtn = document.getElementById("modalPrev");
 const nextBtn = document.getElementById("modalNext");
@@ -245,16 +303,96 @@ function updateModalImage(index) {
     setTimeout(() => {
         targetImg.scrollIntoView({ behavior: 'instant', block: 'center' });
     }, 50);
+
+    if (typeof resetSlideshowTimer === 'function') resetSlideshowTimer();
+}
+
+function startMainSlideshow() {
+    // 1. Kick off music if it isn't playing
+    if (songAudio && songAudio.paused) {
+        playSong();
+    }
+
+    // 2. Open the modal explicitly on the very first image
+    if (images.length > 0) {
+        currentImgIndex = 0;
+        lastAwakenTime = Date.now();
+        updateModalImage(currentImgIndex);
+        modal.style.display = "flex";
+        resetModalHideTimeout();
+
+        // 3. Force start the auto-advance interval if not active
+        if (!slideshowIntervalId) {
+            toggleSlideshow();
+        }
+    }
+}
+
+let slideshowIntervalId = null;
+let slideshowIntervalSeconds = 12.0;
+
+function changeSlideshowInterval(delta) {
+    slideshowIntervalSeconds += delta;
+    if (slideshowIntervalSeconds < 1.0) slideshowIntervalSeconds = 1.0; // min 1s
+    if (slideshowIntervalSeconds > 60) slideshowIntervalSeconds = 60; // max 60s
+
+    const display = document.getElementById('slideshowIntervalDisplay');
+    if (display) {
+        display.textContent = slideshowIntervalSeconds.toFixed(1) + 's';
+    }
+
+    // If currently running, restart the interval with the new time
+    resetSlideshowTimer();
+}
+
+function resetSlideshowTimer() {
+    if (slideshowIntervalId) {
+        clearInterval(slideshowIntervalId);
+        slideshowIntervalId = setInterval(() => {
+            const nextArrow = document.getElementById("modalNext");
+            if (nextArrow) nextArrow.click();
+        }, slideshowIntervalSeconds * 1000);
+    }
+}
+
+function toggleSlideshow() {
+    const btn = document.getElementById('modalSlideshowBtn');
+    if (slideshowIntervalId) {
+        clearInterval(slideshowIntervalId);
+        slideshowIntervalId = null;
+        if (btn) {
+            btn.textContent = '📽️';
+            btn.title = 'Start Slideshow';
+            btn.style.background = ''; // reset to CSS default
+        }
+    } else {
+        slideshowIntervalId = setInterval(() => {
+            const nextArrow = document.getElementById("modalNext");
+            if (nextArrow) nextArrow.click();
+        }, slideshowIntervalSeconds * 1000);
+
+        if (btn) {
+            btn.textContent = '⏹️';
+            btn.title = 'Stop Slideshow';
+            btn.style.background = 'rgba(217, 83, 79, 0.9)'; // Stand out red so user knows it is active
+        }
+    }
 }
 
 function syncAndCloseModal() {
     modal.style.display = "none";
+    if (slideshowIntervalId) {
+        // Auto-kill the background process so it doesn't leak memory and jump state around
+        toggleSlideshow();
+    }
 }
 
 images.forEach((img, index) => {
     img.addEventListener("click", () => {
         currentImgIndex = index;
+        lastAwakenTime = Date.now();
         modal.style.display = "flex";
+        resetModalHideTimeout();
         updateModalImage(currentImgIndex);
     });
 });
@@ -324,10 +462,14 @@ if (prevChapBtn && nextChapBtn) {
 
 // Close modal on click anywhere, except the nav buttons
 modal.addEventListener("click", (e) => {
+    // Prevent immediate close if we just woke up the UI from hiding, or just opened the modal
+    if (Date.now() - lastAwakenTime < 500) return;
+
     if (e.target !== prevBtn && e.target !== nextBtn &&
         e.target !== prevChapBtn && e.target !== nextChapBtn &&
         e.target !== modalImg &&
-        !e.target.closest('.modal-song-banner')) {
+        !e.target.closest('.modal-song-banner') &&
+        !e.target.closest('.slideshow-controls')) {
         syncAndCloseModal();
     }
 });

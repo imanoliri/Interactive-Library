@@ -9,6 +9,7 @@
 <body>
     <h1>The Paths of Magic</h1>
     <div class="song-banner">
+        <button id="mainSlideshowBtn" aria-label="Start Slideshow" onclick="startMainSlideshow()">📽️ Slideshow</button>
         <button id="songPlayPause" aria-label="Play/Pause" onclick="playSong()" data-song="song.mp3">▶️ Play</button>
         <button class="poem-btn" data-poem="poem.html">📜 Read the Poem</button>
         <label class="vol">
@@ -35,6 +36,14 @@
         <button id="modalPrev" class="modal-nav-btn" aria-label="Previous image">&#10094;</button>
         <img id="modalImg" style="max-width:90%; max-height:90%;">
         <button id="modalNext" class="modal-nav-btn" aria-label="Next image">&#10095;</button>
+        <div class="slideshow-controls" id="slideshowControls">
+            <button id="modalSlideshowBtn" class="slideshow-btn round-btn" aria-label="Toggle Slideshow" onclick="toggleSlideshow()" title="Start Slideshow">📽️</button>
+            <div class="slideshow-interval-controls">
+                <button class="interval-btn" onclick="changeSlideshowInterval(-1.0)" aria-label="Decrease time">-</button>
+                <span id="slideshowIntervalDisplay">12.0s</span>
+                <button class="interval-btn" onclick="changeSlideshowInterval(1.0)" aria-label="Increase time">+</button>
+            </div>
+        </div>
         <div class="modal-chap-nav">
             <button id="modalPrevChap" class="modal-chap-nav-btn" aria-label="Previous Chapter">« Prev Chapter</button>
             <button id="modalNextChap" class="modal-chap-nav-btn" aria-label="Next Chapter">Next Chapter »</button>

@@ -46,7 +46,8 @@ img:hover {
 
 
 /* PlayPause button */
-#songPlayPause {
+#songPlayPause,
+#mainSlideshowBtn {
     padding: 14px 28px;
     width: 15ch;
     border: 2px solid #6a89cc;
@@ -187,11 +188,12 @@ img:hover {
 /* Modal Close button*/
 #modalClose {
     position: absolute;
-    top: 20px;
-    right: 120px;
+    top: 1.25rem;
+    right: 8rem;
     /* Offset it to the left of the audio controls */
-    width: 60px;
-    height: 60px;
+    width: 6.5rem;
+    height: 6.5rem;
+    font-size: 3.5rem;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -220,7 +222,8 @@ img:hover {
     position: fixed;
     z-index: 1000;
     inset: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: #2a2a2a;
+    /* Solid dark grey (approx 80% black) */
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -229,12 +232,12 @@ img:hover {
 /* Modal Info Text */
 .modal-info {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 1.25rem;
+    left: 1.25rem;
     background: rgba(0, 0, 0, 0.6);
     color: white;
-    font-size: 20px;
-    padding: 8px 16px;
+    font-size: 1.25rem;
+    padding: 0.5rem 1rem;
     border-radius: 6px;
     z-index: 1001;
     pointer-events: none;
@@ -248,8 +251,8 @@ img:hover {
     background: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
-    font-size: 40px;
-    padding: 16px;
+    font-size: 6rem;
+    padding: 2.5rem;
     cursor: pointer;
     border-radius: 4px;
     transition: background 0.3s;
@@ -260,12 +263,12 @@ img:hover {
 /* Modal Audio Controls */
 .modal-song-banner {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 1.25rem;
+    right: 1.25rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 1rem;
     z-index: 1001;
     pointer-events: auto;
 }
@@ -279,14 +282,14 @@ img:hover {
 }
 
 .modal-audio-btn.round-btn {
-    width: 60px;
-    height: 60px;
+    width: 6.5rem;
+    height: 6.5rem;
     border-radius: 50%;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 28px;
+    font-size: 3.5rem;
 }
 
 .modal-audio-btn:hover {
@@ -303,8 +306,8 @@ img:hover {
     justify-content: center;
     align-items: center;
     background: rgba(0, 0, 0, 0.6);
-    padding: 15px 10px;
-    border-radius: 30px;
+    padding: 1rem 0.625rem;
+    border-radius: 2rem;
 }
 
 .vertical-slider {
@@ -315,8 +318,8 @@ img:hover {
     appearance: slider-vertical;
     /* Webkit standard */
     -webkit-appearance: slider-vertical;
-    width: 10px;
-    height: 120px;
+    width: 1.25rem;
+    height: 14rem;
 }
 
 .modal-nav-btn:hover {
@@ -324,19 +327,89 @@ img:hover {
 }
 
 #modalPrev {
-    left: 20px;
+    left: 1.25rem;
 }
 
 #modalNext {
-    right: 20px;
+    right: 1.25rem;
+}
+
+/* Slideshow Controls */
+.slideshow-controls {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.625rem;
+    z-index: 1001;
+    pointer-events: auto;
+}
+
+.slideshow-btn.round-btn {
+    width: 6.5rem;
+    height: 6.5rem;
+    border-radius: 50%;
+    padding: 0;
+    padding-bottom: 0.5rem;
+    /* Hoist the emoji up slightly against font baselines */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.5rem;
+    line-height: 1;
+    /* Prevent tall font bounding boxes */
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.slideshow-btn.round-btn:hover {
+    background: rgba(106, 137, 204, 0.9);
+    transform: scale(1.05);
+}
+
+.slideshow-interval-controls {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1rem 1.75rem;
+    border-radius: 2rem;
+    color: white;
+    font-size: 1.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.interval-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2.5rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 0.3rem;
+    transition: color 0.2s, transform 0.1s;
+}
+
+.interval-btn:hover {
+    color: #4a90e2;
+}
+
+.interval-btn:active {
+    transform: scale(0.9);
 }
 
 /* Modal Chapter Navigation */
 .modal-chap-nav {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
+    bottom: 1.25rem;
+    left: 1.25rem;
+    right: 1.25rem;
     display: flex;
     justify-content: space-between;
     pointer-events: none;
@@ -348,10 +421,10 @@ img:hover {
     background: rgba(0, 0, 0, 0.6);
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    font-size: 18px;
-    padding: 10px 20px;
+    font-size: 2rem;
+    padding: 1.25rem 2rem;
     cursor: pointer;
-    border-radius: 6px;
+    border-radius: 0.375rem;
     transition: background 0.3s, transform 0.2s;
     user-select: none;
 }
@@ -516,10 +589,128 @@ body::-webkit-scrollbar-thumb {
     transform: translateY(1px) scale(0.98);
 }
 
+/* UI Auto-hide when inactive */
+#fullscreenImgModal #modalClose,
+#fullscreenImgModal .modal-info,
+#fullscreenImgModal .modal-song-banner,
+#fullscreenImgModal .modal-nav-btn,
+#fullscreenImgModal .slideshow-controls,
+#fullscreenImgModal .modal-chap-nav {
+    transition: opacity 0.4s ease, transform 0.4s ease, background 0.3s ease;
+}
+
+#fullscreenImgModal.hide-ui #modalClose,
+#fullscreenImgModal.hide-ui .modal-info,
+#fullscreenImgModal.hide-ui .modal-song-banner {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+}
+
+#fullscreenImgModal.hide-ui #modalPrev {
+    opacity: 0;
+    transform: translate(-30px, -50%);
+    pointer-events: none;
+}
+
+#fullscreenImgModal.hide-ui #modalNext {
+    opacity: 0;
+    transform: translate(30px, -50%);
+    pointer-events: none;
+}
+
+#fullscreenImgModal.hide-ui .slideshow-controls {
+    opacity: 0;
+    transform: translate(-50%, 30px);
+    pointer-events: none;
+}
+
+#fullscreenImgModal.hide-ui .modal-chap-nav {
+    opacity: 0;
+    transform: translateY(30px);
+    pointer-events: none;
+}
+
 .chapter-footer {
     display: flex;
     justify-content: space-between;
     margin-top: 40px;
     padding-top: 20px;
     border-top: 2px solid #d1d8e0;
+}
+
+/* Landscape on phones (small height) */
+@media (max-height: 500px) and (orientation: landscape) {
+    #modalClose {
+        width: 2.75rem;
+        height: 2.75rem;
+        top: 0.625rem;
+        right: 4.375rem;
+    }
+
+    .modal-info {
+        top: 0.625rem;
+        left: 0.625rem;
+        font-size: 0.875rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .modal-nav-btn {
+        font-size: 1.5rem;
+        padding: 0.5rem;
+    }
+
+    #modalPrev {
+        left: 0.625rem;
+    }
+
+    #modalNext {
+        right: 0.625rem;
+    }
+
+    .modal-audio-btn.round-btn,
+    .slideshow-btn.round-btn {
+        width: 2.75rem;
+        height: 2.75rem;
+        font-size: 1.25rem;
+    }
+
+    .slideshow-interval-controls {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .interval-btn {
+        font-size: 1rem;
+    }
+
+    .modal-song-banner {
+        top: 0.625rem;
+        right: 0.625rem;
+        gap: 0.5rem;
+    }
+
+    .modal-song-banner .modal-vol {
+        padding: 0.5rem 0.375rem;
+    }
+
+    .slideshow-controls {
+        bottom: 0.625rem;
+        gap: 0.375rem;
+    }
+
+    .vertical-slider {
+        height: 4.375rem;
+    }
+
+    .modal-chap-nav {
+        bottom: 0.625rem;
+        left: 0.625rem;
+        right: 0.625rem;
+    }
+
+    .modal-chap-nav-btn {
+        font-size: 0.875rem;
+        padding: 0.375rem 0.625rem;
+    }
 }
