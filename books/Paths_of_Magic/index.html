@@ -35,13 +35,14 @@
         </div>
         <button id="modalPrev" class="modal-nav-btn" aria-label="Previous image">&#10094;</button>
         <img id="modalImg" style="max-width:90%; max-height:90%;">
-        <button id="fightEnemyBtn" class="game-fight-btn" style="display:none;" onclick="showGameUI()">⚔️ Fight Enemy!</button>
+        <button id="fightEnemyBtn" class="game-fight-btn" style="display:none;" onclick="showGameUI()">🔮 Battle!</button>
         <button id="modalNext" class="modal-nav-btn" aria-label="Next image">&#10095;</button>
         
         <!-- Game UI -->
         <div id="gameUIContainer" class="game-ui-overlay" style="display:none;">
             <div class="game-ui-panel">
                 <div class="player-energy-display" id="playerEnergyCount">🧡 Energy: 5</div>
+                <button class="guide-btn" onclick="toggleMatchupGuide()" title="Matchup Guide">❔</button>
                 <button class="game-close-btn" onclick="hideGameUI()">&times;</button>
                 <h2 id="enemyName">Enemy</h2>
                 <div class="enemy-stats">
@@ -80,6 +81,24 @@
                 <h1 id="resultTitle">Victory!</h1>
                 <p id="resultDetails">Your attack was successful!</p>
                 <button class="result-continue-btn" onclick="hideGameUI()">Continue</button>
+            </div>
+
+            <!-- Matchup Guide Overlay -->
+            <div id="matchupGuideOverlay" class="matchup-guide-overlay" style="display:none;">
+                <div class="matchup-guide-content">
+                    <h2>📖 Magic Matchups</h2>
+                    <div class="matchup-grid">
+                        <div class="matchup-item"><span class="strong">💧 Water</span> counters 🔥</div>
+                        <div class="matchup-item"><span class="strong">🔥 Fire</span> counters 🌳, 🌑</div>
+                        <div class="matchup-item"><span class="strong">🌳 Trees</span> counters 🪨</div>
+                        <div class="matchup-item"><span class="strong">🪨 Earth</span> counters ⚡</div>
+                        <div class="matchup-item"><span class="strong">⚡ Lightning</span> counters 💧</div>
+                        <div class="matchup-item"><span class="strong">☀️ Sun</span> counters 💨, 💀</div>
+                        <div class="matchup-item"><span class="strong">💨 Wind</span> counters ☀️</div>
+                        <div class="matchup-item"><span class="strong">✨ Lifeforce</span> counters 💀, 🌑</div>
+                    </div>
+                    <button class="execute-btn" style="margin-top: 1.5rem;" onclick="toggleMatchupGuide()">Close Guide</button>
+                </div>
             </div>
         </div>
         <div class="slideshow-controls" id="slideshowControls">

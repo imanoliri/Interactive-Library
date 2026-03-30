@@ -726,7 +726,7 @@ body::-webkit-scrollbar-thumb {
     font-family: 'Roboto', sans-serif;
     font-weight: 800;
     color: #fff;
-    background: linear-gradient(135deg, #d9534f, #c9302c);
+    background: linear-gradient(135deg, #9333ea, #6b21a8);
     border: 3px solid #fff;
     border-radius: 50px;
     cursor: pointer;
@@ -739,7 +739,7 @@ body::-webkit-scrollbar-thumb {
 
 .game-fight-btn:hover {
     transform: translateX(-50%) translateY(-5px) scale(1.05);
-    box-shadow: 0 15px 25px rgba(217, 83, 79, 0.6), inset 0 0 20px rgba(255,255,255,0.6);
+    box-shadow: 0 15px 25px rgba(147, 51, 234, 0.6), inset 0 0 20px rgba(255,255,255,0.6);
 }
 
 .game-fight-btn:active {
@@ -752,9 +752,9 @@ body::-webkit-scrollbar-thumb {
 }
 
 @keyframes fightPulse {
-    0% { box-shadow: 0 0 0 0 rgba(217, 83, 79, 0.7); }
-    70% { box-shadow: 0 0 0 20px rgba(217, 83, 79, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(217, 83, 79, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(147, 51, 234, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(147, 51, 234, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(147, 51, 234, 0); }
 }
 
 .game-ui-overlay {
@@ -828,6 +828,85 @@ body::-webkit-scrollbar-thumb {
     color: #ef4444;
     transform: rotate(90deg);
 }
+
+.guide-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #94a3b8;
+    font-size: 1.5rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.guide-btn:hover {
+    background: rgba(168, 85, 247, 0.2);
+    color: #d8b4fe;
+    transform: scale(1.1);
+}
+
+.matchup-guide-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.95);
+    z-index: 3000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    border-radius: 24px;
+}
+
+.matchup-guide-content {
+    background: rgba(30, 41, 59, 0.9);
+    border: 1px solid rgba(168, 85, 247, 0.4);
+    padding: 2rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.matchup-guide-content h2 {
+    margin-top: 0;
+    color: #e2e8f0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.matchup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    text-align: left;
+}
+
+.matchup-item {
+    background: rgba(0,0,0,0.2);
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.matchup-item .strong.water { color: #60a5fa; font-weight: bold; }
+.matchup-item .strong.fire { color: #f87171; font-weight: bold; }
+.matchup-item .strong.trees { color: #4ade80; font-weight: bold; }
+.matchup-item .strong.earth { color: #a16207; font-weight: bold; }
+.matchup-item .strong.lightning { color: #facc15; font-weight: bold; }
+.matchup-item .strong.sun { color: #fcd34d; font-weight: bold; }
+.matchup-item .strong.wind { color: #94a3b8; font-weight: bold; }
+.matchup-item .strong.lifeforce { color: #f472b6; font-weight: bold; }
 
 #enemyName {
     font-size: 3rem;

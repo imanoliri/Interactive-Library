@@ -652,3 +652,13 @@ function executeAttack() {
 
     document.getElementById('playerEnergyCount').textContent = `🧡 Energy: ${window.playerEnergy}`;
 }
+
+function toggleMatchupGuide() {
+    const guideOverlay = document.getElementById('matchupGuideOverlay');
+    if (!guideOverlay) return;
+    if (guideOverlay.style.display === 'none' || !guideOverlay.style.display) {
+        guideOverlay.style.display = 'flex';
+    } else {
+        guideOverlay.style.display = 'none';
+    }
+}
