@@ -791,6 +791,20 @@ body::-webkit-scrollbar-thumb {
     animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
 }
 
+.player-energy-display {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    background: rgba(245, 158, 11, 0.2);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    color: #fcd34d;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 1.25rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
 .game-close-btn {
     position: absolute;
     top: 1.5rem;
@@ -820,6 +834,7 @@ body::-webkit-scrollbar-thumb {
     margin: 0 0 1rem 0;
     font-weight: 800;
     background: linear-gradient(to right, #f8fafc, #94a3b8);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: 1px;
@@ -981,6 +996,7 @@ body::-webkit-scrollbar-thumb {
     font-weight: 900;
     margin: 0;
     background: linear-gradient(to bottom, #fff, #cbd5e1);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-transform: uppercase;
@@ -992,11 +1008,13 @@ body::-webkit-scrollbar-thumb {
 
 #resultTitle.victory {
     background: linear-gradient(to bottom, #fbbf24, #d97706);
+    background-clip: text;
     -webkit-background-clip: text;
 }
 
 #resultTitle.defeat {
     background: linear-gradient(to bottom, #ef4444, #7f1d1d);
+    background-clip: text;
     -webkit-background-clip: text;
 }
 

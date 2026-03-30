@@ -506,6 +506,7 @@ document.addEventListener("keydown", (e) => {
 window.enemyMetadata = null;
 window.currentEnemy = null;
 window.playerAttack = { magic: null, strength: null, strengthPts: 0 };
+window.playerEnergy = 5;
 
 async function loadEnemyMetadata() {
     try {
@@ -523,12 +524,18 @@ loadEnemyMetadata();
 function showGameUI() {
     if (!window.currentEnemy) return;
     
+    if (window.playerEnergy <= 0) {
+        alert("You have no energy left to fight! Refresh the page to restore energy.");
+        return;
+    }
+
     const pauseBtn = document.getElementById('modalSlideshowBtn');
     if (pauseBtn && pauseBtn.textContent === '⏹️') pauseBtn.click();
     
     document.getElementById('enemyName').textContent = window.currentEnemy.name;
     document.getElementById('enemyMagicType').textContent = 'Magic: ' + window.currentEnemy.magicType;
     document.getElementById('enemyPhysicalness').textContent = 'Heaviness: ' + window.currentEnemy.physicalness;
+    document.getElementById('playerEnergyCount').textContent = `🧡 Energy: ${window.playerEnergy}`;
     
     window.playerAttack = { magic: null, strength: null, strengthPts: 0 };
     document.querySelectorAll('.magic-btn').forEach(btn => btn.classList.remove('selected'));
@@ -604,13 +611,22 @@ function executeAttack() {
     resOver.style.display = 'flex';
     title.classList.remove('victory', 'defeat');
     
-    if (playerPts >= enemyPts) {
+    if (playerPts > enemyPts) {
         title.textContent = 'Victory!';
         title.classList.add('victory');
         details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) overpowered the ${enemy.name}'s defense (${enemyPts} pts)!`;
+    } else if (playerPts === enemyPts) {
+        title.textContent = 'Draw.';
+        title.classList.add('victory');
+        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) matched the ${enemy.name}'s defense (${enemyPts} pts). You escaped unharmed.`;
     } else {
+        const diff = enemyPts - playerPts;
+        const energyLost = diff >= 2 ? 2 : 1;
+        window.playerEnergy = Math.max(0, window.playerEnergy - energyLost);
+
         title.textContent = 'Defeat!';
         title.classList.add('defeat');
-        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) missed or wasn't strong enough against the ${enemy.name}'s defense (${enemyPts} pts)!`;
+        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) wasn't strong enough against the ${enemy.name}'s defense (${enemyPts} pts)! You lost ${energyLost} energy point(s).`;
+        document.getElementById('playerEnergyCount').textContent = `🧡 Energy: ${window.playerEnergy}`;
     }
 }

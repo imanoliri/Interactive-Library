@@ -265,6 +265,7 @@ def generate_static_html(chapters, tab_names, title):
         <!-- Game UI -->
         <div id="gameUIContainer" class="game-ui-overlay" style="display:none;">
             <div class="game-ui-panel">
+                <div class="player-energy-display" id="playerEnergyCount">🧡 Energy: 5</div>
                 <button class="game-close-btn" onclick="hideGameUI()">&times;</button>
                 <h2 id="enemyName">Enemy</h2>
                 <div class="enemy-stats">
