@@ -265,39 +265,45 @@ def generate_static_html(chapters, tab_names, title):
         <!-- Game UI -->
         <div id="gameUIContainer" class="game-ui-overlay" style="display:none;">
             <div class="game-ui-panel">
-                <div class="player-energy-display" id="playerEnergyCount">🧡 Energy: 5</div>
-                <button class="guide-btn" onclick="toggleMatchupGuide()" title="Matchup Guide">❔</button>
-                <button class="game-close-btn" onclick="hideGameUI()">&times;</button>
-                <h2 id="enemyName">Enemy</h2>
-                <div class="enemy-stats">
-                    <span class="stat-badge boss-badge" id="enemyLevelBadge" style="display:none;">Boss (+1)</span>
-                    <span class="stat-badge magic-badge" id="enemyMagicType">Magic: ???</span>
-                    <span class="stat-badge phys-badge" id="enemyPhysicalness">Heaviness: ???</span>
+                <div class="game-ui-header">
+                    <div class="enemy-info-left">
+                        <h2 id="enemyName">Enemy</h2>
+                        <div class="enemy-stats">
+                            <span class="stat-badge boss-badge" id="enemyLevelBadge" style="display:none;">Boss (+1)</span>
+                            <span class="stat-badge magic-badge" id="enemyMagicType">???</span>
+                            <span class="stat-badge phys-badge" id="enemyPhysicalness">???</span>
+                        </div>
+                    </div>
+                    <div class="game-ui-right-controls">
+                        <div class="player-energy-display" id="playerEnergyCount" title="Your Energy">🧡 5</div>
+                        <button class="guide-btn" onclick="toggleMatchupGuide()" title="Matchup Guide">❔</button>
+                        <button class="game-close-btn" onclick="hideGameUI()" title="Close">&times;</button>
+                    </div>
                 </div>
                 
-                <div class="player-actions">
-                    <h3>Select Magic Type</h3>
-                    <div class="magic-btn-grid" id="magicTypeSelector">
-                        <button class="magic-btn water" onclick="selectMagic('Water', this)">💧 Water</button>
-                        <button class="magic-btn trees" onclick="selectMagic('Trees', this)">🌳 Trees</button>
-                        <button class="magic-btn earth" onclick="selectMagic('Earth', this)">⛰️ Earth</button>
-                        <button class="magic-btn sun" onclick="selectMagic('Sun', this)">☀️ Sun</button>
-                        <button class="magic-btn wind" onclick="selectMagic('Wind', this)">💨 Wind</button>
-                        <button class="magic-btn fire" onclick="selectMagic('Fire', this)">🔥 Fire</button>
-                        <button class="magic-btn lightning" onclick="selectMagic('Lightning', this)">⚡ Lightning</button>
-                        <button class="magic-btn lifeforce" onclick="selectMagic('Lifeforce', this)">✨ Lifeforce</button>
+                <div class="player-actions HUD-style">
+                    <div class="action-row">
+                        <div class="magic-btn-grid" id="magicTypeSelector">
+                            <button class="magic-btn water" onclick="selectMagic('Water', this)"><span class="btn-icon">💧</span><span class="btn-label">Water</span></button>
+                            <button class="magic-btn trees" onclick="selectMagic('Trees', this)"><span class="btn-icon">🌳</span><span class="btn-label">Trees</span></button>
+                            <button class="magic-btn earth" onclick="selectMagic('Earth', this)"><span class="btn-icon">⛰️</span><span class="btn-label">Earth</span></button>
+                            <button class="magic-btn sun" onclick="selectMagic('Sun', this)"><span class="btn-icon">☀️</span><span class="btn-label">Sun</span></button>
+                            <button class="magic-btn wind" onclick="selectMagic('Wind', this)"><span class="btn-icon">💨</span><span class="btn-label">Wind</span></button>
+                            <button class="magic-btn fire" onclick="selectMagic('Fire', this)"><span class="btn-icon">🔥</span><span class="btn-label">Fire</span></button>
+                            <button class="magic-btn lightning" onclick="selectMagic('Lightning', this)"><span class="btn-icon">⚡</span><span class="btn-label">Storm</span></button>
+                            <button class="magic-btn lifeforce" onclick="selectMagic('Lifeforce', this)"><span class="btn-icon">✨</span><span class="btn-label">Life</span></button>
+                        </div>
+
+                        <div class="strength-btn-grid" id="strengthSelector">
+                            <button class="strength-btn" onclick="selectStrength('Light', this)"><span class="btn-icon">🗡️</span><span class="btn-label">Light</span></button>
+                            <button class="strength-btn" onclick="selectStrength('Medium', this)"><span class="btn-icon">⚔️</span><span class="btn-label">Medium</span></button>
+                            <button class="strength-btn has-cost" data-cost="-1" onclick="selectStrength('Heavy', this)"><span class="btn-icon">🛡️</span><span class="btn-label">Heavy</span></button>
+                        </div>
                     </div>
 
-                    <h3>Select Attack Strength</h3>
-                    <div class="strength-btn-grid" id="strengthSelector">
-                        <button class="strength-btn" onclick="selectStrength('Light', this)">🗡️ Light (1pt)</button>
-                        <button class="strength-btn" onclick="selectStrength('Medium', this)">⚔️ Medium (2pts)</button>
-                        <button class="strength-btn has-cost" data-cost="-1 Energy" onclick="selectStrength('Heavy', this)">💣 Heavy (3pts)</button>
+                    <div class="battle-actions">
+                        <button id="executeAttackBtn" class="execute-btn" onclick="executeAttack()" disabled>Attack!</button>
                     </div>
-                </div>
-
-                <div class="battle-actions">
-                    <button id="executeAttackBtn" class="execute-btn" onclick="executeAttack()" disabled>Attack!</button>
                 </div>
             </div>
             

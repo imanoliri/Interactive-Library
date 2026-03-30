@@ -758,63 +758,106 @@ body::-webkit-scrollbar-thumb {
 }
 
 .game-ui-overlay {
-    position: fixed;
-    top: 0;
+    position: absolute;
+    bottom: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(8px);
+    background: transparent;
+    pointer-events: none;
     z-index: 2000;
     display: flex;
     justify-content: center;
-    align-items: center;
-    animation: fadeIn 0.4s ease-out forwards;
+    align-items: flex-end;
 }
 
 .game-ui-panel {
-    background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+    pointer-events: auto;
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
     border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 24px;
-    padding: 2.5rem;
-    width: 90%;
-    max-width: 800px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-    position: relative;
+    border-radius: 24px 24px 0 0;
+    padding: 1rem 2.5rem 1.5rem 2.5rem;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.6);
     color: #e2e8f0;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
+    transform: translateY(100%);
+    opacity: 1;
+    animation: slideUpHUD 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUpHUD {
+    to { transform: translateY(0); }
+}
+
+.game-ui-header {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    text-align: center;
-    transform: translateY(20px);
-    opacity: 0;
-    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.enemy-info-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+#enemyName {
+    font-size: 1.8rem;
+    margin: 0;
+    font-weight: 800;
+    background: linear-gradient(to right, #f8fafc, #94a3b8);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+}
+
+.enemy-stats {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.stat-badge {
+    padding: 0.3rem 0.8rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.game-ui-right-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .player-energy-display {
-    position: absolute;
-    top: 1.5rem;
-    left: 1.5rem;
     background: rgba(245, 158, 11, 0.2);
     border: 1px solid rgba(245, 158, 11, 0.4);
     color: #fcd34d;
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 1rem;
     border-radius: 9999px;
     font-weight: 700;
     font-size: 1.25rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-.game-close-btn {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
+.guide-btn, .game-close-btn {
+    position: static;
     background: rgba(255, 255, 255, 0.1);
     border: none;
     color: #94a3b8;
-    font-size: 2rem;
-    width: 3rem;
-    height: 3rem;
+    font-size: 1.25rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -829,24 +872,6 @@ body::-webkit-scrollbar-thumb {
     transform: rotate(90deg);
 }
 
-.guide-btn {
-    position: absolute;
-    top: 1.5rem;
-    right: 5rem;
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: #94a3b8;
-    font-size: 1.5rem;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .guide-btn:hover {
     background: rgba(168, 85, 247, 0.2);
     color: #d8b4fe;
@@ -854,6 +879,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .matchup-guide-overlay {
+    pointer-events: auto;
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(15, 23, 42, 0.95);
@@ -908,32 +934,6 @@ body::-webkit-scrollbar-thumb {
 .matchup-item .strong.wind { color: #94a3b8; font-weight: bold; }
 .matchup-item .strong.lifeforce { color: #f472b6; font-weight: bold; }
 
-#enemyName {
-    font-size: 3rem;
-    margin: 0 0 1rem 0;
-    font-weight: 800;
-    background: linear-gradient(to right, #f8fafc, #94a3b8);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 1px;
-}
-
-.enemy-stats {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-}
-
-.stat-badge {
-    padding: 0.5rem 1.25rem;
-    border-radius: 9999px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-}
-
 .magic-badge {
     background: rgba(139, 92, 246, 0.2);
     color: #c4b5fd;
@@ -953,44 +953,52 @@ body::-webkit-scrollbar-thumb {
     box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
 }
 
-.player-actions {
+.player-actions.HUD-style {
     width: 100%;
 }
 
-.player-actions h3 {
-    font-size: 1.5rem;
-    color: #cbd5e1;
-    margin: 1.5rem 0 1rem 0;
-    font-weight: 600;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 0.5rem;
+.HUD-style .action-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    margin-bottom: 1rem;
 }
 
 .magic-btn-grid, .strength-btn-grid {
-    display: grid;
-    gap: 0.75rem;
-    width: 100%;
-}
-
-.magic-btn-grid {
-    grid-template-columns: repeat(4, 1fr);
-}
-
-.strength-btn-grid {
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    gap: 0.5rem;
 }
 
 .magic-btn, .strength-btn {
     background: rgba(30, 41, 59, 0.8);
     border: 1px solid rgba(148, 163, 184, 0.3);
     border-radius: 12px;
-    padding: 1rem;
+    padding: 0.3rem;
     color: #f8fafc;
-    font-size: 1.1rem;
-    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+    width: 3.5rem;
+    height: auto;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.btn-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #cbd5e1;
+    letter-spacing: 0.5px;
 }
 
 .magic-btn:hover, .strength-btn:hover {
@@ -1093,21 +1101,26 @@ body::-webkit-scrollbar-thumb {
 }
 
 .battle-result-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.98);
+    pointer-events: auto;
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px 24px 0 0;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.6);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 24px;
     z-index: 2010;
-    padding: 2rem;
+    padding: 3rem 2rem;
     text-align: center;
+    transform: translateY(100%);
+    animation: slideUpHUD 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 #resultTitle {
-    font-size: 4.5rem;
+    font-size: 3rem;
     font-weight: 900;
     margin: 0;
     background: linear-gradient(to bottom, #fff, #cbd5e1);
@@ -1134,9 +1147,9 @@ body::-webkit-scrollbar-thumb {
 }
 
 #resultDetails {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: #e2e8f0;
-    margin: 2rem 0 3rem 0;
+    margin: 1.5rem 0 2rem 0;
     max-width: 80%;
     line-height: 1.5;
     opacity: 0;

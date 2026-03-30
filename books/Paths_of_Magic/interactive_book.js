@@ -249,6 +249,8 @@ function getChapterIndexForImage(imgIndex) {
 function updateModalImage(index) {
     if (index < 0 || index >= images.length) return;
 
+    if (typeof hideGameUI === 'function') hideGameUI();
+
     // Set actual image
     modalImg.src = images[index].src;
     resizeModalImg();
@@ -398,6 +400,7 @@ function syncAndCloseModal() {
         // Auto-kill the background process so it doesn't leak memory and jump state around
         toggleSlideshow();
     }
+    if (typeof hideGameUI === 'function') hideGameUI();
 }
 
 images.forEach((img, index) => {
@@ -533,8 +536,8 @@ function showGameUI() {
     if (pauseBtn && pauseBtn.textContent === '⏹️') pauseBtn.click();
 
     document.getElementById('enemyName').textContent = window.currentEnemy.name;
-    document.getElementById('enemyMagicType').textContent = 'Magic: ' + window.currentEnemy.magicType;
-    document.getElementById('enemyPhysicalness').textContent = 'Heaviness: ' + window.currentEnemy.physicalness;
+    document.getElementById('enemyMagicType').textContent = window.currentEnemy.magicType;
+    document.getElementById('enemyPhysicalness').textContent = window.currentEnemy.physicalness;
 
     const bossBadge = document.getElementById('enemyLevelBadge');
     if (bossBadge) {
@@ -546,13 +549,14 @@ function showGameUI() {
         }
     }
 
-    document.getElementById('playerEnergyCount').textContent = `🧡 Energy: ${window.playerEnergy}`;
+    document.getElementById('playerEnergyCount').textContent = `🧡 ${window.playerEnergy}`;
 
     window.playerAttack = { magic: null, strength: null, strengthPts: 0 };
     document.querySelectorAll('.magic-btn').forEach(btn => btn.classList.remove('selected'));
     document.querySelectorAll('.strength-btn').forEach(btn => btn.classList.remove('selected'));
     document.getElementById('executeAttackBtn').disabled = true;
 
+    document.querySelector('.game-ui-panel').style.display = 'flex';
     document.getElementById('battleResult').style.display = 'none';
     document.getElementById('gameUIContainer').style.display = 'flex';
 }
@@ -627,6 +631,7 @@ function executeAttack() {
     const title = document.getElementById('resultTitle');
     const details = document.getElementById('resultDetails');
 
+    document.querySelector('.game-ui-panel').style.display = 'none';
     resOver.style.display = 'flex';
     title.classList.remove('victory', 'defeat');
 
@@ -650,7 +655,7 @@ function executeAttack() {
         details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) wasn't strong enough against the ${enemy.name}'s defense (${enemyPts} pts)! You lost ${energyLost} energy point(s).${heavyCostText}`;
     }
 
-    document.getElementById('playerEnergyCount').textContent = `🧡 Energy: ${window.playerEnergy}`;
+    document.getElementById('playerEnergyCount').textContent = `🧡 ${window.playerEnergy}`;
 }
 
 function toggleMatchupGuide() {
