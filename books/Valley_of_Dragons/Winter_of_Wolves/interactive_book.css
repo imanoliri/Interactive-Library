@@ -928,6 +928,35 @@ body::-webkit-scrollbar-thumb {
     transform: scale(1.05);
 }
 
+.has-cost {
+    position: relative;
+}
+
+.has-cost::after {
+    content: attr(data-cost);
+    position: absolute;
+    bottom: 115%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    z-index: 10;
+}
+
+.has-cost:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
 /* Magic Specific Colors */
 .magic-btn.water.selected { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
 .magic-btn.trees.selected { background: linear-gradient(135deg, #22c55e, #15803d); }

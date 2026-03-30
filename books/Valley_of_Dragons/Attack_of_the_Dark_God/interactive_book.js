@@ -578,6 +578,12 @@ function executeAttack() {
     const enemy = window.currentEnemy;
     const player = window.playerAttack;
     
+    let heavyCostText = '';
+    if (player.strength === 'Heavy') {
+        window.playerEnergy = Math.max(0, window.playerEnergy - 1);
+        heavyCostText = ' (Cost 1 energy for Heavy)';
+    }
+    
     let enemyPts = 0;
     if (enemy.physicalness === 'Light') enemyPts = 1;
     else if (enemy.physicalness === 'Medium') enemyPts = 2;
@@ -612,13 +618,14 @@ function executeAttack() {
     title.classList.remove('victory', 'defeat');
     
     if (playerPts > enemyPts) {
+        window.playerEnergy += 1;
         title.textContent = 'Victory!';
         title.classList.add('victory');
-        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) overpowered the ${enemy.name}'s defense (${enemyPts} pts)!`;
+        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) overpowered the ${enemy.name}'s defense (${enemyPts} pts)! You gained 1 energy!${heavyCostText}`;
     } else if (playerPts === enemyPts) {
         title.textContent = 'Draw.';
         title.classList.add('victory');
-        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) matched the ${enemy.name}'s defense (${enemyPts} pts). You escaped unharmed.`;
+        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) matched the ${enemy.name}'s defense (${enemyPts} pts). You escaped unharmed.${heavyCostText}`;
     } else {
         const diff = enemyPts - playerPts;
         const energyLost = diff >= 2 ? 2 : 1;
@@ -626,7 +633,8 @@ function executeAttack() {
 
         title.textContent = 'Defeat!';
         title.classList.add('defeat');
-        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) wasn't strong enough against the ${enemy.name}'s defense (${enemyPts} pts)! You lost ${energyLost} energy point(s).`;
-        document.getElementById('playerEnergyCount').textContent = `🧡 Energy: ${window.playerEnergy}`;
+        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) wasn't strong enough against the ${enemy.name}'s defense (${enemyPts} pts)! You lost ${energyLost} energy point(s).${heavyCostText}`;
     }
+    
+    document.getElementById('playerEnergyCount').textContent = `🧡 Energy: ${window.playerEnergy}`;
 }
