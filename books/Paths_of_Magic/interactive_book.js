@@ -535,6 +535,17 @@ function showGameUI() {
     document.getElementById('enemyName').textContent = window.currentEnemy.name;
     document.getElementById('enemyMagicType').textContent = 'Magic: ' + window.currentEnemy.magicType;
     document.getElementById('enemyPhysicalness').textContent = 'Heaviness: ' + window.currentEnemy.physicalness;
+    
+    const bossBadge = document.getElementById('enemyLevelBadge');
+    if (bossBadge) {
+        if (window.currentEnemy.levelBonus) {
+            bossBadge.style.display = 'inline-block';
+            bossBadge.textContent = 'Boss (+' + window.currentEnemy.levelBonus + ')';
+        } else {
+            bossBadge.style.display = 'none';
+        }
+    }
+    
     document.getElementById('playerEnergyCount').textContent = `🧡 Energy: ${window.playerEnergy}`;
     
     window.playerAttack = { magic: null, strength: null, strengthPts: 0 };
@@ -589,6 +600,8 @@ function executeAttack() {
     else if (enemy.physicalness === 'Medium') enemyPts = 2;
     else if (enemy.physicalness === 'Heavy') enemyPts = 3;
     
+    if (enemy.levelBonus) enemyPts += enemy.levelBonus;
+    
     let playerPts = player.strengthPts;
     
     const counters = {
@@ -618,10 +631,11 @@ function executeAttack() {
     title.classList.remove('victory', 'defeat');
     
     if (playerPts > enemyPts) {
-        window.playerEnergy += 1;
+        const energyReward = 1 + ((enemy.levelBonus || 0) * 2);
+        window.playerEnergy += energyReward;
         title.textContent = 'Victory!';
         title.classList.add('victory');
-        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) overpowered the ${enemy.name}'s defense (${enemyPts} pts)! You gained 1 energy!${heavyCostText}`;
+        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) overpowered the ${enemy.name}'s defense (${enemyPts} pts)! You gained ${energyReward} energy!${heavyCostText}`;
     } else if (playerPts === enemyPts) {
         title.textContent = 'Draw.';
         title.classList.add('victory');

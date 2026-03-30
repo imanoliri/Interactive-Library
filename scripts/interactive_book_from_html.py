@@ -269,6 +269,7 @@ def generate_static_html(chapters, tab_names, title):
                 <button class="game-close-btn" onclick="hideGameUI()">&times;</button>
                 <h2 id="enemyName">Enemy</h2>
                 <div class="enemy-stats">
+                    <span class="stat-badge boss-badge" id="enemyLevelBadge" style="display:none;">Boss (+1)</span>
                     <span class="stat-badge magic-badge" id="enemyMagicType">Magic: ???</span>
                     <span class="stat-badge phys-badge" id="enemyPhysicalness">Heaviness: ???</span>
                 </div>

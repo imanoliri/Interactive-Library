@@ -7,10 +7,10 @@
     "images/image63.jpg": {"name": "Wind Fury", "magicType": "Wind", "physicalness": "Light"},
     "images/image37.jpg": {"name": "Lava Golem", "magicType": "Fire", "physicalness": "Heavy"},
     "images/image65.jpg": {"name": "Fire Elemental", "magicType": "Fire", "physicalness": "Medium"},
-    "images/image49.jpg": {"name": "Fire Avatar", "magicType": "Fire", "physicalness": "Heavy"},
+    "images/image49.jpg": {"name": "Fire Avatar", "magicType": "Fire", "physicalness": "Heavy", "levelBonus": 1},
     "images/image66.jpg": {"name": "Magnetic Golem", "magicType": "Lightning", "physicalness": "Heavy"},
     "images/image79.jpg": {"name": "Lightning Fury", "magicType": "Lightning", "physicalness": "Light"},
     "images/image70.jpg": {"name": "Skeleton Container", "magicType": "Lifeforce", "physicalness": "Medium"},
-    "images/image31.jpg": {"name": "Lich King", "magicType": "Lifeforce", "physicalness": "Heavy"},
-    "images/image21.jpg": {"name": "Enderdragon", "magicType": "Darkness", "physicalness": "Heavy"}
+    "images/image31.jpg": {"name": "Lich King", "magicType": "Lifeforce", "physicalness": "Heavy", "levelBonus": 1},
+    "images/image21.jpg": {"name": "Enderdragon", "magicType": "Darkness", "physicalness": "Heavy", "levelBonus": 1}
 }
