@@ -523,7 +523,7 @@ loadEnemyMetadata();
 
 function showGameUI() {
     if (!window.currentEnemy) return;
-    
+
     if (window.playerEnergy <= 0) {
         alert("You have no energy left to fight! Refresh the page to restore energy.");
         return;
@@ -531,11 +531,11 @@ function showGameUI() {
 
     const pauseBtn = document.getElementById('modalSlideshowBtn');
     if (pauseBtn && pauseBtn.textContent === '⏹️') pauseBtn.click();
-    
+
     document.getElementById('enemyName').textContent = window.currentEnemy.name;
     document.getElementById('enemyMagicType').textContent = 'Magic: ' + window.currentEnemy.magicType;
     document.getElementById('enemyPhysicalness').textContent = 'Heaviness: ' + window.currentEnemy.physicalness;
-    
+
     const bossBadge = document.getElementById('enemyLevelBadge');
     if (bossBadge) {
         if (window.currentEnemy.levelBonus) {
@@ -545,14 +545,14 @@ function showGameUI() {
             bossBadge.style.display = 'none';
         }
     }
-    
+
     document.getElementById('playerEnergyCount').textContent = `🧡 Energy: ${window.playerEnergy}`;
-    
+
     window.playerAttack = { magic: null, strength: null, strengthPts: 0 };
     document.querySelectorAll('.magic-btn').forEach(btn => btn.classList.remove('selected'));
     document.querySelectorAll('.strength-btn').forEach(btn => btn.classList.remove('selected'));
     document.getElementById('executeAttackBtn').disabled = true;
-    
+
     document.getElementById('battleResult').style.display = 'none';
     document.getElementById('gameUIContainer').style.display = 'flex';
 }
@@ -573,7 +573,7 @@ function selectStrength(strengthStr, btnEl) {
     if (strengthStr === 'Light') window.playerAttack.strengthPts = 1;
     if (strengthStr === 'Medium') window.playerAttack.strengthPts = 2;
     if (strengthStr === 'Heavy') window.playerAttack.strengthPts = 3;
-    
+
     document.querySelectorAll('.strength-btn').forEach(btn => btn.classList.remove('selected'));
     btnEl.classList.add('selected');
     checkAttackReady();
@@ -588,33 +588,33 @@ function checkAttackReady() {
 function executeAttack() {
     const enemy = window.currentEnemy;
     const player = window.playerAttack;
-    
+
     let heavyCostText = '';
     if (player.strength === 'Heavy') {
         window.playerEnergy = Math.max(0, window.playerEnergy - 1);
         heavyCostText = ' (Cost 1 energy for Heavy)';
     }
-    
+
     let enemyPts = 0;
     if (enemy.physicalness === 'Light') enemyPts = 1;
     else if (enemy.physicalness === 'Medium') enemyPts = 2;
     else if (enemy.physicalness === 'Heavy') enemyPts = 3;
-    
+
     if (enemy.levelBonus) enemyPts += enemy.levelBonus;
-    
+
     let playerPts = player.strengthPts;
-    
+
     const counters = {
         'Water': ['Fire'],
-        'Fire': ['Trees'],
+        'Fire': ['Trees', 'Darkness'],
         'Trees': ['Earth'],
         'Earth': ['Lightning'],
         'Lightning': ['Water'],
-        'Sun': ['Wind', 'Darkness'],
+        'Sun': ['Wind', 'Undead'],
         'Wind': ['Sun'],
-        'Lifeforce': ['Undead']
+        'Lifeforce': ['Undead', 'Darkness']
     };
-    
+
     // Check type advantages
     if (counters[player.magic] && counters[player.magic].includes(enemy.magicType)) {
         playerPts += 2;
@@ -622,14 +622,14 @@ function executeAttack() {
     if (counters[enemy.magicType] && counters[enemy.magicType].includes(player.magic)) {
         enemyPts += 2;
     }
-    
+
     const resOver = document.getElementById('battleResult');
     const title = document.getElementById('resultTitle');
     const details = document.getElementById('resultDetails');
-    
+
     resOver.style.display = 'flex';
     title.classList.remove('victory', 'defeat');
-    
+
     if (playerPts > enemyPts) {
         const energyReward = 1 + ((enemy.levelBonus || 0) * 2);
         window.playerEnergy += energyReward;
@@ -649,6 +649,6 @@ function executeAttack() {
         title.classList.add('defeat');
         details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) wasn't strong enough against the ${enemy.name}'s defense (${enemyPts} pts)! You lost ${energyLost} energy point(s).${heavyCostText}`;
     }
-    
+
     document.getElementById('playerEnergyCount').textContent = `🧡 Energy: ${window.playerEnergy}`;
 }
