@@ -35,7 +35,51 @@
         </div>
         <button id="modalPrev" class="modal-nav-btn" aria-label="Previous image">&#10094;</button>
         <img id="modalImg" style="max-width:90%; max-height:90%;">
+        <button id="fightEnemyBtn" class="game-fight-btn" style="display:none;" onclick="showGameUI()">⚔️ Fight Enemy!</button>
         <button id="modalNext" class="modal-nav-btn" aria-label="Next image">&#10095;</button>
+        
+        <!-- Game UI -->
+        <div id="gameUIContainer" class="game-ui-overlay" style="display:none;">
+            <div class="game-ui-panel">
+                <button class="game-close-btn" onclick="hideGameUI()">&times;</button>
+                <h2 id="enemyName">Enemy</h2>
+                <div class="enemy-stats">
+                    <span class="stat-badge magic-badge" id="enemyMagicType">Magic: ???</span>
+                    <span class="stat-badge phys-badge" id="enemyPhysicalness">Heaviness: ???</span>
+                </div>
+                
+                <div class="player-actions">
+                    <h3>Select Magic Type</h3>
+                    <div class="magic-btn-grid" id="magicTypeSelector">
+                        <button class="magic-btn water" onclick="selectMagic('Water', this)">💧 Water</button>
+                        <button class="magic-btn trees" onclick="selectMagic('Trees', this)">🌳 Trees</button>
+                        <button class="magic-btn earth" onclick="selectMagic('Earth', this)">⛰️ Earth</button>
+                        <button class="magic-btn sun" onclick="selectMagic('Sun', this)">☀️ Sun</button>
+                        <button class="magic-btn wind" onclick="selectMagic('Wind', this)">💨 Wind</button>
+                        <button class="magic-btn fire" onclick="selectMagic('Fire', this)">🔥 Fire</button>
+                        <button class="magic-btn lightning" onclick="selectMagic('Lightning', this)">⚡ Lightning</button>
+                        <button class="magic-btn lifeforce" onclick="selectMagic('Lifeforce', this)">✨ Lifeforce</button>
+                    </div>
+
+                    <h3>Select Attack Strength</h3>
+                    <div class="strength-btn-grid" id="strengthSelector">
+                        <button class="strength-btn" onclick="selectStrength('Light', this)">🗡️ Light (1pt)</button>
+                        <button class="strength-btn" onclick="selectStrength('Medium', this)">⚔️ Medium (2pts)</button>
+                        <button class="strength-btn" onclick="selectStrength('Heavy', this)">💣 Heavy (3pts)</button>
+                    </div>
+                </div>
+
+                <div class="battle-actions">
+                    <button id="executeAttackBtn" class="execute-btn" onclick="executeAttack()" disabled>Attack!</button>
+                </div>
+            </div>
+            
+            <div id="battleResult" class="battle-result-overlay" style="display:none;">
+                <h1 id="resultTitle">Victory!</h1>
+                <p id="resultDetails">Your attack was successful!</p>
+                <button class="result-continue-btn" onclick="hideGameUI()">Continue</button>
+            </div>
+        </div>
         <div class="slideshow-controls" id="slideshowControls">
             <button id="modalSlideshowBtn" class="slideshow-btn round-btn" aria-label="Toggle Slideshow" onclick="toggleSlideshow()" title="Start Slideshow">📽️</button>
             <div class="slideshow-interval-controls">

@@ -714,3 +714,338 @@ body::-webkit-scrollbar-thumb {
         padding: 0.375rem 0.625rem;
     }
 }
+
+/* GAME UI COMPONENT STYLES */
+.game-fight-btn {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem 2.5rem;
+    font-size: 2.5rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 800;
+    color: #fff;
+    background: linear-gradient(135deg, #d9534f, #c9302c);
+    border: 3px solid #fff;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.4);
+    z-index: 1005;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.game-fight-btn:hover {
+    transform: translateX(-50%) translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 25px rgba(217, 83, 79, 0.6), inset 0 0 20px rgba(255,255,255,0.6);
+}
+
+.game-fight-btn:active {
+    transform: translateX(-50%) translateY(2px) scale(0.95);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+}
+
+.game-fight-btn.start-animation {
+    animation: fightPulse 2s infinite;
+}
+
+@keyframes fightPulse {
+    0% { box-shadow: 0 0 0 0 rgba(217, 83, 79, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(217, 83, 79, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(217, 83, 79, 0); }
+}
+
+.game-ui-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+.game-ui-panel {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    padding: 2.5rem;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    position: relative;
+    color: #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+
+.game-close-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #94a3b8;
+    font-size: 2rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-close-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    transform: rotate(90deg);
+}
+
+#enemyName {
+    font-size: 3rem;
+    margin: 0 0 1rem 0;
+    font-weight: 800;
+    background: linear-gradient(to right, #f8fafc, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+}
+
+.enemy-stats {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.stat-badge {
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.magic-badge {
+    background: rgba(139, 92, 246, 0.2);
+    color: #c4b5fd;
+    border: 1px solid rgba(139, 92, 246, 0.4);
+}
+
+.phys-badge {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fcd34d;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.player-actions {
+    width: 100%;
+}
+
+.player-actions h3 {
+    font-size: 1.5rem;
+    color: #cbd5e1;
+    margin: 1.5rem 0 1rem 0;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+}
+
+.magic-btn-grid, .strength-btn-grid {
+    display: grid;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.magic-btn-grid {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.strength-btn-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.magic-btn, .strength-btn {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 12px;
+    padding: 1rem;
+    color: #f8fafc;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.magic-btn:hover, .strength-btn:hover {
+    background: rgba(51, 65, 85, 0.9);
+    transform: translateY(-2px);
+    border-color: #94a3b8;
+}
+
+/* Selected states */
+.magic-btn.selected {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border-color: #60a5fa;
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4);
+    transform: scale(1.05);
+}
+
+.strength-btn.selected {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    border-color: #fbbf24;
+    box-shadow: 0 10px 15px -3px rgba(217, 119, 6, 0.4);
+    transform: scale(1.05);
+}
+
+/* Magic Specific Colors */
+.magic-btn.water.selected { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+.magic-btn.trees.selected { background: linear-gradient(135deg, #22c55e, #15803d); }
+.magic-btn.earth.selected { background: linear-gradient(135deg, #a16207, #713f12); }
+.magic-btn.sun.selected { background: linear-gradient(135deg, #eab308, #a16207); }
+.magic-btn.wind.selected { background: linear-gradient(135deg, #cbd5e1, #64748b); color: #0f172a; }
+.magic-btn.fire.selected { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+.magic-btn.lightning.selected { background: linear-gradient(135deg, #a855f7, #7e22ce); }
+.magic-btn.lifeforce.selected { background: linear-gradient(135deg, #ec4899, #be185d); }
+
+.battle-actions {
+    margin-top: 2.5rem;
+    width: 100%;
+}
+
+.execute-btn {
+    width: 100%;
+    padding: 1.25rem;
+    font-size: 1.75rem;
+    font-weight: 800;
+    border-radius: 16px;
+    border: none;
+    background: linear-gradient(135deg, #059669, #047857);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 10px 15px -3px rgba(5, 150, 105, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.execute-btn:disabled {
+    background: #334155;
+    color: #64748b;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.execute-btn:not(:disabled):hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 20px 25px -5px rgba(5, 150, 105, 0.5);
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.execute-btn:not(:disabled):active {
+    transform: translateY(1px);
+}
+
+.battle-result-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.98);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 24px;
+    z-index: 2010;
+    padding: 2rem;
+    text-align: center;
+}
+
+#resultTitle {
+    font-size: 4.5rem;
+    font-weight: 900;
+    margin: 0;
+    background: linear-gradient(to bottom, #fff, #cbd5e1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    transform: scale(0.5);
+    opacity: 0;
+    animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+#resultTitle.victory {
+    background: linear-gradient(to bottom, #fbbf24, #d97706);
+    -webkit-background-clip: text;
+}
+
+#resultTitle.defeat {
+    background: linear-gradient(to bottom, #ef4444, #7f1d1d);
+    -webkit-background-clip: text;
+}
+
+#resultDetails {
+    font-size: 1.5rem;
+    color: #e2e8f0;
+    margin: 2rem 0 3rem 0;
+    max-width: 80%;
+    line-height: 1.5;
+    opacity: 0;
+    animation: fadeIn 0.5s ease 0.4s forwards;
+}
+
+.result-continue-btn {
+    padding: 1rem 3rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    border-radius: 9999px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+    animation: fadeIn 0.5s ease 0.6s forwards;
+}
+
+.result-continue-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+    to { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+    .magic-btn-grid { grid-template-columns: repeat(2, 1fr); }
+    .strength-btn-grid { grid-template-columns: 1fr; }
+    .game-ui-panel { padding: 1.5rem; }
+    #enemyName { font-size: 2rem; }
+    #resultTitle { font-size: 3rem; }
+}

@@ -304,6 +304,19 @@ function updateModalImage(index) {
         targetImg.scrollIntoView({ behavior: 'instant', block: 'center' });
     }, 50);
 
+    // Game Integration: check if image is an enemy
+    const fightBtn = document.getElementById('fightEnemyBtn');
+    if (fightBtn && window.enemyMetadata) {
+        const imgSrc = images[index].getAttribute('src');
+        if (window.enemyMetadata[imgSrc]) {
+            fightBtn.style.display = 'block';
+            fightBtn.classList.add('start-animation');
+            window.currentEnemy = window.enemyMetadata[imgSrc];
+        } else {
+            fightBtn.style.display = 'none';
+        }
+    }
+
     if (typeof resetSlideshowTimer === 'function') resetSlideshowTimer();
 }
 
@@ -468,8 +481,10 @@ modal.addEventListener("click", (e) => {
     if (e.target !== prevBtn && e.target !== nextBtn &&
         e.target !== prevChapBtn && e.target !== nextChapBtn &&
         e.target !== modalImg &&
+        e.target !== document.getElementById('fightEnemyBtn') &&
         !e.target.closest('.modal-song-banner') &&
-        !e.target.closest('.slideshow-controls')) {
+        !e.target.closest('.slideshow-controls') &&
+        !e.target.closest('#gameUIContainer')) {
         syncAndCloseModal();
     }
 });
@@ -486,3 +501,116 @@ document.addEventListener("keydown", (e) => {
         }
     }
 });
+
+/* --- GAME LOGIC --- */
+window.enemyMetadata = null;
+window.currentEnemy = null;
+window.playerAttack = { magic: null, strength: null, strengthPts: 0 };
+
+async function loadEnemyMetadata() {
+    try {
+        const res = await fetch('enemy_metadata.json');
+        if (res.ok) {
+            window.enemyMetadata = await res.json();
+            console.log("Enemy metadata loaded");
+        }
+    } catch (e) {
+        // No metadata, not a big deal
+    }
+}
+loadEnemyMetadata();
+
+function showGameUI() {
+    if (!window.currentEnemy) return;
+    
+    const pauseBtn = document.getElementById('modalSlideshowBtn');
+    if (pauseBtn && pauseBtn.textContent === '⏹️') pauseBtn.click();
+    
+    document.getElementById('enemyName').textContent = window.currentEnemy.name;
+    document.getElementById('enemyMagicType').textContent = 'Magic: ' + window.currentEnemy.magicType;
+    document.getElementById('enemyPhysicalness').textContent = 'Heaviness: ' + window.currentEnemy.physicalness;
+    
+    window.playerAttack = { magic: null, strength: null, strengthPts: 0 };
+    document.querySelectorAll('.magic-btn').forEach(btn => btn.classList.remove('selected'));
+    document.querySelectorAll('.strength-btn').forEach(btn => btn.classList.remove('selected'));
+    document.getElementById('executeAttackBtn').disabled = true;
+    
+    document.getElementById('battleResult').style.display = 'none';
+    document.getElementById('gameUIContainer').style.display = 'flex';
+}
+
+function hideGameUI() {
+    document.getElementById('gameUIContainer').style.display = 'none';
+}
+
+function selectMagic(magicType, btnEl) {
+    window.playerAttack.magic = magicType;
+    document.querySelectorAll('.magic-btn').forEach(btn => btn.classList.remove('selected'));
+    btnEl.classList.add('selected');
+    checkAttackReady();
+}
+
+function selectStrength(strengthStr, btnEl) {
+    window.playerAttack.strength = strengthStr;
+    if (strengthStr === 'Light') window.playerAttack.strengthPts = 1;
+    if (strengthStr === 'Medium') window.playerAttack.strengthPts = 2;
+    if (strengthStr === 'Heavy') window.playerAttack.strengthPts = 3;
+    
+    document.querySelectorAll('.strength-btn').forEach(btn => btn.classList.remove('selected'));
+    btnEl.classList.add('selected');
+    checkAttackReady();
+}
+
+function checkAttackReady() {
+    if (window.playerAttack.magic && window.playerAttack.strength) {
+        document.getElementById('executeAttackBtn').disabled = false;
+    }
+}
+
+function executeAttack() {
+    const enemy = window.currentEnemy;
+    const player = window.playerAttack;
+    
+    let enemyPts = 0;
+    if (enemy.physicalness === 'Light') enemyPts = 1;
+    else if (enemy.physicalness === 'Medium') enemyPts = 2;
+    else if (enemy.physicalness === 'Heavy') enemyPts = 3;
+    
+    let playerPts = player.strengthPts;
+    
+    const counters = {
+        'Water': ['Fire'],
+        'Fire': ['Trees'],
+        'Trees': ['Earth'],
+        'Earth': ['Lightning'],
+        'Lightning': ['Water'],
+        'Sun': ['Wind', 'Darkness'],
+        'Wind': ['Sun'],
+        'Lifeforce': ['Undead']
+    };
+    
+    // Check type advantages
+    if (counters[player.magic] && counters[player.magic].includes(enemy.magicType)) {
+        playerPts += 2;
+    }
+    if (counters[enemy.magicType] && counters[enemy.magicType].includes(player.magic)) {
+        enemyPts += 2;
+    }
+    
+    const resOver = document.getElementById('battleResult');
+    const title = document.getElementById('resultTitle');
+    const details = document.getElementById('resultDetails');
+    
+    resOver.style.display = 'flex';
+    title.classList.remove('victory', 'defeat');
+    
+    if (playerPts >= enemyPts) {
+        title.textContent = 'Victory!';
+        title.classList.add('victory');
+        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) overpowered the ${enemy.name}'s defense (${enemyPts} pts)!`;
+    } else {
+        title.textContent = 'Defeat!';
+        title.classList.add('defeat');
+        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) missed or wasn't strong enough against the ${enemy.name}'s defense (${enemyPts} pts)!`;
+    }
+}
