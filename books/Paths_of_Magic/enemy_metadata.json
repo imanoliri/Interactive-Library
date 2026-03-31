@@ -41,7 +41,7 @@
     },
     "images/image49.jpg": {
         "name": "Fire Avatar",
-        "magicType": "Fire",
+        "magicType": ["Fire", "Sun"],
         "physicalness": "Heavy",
         "levelBonus": 1
     },
@@ -62,13 +62,13 @@
     },
     "images/image48.jpg": {
         "name": "Lich King",
-        "magicType": "Undead",
+        "magicType": ["Undead", "Darkness"],
         "physicalness": "Heavy",
         "levelBonus": 1
     },
     "images/image21.jpg": {
         "name": "Enderdragon",
-        "magicType": "Darkness",
+        "magicType": ["Darkness", "Lightning"],
         "physicalness": "Heavy",
         "levelBonus": 1
     }

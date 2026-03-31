@@ -544,7 +544,9 @@ function showGameUI() {
     if (pauseBtn && pauseBtn.textContent === '⏹️') pauseBtn.click();
 
     document.getElementById('enemyName').textContent = window.currentEnemy.name;
-    document.getElementById('enemyMagicType').textContent = window.currentEnemy.magicType;
+    document.getElementById('enemyMagicType').textContent = Array.isArray(window.currentEnemy.magicType) 
+        ? window.currentEnemy.magicType.join(' / ') 
+        : window.currentEnemy.magicType;
     document.getElementById('enemyPhysicalness').textContent = window.currentEnemy.physicalness;
 
     const bossBadge = document.getElementById('enemyLevelBadge');
@@ -647,11 +649,20 @@ function executeAttack() {
     };
 
     // Check type advantages
-    if (counters[player.magic] && counters[player.magic].includes(enemy.magicType)) {
-        playerPts += 2;
+    const enemyMagics = Array.isArray(enemy.magicType) ? enemy.magicType : [enemy.magicType];
+    
+    if (counters[player.magic]) {
+        for (const em of enemyMagics) {
+            if (counters[player.magic].includes(em)) {
+                playerPts += 2;
+            }
+        }
     }
-    if (counters[enemy.magicType] && counters[enemy.magicType].includes(player.magic)) {
-        enemyPts += 2;
+    
+    for (const em of enemyMagics) {
+        if (counters[em] && counters[em].includes(player.magic)) {
+            enemyPts += 2;
+        }
     }
 
     const resOver = document.getElementById('battleResult');
