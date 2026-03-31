@@ -284,14 +284,14 @@ def generate_static_html(chapters, tab_names, title):
                 <div class="player-actions HUD-style">
                     <div class="action-row">
                         <div class="magic-btn-grid" id="magicTypeSelector">
-                            <button class="magic-btn water" onclick="selectMagic('Water', this)"><span class="btn-icon">💧</span><span class="btn-label">Water</span></button>
-                            <button class="magic-btn trees" onclick="selectMagic('Trees', this)"><span class="btn-icon">🌳</span><span class="btn-label">Trees</span></button>
-                            <button class="magic-btn earth" onclick="selectMagic('Earth', this)"><span class="btn-icon">⛰️</span><span class="btn-label">Earth</span></button>
-                            <button class="magic-btn sun" onclick="selectMagic('Sun', this)"><span class="btn-icon">☀️</span><span class="btn-label">Sun</span></button>
-                            <button class="magic-btn wind" onclick="selectMagic('Wind', this)"><span class="btn-icon">💨</span><span class="btn-label">Wind</span></button>
-                            <button class="magic-btn fire" onclick="selectMagic('Fire', this)"><span class="btn-icon">🔥</span><span class="btn-label">Fire</span></button>
-                            <button class="magic-btn lightning" onclick="selectMagic('Lightning', this)"><span class="btn-icon">⚡</span><span class="btn-label">Storm</span></button>
-                            <button class="magic-btn lifeforce" onclick="selectMagic('Lifeforce', this)"><span class="btn-icon">✨</span><span class="btn-label">Life</span></button>
+                            <button class="magic-btn water" data-magic="Water" onclick="selectMagic('Water', this)"><span class="btn-icon">💧</span><span class="btn-label">Water</span></button>
+                            <button class="magic-btn trees" data-magic="Trees" onclick="selectMagic('Trees', this)"><span class="btn-icon">🌳</span><span class="btn-label">Trees</span></button>
+                            <button class="magic-btn earth" data-magic="Earth" onclick="selectMagic('Earth', this)"><span class="btn-icon">⛰️</span><span class="btn-label">Earth</span></button>
+                            <button class="magic-btn sun" data-magic="Sun" onclick="selectMagic('Sun', this)"><span class="btn-icon">☀️</span><span class="btn-label">Sun</span></button>
+                            <button class="magic-btn wind" data-magic="Wind" onclick="selectMagic('Wind', this)"><span class="btn-icon">💨</span><span class="btn-label">Wind</span></button>
+                            <button class="magic-btn fire" data-magic="Fire" onclick="selectMagic('Fire', this)"><span class="btn-icon">🔥</span><span class="btn-label">Fire</span></button>
+                            <button class="magic-btn lightning" data-magic="Lightning" onclick="selectMagic('Lightning', this)"><span class="btn-icon">⚡</span><span class="btn-label">Storm</span></button>
+                            <button class="magic-btn lifeforce" data-magic="Lifeforce" onclick="selectMagic('Lifeforce', this)"><span class="btn-icon">✨</span><span class="btn-label">Life</span></button>
                         </div>
 
                         <div class="strength-btn-grid" id="strengthSelector">
@@ -310,7 +310,7 @@ def generate_static_html(chapters, tab_names, title):
             <div id="battleResult" class="battle-result-overlay" style="display:none;">
                 <h1 id="resultTitle">Victory!</h1>
                 <p id="resultDetails">Your attack was successful!</p>
-                <button class="result-continue-btn" onclick="hideGameUI()">Continue</button>
+                <button class="execute-btn" style="margin-top: 1rem;" onclick="continueBossFight()">Continue</button>
             </div>
 
             <!-- Matchup Guide Overlay -->

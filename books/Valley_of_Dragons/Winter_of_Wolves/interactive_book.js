@@ -313,7 +313,14 @@ function updateModalImage(index) {
         if (window.enemyMetadata[imgSrc]) {
             fightBtn.style.display = 'block';
             fightBtn.classList.add('start-animation');
-            window.currentEnemy = window.enemyMetadata[imgSrc];
+            const newEnemy = window.enemyMetadata[imgSrc];
+            if (!window.currentEnemy || window.currentEnemy.name !== newEnemy.name) {
+                window.currentEnemy = newEnemy;
+                window.bossState = {
+                    lives: newEnemy.levelBonus ? 2 : 1,
+                    usedMagics: []
+                };
+            }
         } else {
             fightBtn.style.display = 'none';
         }
@@ -510,6 +517,7 @@ window.enemyMetadata = null;
 window.currentEnemy = null;
 window.playerAttack = { magic: null, strength: null, strengthPts: 0 };
 window.playerEnergy = 5;
+window.bossState = { lives: 0, usedMagics: [] };
 
 async function loadEnemyMetadata() {
     try {
@@ -543,7 +551,11 @@ function showGameUI() {
     if (bossBadge) {
         if (window.currentEnemy.levelBonus) {
             bossBadge.style.display = 'inline-block';
-            bossBadge.textContent = 'Boss (+' + window.currentEnemy.levelBonus + ')';
+            let hearts = '';
+            if (window.bossState) {
+                for(let i=0; i<window.bossState.lives; i++) hearts +='♥️';
+            }
+            bossBadge.textContent = 'Boss (+' + window.currentEnemy.levelBonus + ') ' + hearts;
         } else {
             bossBadge.style.display = 'none';
         }
@@ -552,7 +564,22 @@ function showGameUI() {
     document.getElementById('playerEnergyCount').textContent = `🧡 ${window.playerEnergy}`;
 
     window.playerAttack = { magic: null, strength: null, strengthPts: 0 };
-    document.querySelectorAll('.magic-btn').forEach(btn => btn.classList.remove('selected'));
+    document.querySelectorAll('.magic-btn').forEach(btn => {
+        btn.classList.remove('selected');
+        // Handle used magics for bosses
+        if (window.bossState && window.bossState.usedMagics && window.bossState.usedMagics.includes(btn.dataset.magic)) {
+            btn.disabled = true;
+            btn.style.opacity = '0.3';
+            btn.style.cursor = 'not-allowed';
+            btn.title = "Magic exhausted against this boss!";
+        } else {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            btn.style.cursor = 'pointer';
+            btn.title = "";
+        }
+    });
+
     document.querySelectorAll('.strength-btn').forEach(btn => btn.classList.remove('selected'));
     document.getElementById('executeAttackBtn').disabled = true;
 
@@ -635,12 +662,27 @@ function executeAttack() {
     resOver.style.display = 'flex';
     title.classList.remove('victory', 'defeat');
 
+    // Record the used magic if fighting a boss
+    if (window.bossState && window.bossState.lives > 0) {
+        if (!window.bossState.usedMagics.includes(player.magic)) {
+            window.bossState.usedMagics.push(player.magic);
+        }
+    }
+
     if (playerPts > enemyPts) {
-        const energyReward = 1 + ((enemy.levelBonus || 0) * 2);
-        window.playerEnergy += energyReward;
-        title.textContent = 'Victory!';
-        title.classList.add('victory');
-        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) overpowered the ${enemy.name}'s defense (${enemyPts} pts)! You gained ${energyReward} energy!${heavyCostText}`;
+        if (window.bossState && window.bossState.lives > 1) {
+            window.bossState.lives -= 1;
+            title.textContent = 'Hit!';
+            title.classList.add('victory');
+            details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) weakened the ${enemy.name}! It has 1 life remaining!${heavyCostText}`;
+        } else {
+            const energyReward = 1 + ((enemy.levelBonus || 0) * 2);
+            window.playerEnergy += energyReward;
+            title.textContent = 'Victory!';
+            title.classList.add('victory');
+            details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) overpowered the ${enemy.name}'s defense (${enemyPts} pts)! You gained ${energyReward} energy!${heavyCostText}`;
+            if (window.bossState) window.bossState.lives = 0;
+        }
     } else if (playerPts === enemyPts) {
         title.textContent = 'Draw.';
         title.classList.add('victory');
@@ -653,9 +695,25 @@ function executeAttack() {
         title.textContent = 'Defeat!';
         title.classList.add('defeat');
         details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) wasn't strong enough against the ${enemy.name}'s defense (${enemyPts} pts)! You lost ${energyLost} energy point(s).${heavyCostText}`;
+        
+        // Reset the boss fight on defeat
+        if (window.bossState) {
+            window.bossState.lives = enemy.levelBonus ? 2 : 1;
+            window.bossState.usedMagics = [];
+        }
     }
 
     document.getElementById('playerEnergyCount').textContent = `🧡 ${window.playerEnergy}`;
+}
+
+function continueBossFight() {
+    if (window.bossState && window.bossState.lives > 0) {
+        showGameUI();
+    } else {
+        hideGameUI();
+        document.getElementById('fightEnemyBtn').style.display = 'none';
+        window.currentEnemy = null;
+    }
 }
 
 function toggleMatchupGuide() {
