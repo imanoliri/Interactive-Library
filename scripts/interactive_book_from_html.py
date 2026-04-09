@@ -269,7 +269,7 @@ def generate_static_html(chapters, tab_names, title):
                     <div class="enemy-info-left">
                         <div class="name-info-row">
                             <h2 id="enemyName">Enemy</h2>
-                            <button class="enemy-info-btn" onclick="toggleEnemyInfo(true)" title="Enemy Information">?</button>
+                            <button class="enemy-info-btn" onclick="toggleEnemyInfo(true)" title="Enemy Information">❔</button>
                         </div>
                         <div class="enemy-stats">
                             <span class="stat-badge boss-badge" id="enemyLevelBadge" style="display:none;">Boss (+1)</span>
@@ -279,7 +279,7 @@ def generate_static_html(chapters, tab_names, title):
                     </div>
                     <div class="game-ui-right-controls">
                         <div class="player-energy-display" id="playerEnergyCount" title="Your Energy">🧡 5</div>
-                        <button class="guide-btn" onclick="toggleMatchupGuide()" title="Matchup Guide">❔</button>
+                        <button class="guide-btn" onclick="toggleMatchupGuide()" title="Matchup Guide">📖</button>
                         <button class="game-close-btn" onclick="hideGameUI()" title="Close">&times;</button>
                     </div>
                 </div>
