@@ -329,17 +329,11 @@ def generate_static_html(chapters, tab_names, title):
 
             <!-- Matchup Guide Overlay -->
             <div id="matchupGuideOverlay" class="matchup-guide-overlay" style="display:none;">
-                <div class="matchup-guide-content">
+                <div class="matchup-guide-content magic-circle-ui">
                     <h2>📖 Magic Matchups</h2>
-                    <div class="matchup-grid">
-                        <div class="matchup-item"><span class="strong">💧 Water</span> counters 🔥</div>
-                        <div class="matchup-item"><span class="strong">🔥 Fire</span> counters 🌳, 🌑</div>
-                        <div class="matchup-item"><span class="strong">🌳 Trees</span> counters 🪨</div>
-                        <div class="matchup-item"><span class="strong">🪨 Earth</span> counters ⚡</div>
-                        <div class="matchup-item"><span class="strong">⚡ Lightning</span> counters 💧</div>
-                        <div class="matchup-item"><span class="strong">☀️ Sun</span> counters 💨, 💀</div>
-                        <div class="matchup-item"><span class="strong">💨 Wind</span> counters ☀️</div>
-                        <div class="matchup-item"><span class="strong">✨ Lifeforce</span> counters 💀, 🌑</div>
+                    <div id="magicCircleContainer" class="magic-circle-container">
+                        <svg id="magicCircleSvg" class="magic-circle-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"></svg>
+                        <div id="magicNodesContainer" class="magic-nodes-container"></div>
                     </div>
                     <button class="execute-btn" style="margin-top: 1.5rem;" onclick="toggleMatchupGuide()">Close Guide</button>
                 </div>

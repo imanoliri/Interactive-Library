@@ -809,10 +809,152 @@ function continueBossFight() {
     }
 }
 
+let magicCircleInitialized = false;
+
 function toggleMatchupGuide() {
     const guideOverlay = document.getElementById('matchupGuideOverlay');
     if (!guideOverlay) return;
-    guideOverlay.style.display = (guideOverlay.style.display === 'none' || !guideOverlay.style.display) ? 'flex' : 'none';
+    
+    const isShowing = (guideOverlay.style.display === 'none' || !guideOverlay.style.display);
+    
+    if (isShowing) {
+        guideOverlay.style.display = 'flex';
+        if (!magicCircleInitialized) {
+            initMagicCircle();
+            magicCircleInitialized = true;
+        }
+    } else {
+        guideOverlay.style.display = 'none';
+    }
+}
+
+function initMagicCircle() {
+    const container = document.getElementById('magicNodesContainer');
+    const svg = document.getElementById('magicCircleSvg');
+    if (!container || !svg) return;
+
+    const nodes = [
+        { id: 'Water', label: 'Water', emoji: '💧' },
+        { id: 'Fire', label: 'Fire', emoji: '🔥' },
+        { id: 'Trees', label: 'Trees', emoji: '🌳' },
+        { id: 'Earth', label: 'Earth', emoji: '⛰️' },
+        { id: 'Lightning', label: 'Storm', emoji: '⚡' },
+        { id: 'Sun', label: 'Sun', emoji: '☀️' },
+        { id: 'Wind', label: 'Wind', emoji: '💨' },
+        { id: 'Lifeforce', label: 'Life', emoji: '✨' },
+        { id: 'Darkness', label: 'Shadow', emoji: '🌑' },
+        { id: 'Undead', label: 'Undead', emoji: '💀' }
+    ];
+
+    const centerX = 50, centerY = 50, radius = 50;
+    const nodeElements = {};
+
+    // Create markers for arrows
+    svg.innerHTML = `
+        <defs>
+            <marker id="arrowhead-default" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+                <polygon points="0 0, 6 2, 0 4" fill="rgba(255, 255, 255, 1.0)" />
+            </marker>
+            <marker id="arrowhead-out" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+                <polygon points="0 0, 6 2, 0 4" fill="#22c55e" />
+            </marker>
+            <marker id="arrowhead-in" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+                <polygon points="0 0, 6 2, 0 4" fill="#ef4444" />
+            </marker>
+        </defs>
+    `;
+
+    // Position nodes
+    nodes.forEach((node, i) => {
+        const angle = (i * (360 / nodes.length) - 90) * (Math.PI / 180);
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
+
+        const el = document.createElement('div');
+        el.className = 'magic-node';
+        el.style.left = `${x}%`;
+        el.style.top = `${y}%`;
+        el.dataset.id = node.id;
+        el.innerHTML = `<span class="node-emoji">${node.emoji}</span><span class="node-label">${node.label}</span>`;
+        
+        container.appendChild(el);
+        nodeElements[node.id] = { x, y, el };
+    });
+
+    // Draw lines
+    const arrows = [];
+    Object.entries(magicCounters).forEach(([sourceId, targets]) => {
+        const source = nodeElements[sourceId];
+        if (!source) return;
+
+        targets.forEach(targetId => {
+            const target = nodeElements[targetId];
+            if (!target) return;
+
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttribute('class', 'matchup-arrow');
+            path.dataset.source = sourceId;
+            path.dataset.target = targetId;
+            
+            // Calculate points with a slight offset from center to not overlap icons
+            const dx = target.x - source.x;
+            const dy = target.y - source.y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            const offset = 8.5; // Adjusted for smaller nodes to end at edge
+            
+            const x1 = source.x + (dx * offset / dist);
+            const y1 = source.y + (dy * offset / dist);
+            const x2 = target.x - (dx * offset / dist);
+            const y2 = target.y - (dy * (offset + 1) / dist); 
+
+            path.setAttribute('d', `M ${x1} ${y1} L ${x2} ${y2}`);
+            svg.appendChild(path);
+            arrows.push(path);
+        });
+    });
+
+    // Interaction
+    const circleContainer = document.getElementById('magicCircleContainer');
+    
+    Object.values(nodeElements).forEach(nodeData => {
+        const el = nodeData.el;
+        const id = el.dataset.id;
+
+        el.addEventListener('mouseenter', () => {
+            circleContainer.classList.add('has-active');
+            el.classList.add('active');
+            
+            const targetsOut = magicCounters[id] || [];
+            const targetsIn = Object.entries(magicCounters)
+                .filter(([s, t]) => t.includes(id))
+                .map(([s, t]) => s);
+
+            arrows.forEach(arrow => {
+                if (arrow.dataset.source === id) {
+                    arrow.classList.add('is-outgoing');
+                    nodeElements[arrow.dataset.target].el.classList.add('is-target-out');
+                } else if (arrow.dataset.target === id) {
+                    arrow.classList.add('is-incoming');
+                    nodeElements[arrow.dataset.source].el.classList.add('is-target-in');
+                } else {
+                    arrow.classList.add('dimmed');
+                }
+            });
+        });
+
+        el.addEventListener('mouseleave', () => {
+            circleContainer.classList.remove('has-active');
+            el.classList.remove('active');
+            
+            arrows.forEach(arrow => {
+                arrow.classList.remove('is-outgoing', 'is-incoming', 'dimmed');
+            });
+            
+            Object.values(nodeElements).forEach(n => {
+                n.el.classList.remove('is-target-out', 'is-target-in');
+            });
+        });
+    });
 }
 
 function toggleEnemyInfo(show) {
