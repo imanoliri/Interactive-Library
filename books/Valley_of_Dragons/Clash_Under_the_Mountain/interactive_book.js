@@ -516,7 +516,7 @@ document.addEventListener("keydown", (e) => {
 window.enemyMetadata = null;
 window.currentEnemy = null;
 window.playerAttack = { magic: null, strength: null, strengthPts: 0 };
-window.playerEnergy = parseInt(localStorage.getItem('playerEnergy')) || 5;
+window.playerEnergy = 5;
 window.bossState = { lives: 0, usedMagics: [] };
 
 const magicCounters = {
@@ -796,7 +796,6 @@ function executeAttack() {
     }
 
     document.getElementById('playerEnergyCount').textContent = `🧡 ${window.playerEnergy}`;
-    localStorage.setItem('playerEnergy', window.playerEnergy);
 }
 
 function continueBossFight() {
