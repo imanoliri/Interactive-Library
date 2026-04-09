@@ -581,16 +581,16 @@ function showGameUI() {
             let label = type;
 
             if (b && w) {
-                tooltip = `${type}: Has both a power Bonus and a defensive Weakness.`;
+                tooltip = `${type}: The creature gets the Bonus and Weakness of this element.`;
             } else if (b && !w) {
                 label += " (BONUS)";
-                tooltip = `${type}: Provides an offensive Bonus to the enemy but has no elemental Weakness.`;
+                tooltip = `${type}: The creature gets the Bonus of this element.`;
             } else if (!b && w) {
                 label += " (WEAKNESS)";
-                tooltip = `${type}: No offensive Bonus but is vulnerable to elemental counters (Weakness).`;
+                tooltip = `${type}: The creature gets the Weakness of this element.`;
             } else {
                 label += " (PASSIVE)";
-                tooltip = `${type}: Purely passive element with no combat modifiers.`;
+                tooltip = `${type}: The creature gets no Bonus or Weakness from this element.`;
             }
 
             const span = document.createElement('span');
@@ -1035,14 +1035,21 @@ function toggleEnemyInfo(show) {
         enemyMagics.forEach((type, idx) => {
             const b = config.givesBonus[idx];
             const w = config.givesWeakness[idx];
-            let roles = [];
-            if (b) roles.push("Bonus");
-            if (w) roles.push("Weakness");
-            if (!b && !w) roles.push("None");
+            let description = "";
             
-            html += `<div class="dossier-badge-row">
-                <span class="stat-badge magic-badge">${type}</span>
-                <span class="dossier-badge-role">${roles.join(" & ")}</span>
+            if (b && w) {
+                description = "The creature gets the <strong>Bonus</strong> and <strong>Weakness</strong> of this element.";
+            } else if (b && !w) {
+                description = "The creature gets the <strong>Bonus</strong> of this element.";
+            } else if (!b && w) {
+                description = "The creature gets the <strong>Weakness</strong> of this element.";
+            } else {
+                description = "The creature gets no <strong>Bonus</strong> or <strong>Weakness</strong> from this element.";
+            }
+            
+            html += `<div class="dossier-badge-row" style="display: flex; flex-direction: row; align-items: center; gap: 1rem; padding: 0.6rem;">
+                <span class="stat-badge magic-badge" style="flex-shrink: 0; min-width: 90px; text-align: center;">${type}</span>
+                <span class="dossier-badge-role" style="font-size: 0.85rem; line-height: 1.3; color: #cbd5e1;">${description}</span>
             </div>`;
         });
         html += `</div></div>`;
