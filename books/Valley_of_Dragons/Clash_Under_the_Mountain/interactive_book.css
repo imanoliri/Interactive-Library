@@ -1037,31 +1037,83 @@ body::-webkit-scrollbar-thumb {
     top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(15, 23, 42, 0.95);
     z-index: 3000;
+    display: flex;
     align-items: center;
     justify-content: center;
     backdrop-filter: blur(8px);
-    border-radius: 24px;
+}
+
+.matchup-guide-content {
+    background: rgba(30, 41, 59, 0.98);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    width: 90vw;
+    max-width: 600px;
+    max-height: 85vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.matchup-guide-content h2 {
+    color: white !important;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2.2rem;
+}
+
+.result-continue-btn {
+    align-self: center;
+    margin-top: 1.5rem;
+    padding: 0.8rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.result-continue-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
 
 .magic-circle-ui {
-    max-width: 600px !important;
-    padding: 1.5rem !important;
+    width: 95vw;
+    max-width: 550px;
+    height: 85vh;
+    padding: 1.2rem !important;
     position: relative;
     border: 1px solid rgba(168, 85, 247, 0.4);
-    background: rgba(30, 41, 59, 0.9);
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    background: rgba(30, 41, 59, 1);
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
 }
 
 .magic-circle-ui h2 {
     color: white !important;
+    text-align: center;
+    margin: 0.5rem 0;
+    letter-spacing: 1px;
 }
 
 .magic-circle-container {
     position: relative;
-    width: 100%;
+    flex: 1;
+    min-height: 0;
+    width: auto;
+    max-width: 100%;
     aspect-ratio: 1 / 1;
-    margin: 1rem 0;
+    margin: 0.5rem auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1089,8 +1141,8 @@ body::-webkit-scrollbar-thumb {
 
 .magic-node {
     position: absolute;
-    width: 3.8rem;
-    height: 3.8rem;
+    width: clamp(2.4rem, 10vw, 3.8rem);
+    height: clamp(2.4rem, 10vw, 3.8rem);
     background: rgba(30, 41, 59, 0.9);
     border: 2px solid rgba(148, 163, 184, 0.4);
     border-radius: 50%;
@@ -1113,15 +1165,15 @@ body::-webkit-scrollbar-thumb {
 }
 
 .magic-node .node-emoji {
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 4.5vw, 1.5rem);
 }
 
 .magic-node .node-label {
-    font-size: 0.55rem;
+    font-size: clamp(0.45rem, 1.8vw, 0.6rem);
     font-weight: 800;
     text-transform: uppercase;
     color: #94a3b8;
-    margin-top: 2px;
+    margin-top: 1px;
 }
 
 /* Matchup Arrow Styling */
@@ -1231,9 +1283,18 @@ body::-webkit-scrollbar-thumb {
     margin-bottom: 1rem;
 }
 
-.magic-btn-grid, .strength-btn-grid {
-    display: flex;
+.magic-btn-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
     gap: 0.5rem;
+    width: 100%;
+}
+
+.strength-btn-grid {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
 }
 
 .magic-btn, .strength-btn {
@@ -1357,6 +1418,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .execute-btn {
+    flex: 0 0 auto;
     width: 100%;
     padding: 1.25rem;
     font-size: 1.75rem;
@@ -1479,9 +1541,33 @@ body::-webkit-scrollbar-thumb {
 }
 
 @media (max-width: 768px) {
-    .magic-btn-grid { grid-template-columns: repeat(2, 1fr); }
-    .strength-btn-grid { grid-template-columns: 1fr; }
-    .game-ui-panel { padding: 1.5rem; }
-    #enemyName { font-size: 2rem; }
-    #resultTitle { font-size: 3rem; }
+    .magic-btn-grid { grid-template-columns: repeat(8, 1fr); }
+    .strength-btn-grid { grid-template-columns: repeat(3, 1fr); }
+    .HUD-style .action-row { gap: 1.5rem; flex-direction: column; }
+    .game-ui-panel { width: 95vw; padding: 1.2rem; }
+    #enemyName { font-size: 2.2rem; }
+    #resultTitle { font-size: 2.8rem; }
+}
+
+@media (max-width: 480px) {
+    .magic-btn-grid { 
+        grid-template-columns: repeat(8, 1fr); 
+        gap: 0.25rem; 
+        overflow-x: auto; 
+        padding-bottom: 5px;
+    }
+    .strength-btn-grid { display: flex; justify-content: center; gap: 0.5rem; }
+    .magic-btn, .strength-btn { width: auto; min-width: 3.5rem; height: 3.5rem; flex-direction: column; gap: 0.2rem; padding: 0.3rem; }
+    .btn-icon { font-size: 1.25rem; }
+    .btn-label { font-size: 0.55rem; }
+    .HUD-style .action-row { gap: 1rem; }
+    #enemyName { font-size: 1.8rem; }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+    .game-ui-overlay { padding: 0.5rem; align-items: flex-start; overflow-y: auto; }
+    .game-ui-panel { flex-direction: row; gap: 2rem; align-items: flex-start; max-height: none; }
+    .enemy-display { flex: 1; position: sticky; top: 0; }
+    .player-actions { flex: 2; }
+    .magic-circle-ui { max-height: 95vh; scale: 0.8; transform-origin: top; }
 }

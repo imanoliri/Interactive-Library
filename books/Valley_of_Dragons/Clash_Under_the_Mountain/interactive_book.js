@@ -846,7 +846,7 @@ function initMagicCircle() {
         { id: 'Undead', label: 'Undead', emoji: '💀' }
     ];
 
-    const centerX = 50, centerY = 50, radius = 50;
+    const centerX = 50, centerY = 50, radius = 35;
     const nodeElements = {};
 
     // Create markers for arrows
@@ -881,6 +881,15 @@ function initMagicCircle() {
         nodeElements[node.id] = { x, y, el };
     });
 
+    // Calculate points with a slight offset from center to end perfectly at node edge
+    // Since we use a 100x100 viewBox, we need the node radius in percentage units
+    const nodeEl = container.querySelector('.magic-node');
+    const containerWidth = container.offsetWidth || 500;
+    const nodeWidth = nodeEl ? nodeEl.offsetWidth : 60;
+    const dynamicOffset = (nodeWidth / 2 / containerWidth) * 100;
+    const arrowMargin = 0.5; // Small gap so arrow doesn't touch the circle border
+    const offset = dynamicOffset + arrowMargin;
+
     // Draw lines
     const arrows = [];
     Object.entries(magicCounters).forEach(([sourceId, targets]) => {
@@ -896,22 +905,45 @@ function initMagicCircle() {
             path.dataset.source = sourceId;
             path.dataset.target = targetId;
             
-            // Calculate points with a slight offset from center to not overlap icons
             const dx = target.x - source.x;
             const dy = target.y - source.y;
             const dist = Math.sqrt(dx*dx + dy*dy);
-            const offset = 8.5; // Adjusted for smaller nodes to end at edge
             
             const x1 = source.x + (dx * offset / dist);
             const y1 = source.y + (dy * offset / dist);
             const x2 = target.x - (dx * offset / dist);
-            const y2 = target.y - (dy * (offset + 1) / dist); 
+            const y2 = target.y - (dy * (offset + 1.2) / dist); // slightly more offset for arrowhead tip
 
             path.setAttribute('d', `M ${x1} ${y1} L ${x2} ${y2}`);
             svg.appendChild(path);
             arrows.push(path);
         });
     });
+
+    // Handle responsiveness on orientation change
+    window.addEventListener('resize', () => {
+        if (document.getElementById('matchupGuideOverlay').style.display === 'flex') {
+            // Recalculate offsets on significant resize
+            const newContainerWidth = container.offsetWidth;
+            const newNodeWidth = nodeEl.offsetWidth;
+            const newOffset = (newNodeWidth / 2 / newContainerWidth) * 100 + arrowMargin;
+            
+            arrows.forEach(arrow => {
+                const s = nodeElements[arrow.dataset.source];
+                const t = nodeElements[arrow.dataset.target];
+                const dxx = t.x - s.x;
+                const dyy = t.y - s.y;
+                const d = Math.sqrt(dxx*dxx + dyy*dyy);
+                
+                const nx1 = s.x + (dxx * newOffset / d);
+                const ny1 = s.y + (dyy * newOffset / d);
+                const nx2 = t.x - (dxx * newOffset / d);
+                const ny2 = t.y - (dyy * (newOffset + 1.2) / d);
+                
+                arrow.setAttribute('d', `M ${nx1} ${ny1} L ${nx2} ${ny2}`);
+            });
+        }
+    }, { passive: true });
 
     // Interaction
     const circleContainer = document.getElementById('magicCircleContainer');
