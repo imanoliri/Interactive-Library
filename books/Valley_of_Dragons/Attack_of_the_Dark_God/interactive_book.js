@@ -516,8 +516,19 @@ document.addEventListener("keydown", (e) => {
 window.enemyMetadata = null;
 window.currentEnemy = null;
 window.playerAttack = { magic: null, strength: null, strengthPts: 0 };
-window.playerEnergy = 5;
+window.playerEnergy = parseInt(localStorage.getItem('playerEnergy')) || 5;
 window.bossState = { lives: 0, usedMagics: [] };
+
+const magicCounters = {
+    'Water': ['Fire'],
+    'Fire': ['Trees', 'Darkness'],
+    'Trees': ['Earth'],
+    'Earth': ['Lightning'],
+    'Lightning': ['Water'],
+    'Sun': ['Wind', 'Undead'],
+    'Wind': ['Sun'],
+    'Lifeforce': ['Undead', 'Darkness']
+};
 
 async function loadEnemyMetadata() {
     try {
@@ -544,9 +555,51 @@ function showGameUI() {
     if (pauseBtn && pauseBtn.textContent === '⏹️') pauseBtn.click();
 
     document.getElementById('enemyName').textContent = window.currentEnemy.name;
-    document.getElementById('enemyMagicType').textContent = Array.isArray(window.currentEnemy.magicType) 
-        ? window.currentEnemy.magicType.join(' / ') 
-        : window.currentEnemy.magicType;
+    const enemyMagics = Array.isArray(window.currentEnemy.magicType) ? window.currentEnemy.magicType : [window.currentEnemy.magicType];
+    const defaultConfig = {
+        givesBonus: enemyMagics.map(() => true),
+        givesWeakness: enemyMagics.map(() => true)
+    };
+    const config = window.currentEnemy.magicConfig || defaultConfig;
+    
+    const formattedTypes = enemyMagics.map((type, idx) => {
+        const b = config.givesBonus[idx];
+        const w = config.givesWeakness[idx];
+        if (b && !w) return type + ' (ATK)';
+        if (!b && w) return type + ' (VULN)';
+        if (!b && !w) return type + ' (PASSIVE)';
+        return type;
+    });
+    
+    const magicBadgeContainer = document.getElementById('enemyMagicBadges');
+    if (magicBadgeContainer) {
+        magicBadgeContainer.innerHTML = '';
+        enemyMagics.forEach((type, idx) => {
+            const b = config.givesBonus[idx];
+            const w = config.givesWeakness[idx];
+            let tooltip = "";
+            let label = type;
+
+            if (b && w) {
+                tooltip = `${type}: Provides offensive counters and is vulnerable to elemental counters.`;
+            } else if (b && !w) {
+                label += " (ATK)";
+                tooltip = `${type}: Provides offensive counters but has NO elemental weakness.`;
+            } else if (!b && w) {
+                label += " (VULN)";
+                tooltip = `${type}: No offensive counters but is vulnerable to elemental counters.`;
+            } else {
+                label += " (PASSIVE)";
+                tooltip = `${type}: Purely passive element with no combat modifiers.`;
+            }
+
+            const span = document.createElement('span');
+            span.className = 'stat-badge magic-badge';
+            span.textContent = label;
+            span.title = tooltip;
+            magicBadgeContainer.appendChild(span);
+        });
+    }
     document.getElementById('enemyPhysicalness').textContent = window.currentEnemy.physicalness;
 
     const bossBadge = document.getElementById('enemyLevelBadge');
@@ -565,11 +618,35 @@ function showGameUI() {
 
     document.getElementById('playerEnergyCount').textContent = `🧡 ${window.playerEnergy}`;
 
-    window.playerAttack = { magic: null, strength: null, strengthPts: 0 };
     document.querySelectorAll('.magic-btn').forEach(btn => {
-        btn.classList.remove('selected');
+        btn.classList.remove('selected', 'is-counter', 'is-threatened');
+        const magicType = btn.dataset.magic;
+        
+        // Strategic Highlighting: highlight if this magic counters the enemy's weakness (Blue Pulse)
+        let isStrategic = false;
+        if (config.givesWeakness) {
+            for (let i = 0; i < enemyMagics.length; i++) {
+                if (config.givesWeakness[i] && magicCounters[magicType] && magicCounters[magicType].includes(enemyMagics[i])) {
+                    btn.classList.add('is-counter');
+                    isStrategic = true;
+                    break;
+                }
+            }
+        }
+
+        // Threat Highlighting: highlight if this magic is countered by the enemy's bonus (Red Pulse)
+        // Only mark as threatened if it wasn't already marked as strategic (to avoid animation conflicts)
+        if (!isStrategic && config.givesBonus) {
+            for (let i = 0; i < enemyMagics.length; i++) {
+                if (config.givesBonus[i] && magicCounters[enemyMagics[i]] && magicCounters[enemyMagics[i]].includes(magicType)) {
+                    btn.classList.add('is-threatened');
+                    break;
+                }
+            }
+        }
+
         // Handle used magics for bosses
-        if (window.bossState && window.bossState.usedMagics && window.bossState.usedMagics.includes(btn.dataset.magic)) {
+        if (window.bossState && window.bossState.usedMagics && window.bossState.usedMagics.includes(magicType)) {
             btn.disabled = true;
             btn.style.opacity = '0.3';
             btn.style.cursor = 'not-allowed';
@@ -637,31 +714,30 @@ function executeAttack() {
 
     let playerPts = player.strengthPts;
 
-    const counters = {
-        'Water': ['Fire'],
-        'Fire': ['Trees', 'Darkness'],
-        'Trees': ['Earth'],
-        'Earth': ['Lightning'],
-        'Lightning': ['Water'],
-        'Sun': ['Wind', 'Undead'],
-        'Wind': ['Sun'],
-        'Lifeforce': ['Undead', 'Darkness']
-    };
-
     // Check type advantages
     const enemyMagics = Array.isArray(enemy.magicType) ? enemy.magicType : [enemy.magicType];
-    
-    if (counters[player.magic]) {
-        for (const em of enemyMagics) {
-            if (counters[player.magic].includes(em)) {
+    const defaultConfig = {
+        strengthsCompound: true,
+        weaknessesCompound: true,
+        givesBonus: enemyMagics.map(() => true),
+        givesWeakness: enemyMagics.map(() => true)
+    };
+    const config = enemy.magicConfig || defaultConfig;
+
+    if (magicCounters[player.magic]) {
+        for (let i = 0; i < enemyMagics.length; i++) {
+            if (config.givesWeakness[i] && magicCounters[player.magic].includes(enemyMagics[i])) {
                 playerPts += 2;
+                if (!config.weaknessesCompound) break;
             }
         }
     }
     
-    for (const em of enemyMagics) {
-        if (counters[em] && counters[em].includes(player.magic)) {
+    for (let i = 0; i < enemyMagics.length; i++) {
+        const em = enemyMagics[i];
+        if (config.givesBonus[i] && magicCounters[em] && magicCounters[em].includes(player.magic)) {
             enemyPts += 2;
+            if (!config.strengthsCompound) break;
         }
     }
 
@@ -715,6 +791,7 @@ function executeAttack() {
     }
 
     document.getElementById('playerEnergyCount').textContent = `🧡 ${window.playerEnergy}`;
+    localStorage.setItem('playerEnergy', window.playerEnergy);
 }
 
 function continueBossFight() {

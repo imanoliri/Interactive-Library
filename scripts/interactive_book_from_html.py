@@ -270,8 +270,8 @@ def generate_static_html(chapters, tab_names, title):
                         <h2 id="enemyName">Enemy</h2>
                         <div class="enemy-stats">
                             <span class="stat-badge boss-badge" id="enemyLevelBadge" style="display:none;">Boss (+1)</span>
-                            <span class="stat-badge magic-badge" id="enemyMagicType">???</span>
                             <span class="stat-badge phys-badge" id="enemyPhysicalness">???</span>
+                            <div id="enemyMagicBadges" class="enemy-magic-bagdes-container" style="display: flex; gap: 0.5rem;"></div>
                         </div>
                     </div>
                     <div class="game-ui-right-controls">

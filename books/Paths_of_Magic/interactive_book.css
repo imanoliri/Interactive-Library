@@ -822,6 +822,7 @@ body::-webkit-scrollbar-thumb {
 .enemy-stats {
     display: flex;
     gap: 0.5rem;
+    flex-wrap: wrap;
 }
 
 .stat-badge {
@@ -843,11 +844,17 @@ body::-webkit-scrollbar-thumb {
     background: rgba(245, 158, 11, 0.2);
     border: 1px solid rgba(245, 158, 11, 0.4);
     color: #fcd34d;
-    padding: 0.4rem 1rem;
+    padding: 0.5rem 1.2rem;
     border-radius: 9999px;
     font-weight: 700;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    height: fit-content;
+    align-self: center;
 }
 
 .guide-btn, .game-close-btn {
@@ -1005,6 +1012,30 @@ body::-webkit-scrollbar-thumb {
     background: rgba(51, 65, 85, 0.9);
     transform: translateY(-2px);
     border-color: #94a3b8;
+}
+
+.magic-btn.is-counter {
+    animation: pulseGlow 2s infinite ease-in-out;
+    border-color: rgba(96, 165, 250, 0.5);
+    box-shadow: 0 0 15px rgba(96, 165, 250, 0.3);
+}
+
+.magic-btn.is-threatened {
+    animation: pulseThreat 2s infinite ease-in-out;
+    border-color: rgba(239, 68, 68, 0.5);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+}
+
+@keyframes pulseGlow {
+    0% { transform: scale(1); box-shadow: 0 0 5px rgba(96, 165, 250, 0.2); }
+    50% { transform: scale(1.03); box-shadow: 0 0 15px rgba(96, 165, 250, 0.5); }
+    100% { transform: scale(1); box-shadow: 0 0 5px rgba(96, 165, 250, 0.2); }
+}
+
+@keyframes pulseThreat {
+    0% { transform: scale(1); box-shadow: 0 0 5px rgba(239, 68, 68, 0.2); }
+    50% { transform: scale(1.03); box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
+    100% { transform: scale(1); box-shadow: 0 0 5px rgba(239, 68, 68, 0.2); }
 }
 
 /* Selected states */
