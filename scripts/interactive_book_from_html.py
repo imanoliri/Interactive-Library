@@ -267,7 +267,10 @@ def generate_static_html(chapters, tab_names, title):
             <div class="game-ui-panel">
                 <div class="game-ui-header">
                     <div class="enemy-info-left">
-                        <h2 id="enemyName">Enemy</h2>
+                        <div class="name-info-row">
+                            <h2 id="enemyName">Enemy</h2>
+                            <button class="enemy-info-btn" onclick="toggleEnemyInfo(true)" title="Enemy Information">?</button>
+                        </div>
                         <div class="enemy-stats">
                             <span class="stat-badge boss-badge" id="enemyLevelBadge" style="display:none;">Boss (+1)</span>
                             <span class="stat-badge phys-badge" id="enemyPhysicality">???</span>
@@ -311,6 +314,17 @@ def generate_static_html(chapters, tab_names, title):
                 <h1 id="resultTitle">Victory!</h1>
                 <p id="resultDetails">Your attack was successful!</p>
                 <button class="execute-btn" style="margin-top: 1rem;" onclick="continueBossFight()">Continue</button>
+            </div>
+
+            <!-- Enemy Info Overlay -->
+            <div id="enemyInfoOverlay" class="matchup-guide-overlay info-overlay" style="display:none;">
+                <div class="matchup-guide-content">
+                    <h2 id="infoEnemyName">Enemy Info</h2>
+                    <div id="enemyInfoContent" class="enemy-info-details">
+                        <!-- Content injected via JS -->
+                    </div>
+                    <button class="result-continue-btn" onclick="toggleEnemyInfo(false)">Back to Battle</button>
+                </div>
             </div>
 
             <!-- Matchup Guide Overlay -->

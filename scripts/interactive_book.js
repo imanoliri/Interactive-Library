@@ -669,6 +669,11 @@ function showGameUI() {
 
 function hideGameUI() {
     document.getElementById('gameUIContainer').style.display = 'none';
+    document.getElementById('battleResult').style.display = 'none';
+    const guide = document.getElementById('matchupGuideOverlay');
+    if (guide) guide.style.display = 'none';
+    const info = document.getElementById('enemyInfoOverlay');
+    if (info) info.style.display = 'none';
 }
 
 function selectMagic(magicType, btnEl) {
@@ -807,9 +812,85 @@ function continueBossFight() {
 function toggleMatchupGuide() {
     const guideOverlay = document.getElementById('matchupGuideOverlay');
     if (!guideOverlay) return;
-    if (guideOverlay.style.display === 'none' || !guideOverlay.style.display) {
-        guideOverlay.style.display = 'flex';
+    guideOverlay.style.display = (guideOverlay.style.display === 'none' || !guideOverlay.style.display) ? 'flex' : 'none';
+}
+
+function toggleEnemyInfo(show) {
+    const overlay = document.getElementById('enemyInfoOverlay');
+    if (!overlay) return;
+    
+    if (show) {
+        const enemy = window.currentEnemy;
+        const infoTitle = document.getElementById('infoEnemyName');
+        const infoContent = document.getElementById('enemyInfoContent');
+        
+        infoTitle.textContent = enemy.name;
+        
+        const enemyMagics = Array.isArray(enemy.magicType) ? enemy.magicType : [enemy.magicType];
+        const defaultConfig = {
+            strengthsCompound: true,
+            weaknessesCompound: true,
+            givesBonus: enemyMagics.map(() => true),
+            givesWeakness: enemyMagics.map(() => true)
+        };
+        const config = enemy.magicConfig || defaultConfig;
+
+        let html = '';
+
+        if (enemy.description) {
+            html += `<div class="dossier-lore">${enemy.description}</div>`;
+        }
+
+        // Stats Grid
+        html += `<div class="dossier-grid">
+            <div class="dossier-stat-card">
+                <span class="dossier-label">🛡️ Physicality</span>
+                <span class="dossier-value">${enemy.physicality}</span>
+            </div>
+            <div class="dossier-stat-card">
+                <span class="dossier-label">⭐ Power Level</span>
+                <span class="dossier-value">${enemy.levelBonus ? `Boss (Lvl +${enemy.levelBonus})` : 'Normal'}</span>
+            </div>
+        </div>`;
+
+        // Magical Nature section
+        html += `<div class="dossier-section">
+            <div class="dossier-section-title">Elemental Types</div>
+            <div class="dossier-badges-list">`;
+        
+        enemyMagics.forEach((type, idx) => {
+            const b = config.givesBonus[idx];
+            const w = config.givesWeakness[idx];
+            let roles = [];
+            if (b) roles.push("Offense");
+            if (w) roles.push("Weakness");
+            if (!b && !w) roles.push("None");
+            
+            html += `<div class="dossier-badge-row">
+                <span class="stat-badge magic-badge">${type}</span>
+                <span class="dossier-badge-role">${roles.join(" & ")}</span>
+            </div>`;
+        });
+        html += `</div></div>`;
+
+        // Combat Rules section
+        html += `<div class="dossier-section">
+            <div class="dossier-section-title">Interaction Rules</div>
+            <div class="dossier-rules-box">
+                <div class="rule-pill ${config.weaknessesCompound ? 'active' : 'inactive'}">
+                    <span>Stacking Weakness</span>
+                    <span class="rule-toggle">${config.weaknessesCompound ? 'YES' : 'NO'}</span>
+                </div>
+                <div class="rule-pill ${config.strengthsCompound ? 'active' : 'inactive'}">
+                    <span>Stacking Offense</span>
+                    <span class="rule-toggle">${config.strengthsCompound ? 'YES' : 'NO'}</span>
+                </div>
+            </div>
+        </div>`;
+
+        infoContent.innerHTML = html;
+        overlay.style.display = 'flex';
     } else {
-        guideOverlay.style.display = 'none';
+        overlay.style.display = 'none';
     }
 }
