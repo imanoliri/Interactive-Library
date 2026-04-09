@@ -600,7 +600,7 @@ function showGameUI() {
             magicBadgeContainer.appendChild(span);
         });
     }
-    document.getElementById('enemyPhysicalness').textContent = window.currentEnemy.physicalness;
+    document.getElementById('enemyPhysicality').textContent = window.currentEnemy.physicality;
 
     const bossBadge = document.getElementById('enemyLevelBadge');
     if (bossBadge) {
@@ -706,9 +706,9 @@ function executeAttack() {
     }
 
     let enemyPts = 0;
-    if (enemy.physicalness === 'Light') enemyPts = 1;
-    else if (enemy.physicalness === 'Medium') enemyPts = 2;
-    else if (enemy.physicalness === 'Heavy') enemyPts = 3;
+    if (enemy.physicality === 'Light') enemyPts = 1;
+    else if (enemy.physicality === 'Medium') enemyPts = 2;
+    else if (enemy.physicality === 'Heavy') enemyPts = 3;
 
     if (enemy.levelBonus) enemyPts += enemy.levelBonus;
 
