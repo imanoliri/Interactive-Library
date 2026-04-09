@@ -565,8 +565,8 @@ function showGameUI() {
     const formattedTypes = enemyMagics.map((type, idx) => {
         const b = config.givesBonus[idx];
         const w = config.givesWeakness[idx];
-        if (b && !w) return type + ' (ATK)';
-        if (!b && w) return type + ' (VULN)';
+        if (b && !w) return type + ' (BONUS)';
+        if (!b && w) return type + ' (WEAKNESS)';
         if (!b && !w) return type + ' (PASSIVE)';
         return type;
     });
@@ -581,13 +581,13 @@ function showGameUI() {
             let label = type;
 
             if (b && w) {
-                tooltip = `${type}: Provides offensive counters and is vulnerable to elemental counters.`;
+                tooltip = `${type}: Has both a power Bonus and a defensive Weakness.`;
             } else if (b && !w) {
-                label += " (ATK)";
-                tooltip = `${type}: Provides offensive counters but has NO elemental weakness.`;
+                label += " (BONUS)";
+                tooltip = `${type}: Provides an offensive Bonus to the enemy but has no elemental Weakness.`;
             } else if (!b && w) {
-                label += " (VULN)";
-                tooltip = `${type}: No offensive counters but is vulnerable to elemental counters.`;
+                label += " (WEAKNESS)";
+                tooltip = `${type}: No offensive Bonus but is vulnerable to elemental counters (Weakness).`;
             } else {
                 label += " (PASSIVE)";
                 tooltip = `${type}: Purely passive element with no combat modifiers.`;
@@ -1036,7 +1036,7 @@ function toggleEnemyInfo(show) {
             const b = config.givesBonus[idx];
             const w = config.givesWeakness[idx];
             let roles = [];
-            if (b) roles.push("Offense");
+            if (b) roles.push("Bonus");
             if (w) roles.push("Weakness");
             if (!b && !w) roles.push("None");
             
@@ -1056,7 +1056,7 @@ function toggleEnemyInfo(show) {
                     <span class="rule-toggle">${config.weaknessesCompound ? 'YES' : 'NO'}</span>
                 </div>
                 <div class="rule-pill ${config.strengthsCompound ? 'active' : 'inactive'}">
-                    <span>Stacking Offense</span>
+                    <span>Stacking Bonus</span>
                     <span class="rule-toggle">${config.strengthsCompound ? 'YES' : 'NO'}</span>
                 </div>
             </div>
