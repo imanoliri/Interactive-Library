@@ -842,7 +842,7 @@ function initMagicCircle() {
         { id: 'Sun', label: 'Sun', emoji: '☀️' },
         { id: 'Wind', label: 'Wind', emoji: '💨' },
         { id: 'Lifeforce', label: 'Life', emoji: '✨' },
-        { id: 'Darkness', label: 'Shadow', emoji: '🌑' },
+        { id: 'Darkness', label: 'Darkness', emoji: '🌑' },
         { id: 'Undead', label: 'Undead', emoji: '💀' }
     ];
 
