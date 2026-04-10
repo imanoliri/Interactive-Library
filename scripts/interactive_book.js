@@ -520,14 +520,15 @@ window.playerEnergy = 5;
 window.bossState = { lives: 0, usedMagics: [] };
 
 const magicCounters = {
-    'Water': ['Fire'],
-    'Fire': ['Trees', 'Darkness'],
+    'Water': ['Fire', 'Wind', 'Lightning'],
+    'Fire': ['Trees', 'Undead'],
     'Trees': ['Earth'],
     'Earth': ['Lightning'],
-    'Lightning': ['Water'],
-    'Sun': ['Wind', 'Undead'],
-    'Wind': ['Sun'],
-    'Lifeforce': ['Undead', 'Darkness']
+    'Lightning': ['Water', 'Lifeforce'],
+    'Sun': ['Darkness', 'Undead'],
+    'Wind': ['Fire'],
+    'Lifeforce': ['Undead', 'Darkness'],
+    'Undead': ['Lifeforce']
 };
 
 async function loadEnemyMetadata() {
@@ -561,7 +562,7 @@ function showGameUI() {
         givesWeakness: enemyMagics.map(() => true)
     };
     const config = window.currentEnemy.magicConfig || defaultConfig;
-    
+
     const formattedTypes = enemyMagics.map((type, idx) => {
         const b = config.givesBonus[idx];
         const w = config.givesWeakness[idx];
@@ -570,7 +571,7 @@ function showGameUI() {
         if (!b && !w) return type + ' (PASSIVE)';
         return type;
     });
-    
+
     const magicBadgeContainer = document.getElementById('enemyMagicBadges');
     if (magicBadgeContainer) {
         magicBadgeContainer.innerHTML = '';
@@ -608,7 +609,7 @@ function showGameUI() {
             bossBadge.style.display = 'inline-block';
             let hearts = '';
             if (window.bossState) {
-                for(let i=0; i<window.bossState.lives; i++) hearts +='♥️';
+                for (let i = 0; i < window.bossState.lives; i++) hearts += '♥️';
             }
             bossBadge.textContent = 'Boss (+' + window.currentEnemy.levelBonus + ') ' + hearts;
         } else {
@@ -621,7 +622,7 @@ function showGameUI() {
     document.querySelectorAll('.magic-btn').forEach(btn => {
         btn.classList.remove('selected', 'is-counter', 'is-threatened');
         const magicType = btn.dataset.magic;
-        
+
         // Strategic Highlighting: highlight if this magic counters the enemy's weakness (Blue Pulse)
         let isStrategic = false;
         if (config.givesWeakness) {
@@ -737,7 +738,7 @@ function executeAttack() {
             }
         }
     }
-    
+
     for (let i = 0; i < enemyMagics.length; i++) {
         const em = enemyMagics[i];
         if (config.givesBonus[i] && magicCounters[em] && magicCounters[em].includes(player.magic)) {
@@ -787,7 +788,7 @@ function executeAttack() {
         title.textContent = 'Defeat!';
         title.classList.add('defeat');
         details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) wasn't strong enough against the ${enemy.name}'s defense (${enemyPts} pts)! You lost ${energyLost} energy point(s).${heavyCostText}`;
-        
+
         // Reset the boss fight on defeat
         if (window.bossState) {
             window.bossState.lives = enemy.levelBonus ? 2 : 1;
@@ -813,9 +814,9 @@ let magicCircleInitialized = false;
 function toggleMatchupGuide() {
     const guideOverlay = document.getElementById('matchupGuideOverlay');
     if (!guideOverlay) return;
-    
+
     const isShowing = (guideOverlay.style.display === 'none' || !guideOverlay.style.display);
-    
+
     if (isShowing) {
         guideOverlay.style.display = 'flex';
         if (!magicCircleInitialized) {
@@ -838,9 +839,9 @@ function initMagicCircle() {
         { id: 'Trees', label: 'Trees', emoji: '🌳' },
         { id: 'Earth', label: 'Earth', emoji: '⛰️' },
         { id: 'Lightning', label: 'Storm', emoji: '⚡' },
-        { id: 'Sun', label: 'Sun', emoji: '☀️' },
         { id: 'Wind', label: 'Wind', emoji: '💨' },
         { id: 'Lifeforce', label: 'Life', emoji: '✨' },
+        { id: 'Sun', label: 'Sun', emoji: '☀️' },
         { id: 'Darkness', label: 'Darkness', emoji: '🌑' },
         { id: 'Undead', label: 'Undead', emoji: '💀' }
     ];
@@ -875,7 +876,7 @@ function initMagicCircle() {
         el.style.top = `${y}%`;
         el.dataset.id = node.id;
         el.innerHTML = `<span class="node-emoji">${node.emoji}</span><span class="node-label">${node.label}</span>`;
-        
+
         container.appendChild(el);
         nodeElements[node.id] = { x, y, el };
     });
@@ -903,11 +904,11 @@ function initMagicCircle() {
             path.setAttribute('class', 'matchup-arrow');
             path.dataset.source = sourceId;
             path.dataset.target = targetId;
-            
+
             const dx = target.x - source.x;
             const dy = target.y - source.y;
-            const dist = Math.sqrt(dx*dx + dy*dy);
-            
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
             const x1 = source.x + (dx * offset / dist);
             const y1 = source.y + (dy * offset / dist);
             const x2 = target.x - (dx * offset / dist);
@@ -926,19 +927,19 @@ function initMagicCircle() {
             const newContainerWidth = container.offsetWidth;
             const newNodeWidth = nodeEl.offsetWidth;
             const newOffset = (newNodeWidth / 2 / newContainerWidth) * 100 + arrowMargin;
-            
+
             arrows.forEach(arrow => {
                 const s = nodeElements[arrow.dataset.source];
                 const t = nodeElements[arrow.dataset.target];
                 const dxx = t.x - s.x;
                 const dyy = t.y - s.y;
-                const d = Math.sqrt(dxx*dxx + dyy*dyy);
-                
+                const d = Math.sqrt(dxx * dxx + dyy * dyy);
+
                 const nx1 = s.x + (dxx * newOffset / d);
                 const ny1 = s.y + (dyy * newOffset / d);
                 const nx2 = t.x - (dxx * newOffset / d);
                 const ny2 = t.y - (dyy * (newOffset + 1.2) / d);
-                
+
                 arrow.setAttribute('d', `M ${nx1} ${ny1} L ${nx2} ${ny2}`);
             });
         }
@@ -946,7 +947,7 @@ function initMagicCircle() {
 
     // Interaction
     const circleContainer = document.getElementById('magicCircleContainer');
-    
+
     Object.values(nodeElements).forEach(nodeData => {
         const el = nodeData.el;
         const id = el.dataset.id;
@@ -954,7 +955,7 @@ function initMagicCircle() {
         el.addEventListener('mouseenter', () => {
             circleContainer.classList.add('has-active');
             el.classList.add('active');
-            
+
             const targetsOut = magicCounters[id] || [];
             const targetsIn = Object.entries(magicCounters)
                 .filter(([s, t]) => t.includes(id))
@@ -976,11 +977,11 @@ function initMagicCircle() {
         el.addEventListener('mouseleave', () => {
             circleContainer.classList.remove('has-active');
             el.classList.remove('active');
-            
+
             arrows.forEach(arrow => {
                 arrow.classList.remove('is-outgoing', 'is-incoming', 'dimmed');
             });
-            
+
             Object.values(nodeElements).forEach(n => {
                 n.el.classList.remove('is-target-out', 'is-target-in');
             });
@@ -991,14 +992,14 @@ function initMagicCircle() {
 function toggleEnemyInfo(show) {
     const overlay = document.getElementById('enemyInfoOverlay');
     if (!overlay) return;
-    
+
     if (show) {
         const enemy = window.currentEnemy;
         const infoTitle = document.getElementById('infoEnemyName');
         const infoContent = document.getElementById('enemyInfoContent');
-        
+
         infoTitle.textContent = enemy.name;
-        
+
         const enemyMagics = Array.isArray(enemy.magicType) ? enemy.magicType : [enemy.magicType];
         const defaultConfig = {
             strengthsCompound: true,
@@ -1030,12 +1031,12 @@ function toggleEnemyInfo(show) {
         html += `<div class="dossier-section">
             <div class="dossier-section-title">Elemental Types</div>
             <div class="dossier-badges-list">`;
-        
+
         enemyMagics.forEach((type, idx) => {
             const b = config.givesBonus[idx];
             const w = config.givesWeakness[idx];
             let description = "";
-            
+
             if (b && w) {
                 description = "The creature gets the <strong>Bonus</strong> and <strong>Weakness</strong> of this element.";
             } else if (b && !w) {
@@ -1045,7 +1046,7 @@ function toggleEnemyInfo(show) {
             } else {
                 description = "The creature gets no <strong>Bonus</strong> or <strong>Weakness</strong> from this element.";
             }
-            
+
             html += `<div class="dossier-badge-row" style="display: flex; flex-direction: row; align-items: center; gap: 1rem; padding: 0.6rem;">
                 <span class="stat-badge magic-badge" style="flex-shrink: 0; min-width: 90px; text-align: center;">${type}</span>
                 <span class="dossier-badge-role" style="font-size: 0.85rem; line-height: 1.3; color: #cbd5e1;">${description}</span>
