@@ -1717,26 +1717,25 @@ body::-webkit-scrollbar-thumb {
     to { opacity: 1; transform: scale(1); }
 }
 
-@media (max-width: 768px) {
+@media (orientation: portrait) {
     .magic-btn-grid { grid-template-columns: repeat(8, 1fr); overflow-x: auto; padding: 0.1rem 0; width: 100%; gap: 0.6rem; }
     .strength-slider-container { width: 100%; max-width: 300px; margin: 0 auto; height: 3.5rem; }
     .HUD-style .action-row { gap: 1.5rem; flex-direction: column; align-items: center; }
     .game-ui-panel { width: 95vw; padding: 1.2rem; }
     #enemyName { font-size: 2.2rem; }
     #resultTitle { font-size: 2.8rem; }
+    @media (max-width: 480px) {
+        .magic-btn-grid { gap: 0.4rem; }
+        .strength-slider-container { max-width: 260px; height: 3.8rem; padding: 0 1rem; }
+        .magic-btn { min-width: 3.8rem; height: 3.8rem; flex-direction: column; gap: 0.1rem; padding: 0.3rem; }
+        .btn-icon { font-size: 1.4rem; }
+        .btn-label { font-size: 0.6rem; }
+        .HUD-style .action-row { gap: 1.2rem; }
+        #enemyName { font-size: 1.8rem; }
+    }
 }
 
-@media (max-width: 480px) {
-    .magic-btn-grid { grid-template-columns: repeat(8, 1fr); gap: 0.4rem; overflow-x: auto; padding: 0.1rem 0; width: 100%; }
-    .strength-slider-container { width: 100%; max-width: 260px; height: 3.8rem; padding: 0 1rem; }
-    .magic-btn { min-width: 3.8rem; height: 3.8rem; flex-direction: column; gap: 0.1rem; padding: 0.3rem; }
-    .btn-icon { font-size: 1.4rem; }
-    .btn-label { font-size: 0.6rem; }
-    .HUD-style .action-row { gap: 1.2rem; }
-    #enemyName { font-size: 1.8rem; }
-}
-
-@media (max-height: 600px) and (orientation: landscape) {
+@media (orientation: landscape) and (max-height: 600px) {
     .game-ui-overlay { padding: 0.5rem; align-items: flex-start; overflow-y: auto; }
     .game-ui-panel { flex-direction: row; gap: 2rem; align-items: flex-start; max-height: none; }
     .enemy-display { flex: 1; position: sticky; top: 0; }
