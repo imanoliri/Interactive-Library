@@ -731,14 +731,15 @@ function executeAttack() {
         heavyCostText = ' (Cost 1 energy for Heavy)';
     }
 
-    let enemyPts = 0;
-    if (enemy.physicality === 'Light') enemyPts = 1;
-    else if (enemy.physicality === 'Medium') enemyPts = 2;
-    else if (enemy.physicality === 'Heavy') enemyPts = 3;
+    let enemyBase = 0;
+    if (enemy.physicality === 'Light') enemyBase = 1;
+    else if (enemy.physicality === 'Medium') enemyBase = 2;
+    else if (enemy.physicality === 'Heavy') enemyBase = 3;
 
-    if (enemy.powerBonus) enemyPts += enemy.powerBonus;
-
-    let playerPts = player.strengthPts;
+    let enemyPower = enemy.powerBonus || 0;
+    let enemyAdv = 0;
+    let playerBase = player.strengthPts;
+    let playerAdv = 0;
 
     // Check type advantages
     const enemyMagics = Array.isArray(enemy.magicType) ? enemy.magicType : [enemy.magicType];
@@ -753,7 +754,7 @@ function executeAttack() {
     if (magicCounters[player.magic]) {
         for (let i = 0; i < enemyMagics.length; i++) {
             if (config.givesWeakness[i] && magicCounters[player.magic].includes(enemyMagics[i])) {
-                playerPts += 2;
+                playerAdv += 2;
                 if (!config.weaknessesCompound) break;
             }
         }
@@ -762,10 +763,13 @@ function executeAttack() {
     for (let i = 0; i < enemyMagics.length; i++) {
         const em = enemyMagics[i];
         if (config.givesBonus[i] && magicCounters[em] && magicCounters[em].includes(player.magic)) {
-            enemyPts += 2;
+            enemyAdv += 2;
             if (!config.strengthsCompound) break;
         }
     }
+
+    const playerPts = playerBase + playerAdv;
+    const enemyPts = enemyBase + enemyPower + enemyAdv;
 
     const resOver = document.getElementById('battleResult');
     const title = document.getElementById('resultTitle');
@@ -782,24 +786,28 @@ function executeAttack() {
         }
     }
 
+    // Breakdown strings
+    const pBreakdown = `base ${playerBase}${playerAdv > 0 ? ` + ${playerAdv} bonus` : ''}`;
+    const eBreakdown = `base ${enemyBase}${enemyPower > 0 ? ` + ${enemyPower} power` : ''}${enemyAdv > 0 ? ` + ${enemyAdv} bonus` : ''}`;
+
     if (playerPts > enemyPts) {
         if (window.bossState && window.bossState.lives > 1) {
             window.bossState.lives -= 1;
             title.textContent = 'Hit!';
             title.classList.add('victory');
-            details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) weakened the ${enemy.name}! It has 1 life remaining!${heavyCostText}`;
+            details.textContent = `Your ${player.strength} ${player.magic} attack (${pBreakdown} = ${playerPts} pts) vs the ${enemy.name}'s defense (${eBreakdown} = ${enemyPts} pts). The ${enemy.name} lost 1 life!${heavyCostText}`;
         } else {
             const energyReward = 1 + ((enemy.powerBonus || 0) * 2);
             window.playerEnergy += energyReward;
             title.textContent = 'Victory!';
             title.classList.add('victory');
-            details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) overpowered the ${enemy.name}'s defense (${enemyPts} pts)! You gained ${energyReward} energy!${heavyCostText}`;
+            details.textContent = `Your ${player.strength} ${player.magic} attack (${pBreakdown} = ${playerPts} pts) vs the ${enemy.name}'s defense (${eBreakdown} = ${enemyPts} pts). You gained ${energyReward} energy!${heavyCostText}`;
             if (window.bossState) window.bossState.lives = 0;
         }
     } else if (playerPts === enemyPts) {
         title.textContent = 'Draw.';
         title.classList.add('victory');
-        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) matched the ${enemy.name}'s defense (${enemyPts} pts).${heavyCostText}`;
+        details.textContent = `Your ${player.strength} ${player.magic} attack (${pBreakdown} = ${playerPts} pts) vs the ${enemy.name}'s defense (${eBreakdown} = ${enemyPts} pts). No energy was lost.${heavyCostText}`;
     } else {
         const diff = enemyPts - playerPts;
         const energyLost = diff >= 2 ? 2 : 1;
@@ -807,8 +815,7 @@ function executeAttack() {
 
         title.textContent = 'Defeat!';
         title.classList.add('defeat');
-        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) wasn't strong enough against the ${enemy.name}'s defense (${enemyPts} pts)! You lost ${energyLost} energy point(s).${heavyCostText}`;
-
+        details.textContent = `Your ${player.strength} ${player.magic} attack (${pBreakdown} = ${playerPts} pts) vs the ${enemy.name}'s defense (${eBreakdown} = ${enemyPts} pts). You lost ${energyLost} energy point(s).${heavyCostText}`;
     }
 
     document.getElementById('playerEnergyCount').textContent = `🧡 ${window.playerEnergy}`;
