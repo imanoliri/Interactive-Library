@@ -317,7 +317,7 @@ function updateModalImage(index) {
             if (!window.currentEnemy || window.currentEnemy.name !== newEnemy.name) {
                 window.currentEnemy = newEnemy;
                 window.bossState = {
-                    lives: newEnemy.levelBonus ? 2 : 1,
+                    lives: newEnemy.lives || 1,
                     usedMagics: []
                 };
             }
@@ -605,13 +605,13 @@ function showGameUI() {
 
     const bossBadge = document.getElementById('enemyLevelBadge');
     if (bossBadge) {
-        if (window.currentEnemy.levelBonus) {
+        if (window.currentEnemy.isBoss) {
             bossBadge.style.display = 'inline-block';
             let hearts = '';
             if (window.bossState) {
                 for (let i = 0; i < window.bossState.lives; i++) hearts += '♥️';
             }
-            bossBadge.textContent = 'Boss (+' + window.currentEnemy.levelBonus + ') ' + hearts;
+            bossBadge.textContent = 'Boss (+' + (window.currentEnemy.powerBonus || 0) + ') ' + hearts;
         } else {
             bossBadge.style.display = 'none';
         }
@@ -724,7 +724,7 @@ function executeAttack() {
     else if (enemy.physicality === 'Medium') enemyPts = 2;
     else if (enemy.physicality === 'Heavy') enemyPts = 3;
 
-    if (enemy.levelBonus) enemyPts += enemy.levelBonus;
+    if (enemy.powerBonus) enemyPts += enemy.powerBonus;
 
     let playerPts = player.strengthPts;
 
@@ -777,7 +777,7 @@ function executeAttack() {
             title.classList.add('victory');
             details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) weakened the ${enemy.name}! It has 1 life remaining!${heavyCostText}`;
         } else {
-            const energyReward = 1 + ((enemy.levelBonus || 0) * 2);
+            const energyReward = 1 + ((enemy.powerBonus || 0) * 2);
             window.playerEnergy += energyReward;
             title.textContent = 'Victory!';
             title.classList.add('victory');
@@ -809,7 +809,7 @@ function fleeFight() {
         
         if (window.currentEnemy) {
             window.bossState = {
-                lives: window.currentEnemy.levelBonus ? 2 : 1,
+                lives: window.currentEnemy.lives || 1,
                 usedMagics: []
             };
         }
@@ -1044,7 +1044,7 @@ function toggleEnemyInfo(show) {
             </div>
             <div class="dossier-stat-card">
                 <span class="dossier-label">⭐ Power Level</span>
-                <span class="dossier-value">${enemy.levelBonus ? `Boss (Lvl +${enemy.levelBonus})` : 'Normal'}</span>
+                <span class="dossier-value">${enemy.isBoss ? `Boss (+${enemy.powerBonus || 0})` : 'Normal'}</span>
             </div>
         </div>`;
 
