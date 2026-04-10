@@ -601,7 +601,19 @@ function showGameUI() {
             magicBadgeContainer.appendChild(span);
         });
     }
-    document.getElementById('enemyPhysicality').textContent = window.currentEnemy.physicality;
+    const physicality = window.currentEnemy.physicality;
+    const physBadge = document.getElementById('enemyPhysicality');
+    if (physBadge) {
+        let pipsCount = 1;
+        if (physicality === 'Medium') pipsCount = 2;
+        else if (physicality === 'Heavy') pipsCount = 3;
+
+        let pipsHtml = '<div class="phys-pips">';
+        for (let i = 0; i < pipsCount; i++) pipsHtml += '<div class="phys-pip"></div>';
+        pipsHtml += '</div>';
+
+        physBadge.innerHTML = `<span>${physicality}</span>${pipsHtml}`;
+    }
 
     const bossBadge = document.getElementById('enemyLevelBadge');
     if (bossBadge) {
