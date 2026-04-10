@@ -227,7 +227,6 @@ def generate_static_html(chapters, tab_names, title):
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>{{ title }}</title>
     <link rel="stylesheet" href="interactive_book.css">
 </head>
