@@ -1718,7 +1718,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 @media (max-width: 768px) {
-    .magic-btn-grid { grid-template-columns: repeat(8, 1fr); overflow-x: auto; padding-bottom: 8px; width: 100%; gap: 0.6rem; }
+    .magic-btn-grid { grid-template-columns: repeat(8, 1fr); overflow-x: auto; padding: 0.1rem 0; width: 100%; gap: 0.6rem; }
     .strength-slider-container { width: 100%; max-width: 300px; margin: 0 auto; height: 3.5rem; }
     .HUD-style .action-row { gap: 1.5rem; flex-direction: column; align-items: center; }
     .game-ui-panel { width: 95vw; padding: 1.2rem; }
@@ -1727,7 +1727,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 @media (max-width: 480px) {
-    .magic-btn-grid { grid-template-columns: repeat(8, 1fr); gap: 0.4rem; overflow-x: auto; padding-bottom: 10px; width: 100%; }
+    .magic-btn-grid { grid-template-columns: repeat(8, 1fr); gap: 0.4rem; overflow-x: auto; padding: 0.1rem 0; width: 100%; }
     .strength-slider-container { width: 100%; max-width: 260px; height: 3.8rem; padding: 0 1rem; }
     .magic-btn { min-width: 3.8rem; height: 3.8rem; flex-direction: column; gap: 0.1rem; padding: 0.3rem; }
     .btn-icon { font-size: 1.4rem; }
