@@ -787,7 +787,7 @@ function executeAttack() {
     } else if (playerPts === enemyPts) {
         title.textContent = 'Draw.';
         title.classList.add('victory');
-        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) matched the ${enemy.name}'s defense (${enemyPts} pts). You escaped unharmed.${heavyCostText}`;
+        details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) matched the ${enemy.name}'s defense (${enemyPts} pts).${heavyCostText}`;
     } else {
         const diff = enemyPts - playerPts;
         const energyLost = diff >= 2 ? 2 : 1;
@@ -797,14 +797,27 @@ function executeAttack() {
         title.classList.add('defeat');
         details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) wasn't strong enough against the ${enemy.name}'s defense (${enemyPts} pts)! You lost ${energyLost} energy point(s).${heavyCostText}`;
 
-        // Reset the boss fight on defeat
-        if (window.bossState) {
-            window.bossState.lives = enemy.levelBonus ? 2 : 1;
-            window.bossState.usedMagics = [];
-        }
     }
 
     document.getElementById('playerEnergyCount').textContent = `🧡 ${window.playerEnergy}`;
+}
+
+function fleeFight() {
+    if (window.playerEnergy > 0) {
+        window.playerEnergy -= 1;
+        document.getElementById('playerEnergyCount').textContent = `🧡 ${window.playerEnergy}`;
+        
+        if (window.currentEnemy) {
+            window.bossState = {
+                lives: window.currentEnemy.levelBonus ? 2 : 1,
+                usedMagics: []
+            };
+        }
+        
+        hideGameUI();
+    } else {
+        alert("You have no energy left to flee! You must fight.");
+    }
 }
 
 function continueBossFight() {

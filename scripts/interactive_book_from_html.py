@@ -307,6 +307,7 @@ def generate_static_html(chapters, tab_names, title):
 
                     <div class="battle-actions">
                         <button id="executeAttackBtn" class="execute-btn" onclick="executeAttack()" disabled>Attack!</button>
+                        <button id="fleeFightBtn" class="execute-btn flee-btn" onclick="fleeFight()">Flee (-1 🧡)</button>
                     </div>
                 </div>
             </div>

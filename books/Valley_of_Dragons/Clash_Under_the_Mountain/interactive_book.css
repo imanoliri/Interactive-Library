@@ -1427,10 +1427,12 @@ body::-webkit-scrollbar-thumb {
 .battle-actions {
     margin-top: 2.5rem;
     width: 100%;
+    display: flex;
+    gap: 1rem;
 }
 
 .execute-btn {
-    flex: 0 0 auto;
+    flex: 1;
     width: 100%;
     padding: 1.25rem;
     font-size: 1.75rem;
@@ -1458,6 +1460,20 @@ body::-webkit-scrollbar-thumb {
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 20px 25px -5px rgba(5, 150, 105, 0.5);
     background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.flee-btn {
+    flex: 0 0 auto;
+    width: auto;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    box-shadow: 0 10px 15px -3px rgba(217, 119, 6, 0.4);
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+}
+
+.flee-btn:not(:disabled):hover {
+    box-shadow: 0 20px 25px -5px rgba(245, 158, 11, 0.5);
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
 }
 
 .execute-btn:not(:disabled):active {
