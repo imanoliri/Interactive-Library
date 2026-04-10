@@ -1718,7 +1718,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 @media (orientation: portrait) {
-    .magic-btn-grid { grid-template-columns: repeat(8, 1fr); overflow-x: auto; padding: 0.1rem 0; width: 100%; gap: 0.6rem; }
+    .magic-btn-grid { grid-template-columns: repeat(8, 1fr); overflow-x: auto; padding: 0.1rem 0; width: auto; gap: 0.6rem; }
     .strength-slider-container { width: 100%; max-width: 300px; margin: 0 auto; height: 3.5rem; }
     .HUD-style .action-row { gap: 1.5rem; flex-direction: column; align-items: center; }
     .game-ui-panel { width: 95vw; padding: 1.2rem; }
