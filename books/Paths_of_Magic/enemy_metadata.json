@@ -1,42 +1,42 @@
 {
     "images/image9.jpg": {
-        "description": "A swift aquatic predator that uses the force of the tides to strike its prey with surgical precision.",
+        "description": "A swift and aggressive aquatic predator that uses its sword-like snout to strike its prey with surgical precision.",
         "name": "Swordfish",
         "magicType": "Water",
         "physicality": "Light"
     },
-    "images/image57.jpg": {
-        "description": "An ancient sentinel of the forest. Its bark is as hard as iron, and it commands the roots beneath your feet.",
+    "images/image15.jpg": {
+        "description": "An ancient, slow-moving sentinel of the forest that blends perfectly with its surroundings. It is big as a tree and its bark as hard as iron.",
         "name": "Walking Tree",
         "magicType": "Trees",
-        "physicality": "Heavy"
+        "physicality": "Medium"
     },
     "images/image60.jpg": {
-        "description": "An animated mass of rock and clay, bound by forgotten runes. It ignores minor scratches and delivers earth-shaking blows.",
+        "description": "An animated but unintelligent mass of rock and clay bound by the magic of the earth. It moves with slow, deliberate force to deliver earth-shaking blows and is very hard to harm.",
         "name": "Earth Golem",
         "magicType": "Earth",
         "physicality": "Heavy"
     },
     "images/image7.jpg": {
-        "description": "A regal beast combining the majesty of a lion and the keen vision of an eagle. It attacks from above with sun-blinded fury.",
+        "description": "A regal beast combining the majesty of a lion and the keen vision of an eagle. It is a proud creature that likes to eat sheep and attacks from above using the sun to blind its victims.",
         "name": "Gryphon",
         "magicType": "Sun",
         "physicality": "Medium"
     },
     "images/image23.jpg": {
-        "description": "Cruel scavengers of the high peaks. Their shrieks can disorient even the most seasoned warriors before they swoop in.",
+        "description": "Cruel scavengers of the high peaks. Bird-like but with the heads of women, their shrieks can disorient warriors before they swoop in to make them fall from the mountainside.",
         "name": "Harpy",
         "magicType": "Wind",
         "physicality": "Light"
     },
     "images/image63.jpg": {
-        "description": "A swirling vortex of unstable air. It has no physical form but strikes with the pressure of a localized hurricane.",
+        "description": "A swirling, human-sized vortex of unstable air born from raw elemental magic. It has no physical form but strikes with the pressure of a localized hurricane.",
         "name": "Wind Fury",
         "magicType": "Wind",
         "physicality": "Light"
     },
     "images/image37.jpg": {
-        "description": "Molten rock given life by the deepest magma. It burns everything it touches and is exceptionally resistant to physical impact.",
+        "description": "Slow-moving molten rock given life by the combined magic of fire and earth. It burns everything it touches and is exceptionally resistant to attacks.",
         "name": "Lava Golem",
         "magicType": ["Fire", "Earth"],
         "physicality": "Heavy",
@@ -48,13 +48,13 @@
         }
     },
     "images/image65.jpg": {
-        "description": "A manifestation of pure combustion. Its heat is so intense that simply standing near it can ignite the very air.",
+        "description": "A fast and aggressive manifestation of pure fire. Its heat is so intense that simply standing near it can ignite you.",
         "name": "Fire Elemental",
         "magicType": "Fire",
         "physicality": "Medium"
     },
     "images/image49.jpg": {
-        "description": "A celestial warrior of flame. It represents the destructive power of a dying star and hides its weaknesses behind a blinding aura.",
+        "description": "The very personification of the fire element, which, alongside other avatars, helped create the world before even life began. This ancient entity is made entirely of flame and molten rock, wielding a fiery sword and a crackling whip of flame to alter the land to its plan.",
         "name": "Fire Avatar",
         "magicType": ["Fire", "Sun"],
         "physicality": "Heavy",
@@ -67,25 +67,25 @@
         }
     },
     "images/image14.jpg": {
-        "description": "A lumbering giant composed of iron ore. It uses magnetic pulses to attract and crush anything made of metal.",
+        "description": "A fast golem composed of floating metallic rocks crackling with electrical energy. It is bound by magnetic forces, making it relatively fast but more susceptible to damage.",
         "name": "Magnetic Golem",
         "magicType": "Lightning",
         "physicality": "Heavy"
     },
     "images/image79.jpg": {
-        "description": "An erratic spark of high-voltage energy. It moves faster than the eye can follow, leaving ozone and cinders in its wake.",
+        "description": "A very dangerous spark of high-voltage energy that can leap from one metallic rock to another. It moves faster than the eye can follow, leaving ozone and cinders in its wake.",
         "name": "Lightning Fury",
         "magicType": "Lightning",
         "physicality": "Light"
     },
     "images/image31.jpg": {
-        "description": "Fallen soldiers raised by a lingering curse. They fight with a mechanical persistence and have no fear of pain or death.",
+        "description": "Slow but relentless fallen soldiers raised by a lingering curse. They fight with a mechanical persistence and have no fear of pain or death.",
         "name": "Skeletons",
         "magicType": "Undead",
         "physicality": "Medium"
     },
     "images/image48.jpg": {
-        "description": "The sovereign master of the crypts. He commands both the rot of the grave and the chilling void of the shadow realm.",
+        "description": "The lord of the crypt and commander of the dead in it.He isa highly dangerous swordsman and master of the dark paths of magic.",
         "name": "Lich King",
         "magicType": ["Undead", "Darkness"],
         "physicality": "Heavy",
@@ -98,7 +98,7 @@
         }
     },
     "images/image21.jpg": {
-        "description": "A nightmare made manifest. This ancient dragon breathes shadow-fire and is largely immune to the very elements its scales embody.",
+        "description": "A nightmare beast capable of enslaving entire worlds. This ancient dragon breathes shadow-fire and is largely immune to the elements.",
         "name": "Enderdragon",
         "magicType": ["Darkness", "Fire"],
         "physicality": "Heavy",
