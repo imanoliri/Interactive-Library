@@ -1346,6 +1346,12 @@ body::-webkit-scrollbar-thumb {
     box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
 }
 
+.magic-btn.is-double-edged {
+    animation: pulseMix 2s infinite ease-in-out;
+    border-color: rgba(234, 179, 8, 0.5);
+    box-shadow: 0 0 15px rgba(234, 179, 8, 0.3);
+}
+
 @keyframes pulseGlow {
     0% { transform: scale(1); box-shadow: 0 0 5px rgba(96, 165, 250, 0.2); }
     50% { transform: scale(1.03); box-shadow: 0 0 15px rgba(96, 165, 250, 0.5); }
@@ -1356,6 +1362,12 @@ body::-webkit-scrollbar-thumb {
     0% { transform: scale(1); box-shadow: 0 0 5px rgba(239, 68, 68, 0.2); }
     50% { transform: scale(1.03); box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
     100% { transform: scale(1); box-shadow: 0 0 5px rgba(239, 68, 68, 0.2); }
+}
+
+@keyframes pulseMix {
+    0% { transform: scale(1); box-shadow: 0 0 5px rgba(234, 179, 8, 0.2); }
+    50% { transform: scale(1.03); box-shadow: 0 0 15px rgba(234, 179, 8, 0.5); }
+    100% { transform: scale(1); box-shadow: 0 0 5px rgba(234, 179, 8, 0.2); }
 }
 
 /* Selected states */

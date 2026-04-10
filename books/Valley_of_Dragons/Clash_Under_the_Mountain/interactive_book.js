@@ -620,7 +620,7 @@ function showGameUI() {
     document.getElementById('playerEnergyCount').textContent = `🧡 ${window.playerEnergy}`;
 
     document.querySelectorAll('.magic-btn').forEach(btn => {
-        btn.classList.remove('selected', 'is-counter', 'is-threatened');
+        btn.classList.remove('selected', 'is-counter', 'is-threatened', 'is-double-edged');
         const magicType = btn.dataset.magic;
 
         // Strategic Highlighting: highlight if this magic counters the enemy's weakness (Blue Pulse)
@@ -628,7 +628,6 @@ function showGameUI() {
         if (config.givesWeakness) {
             for (let i = 0; i < enemyMagics.length; i++) {
                 if (config.givesWeakness[i] && magicCounters[magicType] && magicCounters[magicType].includes(enemyMagics[i])) {
-                    btn.classList.add('is-counter');
                     isStrategic = true;
                     break;
                 }
@@ -636,14 +635,23 @@ function showGameUI() {
         }
 
         // Threat Highlighting: highlight if this magic is countered by the enemy's bonus (Red Pulse)
-        // Only mark as threatened if it wasn't already marked as strategic (to avoid animation conflicts)
-        if (!isStrategic && config.givesBonus) {
+        let isThreatened = false;
+        if (config.givesBonus) {
             for (let i = 0; i < enemyMagics.length; i++) {
                 if (config.givesBonus[i] && magicCounters[enemyMagics[i]] && magicCounters[enemyMagics[i]].includes(magicType)) {
-                    btn.classList.add('is-threatened');
+                    isThreatened = true;
                     break;
                 }
             }
+        }
+
+        // Apply highlighting based on the combination
+        if (isStrategic && isThreatened) {
+            btn.classList.add('is-double-edged');
+        } else if (isStrategic) {
+            btn.classList.add('is-counter');
+        } else if (isThreatened) {
+            btn.classList.add('is-threatened');
         }
 
         // Handle used magics for bosses
