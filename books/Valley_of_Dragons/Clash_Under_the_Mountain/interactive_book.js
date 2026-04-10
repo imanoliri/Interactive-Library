@@ -321,6 +321,12 @@ function updateModalImage(index) {
                     usedMagics: []
                 };
             }
+            
+            // Reset strength to default (Medium)
+            updateStrengthFromSlider(2);
+            if (document.getElementById('strengthSlider')) {
+                document.getElementById('strengthSlider').value = 2;
+            }
         } else {
             fightBtn.style.display = 'none';
         }
@@ -704,14 +710,44 @@ function selectMagic(magicType, btnEl) {
     checkAttackReady();
 }
 
-function selectStrength(strengthStr, btnEl) {
-    window.playerAttack.strength = strengthStr;
-    if (strengthStr === 'Light') window.playerAttack.strengthPts = 1;
-    if (strengthStr === 'Medium') window.playerAttack.strengthPts = 2;
-    if (strengthStr === 'Heavy') window.playerAttack.strengthPts = 3;
+function updateStrengthFromSlider(value) {
+    const val = parseInt(value);
+    let strengthStr = 'Medium';
+    let pts = 2;
 
-    document.querySelectorAll('.strength-btn').forEach(btn => btn.classList.remove('selected'));
-    btnEl.classList.add('selected');
+    if (val === 1) {
+        strengthStr = 'Light';
+        pts = 1;
+    } else if (val === 2) {
+        strengthStr = 'Medium';
+        pts = 2;
+    } else if (val === 3) {
+        strengthStr = 'Heavy';
+        pts = 3;
+    }
+
+    window.playerAttack.strength = strengthStr;
+    window.playerAttack.strengthPts = pts;
+
+    // Update UI
+    const label = document.getElementById('strengthLabel');
+    const cost = document.getElementById('strengthCost');
+    if (label) label.textContent = strengthStr;
+    if (cost) {
+        cost.textContent = (strengthStr === 'Heavy') ? '(-1 🧡)' : '';
+        cost.style.color = (strengthStr === 'Heavy') ? '#f87171' : 'transparent';
+    }
+
+    // Update pips
+    const pips = document.querySelectorAll('.strength-pips .strength-pip');
+    pips.forEach((pip, index) => {
+        if (index < val) {
+            pip.classList.add('active');
+        } else {
+            pip.classList.remove('active');
+        }
+    });
+
     checkAttackReady();
 }
 

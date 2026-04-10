@@ -298,10 +298,24 @@ def generate_static_html(chapters, tab_names, title):
                             <button class="magic-btn lifeforce" data-magic="Lifeforce" onclick="selectMagic('Lifeforce', this)"><span class="btn-icon">✨</span><span class="btn-label">Life</span></button>
                         </div>
 
-                        <div class="strength-btn-grid" id="strengthSelector">
-                            <button class="strength-btn" onclick="selectStrength('Light', this)"><span class="btn-icon">🗡️</span><span class="btn-label">Light</span></button>
-                            <button class="strength-btn" onclick="selectStrength('Medium', this)"><span class="btn-icon">⚔️</span><span class="btn-label">Medium</span></button>
-                            <button class="strength-btn has-cost" data-cost="-1" onclick="selectStrength('Heavy', this)"><span class="btn-icon">🛡️</span><span class="btn-label">Heavy</span></button>
+                        <div class="strength-slider-container">
+                            <div class="strength-slider-header">
+                                <span class="strength-title">Strength:</span>
+                                <span id="strengthLabel" class="strength-label">Medium</span>
+                                <span id="strengthCost" class="strength-cost"></span>
+                            </div>
+                            <div class="strength-slider-track-bg"></div>
+                            <div class="strength-marker-container">
+                                <span class="strength-marker"></span>
+                                <span class="strength-marker"></span>
+                                <span class="strength-marker"></span>
+                            </div>
+                            <input type="range" id="strengthSlider" class="strength-slider" min="1" max="3" step="1" value="2" oninput="updateStrengthFromSlider(this.value)">
+                            <div class="strength-pips">
+                                <div class="strength-pip"></div>
+                                <div class="strength-pip"></div>
+                                <div class="strength-pip"></div>
+                            </div>
                         </div>
                     </div>
 
