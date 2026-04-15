@@ -40,7 +40,6 @@ COMBAT_TEMPLATES = """
 
                         <div class="strength-slider-container">
                             <div class="strength-slider-header">
-                                <span class="strength-title">Strength:</span>
                                 <span id="strengthLabel" class="strength-label">Medium</span>
                                 <span id="strengthCost" class="strength-cost"></span>
                             </div>
