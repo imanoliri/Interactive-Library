@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>The Paths of Magic</title>
     <link rel="stylesheet" href="interactive_book.css">
+    <link rel="stylesheet" href="combat_system.css">
 </head>
 <body>
     <h1>The Paths of Magic</h1>
@@ -36,8 +37,10 @@
         </div>
         <button id="modalPrev" class="modal-nav-btn" aria-label="Previous image">&#10094;</button>
         <img id="modalImg" style="max-width:90%; max-height:90%;">
-        <button id="fightEnemyBtn" class="game-fight-btn" style="display:none;" onclick="showGameUI()">🔮 Battle!</button>
         <button id="modalNext" class="modal-nav-btn" aria-label="Next image">&#10095;</button>
+        
+        
+        <button id="fightEnemyBtn" class="game-fight-btn" style="display:none;" onclick="showGameUI()">🔮 Battle!</button>
         
         <!-- Game UI -->
         <div id="gameUIContainer" class="game-ui-overlay" style="display:none;">
@@ -80,13 +83,15 @@
                                 <span id="strengthLabel" class="strength-label">Medium</span>
                                 <span id="strengthCost" class="strength-cost"></span>
                             </div>
-                            <div class="strength-slider-track-bg"></div>
-                            <div class="strength-marker-container">
-                                <span class="strength-marker"></span>
-                                <span class="strength-marker"></span>
-                                <span class="strength-marker"></span>
+                            <div class="strength-slider-input-wrapper">
+                                <div class="strength-slider-track-bg"></div>
+                                <div class="strength-marker-container">
+                                    <span class="strength-marker"></span>
+                                    <span class="strength-marker"></span>
+                                    <span class="strength-marker"></span>
+                                </div>
+                                <input type="range" id="strengthSlider" class="strength-slider" min="1" max="3" step="1" value="2" oninput="updateStrengthFromSlider(this.value)">
                             </div>
-                            <input type="range" id="strengthSlider" class="strength-slider" min="1" max="3" step="1" value="2" oninput="updateStrengthFromSlider(this.value)">
                             <div class="strength-pips">
                                 <div class="strength-pip"></div>
                                 <div class="strength-pip"></div>
@@ -131,6 +136,7 @@
                 </div>
             </div>
         </div>
+
         <div class="slideshow-controls" id="slideshowControls">
             <button id="modalSlideshowBtn" class="slideshow-btn round-btn" aria-label="Toggle Slideshow" onclick="toggleSlideshow()" title="Start Slideshow">📽️</button>
             <div class="slideshow-interval-controls">
@@ -215,6 +221,7 @@
         <button class="chapter-nav-btn btm-nav next-chap" onclick="navChapter(1)" aria-label="Next Chapter">Next Chapter &#10095;</button>
     </div>
     <script src="interactive_book.js"></script>
+    <script src="combat_system.js"></script>
 </body>
 </html>
     
