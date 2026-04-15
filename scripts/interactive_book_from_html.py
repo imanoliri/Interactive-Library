@@ -231,7 +231,7 @@ def generate_static_html(chapters, tab_names, title):
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>{{ title }}</title>
     <link rel="stylesheet" href="interactive_book.css">
-    <link rel="stylesheet" href="combat_system.css">
+    <link rel="stylesheet" href="magic_combat_system.css">
 </head>
 <body>
     <h1>{{ title }}</h1>
@@ -297,7 +297,7 @@ def generate_static_html(chapters, tab_names, title):
         <button class="chapter-nav-btn btm-nav next-chap" onclick="navChapter(1)" aria-label="Next Chapter">Next Chapter &#10095;</button>
     </div>
     <script src="interactive_book.js"></script>
-    <script src="combat_system.js"></script>
+    <script src="magic_combat_system.js"></script>
 </body>
 </html>
     """

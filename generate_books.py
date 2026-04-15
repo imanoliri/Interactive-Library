@@ -62,8 +62,8 @@ def generate_all_books_from_html(booksdir: str = "books"):
         generate_interactive_book_from_html(bookdir, f"{bookdir}/{html}")
         shutil.copy("scripts/interactive_book.css", bookdir)
         shutil.copy("scripts/interactive_book.js", bookdir)
-        shutil.copy("scripts/combat_system.css", bookdir)
-        shutil.copy("scripts/combat_system.js", bookdir)
+        shutil.copy("scripts/magic_combat_system.css", bookdir)
+        shutil.copy("scripts/magic_combat_system.js", bookdir)
         dirs[:] = []
 
 
