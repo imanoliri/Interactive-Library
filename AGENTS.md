@@ -6,6 +6,19 @@ Welcome to the **Interactive Library** project! This document serves as the ulti
 
 The project is built around a custom Python compilation step that turns raw HTML/Markdown fragments into fully functional, interactive books with embedded games.
 
+### Python Environment Setup
+The python builder relies on external libraries (like `BeautifulSoup4`, `jinja2`, and `Pillow`). When initializing the project on a new workstation or for a new agent, you must install dependencies into the virtual environment:
+```powershell
+pip install -r requirements_python_local.txt
+```
+
+### New Book Asset Baseline
+When parsing a new folder within `books/`, `generate_books.py` explicitly expects certain core assets. If these are missing, it will throw terminal warnings. A complete book requires:
+*   A `.html` file not called `index.html` (e.g., `Paths_of_Magic.html`) which serves as the source text for the book.
+*   `cover.jpg` (The book cover)
+*   `poem.html` (The poem overlay text)
+*   `song.mp3` (The background music)
+
 ### The Source of Truth
 *   **DO NOT manually edit the `books/*/index.html` files!** These are built artifacts.
 *   **The Engine**: The core engine lives in the `scripts/` directory.
@@ -21,7 +34,7 @@ Whenever you modify CSS, Javascript, or Python templates, you **MUST** run the b
 .\.venv\Scripts\python.exe generate_books.py
 ```
 *What happens under the hood?*
-1.  `generate_books.py` traverses the `books/` directory looking for directories containing HTML text files.
+1.  `generate_books.py` traverses the `books/` directory looking for directories containing HTML text files (it specifically picks the first `.html` file it finds that is *not* named `index.html` as the source).
 2.  It copies `interactive_book.css` and `interactive_book.js` into those directories.
 3.  It calls `interactive_book_from_html.py` which performs a robust extraction and compilation process:
     *   **Data Extraction & Serialization**: Before compiling the book, it rigorously extracts book data and serializes it into local JSON files for consumption by additional games/features later. This includes:
