@@ -1,7 +1,7 @@
 body {
     font-family: 'Roboto', Arial, sans-serif;
     font-size: 22px;
-    max-width: 80ch;
+    max-width: 60vw;
     text-align: justify;
     line-height: 1.6;
     overflow-y: scroll;
@@ -12,7 +12,7 @@ body {
 }
 
 .reader {
-    max-width: 80ch;
+    max-width: 60vw;
     margin-inline: auto;
 }
 
@@ -38,7 +38,7 @@ img:hover {
 .song-banner {
     display: flex;
     align-items: center;
-    width: 75ch;
+    width: 60vw;
     gap: 14px;
     padding: 1.25rem 1.5rem;
     margin: 0 auto;
@@ -49,7 +49,7 @@ img:hover {
 #songPlayPause,
 #mainSlideshowBtn {
     padding: 14px 28px;
-    width: 15ch;
+    width: 12vw;
     border: 2px solid #6a89cc;
     border-radius: 8px;
     background: #a8c1db;
@@ -75,7 +75,7 @@ img:hover {
 /* Poem button */
 .poem-btn {
     display: inline-block;
-    width: 28ch;
+    width: 22vw;
     margin: 20px auto;
     padding: 14px 28px;
     border: 2px solid #6a89cc;
@@ -118,12 +118,12 @@ img:hover {
 }
 
 #songVolume {
-    width: 30ch;
+    width: 15vw;
 }
 
 /* Poem */
 #poemDialog {
-    width: 40ch;
+    width: 32vw;
     justify-content: center;
     padding: 0;
     border: none;
@@ -152,7 +152,7 @@ img:hover {
 /* Portrait (vertical) */
 @media (orientation: portrait) {
     #poemDialog {
-        width: 55ch;
+        width: 45vw
     }
 
     #poemContent {
