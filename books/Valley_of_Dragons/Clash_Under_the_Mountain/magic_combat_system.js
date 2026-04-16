@@ -165,6 +165,7 @@ function hideGameUI() {
     if (guide) guide.style.display = 'none';
     const info = document.getElementById('enemyInfoOverlay');
     if (info) info.style.display = 'none';
+    clearEnemyMatchupHighlights();
 }
 
 function selectMagic(magicType, btnEl) {
@@ -338,6 +339,7 @@ function toggleMatchupGuide() {
     const isShowing = (guideOverlay.style.display === 'none' || !guideOverlay.style.display);
 
     if (isShowing) {
+        clearEnemyMatchupHighlights();
         guideOverlay.style.display = 'flex';
         if (!magicCircleInitialized) {
             initMagicCircle();
@@ -346,6 +348,88 @@ function toggleMatchupGuide() {
     } else {
         guideOverlay.style.display = 'none';
     }
+}
+
+function showEnemyMatchupGuide() {
+    const enemy = window.currentEnemy;
+    if (!enemy) return;
+
+    const guideOverlay = document.getElementById('matchupGuideOverlay');
+    if (!guideOverlay) return;
+
+    // Open guide
+    guideOverlay.style.display = 'flex';
+    if (!magicCircleInitialized) {
+        initMagicCircle();
+        magicCircleInitialized = true;
+    }
+
+    // Reset previous highlights
+    clearEnemyMatchupHighlights();
+
+    const enemyMagics = Array.isArray(enemy.magicType) ? enemy.magicType : [enemy.magicType];
+    const defaultConfig = {
+        givesBonus: enemyMagics.map(() => true),
+        givesWeakness: enemyMagics.map(() => true)
+    };
+    const config = enemy.magicConfig || defaultConfig;
+
+    const circleContainer = document.getElementById('magicCircleContainer');
+    if (circleContainer) circleContainer.classList.add('has-active'); // Dim others
+
+    const nodes = document.querySelectorAll('.magic-node');
+    const arrows = document.querySelectorAll('.matchup-arrow');
+
+    // Default: Color all lines as faded counters (using existing Green 'is-outgoing' + 'dimmed')
+    arrows.forEach(arrow => {
+        arrow.classList.add('is-outgoing', 'dimmed');
+    });
+
+    enemyMagics.forEach((type, idx) => {
+        const node = Array.from(nodes).find(n => n.dataset.id === type);
+        if (node) {
+            node.classList.add('is-double-edged'); // Orange tactical glow
+            
+            arrows.forEach(arrow => {
+                // Incoming to enemy = Enemy Weakness = Player Advantage = Green (is-outgoing)
+                if (arrow.dataset.target === type) {
+                    arrow.classList.remove('is-incoming'); // Ensure no stale Red
+                    arrow.classList.add('is-outgoing'); // Green
+                    
+                    if (config.givesWeakness[idx]) {
+                        arrow.classList.remove('dimmed');
+                        const sourceNode = Array.from(nodes).find(n => n.dataset.id === arrow.dataset.source);
+                        if (sourceNode) sourceNode.classList.add('is-target-out'); // Highlight as player advantage
+                    }
+                }
+                
+                // Outgoing from enemy = Enemy Bonus = Player Threat = Red (is-incoming)
+                if (arrow.dataset.source === type) {
+                    arrow.classList.remove('is-outgoing'); // Swap from default Green
+                    arrow.classList.add('is-incoming'); // Red
+                    
+                    if (config.givesBonus[idx]) {
+                        arrow.classList.remove('dimmed');
+                        const targetNode = Array.from(nodes).find(n => n.dataset.id === arrow.dataset.target);
+                        if (targetNode) targetNode.classList.add('is-target-in'); // Highlight as threat
+                    }
+                }
+            });
+        }
+    });
+}
+
+function clearEnemyMatchupHighlights() {
+    const circleContainer = document.getElementById('magicCircleContainer');
+    if (circleContainer) circleContainer.classList.remove('has-active');
+
+    document.querySelectorAll('.magic-node').forEach(node => {
+        node.classList.remove('active', 'is-target-in', 'is-target-out', 'is-double-edged');
+    });
+
+    document.querySelectorAll('.matchup-arrow').forEach(arrow => {
+        arrow.classList.remove('is-incoming', 'is-outgoing', 'dimmed');
+    });
 }
 
 function initMagicCircle() {

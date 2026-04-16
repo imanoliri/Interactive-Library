@@ -81,6 +81,17 @@ A crucial, complex visual element inside `toggleMatchupGuide()`:
 *   The icons are specified in the `nodes` mathematical array (`['Water', 'Trees', 'Earth', 'Sun', 'Wind', 'Fire', 'Storm', 'Life', 'Darkness', 'Undead']`).
 *   **WARNING**: If you change the order of `nodes`, the visual web of arrows will completely change shape. Keep it aligned with the Combat HUD sequence so the player's mental map remains intact.
 
+### The Enemy Matchup Guide (Pentagram Button)
+A second button (`⛧`) exists in the enemy HUD (next to the `❔` info button).
+*   **Function**: Opens the Magic Matchup Guide with specialized highlights.
+    *   **Highlight Logic**: 
+    *   The enemy's own magic types are highlighted with an **Orange tactical glow** (`is-double-edged`).
+    *   **Universal Color Coding**: 
+        *   **Green Arrows**: Highlight all connections representing a **Player Advantage** (Incoming to enemy weaknesses).
+        *   **Red Arrows**: Highlight all connections representing a **Player Threat** (Outgoing from enemy bonuses).
+    *   **Intensity Logic**: Only connections that actively apply based on `enemy_metadata.json` are bright; non-applicable or latent counters (including generic counters not involving the enemy) are faded.
+*   **Management**: Handled by `showEnemyMatchupGuide()` and `clearEnemyMatchupHighlights()` in `magic_combat_system.js`.
+
 ## 4. UI, CSS, and Responsiveness
 
 The aesthetic of the application aims for a premium, magical, interactive feel. Modern conventions (`clamp`, gradients, micro-animations) are used extensively.
