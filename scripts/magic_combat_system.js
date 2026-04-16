@@ -5,6 +5,7 @@ window.currentEnemy = null;
 window.playerAttack = { magic: null, strength: null, strengthPts: 0 };
 window.playerEnergy = 5;
 window.bossState = { lives: 0, usedMagics: [] };
+let popupTimeout = null;
 
 const magicCounters = {
     'Water': ['Fire', 'Wind', 'Lightning'],
@@ -35,7 +36,6 @@ function showGameUI() {
     if (!window.currentEnemy) return;
 
     if (window.playerEnergy <= 0) {
-        alert("You have no energy left to fight! Refresh the page to restore energy.");
         return;
     }
 
@@ -258,14 +258,13 @@ function executeAttack() {
 
     const playerPts = playerBase + playerAdv;
     const enemyPts = enemyBase + enemyPower + enemyAdv;
-
-    const resOver = document.getElementById('battleResult');
-    const title = document.getElementById('resultTitle');
-    const details = document.getElementById('resultDetails');
-
-    document.querySelector('.game-ui-panel').style.display = 'none';
-    resOver.style.display = 'flex';
-    title.classList.remove('victory', 'defeat');
+    const popup = document.getElementById('battlePopup');
+    const popupStatus = document.getElementById('popupStatus');
+    const pScoreEl = document.getElementById('popupPlayerScore');
+    const pBreakdownEl = document.getElementById('popupPlayerBreakdown');
+    const eScoreEl = document.getElementById('popupEnemyScore');
+    const eBreakdownEl = document.getElementById('popupEnemyBreakdown');
+    const symbolEl = document.getElementById('popupSymbol');
 
     if (window.bossState && window.bossState.lives > 0) {
         if (!window.bossState.usedMagics.includes(player.magic)) {
@@ -276,35 +275,116 @@ function executeAttack() {
     const pBreakdown = `base ${playerBase}${playerAdv > 0 ? ` + ${playerAdv} bonus` : ''}`;
     const eBreakdown = `base ${enemyBase}${enemyPower > 0 ? ` + ${enemyPower} power` : ''}${enemyAdv > 0 ? ` + ${enemyAdv} bonus` : ''}`;
 
+    const isVictory = (playerPts > enemyPts && (!enemy.isBoss || window.bossState.lives <= 1));
+    
     if (playerPts > enemyPts) {
-        if (window.bossState && window.bossState.lives > 1) {
+        if (enemy.isBoss && window.bossState.lives > 1) {
             window.bossState.lives -= 1;
-            title.textContent = 'Hit!';
-            title.classList.add('victory');
-            details.textContent = `Your ${player.strength} ${player.magic} attack (${pBreakdown} = ${playerPts} pts) vs the ${enemy.name}'s defense (${eBreakdown} = ${enemyPts} pts). The ${enemy.name} lost 1 life!${heavyCostText}`;
         } else {
             const energyReward = 1 + ((enemy.powerBonus || 0) * 2);
             window.playerEnergy += energyReward;
-            title.textContent = 'Victory!';
-            title.classList.add('victory');
-            details.textContent = `Your ${player.strength} ${player.magic} attack (${pBreakdown} = ${playerPts} pts) vs the ${enemy.name}'s defense (${eBreakdown} = ${enemyPts} pts). You gained ${energyReward} energy!${heavyCostText}`;
             if (window.bossState) window.bossState.lives = 0;
         }
-    } else if (playerPts === enemyPts) {
-        title.textContent = 'Draw.';
-        title.classList.add('victory');
-        details.textContent = `Your ${player.strength} ${player.magic} attack (${pBreakdown} = ${playerPts} pts) vs the ${enemy.name}'s defense (${eBreakdown} = ${enemyPts} pts). No energy was lost.${heavyCostText}`;
-    } else {
+    } else if (playerPts < enemyPts) {
         const diff = enemyPts - playerPts;
         const energyLost = diff >= 2 ? 2 : 1;
         window.playerEnergy = Math.max(0, window.playerEnergy - energyLost);
-
-        title.textContent = 'Defeat!';
-        title.classList.add('defeat');
-        details.textContent = `Your ${player.strength} ${player.magic} attack (${pBreakdown} = ${playerPts} pts) vs the ${enemy.name}'s defense (${eBreakdown} = ${enemyPts} pts). You lost ${energyLost} energy point(s).${heavyCostText}`;
     }
 
     document.getElementById('playerEnergyCount').textContent = `🧡 ${window.playerEnergy}`;
+    showGameUI();
+
+    const isTotalDefeat = (window.playerEnergy === 0);
+
+    if (isVictory || isTotalDefeat) {
+        if (popupTimeout) clearTimeout(popupTimeout);
+        popup.style.display = 'none';
+
+        const resOver = document.getElementById('battleResult');
+        const title = document.getElementById('resultTitle');
+        const details = document.getElementById('resultDetails');
+        
+        document.querySelector('.game-ui-panel').style.display = 'none';
+        resOver.style.display = 'flex';
+        title.classList.remove('victory', 'defeat');
+        const actionBtn = document.getElementById('resultActionBtn');
+
+        if (isVictory) {
+            const energyReward = 1 + ((enemy.powerBonus || 0) * 2);
+            title.textContent = 'Victory!';
+            title.classList.add('victory');
+            details.textContent = `Your ${player.strength} ${player.magic} attack (${playerPts} pts) defeated the ${enemy.name} (${enemyPts} pts)! You gained ${energyReward} 🧡 and cleared the path.${heavyCostText}`;
+            if (actionBtn) {
+                actionBtn.textContent = 'Continue';
+                actionBtn.onclick = continueBossFight;
+            }
+        } else {
+            title.textContent = 'Defeat!';
+            title.classList.add('defeat');
+            details.textContent = `Your energy has been depleted. You have no more strength to continue this journey. Refresh the page to recover.`;
+            if (actionBtn) {
+                actionBtn.textContent = 'Refresh';
+                actionBtn.onclick = () => location.reload();
+            }
+        }
+    } else {
+        if (popupTimeout) clearTimeout(popupTimeout);
+        popup.classList.remove('success', 'draw', 'defeat', 'fade-out');
+        popup.style.display = 'flex';
+        
+        pScoreEl.textContent = playerPts;
+        pBreakdownEl.textContent = pBreakdown;
+        eScoreEl.textContent = enemyPts;
+        eBreakdownEl.textContent = eBreakdown;
+
+        if (playerPts > enemyPts) {
+            popup.classList.add('success');
+            popupStatus.textContent = 'Hit!';
+            symbolEl.textContent = '>';
+            document.getElementById('popupEnergyChange').textContent = '0 🧡';
+        } else if (playerPts === enemyPts) {
+            popup.classList.add('draw');
+            popupStatus.textContent = 'Draw';
+            symbolEl.textContent = '=';
+            document.getElementById('popupEnergyChange').textContent = '0 🧡';
+        } else {
+            popup.classList.add('defeat');
+            popupStatus.textContent = 'Defeat';
+            symbolEl.textContent = '<';
+            
+            const diff = enemyPts - playerPts;
+            const energyLost = diff >= 2 ? 2 : 1;
+            document.getElementById('popupEnergyChange').textContent = `-${energyLost} 🧡`;
+        }
+        
+        popupTimeout = setTimeout(hideBattlePopup, 5000);
+    }
+}
+
+function hideBattlePopup() {
+    const popup = document.getElementById('battlePopup');
+    if (!popup || popup.style.display === 'none') return;
+    
+    popup.classList.add('fade-out');
+    setTimeout(() => {
+        popup.style.display = 'none';
+        popup.classList.remove('fade-out');
+    }, 300);
+}
+
+function continueBossFight() {
+    const isVictory = (window.bossState && window.bossState.lives === 0 && window.currentEnemy);
+
+    document.getElementById('battleResult').style.display = 'none';
+    
+    if (isVictory) {
+        hideGameUI();
+        const fightBtn = document.getElementById('fightEnemyBtn');
+        if (fightBtn) fightBtn.style.display = 'none';
+        window.currentEnemy = null;
+    } else {
+        showGameUI();
+    }
 }
 
 function fleeFight() {

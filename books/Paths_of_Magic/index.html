@@ -110,7 +110,27 @@
             <div id="battleResult" class="battle-result-overlay" style="display:none;">
                 <h1 id="resultTitle">Victory!</h1>
                 <p id="resultDetails">Your attack was successful!</p>
-                <button class="execute-btn" style="margin-top: 1rem;" onclick="continueBossFight()">Continue</button>
+                <button id="resultActionBtn" class="execute-btn" style="margin-top: 1rem;" onclick="continueBossFight()">Continue</button>
+            </div>
+
+            <!-- New Battle Popup -->
+            <div id="battlePopup" class="battle-popup" style="display:none;">
+                <button class="popup-close" onclick="hideBattlePopup()">&times;</button>
+                <div class="popup-header">
+                    <span id="popupStatus" class="popup-status">Success</span>
+                    <span id="popupEnergyChange" class="popup-energy-change"></span>
+                </div>
+                <div class="popup-comparison">
+                    <div class="score-box player">
+                        <div id="popupPlayerScore" class="score-value">4</div>
+                        <div id="popupPlayerBreakdown" class="score-breakdown">base 2 + 2 bonus</div>
+                    </div>
+                    <div id="popupSymbol" class="score-symbol">&gt;</div>
+                    <div class="score-box enemy">
+                        <div id="popupEnemyScore" class="score-value">2</div>
+                        <div id="popupEnemyBreakdown" class="score-breakdown">base 2</div>
+                    </div>
+                </div>
             </div>
 
             <!-- Enemy Info Overlay -->

@@ -1027,15 +1027,143 @@
     overflow: visible;
 }
 
-.tactical-rule-text {
-    font-size: 0.72rem;
-    font-style: italic;
-    color: #94a3b8;
-    opacity: 0.7;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-    z-index: 10;
+/* Battle Popup Styles */
+.battle-popup {
+    pointer-events: auto;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(280px, 60vw, 450px);
+    background: rgba(30, 41, 59, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    animation: popupIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
+
+@keyframes popupIn {
+    0% { opacity: 0; transform: translate(-50%, -40%) scale(0.9); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes popupOut {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -60%) scale(0.9); }
+}
+
+.battle-popup.fade-out {
+    animation: popupOut 0.3s ease forwards;
+}
+
+.battle-popup.success { border-color: rgba(34, 197, 94, 0.5); box-shadow: 0 0 30px rgba(34, 197, 94, 0.2); }
+.battle-popup.draw { border-color: rgba(234, 179, 8, 0.5); box-shadow: 0 0 30px rgba(234, 179, 8, 0.2); }
+.battle-popup.defeat { border-color: rgba(239, 68, 68, 0.5); box-shadow: 0 0 30px rgba(239, 68, 68, 0.2); }
+
+.popup-close {
+    position: absolute;
+    top: 0.8rem;
+    right: 0.8rem;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.popup-close:hover { color: #fff; }
+
+.popup-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.2rem;
+}
+
+.popup-status {
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.success .popup-status { color: #4ade80; }
+.draw .popup-status { color: #fcd34d; }
+.defeat .popup-status { color: #f87171; }
+
+.popup-energy-change {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.15rem 0.6rem;
+    border-radius: 8px;
+    white-space: nowrap;
+}
+
+.defeat .popup-energy-change {
+    color: #f87171;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.success .popup-energy-change {
+    color: #4ade80;
+    background: rgba(74, 222, 128, 0.15);
+    border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+.popup-comparison {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+}
+
+.score-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.score-value {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+}
+
+.score-breakdown {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.score-symbol {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #64748b;
+    margin-top: 0.4rem;
+}
+
+.success .player .score-value { color: #4ade80; text-shadow: 0 0 15px rgba(74, 222, 128, 0.4); }
+.defeat .enemy .score-value { color: #f87171; text-shadow: 0 0 15px rgba(248, 113, 113, 0.4); }
+
 
 /* Responsive Overrides */
 @media (orientation: portrait) {
