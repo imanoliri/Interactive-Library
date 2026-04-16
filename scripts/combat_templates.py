@@ -93,6 +93,7 @@ COMBAT_TEMPLATES = """
                         <svg id="magicCircleSvg" class="magic-circle-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"></svg>
                         <div id="magicNodesContainer" class="magic-nodes-container"></div>
                     </div>
+                    <div id="tacticalTagsContainer" class="tactical-tags-container"></div>
                     <button class="execute-btn" style="margin-top: 1.5rem;" onclick="toggleMatchupGuide()">Close Guide</button>
                 </div>
             </div>

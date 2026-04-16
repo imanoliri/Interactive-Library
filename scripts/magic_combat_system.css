@@ -1015,6 +1015,28 @@
 @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
 @keyframes popIn { to { opacity: 1; transform: scale(1); } }
 
+.tactical-tags-container {
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    height: 0; /* No vertical footprint */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+}
+
+.tactical-rule-text {
+    font-size: 0.72rem;
+    font-style: italic;
+    color: #94a3b8;
+    opacity: 0.7;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
 /* Responsive Overrides */
 @media (orientation: portrait) {
     .magic-btn-grid { grid-template-columns: repeat(8, 1fr); overflow-x: auto; padding: 0.1rem 0; width: auto; gap: 0.6rem; }

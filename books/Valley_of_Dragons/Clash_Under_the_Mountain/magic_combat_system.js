@@ -340,6 +340,9 @@ function toggleMatchupGuide() {
 
     if (isShowing) {
         clearEnemyMatchupHighlights();
+        const tagContainer = document.getElementById('tacticalTagsContainer');
+        if (tagContainer) tagContainer.innerHTML = '';
+        
         guideOverlay.style.display = 'flex';
         if (!magicCircleInitialized) {
             initMagicCircle();
@@ -369,10 +372,29 @@ function showEnemyMatchupGuide() {
 
     const enemyMagics = Array.isArray(enemy.magicType) ? enemy.magicType : [enemy.magicType];
     const defaultConfig = {
+        strengthsCompound: true,
+        weaknessesCompound: true,
         givesBonus: enemyMagics.map(() => true),
         givesWeakness: enemyMagics.map(() => true)
     };
     const config = enemy.magicConfig || defaultConfig;
+
+    const tagContainer = document.getElementById('tacticalTagsContainer');
+    if (tagContainer) {
+        tagContainer.innerHTML = '';
+        let text = '';
+        if (config.weaknessesCompound && config.strengthsCompound) {
+            text = "Enemy's bonuses and weaknesses stack";
+        } else if (config.weaknessesCompound) {
+            text = "Enemy's weaknesses stack";
+        } else if (config.strengthsCompound) {
+            text = "Enemy's bonuses stack";
+        }
+
+        if (text) {
+            tagContainer.innerHTML = `<div class="tactical-rule-text">${text}</div>`;
+        }
+    }
 
     const circleContainer = document.getElementById('magicCircleContainer');
     if (circleContainer) circleContainer.classList.add('has-active'); // Dim others
@@ -430,6 +452,9 @@ function clearEnemyMatchupHighlights() {
     document.querySelectorAll('.matchup-arrow').forEach(arrow => {
         arrow.classList.remove('is-incoming', 'is-outgoing', 'dimmed');
     });
+
+    const tagContainer = document.getElementById('tacticalTagsContainer');
+    if (tagContainer) tagContainer.innerHTML = '';
 }
 
 function initMagicCircle() {
