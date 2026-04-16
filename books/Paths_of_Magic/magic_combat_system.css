@@ -600,10 +600,17 @@
     flex: 0 1 auto;
 }
 
+@media (max-width: 48rem) {
+    .magic-btn-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.75rem;
+    }
+}
+
 .magic-btn {
     background: rgba(30, 41, 59, 0.8);
     border: 1px solid rgba(148, 163, 184, 0.3);
-    border-radius: 12px;
+    border-radius: 0.75rem;
     padding: 0.2rem;
     color: #f8fafc;
     display: flex;
@@ -620,7 +627,7 @@
 
 .strength-slider-container {
     background: rgba(15, 23, 42, 0.6);
-    border-radius: 12px;
+    border-radius: 0.75rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(8px);
     width: 11.5rem;
@@ -1033,14 +1040,14 @@
     top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: clamp(280px, 60vw, 450px);
+    width: clamp(17.5rem, 60vw, 28.125rem);
     background: rgba(30, 41, 59, 0.9);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
+    backdrop-filter: blur(0.75rem);
+    -webkit-backdrop-filter: blur(0.75rem);
+    border: 0.125rem solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.25rem;
     padding: 1.5rem;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 1.25rem 3.125rem rgba(0, 0, 0, 0.7);
     z-index: 3000;
     display: flex;
     flex-direction: column;
@@ -1162,3 +1169,34 @@
 
 .success .player .score-value { color: #4ade80; text-shadow: 0 0 15px rgba(74, 222, 128, 0.4); }
 .defeat .enemy .score-value { color: #f87171; text-shadow: 0 0 15px rgba(248, 113, 113, 0.4); }
+
+
+@media (orientation: portrait) {
+
+
+    /* Vertical Stacking of Actions */
+    .HUD-style .action-row {
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Bigger Strength Slider */
+    .strength-slider-container {
+        width: 90%;
+        height: 5.5rem;
+        padding: 0.8rem 1.5rem;
+    }
+
+
+    /* Result Popups */
+    .battle-result-popup {
+        width: 95vw;
+        padding: 2.5rem 1.5rem;
+    }
+
+    #resultTitle { font-size: 3.5rem; }
+    .score-value { font-size: 4rem; }
+    .result-continue-btn { padding: 1.2rem 3rem; font-size: 1.5rem; }
+}
+
