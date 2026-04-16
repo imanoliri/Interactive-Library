@@ -81,6 +81,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
     border-bottom: 1px solid rgba(255,255,255,0.1);
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
@@ -91,6 +93,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
+    flex: 1 1 auto;
 }
 
 .name-info-row {
@@ -325,6 +328,7 @@
     align-items: center;
     justify-content: center;
     backdrop-filter: blur(8px);
+    padding: 1.5rem;
 }
 
 .matchup-guide-content {
@@ -368,8 +372,10 @@
 }
 
 .magic-circle-ui {
-    width: 85vw;
-    height: 85vh;
+    width: 90vw;
+    max-width: 600px;
+    height: auto;
+    max-height: 90vh;
     padding: 1.5rem !important;
     position: relative;
     border: 1px solid rgba(168, 85, 247, 0.4);
@@ -379,15 +385,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 .magic-circle-ui h2 {
     color: white !important;
     text-align: center;
-    margin: 0;
-    height: 10%;
-    flex: 0 0 10%;
+    margin: 0 0 1rem 0;
     width: 100%;
     display: flex;
     align-items: center;
@@ -397,10 +401,9 @@
 
 .magic-circle-container {
     position: relative;
-    height: 75%;
-    flex: 0 0 75%;
+    width: 100%;
+    max-width: 50vh;
     aspect-ratio: 1 / 1;
-    width: auto;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -1187,8 +1190,11 @@
 }
 
 @media (orientation: landscape) and (max-height: 600px) {
-    .game-ui-overlay { padding: 0.5rem; align-items: flex-start; overflow-y: auto; }
-    .game-ui-panel { flex-direction: row; gap: 2rem; align-items: flex-start; max-height: none; }
-    .player-actions { flex: 2; }
-    .magic-circle-ui { max-height: 95vh; scale: 0.8; transform-origin: top; }
+    .game-ui-overlay { padding: 0.5rem; align-items: flex-end; overflow-y: auto; }
+    .game-ui-panel { flex-direction: column; gap: 0.8rem; padding: 1rem; max-height: 95vh; overflow-y: auto; }
+    .HUD-style .action-row { gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .magic-circle-container { max-width: 45vh; }
+    .execute-btn { padding: 0.8rem 1.5rem; font-size: 1.2rem; }
+    .flee-btn { padding: 0.8rem 1.5rem; font-size: 1.2rem; }
+    .strength-slider-container { flex: 1 1 auto; max-width: 300px; }
 }
