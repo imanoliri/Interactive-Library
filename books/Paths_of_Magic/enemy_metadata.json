@@ -83,8 +83,14 @@
     "images/image79.jpg": {
         "description": "A very dangerous spark of high-voltage energy that can leap from one metallic rock to another. It moves faster than the eye can follow, leaving ozone and cinders in its wake.",
         "name": "Lightning Fury",
-        "magicType": "Lightning",
-        "physicality": "Light"
+        "magicType": ["Lightning", "Wind"],
+        "physicality": "Light",
+        "magicConfig": {
+            "strengthsCompound": false,
+            "weaknessesCompound": true,
+            "givesBonus": [false, false],
+            "givesWeakness": [false, true]
+        }
     },
     "images/image31.jpg": {
         "description": "Slow but relentless fallen soldiers raised by a lingering curse. They fight with a mechanical persistence and have no fear of pain or death.",
