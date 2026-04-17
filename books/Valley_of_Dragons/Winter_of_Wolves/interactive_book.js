@@ -505,12 +505,34 @@ modal.addEventListener("click", (e) => {
     }
 });
 
-// Arrow key navigation
+// Keyboard navigation
 document.addEventListener("keydown", (e) => {
-    if (modal.style.display === "flex") {
+    const isSlideshowOpen = modal.style.display === "flex";
+
+    if (e.key === "Tab") {
+        e.preventDefault();
+        if (isSlideshowOpen) resetModalHideTimeout();
+        if (e.shiftKey) {
+            if (isSlideshowOpen && prevChapBtn) {
+                prevChapBtn.click();
+            } else {
+                navChapter(-1);
+            }
+        } else {
+            if (isSlideshowOpen && nextChapBtn) {
+                nextChapBtn.click();
+            } else {
+                navChapter(1);
+            }
+        }
+    }
+
+    if (isSlideshowOpen) {
         if (e.key === "ArrowLeft") {
+            resetModalHideTimeout();
             prevBtn.click();
         } else if (e.key === "ArrowRight") {
+            resetModalHideTimeout();
             nextBtn.click();
         } else if (e.key === "Escape") {
             syncAndCloseModal();
