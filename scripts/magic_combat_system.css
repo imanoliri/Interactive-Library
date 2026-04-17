@@ -1287,10 +1287,11 @@
     }
 
     .strength-label { font-size: 1.4rem; }
-    .strength-slider { height: 2.5rem; }
+    .strength-slider-input-wrapper { height: 3rem; }
+    .strength-slider { height: 3rem; }
     .strength-slider::-webkit-slider-thumb { width: 2.8rem; height: 2.8rem; }
     .strength-slider-track-bg { height: 1.2rem; }
-    .strength-marker { width: 2.2rem; height: 2.2rem; }
+    .strength-marker { width: 2.8rem; height: 2.8rem; }
 
     /* Execute Button Scaling */
     .execute-btn {
