@@ -1173,6 +1173,26 @@
 
 @media (orientation: portrait) {
 
+    .game-ui-overlay {
+        align-items: flex-end;
+        justify-content: center;
+        overflow-y: auto;
+        pointer-events: auto; /* Allow interaction */
+    }
+
+    .game-ui-panel {
+        font-size: 1.25rem;
+        width: 100vw;
+        max-width: none;
+        padding: 2.25rem 1.25rem;
+        border-radius: 1.5rem 1.5rem 0 0;
+        max-height: 98vh; /* Don't exceed screen height */
+        overflow-y: auto; /* Enable internal scrolling */
+    }
+
+    #enemyName { font-size: 2.8rem; }
+    .stat-badge { font-size: 1.2rem; padding: 0.6rem 1.2rem; }
+    .player-energy-display { font-size: 2.8rem; }
 
     /* Vertical Stacking of Actions */
     .HUD-style .action-row {
@@ -1181,22 +1201,65 @@
         margin-bottom: 1rem;
     }
 
-    /* Bigger Strength Slider */
-    .strength-slider-container {
-        width: 90%;
-        height: 5.5rem;
-        padding: 0.8rem 1.5rem;
+    /* Much Bigger Magic Buttons */
+    .magic-btn-grid {
+        grid-template-columns: repeat(4, 1fr); 
+        gap: 1.5rem;
+        width: 100%;
+        justify-items: center;
     }
 
+    .magic-btn {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 1.25rem;
+    }
+
+    .btn-icon { font-size: 2.6rem; }
+    .btn-label { font-size: 0.9rem; }
+
+    /* Bigger Strength Slider */
+    .strength-slider-container {
+        width: 95%;
+        max-width: 24rem;
+        height: 5rem;
+        padding: 1rem 1.8rem;
+    }
+
+    .strength-label { font-size: 1.4rem; }
+    .strength-slider { height: 2.5rem; }
+    .strength-slider::-webkit-slider-thumb { width: 2.8rem; height: 2.8rem; }
+    .strength-slider-track-bg { height: 1.2rem; }
+    .strength-marker { width: 2.2rem; height: 2.2rem; }
+
+    /* Execute Button Scaling */
+    .execute-btn {
+        width: 100%;
+        padding: 1.8rem;
+        font-size: 2.5rem;
+        border-radius: 1.25rem;
+    }
+    .flee-btn {
+        width: 35%;
+        font-size: 2rem;
+        padding: 1rem 1rem;
+    }
 
     /* Result Popups */
     .battle-result-popup {
         width: 95vw;
-        padding: 2.5rem 1.5rem;
+        padding: 3rem 1.5rem;
     }
 
-    #resultTitle { font-size: 3.5rem; }
-    .score-value { font-size: 4rem; }
-    .result-continue-btn { padding: 1.2rem 3rem; font-size: 1.5rem; }
+    #resultTitle { font-size: 4rem; }
+    .score-value { font-size: 5rem; }
+    .result-continue-btn { padding: 1.5rem 4rem; font-size: 2rem; }
+}
+
+@media (orientation: landscape) and (max-height: 31.25rem) {
+    .game-ui-panel {
+        max-height: 95vh;
+        overflow-y: auto;
+    }
 }
 
