@@ -513,9 +513,17 @@ document.addEventListener("keydown", (e) => {
     const isSlideshowOpen = modal.style.display === "flex";
     const poemDialog = document.getElementById('poemDialog');
 
-    const wakesUiKeys = ['s', 'o', 'p'];
+    const wakesUiKeys = ['s', 'o', 'p', 'b'];
     if (isSlideshowOpen && (wakesUiKeys.includes(e.key.toLowerCase()) || e.code === 'Space')) {
         resetModalHideTimeout();
+    }
+
+    if (e.key.toLowerCase() === "b") {
+        const fightBtn = document.getElementById('fightEnemyBtn');
+        if (fightBtn && fightBtn.style.display !== 'none') {
+            e.preventDefault();
+            fightBtn.click();
+        }
     }
 
     if (e.key.toLowerCase() === "p") {
