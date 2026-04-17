@@ -45,22 +45,26 @@
         <div id="gameUIContainer" class="game-ui-overlay" style="display:none;">
             <div class="game-ui-panel">
                 <div class="game-ui-header">
-                    <div class="enemy-info-left">
-                        <div class="name-info-row">
-                            <h2 id="enemyName">Enemy</h2>
-                            <button class="enemy-info-btn" onclick="toggleEnemyInfo(true)" title="Enemy Information">❔</button>
-                            <button class="enemy-info-btn" onclick="showEnemyMatchupGuide()" title="Enemy Weaknesses Matchup">⛧</button>
+                    <div class="header-top-row">
+                        <div class="header-top-left">
+                            <div class="name-info-row">
+                                <h2 id="enemyName">Enemy</h2>
+                                <button class="enemy-info-btn" onclick="toggleEnemyInfo(true)" title="Enemy Information">❔</button>
+                                <button class="enemy-info-btn" onclick="showEnemyMatchupGuide()" title="Enemy Weaknesses Matchup">⛧</button>
+                            </div>
                         </div>
+                        <div class="header-top-right">
+                            <div class="player-energy-display" id="playerEnergyCount" title="Your Energy">🧡 5</div>
+                            <button class="guide-btn" onclick="toggleMatchupGuide()" title="Matchup Guide">📖</button>
+                            <button class="game-close-btn" onclick="hideGameUI()" title="Close">&times;</button>
+                        </div>
+                    </div>
+                    <div class="header-bottom-row">
                         <div class="enemy-stats">
                             <span class="stat-badge boss-badge" id="enemyLevelBadge" style="display:none;">Boss (+1)</span>
                             <span class="stat-badge phys-badge" id="enemyPhysicality">???</span>
-                            <div id="enemyMagicBadges" class="enemy-magic-bagdes-container" style="display: flex; gap: 0.5rem;"></div>
+                            <div id="enemyMagicBadges" class="enemy-magic-bagdes-container" style="display: flex; gap: 0.5rem; flex-wrap: wrap;"></div>
                         </div>
-                    </div>
-                    <div class="game-ui-right-controls">
-                        <div class="player-energy-display" id="playerEnergyCount" title="Your Energy">🧡 5</div>
-                        <button class="guide-btn" onclick="toggleMatchupGuide()" title="Matchup Guide">📖</button>
-                        <button class="game-close-btn" onclick="hideGameUI()" title="Close">&times;</button>
                     </div>
                 </div>
                 
