@@ -507,7 +507,47 @@ modal.addEventListener("click", (e) => {
 
 // Keyboard navigation
 document.addEventListener("keydown", (e) => {
+    // Ignore key commands if user is interacting with an input
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
     const isSlideshowOpen = modal.style.display === "flex";
+    const poemDialog = document.getElementById('poemDialog');
+
+    const wakesUiKeys = ['s', 'o', 'p'];
+    if (isSlideshowOpen && (wakesUiKeys.includes(e.key.toLowerCase()) || e.code === 'Space')) {
+        resetModalHideTimeout();
+    }
+
+    if (e.key.toLowerCase() === "p") {
+        e.preventDefault();
+        playSong();
+    }
+
+    if (e.key.toLowerCase() === "o") {
+        e.preventDefault();
+        if (poemDialog && poemDialog.open) {
+            poemDialog.close();
+        } else {
+            const poemBtn = document.querySelector('.poem-btn');
+            if (poemBtn) openPoem(poemBtn.getAttribute('data-poem'));
+        }
+    }
+
+    if (e.key.toLowerCase() === "s") {
+        e.preventDefault();
+        if (isSlideshowOpen) {
+            syncAndCloseModal();
+        } else {
+            startMainSlideshow();
+        }
+    }
+
+    if (e.code === "Space") {
+        if (isSlideshowOpen && (!poemDialog || !poemDialog.open)) {
+            e.preventDefault();
+            toggleSlideshow();
+        }
+    }
 
     if (e.key === "Tab") {
         e.preventDefault();

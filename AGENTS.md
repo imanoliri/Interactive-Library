@@ -57,6 +57,14 @@ Beyond standard text parsing, the engine injects rich interactivity directly int
 *   **Fullscreen Image Modals & Slideshow**: 
     *   Clicking any image (`<img>`) opens `#fullscreenImgModal`, scaling the image to the max viewport constraints.
     *   The "📽️ Slideshow" button triggers an automated cycle of all book images with a customizable time interval, accessible via the modal.
+*   **Keyboard Navigation**:
+    *   `Tab` / `Shift + Tab`: Navigate to the Next / Previous Chapter (works consistently across Reading and Slideshow modes, and instantly wakes up hidden UI).
+    *   `Left Arrow` / `Right Arrow`: Manually step backward or forward through images in the Slideshow Modal (also wakes up the UI).
+    *   `Escape`: Immediately close active overlays and modals.
+    *   `Spacebar`: Start/Stop the automated Slideshow animation, or toggle Play/Pause for the audio player if the Poem Modal is active.
+    *   `S`: Toggle the Fullscreen Slideshow mode.
+    *   `O`: Toggle the Poem Modal.
+    *   `P`: Toggle the background song Play/Pause.
 *   **Extra "Contents" Mini-Games**: As detailed above, the final tab ("Contents") provides direct access to isolated data games (like Word Clouds) built from the aforementioned serialized JSONs.
 
 ## 3. "Paths of Magic" Combat Logic
