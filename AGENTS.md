@@ -63,6 +63,12 @@ Beyond standard text parsing, the engine injects rich interactivity directly int
 
 The combat is injected into the book seamlessly when a user clicks a "Battle" button attached to creature images.
 
+### How to Enter Combat
+1.  **Open an Image**: Click on any image (`<img>`) within the book's text to open the fullscreen slideshow modal (`#fullscreenImgModal`).
+2.  **Iterate through Images**: Use the navigation arrow button, the keyboard's arrows or the "📽️ Slideshow" button to browse the book's images.
+3.  **Find the Battle Button**: Combat is only available for specific creature images. Iterate through the slideshow until you find an image that displays a "Battle!" button at the bottom.
+4.  **Start the Fight**: Click the "Battle!" button to trigger the `game-ui-overlay` (Combat HUD) and initiate the elemental combat system.
+
 ### State Management (`interactive_book.js`)
 *   `window.enemyMetadata`: Loaded async from `enemy_metadata.json`. Holds names, levels, and magic weaknesses/bonus properties for specific enemies.
 *   `window.currentEnemy`: The currently active enemy object parsed from the image filename and the metadata.
