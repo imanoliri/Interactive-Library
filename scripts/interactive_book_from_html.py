@@ -228,7 +228,6 @@ def generate_static_html(chapters, tab_names, title):
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>{{ title }}</title>
     <link rel="stylesheet" href="interactive_book.css">
     <link rel="stylesheet" href="magic_combat_system.css">
