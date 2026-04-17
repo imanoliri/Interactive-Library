@@ -1194,6 +1194,39 @@
     .stat-badge { font-size: 1.2rem; padding: 0.6rem 1.2rem; }
     .player-energy-display { font-size: 2.8rem; }
 
+    /* Auxiliary Buttons Upscaling */
+    .enemy-info-btn {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.5rem;
+    }
+
+    .guide-btn, .game-close-btn {
+        width: 3.5rem;
+        height: 3.5rem;
+        font-size: 1.8rem;
+    }
+
+    /* Magic Matchup Guide Upscaling */
+    .magic-circle-container {
+        max-width: 90vw;
+    }
+
+    .magic-node {
+        width: 5rem;
+        height: 5rem;
+        border-width: 3px;
+    }
+
+    .magic-node .node-emoji {
+        font-size: 2rem;
+    }
+
+    .magic-node .node-label {
+        font-size: 0.9rem;
+        margin-top: 4px;
+    }
+
     /* Vertical Stacking of Actions */
     .HUD-style .action-row {
         flex-direction: column;
@@ -1210,8 +1243,8 @@
     }
 
     .magic-btn {
-        width: 3rem;
-        height: 3rem;
+        width: 4.8rem;
+        height: 4.8rem;
         border-radius: 1.25rem;
     }
 
