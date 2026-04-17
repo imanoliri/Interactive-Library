@@ -740,12 +740,14 @@
     appearance: none;
     width: 16px;
     height: 16px;
+    box-sizing: border-box;
     background: #fff;
     border: 2px solid #f59e0b;
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
-    margin-top: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .strength-pips {
@@ -771,10 +773,13 @@
 .strength-marker {
     width: 14px;
     height: 14px;
+    box-sizing: border-box;
     border: 2px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
     background: rgba(15, 23, 42, 0.9);
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    margin: 0;
+    padding: 0;
 }
 
 .strength-pip {
@@ -1289,9 +1294,21 @@
     .strength-label { font-size: 1.4rem; }
     .strength-slider-input-wrapper { height: 3rem; }
     .strength-slider { height: 3rem; }
-    .strength-slider::-webkit-slider-thumb { width: 2.8rem; height: 2.8rem; }
+    .strength-slider::-webkit-slider-thumb { 
+        width: 2.8rem; 
+        height: 2.8rem; 
+        box-sizing: border-box;
+        margin: 0; 
+        padding: 0;
+    }
     .strength-slider-track-bg { height: 1.2rem; }
-    .strength-marker { width: 2.8rem; height: 2.8rem; }
+    .strength-marker { 
+        width: 2.8rem; 
+        height: 2.8rem; 
+        box-sizing: border-box;
+        margin: 0; 
+        padding: 0;
+    }
 
     /* Execute Button Scaling */
     .execute-btn {
