@@ -1208,7 +1208,7 @@
     }
 
     .game-ui-panel {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
         width: 100vw;
         max-width: none;
         padding: 2.25rem 1.25rem;
@@ -1218,20 +1218,20 @@
     }
 
     #enemyName { font-size: 2.8rem; }
-    .stat-badge { font-size: 1.2rem; padding: 0.6rem 1.2rem; }
-    .player-energy-display { font-size: 2.8rem; }
+    .stat-badge { font-size: 1.5rem; padding: 0.6rem 1.2rem; }
+    .player-energy-display { font-size: 2rem; }
 
     /* Auxiliary Buttons Upscaling */
     .enemy-info-btn {
         width: 3rem;
         height: 3rem;
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
 
     .guide-btn, .game-close-btn {
         width: 3.5rem;
         height: 3.5rem;
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
 
     /* Magic Matchup Guide Upscaling */
@@ -1240,18 +1240,18 @@
     }
 
     .magic-node {
-        width: 5rem;
-        height: 5rem;
+        width: 8.5rem;
+        height: 8.5rem;
         border-width: 3px;
     }
 
     .magic-node .node-emoji {
-        font-size: 2rem;
+        font-size: 3.5rem;
     }
 
     .magic-node .node-label {
-        font-size: 0.9rem;
-        margin-top: 4px;
+        font-size: 1.5rem;
+        margin-top: 6px;
     }
 
     /* Vertical Stacking of Actions */
@@ -1270,13 +1270,13 @@
     }
 
     .magic-btn {
-        width: 4.8rem;
-        height: 4.8rem;
+        width: 6rem;
+        height: 6rem;
         border-radius: 1.25rem;
     }
 
-    .btn-icon { font-size: 2.6rem; }
-    .btn-label { font-size: 0.9rem; }
+    .btn-icon { font-size: 3rem; }
+    .btn-label { font-size: 1.5rem; }
 
     /* Bigger Strength Slider */
     .strength-slider-container {
@@ -1286,12 +1286,13 @@
         padding: 1rem 1.8rem;
     }
 
-    .strength-label { font-size: 1.4rem; }
+    .strength-label { font-size: 1.6rem; }
     .strength-slider-input-wrapper { height: 3rem; }
     .strength-slider { height: 3rem; }
     .strength-slider::-webkit-slider-thumb { width: 2.8rem; height: 2.8rem; }
     .strength-slider-track-bg { height: 1.2rem; }
     .strength-marker { width: 2.8rem; height: 2.8rem; }
+    .strength-pip { width: 6px; height: 6px; }
 
     /* Execute Button Scaling */
     .execute-btn {
