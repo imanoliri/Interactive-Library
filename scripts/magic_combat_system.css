@@ -1240,18 +1240,18 @@
     }
 
     .magic-node {
-        width: 8rem;
-        height: 8rem;
+        width: 7rem;
+        height: 7rem;
         border-width: 3px;
     }
 
     .magic-node .node-emoji {
-        font-size: 3.5rem;
+        font-size: 3rem;
     }
 
     .magic-node .node-label {
         font-size: 1.5rem;
-        margin-top: 4px;
+        margin-top: 2px;
     }
 
     /* Vertical Stacking of Actions */
