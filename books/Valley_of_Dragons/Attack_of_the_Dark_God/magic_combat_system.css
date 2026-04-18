@@ -1223,12 +1223,12 @@
 
     /* Enemy Info / Dossier Upscaling */
     .dossier-lore { font-size: 1.8rem; }
-    .dossier-label { font-size: 1.2rem; }
+    .dossier-label { font-size: 1.25rem; }
     .dossier-value { font-size: 1.8rem; }
     .dossier-section-title { font-size: 1.5rem; }
     .dossier-badge-role { font-size: 1.5rem; }
     .rule-pill { font-size: 1.5rem; }
-    .rule-toggle { font-size: 1.2rem; }
+    .rule-toggle { font-size: 1.25rem; }
 
     /* Matchup Guide Info Upscaling */
     .matchup-guide-content h2, .magic-circle-ui h2 { font-size: 3rem; }
