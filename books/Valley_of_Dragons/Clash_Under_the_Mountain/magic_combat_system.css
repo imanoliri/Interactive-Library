@@ -1240,8 +1240,8 @@
     }
 
     .magic-node {
-        width: 8.5rem;
-        height: 8.5rem;
+        width: 8rem;
+        height: 8rem;
         border-width: 3px;
     }
 
@@ -1251,7 +1251,7 @@
 
     .magic-node .node-label {
         font-size: 1.5rem;
-        margin-top: 6px;
+        margin-top: 4px;
     }
 
     /* Vertical Stacking of Actions */
