@@ -1,32 +1,37 @@
-# Deep Dive & Handover Manual
+# Interactive Library Developer Reference Manual
 
-Welcome to the **Interactive Library** project! This document serves as the ultimate "Deep Dive" reference guide. Whether you are adding new interactive elements, resolving layout bugs, or adjusting combat logic, read this file to understand the architecture.
+Welcome to the **Interactive Library** project! Whether you are adding new interactive elements, resolving layout bugs, or modifying existing elements, read this document for reference.
 
 ## 1. Project Architecture & Build Pipeline
 
-The project is built around a custom Python compilation step that turns raw HTML/Markdown fragments into fully functional, interactive books with embedded games.
+The project is built around a custom Python compilation step `generate_books.py` that turns a raw HTML books (exported from google docs) into fully functional, interactive books with embedded games.
 
 ### Python Environment Setup
-The python builder relies on external libraries (like `BeautifulSoup4`, `jinja2`, and `Pillow`). When initializing the project on a new workstation or for a new agent, you must install dependencies into the virtual environment:
+The python script `generate_books.py` relies on external libraries (like `BeautifulSoup4`, `jinja2`, and `Pillow`). When initializing the project on a new workstation or for a new agent, you must install dependencies into the virtual environment:
 ```powershell
 pip install -r requirements_python_local.txt
 ```
 
-### New Book Asset Baseline
-When parsing a new folder within `books/`, `generate_books.py` explicitly expects certain core assets. If these are missing, it will throw terminal warnings. A complete book requires:
-*   A `.html` file not called `index.html` (e.g., `Paths_of_Magic.html`) which serves as the source text for the book.
+### New Book Creation
+The script walks the directory `books/` and its subdirectories for any `.html` files that are not named `index.html`. The first html not named `index.html` is considered the source text for the book and from it an interactive book will be created as `index.html` in the same directory.
+For this, `generate_books.py` will call `scripts/interactive_book_from_html.py` which explicitly expects certain core assets. If these are missing, it will throw terminal warnings. A complete book requires:
+*   The aforementioned `.html` file not called `index.html` (e.g., `Paths_of_Magic.html`) which serves as the source for the book.
 *   `cover.jpg` (The book cover)
 *   `poem.html` (The poem overlay text)
 *   `song.mp3` (The background music)
 
-### The Source of Truth
+Additionally, the script will copy and paste certain elements from `scripts` that are necessary for the book to be interactive. 
+
+
+### Source of Truth for Interactive Features
 *   **DO NOT manually edit the `books/*/index.html` files!** These are built artifacts.
 *   **The Engine**: The core engine lives in the `scripts/` directory.
-    *   `interactive_book_from_html.py`: The Python compiler.
-    *   `interactive_book.js`: The client-side logic (combat, modals, etc).
-    *   `interactive_book.css`: The styling rules.
-    *   `interactive_book_words_to_ignore.py`: The NLP exclusion list.
-    *   `generate_books.py`: The build orchestrator.
+    *   `interactive_book_from_html.py`: The _book-into-interactive-book_ parser + the html template for the interactive book.
+    *   `interactive_book.js`: The client-side logic for the interactive book.
+    *   `interactive_book.css`: The styling rules for the interactive book.
+    *   `combat_templates.py`: The html template for the magic combat system.
+    *   `magic_combat_system.js`: The magic combat logic.
+    *   `magic_combat_system.css`: The magic combat styling rules.
 
 ### The Build Step
 Whenever you modify CSS, Javascript, or Python templates, you **MUST** run the build command to propagate changes to all books:
@@ -38,15 +43,16 @@ Whenever you modify CSS, Javascript, or Python templates, you **MUST** run the b
 2.  It copies `interactive_book.css` and `interactive_book.js` into those directories.
 3.  It calls `interactive_book_from_html.py` which performs a robust extraction and compilation process:
     *   **Data Extraction & Serialization**: Before compiling the book, it rigorously extracts book data and serializes it into local JSON files for consumption by additional games/features later. This includes:
-        *   `interactive_book_media.json`: Extracts all audio/video sources.
+        *   `interactive_book_media.json`: Extracts all audio/image/video sources.
         *   `interactive_book_images.json`: Records all image sources.
-        *   `interactive_book_word_count.json`: Extracts word frequencies (ignoring common words) via Python's `Counter` to generate data for word clouds and extra games.
+        *   `interactive_book_word_count.json`: Extracts top word counts (ignoring common words).
         *   `interactive_book_parapragh_texts.json`: Aggregates flat paragraph strings.
         *   `story_by_chapters.json`: Maps the compiled HTML logic to their respective chapter strings.
     *   **Asset Standardization**: Detects `<img>` tags and strictly converts stray `.png` images to `.jpg` via Python's `PIL` to standardise assets and save space.
     *   **DOM Compilation & Output**: Splits text by `h1`/`h2` tags to create tabbed chapters, injects the `game-ui-overlay` (Combat HUD), and fully renders the interactive document.
         *   The final, complete web application is exported and saved locally as `index.html` within the specific book's directory.
-    *   **Contents Integration**: Generates a dynamic `Contents` tab appended to `index.html`. This tab parses the `contents/` directory to create functional buttons connecting the book to its standalone mini-games (which exist as separate `.html` files in their respective folders).
+    *   **Contents Propagation**: Copies the `contents/` directory from any other book's directory.
+    *   **Contents Integration**: Generates a dynamic `Contents` tab appended to `index.html`. This tab has a button for each standalone mini-game which each is a separate `.html` file in its own folder in the now copied `contents/` directory.
 
 ## 2. Reader Interactivity & Features
 
@@ -54,7 +60,7 @@ Beyond standard text parsing, the engine injects rich interactivity directly int
 *   **Tabbed Navigation**: The Python script automatically converts `<h1>` and `<h2>` blocks into clickable chapter tabs, generating top and bottom `prev/next` navigational buttons.
 *   **Song Banner (Audio)**: A global audio controller (`.song-banner`) handles background music (`song.mp3`). It supports play/pause and dynamic volume dragging.
 *   **The Poem Modal**: Clicking "📜 Read the Poem" opens an overlaid `<dialog id="poemDialog">` which fetches and renders `poem.html` natively over the text.
-*   **Fullscreen Image Modals & Slideshow**: 
+*   **Fullscreen Image & Slideshow Modes**: 
     *   Clicking any image (`<img>`) opens `#fullscreenImgModal`, scaling the image to the max viewport constraints.
     *   The "📽️ Slideshow" button triggers an automated cycle of all book images with a customizable time interval, accessible via the modal.
 *   **Keyboard Navigation**:
@@ -75,25 +81,25 @@ The combat is injected into the book seamlessly when a user clicks a "Battle" bu
 ### How to Enter Combat
 1.  **Open an Image**: Click on any image (`<img>`) within the book's text to open the fullscreen slideshow modal (`#fullscreenImgModal`).
 2.  **Iterate through Images**: Use the navigation arrow button, the keyboard's arrows or the "📽️ Slideshow" button to browse the book's images.
-3.  **Find the Battle Button**: Combat is only available for specific creature images. Iterate through the slideshow until you find an image that displays a "Battle!" button at the bottom.
+3.  **Find the Battle Button**: Combat is only available for specific creature images defined in `enemy_metadata.json`. Iterate through the slideshow until you find an image that displays a "Battle!" button at the bottom.
 4.  **Start the Fight**: Click the "Battle!" button to trigger the `game-ui-overlay` (Combat HUD) and initiate the elemental combat system.
 
 ### State Management (`interactive_book.js`)
-*   `window.enemyMetadata`: Loaded async from `enemy_metadata.json`. Holds names, levels, and magic weaknesses/bonus properties for specific enemies.
+*   `window.enemyMetadata`: Loaded async from `enemy_metadata.json`. Holds names, arrays of `magicType`s, an `isBoss` flag, `lives`, `powerBonus`, and complex `magicConfig` rules governing stacking interactions.
 *   `window.currentEnemy`: The currently active enemy object parsed from the image filename and the metadata.
-*   `window.bossState`: Tracks the extra pool of health and memory of used attacks for bosses (`level 2` creatures).
+*   `window.bossState`: Tracks the extra pool of health (`lives`) and memory of used attacks `[]` specifically for bosses.
+*   **Result Popups**: The combat UI features a non-blocking HUD popup that tracks individual attack rolls and energy changes. A blocking "Victory/Defeat" screen only interrupts when a standard enemy is defeated, all boss lives are drained, or the player runs out of energy entirely.
 
 ### Elemental Counters
-The entire strategy relies on the `magicCounters` constant in `interactive_book.js`.
+The entire strategy relies on the `magicCounters` constant in `magic_combat_system.js` and the enemy's innate types.
 *   Example: `Water` counters `['Fire', 'Wind', 'Lightning']`.
-*   **Logic Rule**: If the player uses Water against a Fire enemy, the player hits their "WEAKNESS". Player attacks are measured by:
-    *   *Heavy (3 Pts)*, *Medium (2 Pts)*, *Light (1 Pt)*.
-*   **Modifiers**: Weaknesses add points; using elements where the enemy has a Bonus removes points.
+*   **Logic Rule**: If the player uses an element that counters an enemy's innate `magicType`, it counts as a generic "Weakness". Attacks are categorized by points: *Heavy (3 Pts)*, *Medium (2 Pts)*, *Light (1 Pt)*.
+*   **Modifiers**: The points are dynamically adjusted based on `magicConfig` (e.g., compounding weaknesses vs overlapping bonuses). Weakness targets add advantage points, whereas using an element where the enemy has a Bonus adds him advantage points.
 
 ### The Matchup Guide (Magic Circle)
 A crucial, complex visual element inside `toggleMatchupGuide()`:
 *   The guide draws SVG arrows dynamically between HTML icons.
-*   The icons are specified in the `nodes` mathematical array (`['Water', 'Trees', 'Earth', 'Sun', 'Wind', 'Fire', 'Storm', 'Life', 'Darkness', 'Undead']`).
+*   The icons are specified in the `nodes` array (`['Water', 'Trees', 'Earth', 'Sun', 'Wind', 'Fire', 'Storm', 'Life', 'Darkness', 'Undead']`).
 *   **WARNING**: If you change the order of `nodes`, the visual web of arrows will completely change shape. Keep it aligned with the Combat HUD sequence so the player's mental map remains intact.
 
 ### The Enemy Matchup Guide (Pentagram Button)
@@ -109,22 +115,15 @@ A second button (`⛧`) exists in the enemy HUD (next to the `❔` info button).
 
 ## 4. UI, CSS, and Responsiveness
 
-The aesthetic of the application aims for a premium, magical, interactive feel. Modern conventions (`clamp`, gradients, micro-animations) are used extensively.
+The application's aesthetic focuses on a functional, clear, and interactive experience using simple, standard CSS.
 
-### Unit Protocols
-*   **`ch` (character width)**: Used strictly for `.reader` text width (`80ch`) to guarantee optimal reading lengths.
-*   **`vw` / `vh`**: Used for Modals and Game UIs to ensure they gracefully expand and shrink on all screen sizes.
+### Base Styles (Landscape & Desktop)
+By default, the layout utilizes standard sizes and horizontal arrangements suitable for reading on monitors and laptops. The core stylesheets (`interactive_book.css` and `magic_combat_system.css`) are kept intentionally simple and straightforward to ensure maximum readability and robust performance across devices.
 
-### The Matchup Diagram Constraint
-> [!CAUTION]
-> The `.magic-circle-container` in `interactive_book.css` must ALWAYS preserve an `aspect-ratio: 1/1` within severe constraints (e.g., `height: 65%` of its flex parent). 
-> *Why?* The SVG `preserveAspectRatio="xMidYMid meet"` constraint draws perfectly circular arrow coordinate math. If CSS flexbox warps the `.magic-circle-container` into an oval, the HTML icons and the SVG arrow trajectories will visually disconnect.
+### Mobile Optimization (Portrait Mode)
+The UI seamlessly adapts for phones by leveraging `@media (orientation: portrait)` media queries. Instead of relying on complex viewport formulas or massive component rewrites, mobile responsiveness is achieved through two minimal strategies:
+*   **Element Upscaling**: Fonts and primary interactive elements (such as the magic attack grid, strength slider thumbs, and dossier text) are significantly upscaled to remain highly legible and easily tappable on smaller physical screens.
+*   **Vertical Stacking**: UI components that are horizontally wide in the default view (like the Game UI rows and action columns) are forced into flex column directions (`flex-direction: column;`), allowing the layout to naturally flow vertically down a phone screen.
 
-### Mobile Optimization
-*   **The Viewport Tag**: The `<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">` tag must exist in `interactive_book_from_html.py`. Do NOT remove it. Without it, physical mobile devices render the UI like a 1000px desktop monitor and physically squash the interface.
-*   **Portrait Overrides**: `@media (orientation: portrait)` contains bespoke logic to stack horizontal layouts (like `.game-ui-header`) vertically, shrink giant desktop navigation circles, and define the `magic-btn-grid`.
-
-## 5. Workflows for Future Agents
-1.  **Debugging Layouts**: If mobile UI breaks, simulate using browser dev tools AND verify that the viewport meta tag wasn't accidentally stripped.
-2.  **Adding Magic**: If adding a new element to `magicCounters`, you MUST also add the node to `initMagicCircle()`, update the HTML template in `interactive_book_from_html.py`, and create an associated CSS class selector for its gradient/glow.
-3.  **Deploying**: When your changes are done, commit to Git. Only the source files in `scripts/` matter; `index.html` files are ephemeral.
+### Double-Tap-To-Zoom Prevention
+To ensure a smooth, "native app" combat experience without the screen accidentally zooming or jarring during rapid taps, the `touch-action: manipulation;` style is enforced globally via a `* { ... }` selector in `interactive_book.css`.
