@@ -1240,17 +1240,17 @@
     }
 
     .magic-node {
-        width: 7rem;
-        height: 7rem;
+        width: 6.5rem;
+        height: 6.5rem;
         border-width: 3px;
     }
 
     .magic-node .node-emoji {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
 
     .magic-node .node-label {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         margin-top: 0px;
     }
 
