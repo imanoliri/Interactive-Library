@@ -99,7 +99,7 @@
         "physicality": "Medium"
     },
     "images/image48.jpg": {
-        "description": "The lord of the crypt and commander of the dead in it.He isa highly dangerous swordsman and master of the dark paths of magic.",
+        "description": "The lord of the crypt and commander of the dead in it. He is a highly dangerous swordsman and master of the dark paths of magic.",
         "name": "Lich King",
         "magicType": ["Undead", "Darkness"],
         "physicality": "Heavy",
