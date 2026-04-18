@@ -87,13 +87,14 @@ The combat is injected into the book seamlessly when a user clicks a "Battle" bu
 ### State Management (`interactive_book.js`)
 *   `window.enemyMetadata`: Loaded async from `enemy_metadata.json`. Holds names, arrays of `magicType`s, `lives`, `powerBonus`, and complex `magicConfig` rules governing stacking interactions.
 *   `window.currentEnemy`: The currently active enemy object parsed from the image filename and the metadata.
-*   `window.enemyState`: Tracks the current pool of health (`lives`) and memory of used attacks `[]` for any enemy currently being fought (though it defaults to 1 life if undefined).
+*   `window.enemyState`: Tracks the current pool of health (`lives`) and memory of used attacks `[]` for any enemy currently being fought (though it defaults to 1 life if undefined). Note: "Light" attacks are never added to this memory list and can be cast as often as wanted, provided they haven't been expended yet.
 *   **Result Popups**: The combat UI features a non-blocking HUD popup that tracks individual attack rolls and energy changes. A blocking "Victory/Defeat" screen only interrupts when the enemy is fully defeated (all lives drained), or the player runs out of energy entirely.
 
 ### Elemental Counters
 The entire strategy relies on the `magicCounters` constant in `magic_combat_system.js` and the enemy's innate types.
 *   Example: `Water` counters `['Fire', 'Wind', 'Lightning']`.
 *   **Logic Rule**: If the player uses an element that counters an enemy's innate `magicType`, it counts as a generic "Weakness". Attacks are categorized by points: *Heavy (3 Pts)*, *Medium (2 Pts)*, *Light (1 Pt)*.
+    *   **Infinite Light Attack**: Selecting "Light" strength displays "Light 🔄" in the UI. These attacks are **infinite/reusable** and are NOT added to the `enemyState.usedMagics` list, allowing them to be cast indefinitely without exhaustion.
 *   **Modifiers**: The points are dynamically adjusted based on `magicConfig` (e.g., compounding weaknesses vs overlapping bonuses). Weakness targets add advantage points, whereas using an element where the enemy has a Bonus adds him advantage points.
 
 ### The Matchup Guide (Magic Circle)

@@ -195,7 +195,7 @@ function updateStrengthFromSlider(value) {
 
     const label = document.getElementById('strengthLabel');
     const cost = document.getElementById('strengthCost');
-    if (label) label.textContent = strengthStr;
+    if (label) label.textContent = (strengthStr === 'Light') ? 'Light 🔄' : strengthStr;
     if (cost) {
         cost.textContent = (strengthStr === 'Heavy') ? '(-1 🧡)' : '';
         cost.style.color = (strengthStr === 'Heavy') ? '#f87171' : 'transparent';
@@ -272,7 +272,7 @@ function executeAttack() {
     const eBreakdownEl = document.getElementById('popupEnemyBreakdown');
     const symbolEl = document.getElementById('popupSymbol');
 
-    if (window.enemyState && window.enemyState.lives > 0) {
+    if (window.enemyState && window.enemyState.lives > 0 && player.strength !== 'Light') {
         if (!window.enemyState.usedMagics.includes(player.magic)) {
             window.enemyState.usedMagics.push(player.magic);
         }
