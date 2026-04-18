@@ -85,10 +85,10 @@ The combat is injected into the book seamlessly when a user clicks a "Battle" bu
 4.  **Start the Fight**: Click the "Battle!" button to trigger the `game-ui-overlay` (Combat HUD) and initiate the elemental combat system.
 
 ### State Management (`interactive_book.js`)
-*   `window.enemyMetadata`: Loaded async from `enemy_metadata.json`. Holds names, arrays of `magicType`s, an `isBoss` flag, `lives`, `powerBonus`, and complex `magicConfig` rules governing stacking interactions.
+*   `window.enemyMetadata`: Loaded async from `enemy_metadata.json`. Holds names, arrays of `magicType`s, `lives`, `powerBonus`, and complex `magicConfig` rules governing stacking interactions.
 *   `window.currentEnemy`: The currently active enemy object parsed from the image filename and the metadata.
-*   `window.bossState`: Tracks the extra pool of health (`lives`) and memory of used attacks `[]` specifically for bosses.
-*   **Result Popups**: The combat UI features a non-blocking HUD popup that tracks individual attack rolls and energy changes. A blocking "Victory/Defeat" screen only interrupts when a standard enemy is defeated, all boss lives are drained, or the player runs out of energy entirely.
+*   `window.enemyState`: Tracks the current pool of health (`lives`) and memory of used attacks `[]` for any enemy currently being fought (though it defaults to 1 life if undefined).
+*   **Result Popups**: The combat UI features a non-blocking HUD popup that tracks individual attack rolls and energy changes. A blocking "Victory/Defeat" screen only interrupts when the enemy is fully defeated (all lives drained), or the player runs out of energy entirely.
 
 ### Elemental Counters
 The entire strategy relies on the `magicCounters` constant in `magic_combat_system.js` and the enemy's innate types.

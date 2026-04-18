@@ -64,7 +64,6 @@
         "name": "Fire Avatar",
         "magicType": ["Fire", "Sun"],
         "physicality": "Heavy",
-        "isBoss": true,
         "lives": 2,
         "powerBonus": 1,
         "magicConfig": {
@@ -103,7 +102,6 @@
         "name": "Lich King",
         "magicType": ["Undead", "Darkness"],
         "physicality": "Heavy",
-        "isBoss": true,
         "lives": 2,
         "powerBonus": 1,
         "magicConfig": {
@@ -118,7 +116,6 @@
         "name": "Enderdragon",
         "magicType": ["Darkness", "Fire", "Wind"],
         "physicality": "Heavy",
-        "isBoss": true,
         "lives": 3,
         "powerBonus": 1,
         "magicConfig": {

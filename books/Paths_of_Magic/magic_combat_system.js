@@ -4,7 +4,7 @@ window.enemyMetadata = null;
 window.currentEnemy = null;
 window.playerAttack = { magic: null, strength: null, strengthPts: 0 };
 window.playerEnergy = 5;
-window.bossState = { lives: 0, usedMagics: [] };
+window.enemyState = { lives: 0, usedMagics: [] };
 let popupTimeout = null;
 
 const magicCounters = {
@@ -95,13 +95,19 @@ function showGameUI() {
 
     const bossBadge = document.getElementById('enemyLevelBadge');
     if (bossBadge) {
-        if (window.currentEnemy.isBoss) {
-            bossBadge.style.display = 'inline-block';
+        let textParts = [];
+        if (window.currentEnemy.powerBonus) {
+            textParts.push(`Power (+${window.currentEnemy.powerBonus})`);
+        }
+        if (window.enemyState && window.enemyState.lives > 1) {
             let hearts = '';
-            if (window.bossState) {
-                for (let i = 0; i < window.bossState.lives; i++) hearts += '♥️';
-            }
-            bossBadge.textContent = 'Boss (+' + (window.currentEnemy.powerBonus || 0) + ') ' + hearts;
+            for (let i = 0; i < window.enemyState.lives; i++) hearts += '♥️';
+            textParts.push(hearts);
+        }
+        
+        if (textParts.length > 0) {
+            bossBadge.style.display = 'inline-block';
+            bossBadge.textContent = textParts.join(' ');
         } else {
             bossBadge.style.display = 'none';
         }
@@ -141,7 +147,7 @@ function showGameUI() {
             btn.classList.add('is-threatened');
         }
 
-        if (window.bossState && window.bossState.usedMagics && window.bossState.usedMagics.includes(magicType)) {
+        if (window.enemyState && window.enemyState.usedMagics && window.enemyState.usedMagics.includes(magicType)) {
             btn.disabled = true;
             btn.style.opacity = '0.3';
             btn.style.cursor = 'not-allowed';
@@ -266,24 +272,24 @@ function executeAttack() {
     const eBreakdownEl = document.getElementById('popupEnemyBreakdown');
     const symbolEl = document.getElementById('popupSymbol');
 
-    if (window.bossState && window.bossState.lives > 0) {
-        if (!window.bossState.usedMagics.includes(player.magic)) {
-            window.bossState.usedMagics.push(player.magic);
+    if (window.enemyState && window.enemyState.lives > 0) {
+        if (!window.enemyState.usedMagics.includes(player.magic)) {
+            window.enemyState.usedMagics.push(player.magic);
         }
     }
 
     const pBreakdown = `base ${playerBase}${playerAdv > 0 ? ` + ${playerAdv} bonus` : ''}`;
     const eBreakdown = `base ${enemyBase}${enemyPower > 0 ? ` + ${enemyPower} power` : ''}${enemyAdv > 0 ? ` + ${enemyAdv} bonus` : ''}`;
 
-    const isVictory = (playerPts > enemyPts && (!enemy.isBoss || window.bossState.lives <= 1));
+    const isVictory = (playerPts > enemyPts && window.enemyState.lives <= 1);
     
     if (playerPts > enemyPts) {
-        if (enemy.isBoss && window.bossState.lives > 1) {
-            window.bossState.lives -= 1;
+        if (window.enemyState.lives > 1) {
+            window.enemyState.lives -= 1;
         } else {
             const energyReward = 1 + ((enemy.powerBonus || 0) * 2);
             window.playerEnergy += energyReward;
-            if (window.bossState) window.bossState.lives = 0;
+            if (window.enemyState) window.enemyState.lives = 0;
         }
     } else if (playerPts < enemyPts) {
         const diff = enemyPts - playerPts;
@@ -373,7 +379,7 @@ function hideBattlePopup() {
 }
 
 function continueBossFight() {
-    const isVictory = (window.bossState && window.bossState.lives === 0 && window.currentEnemy);
+    const isVictory = (window.enemyState && window.enemyState.lives === 0 && window.currentEnemy);
 
     document.getElementById('battleResult').style.display = 'none';
     
@@ -392,7 +398,7 @@ function fleeFight() {
         window.playerEnergy -= 1;
         document.getElementById('playerEnergyCount').textContent = `🧡 ${window.playerEnergy}`;
         if (window.currentEnemy) {
-            window.bossState = { lives: window.currentEnemy.lives || 1, usedMagics: [] };
+            window.enemyState = { lives: window.currentEnemy.lives || 1, usedMagics: [] };
         }
         hideGameUI();
     } else {
@@ -401,7 +407,7 @@ function fleeFight() {
 }
 
 function continueBossFight() {
-    if (window.bossState && window.bossState.lives > 0) {
+    if (window.enemyState && window.enemyState.lives > 0) {
         showGameUI();
     } else {
         hideGameUI();
@@ -677,7 +683,7 @@ function toggleEnemyInfo(show) {
         const config = enemy.magicConfig || defaultConfig;
         let html = '';
         if (enemy.description) html += `<div class="dossier-lore">${enemy.description}</div>`;
-        html += `<div class="dossier-grid"><div class="dossier-stat-card"><span class="dossier-label">🛡️ Physicality</span><span class="dossier-value">${enemy.physicality}</span></div><div class="dossier-stat-card"><span class="dossier-label">⭐ Power Level</span><span class="dossier-value">${enemy.isBoss ? `Boss (+${enemy.powerBonus || 0})` : 'Normal'}</span></div></div>`;
+        html += `<div class="dossier-grid"><div class="dossier-stat-card"><span class="dossier-label">🛡️ Physicality</span><span class="dossier-value">${enemy.physicality}</span></div><div class="dossier-stat-card"><span class="dossier-label">⭐ Power Bonus</span><span class="dossier-value">+${enemy.powerBonus || 0}</span></div></div>`;
         html += `<div class="dossier-section"><div class="dossier-section-title">Elemental Types</div><div class="dossier-badges-list">`;
         enemyMagics.forEach((type, idx) => {
             const b = config.givesBonus[idx], w = config.givesWeakness[idx];

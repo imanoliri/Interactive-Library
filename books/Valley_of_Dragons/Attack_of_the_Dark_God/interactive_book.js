@@ -316,7 +316,7 @@ function updateModalImage(index) {
             const newEnemy = window.enemyMetadata[imgSrc];
             if (!window.currentEnemy || window.currentEnemy.name !== newEnemy.name) {
                 window.currentEnemy = newEnemy;
-                window.bossState = {
+                window.enemyState = {
                     lives: newEnemy.lives || 1,
                     usedMagics: []
                 };
