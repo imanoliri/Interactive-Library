@@ -1251,7 +1251,7 @@
 
     .magic-node .node-label {
         font-size: 1.5rem;
-        margin-top: 2px;
+        margin-top: 0px;
     }
 
     /* Vertical Stacking of Actions */
@@ -1275,8 +1275,8 @@
         border-radius: 1.25rem;
     }
 
-    .btn-icon { font-size: 3rem; }
-    .btn-label { font-size: 1.5rem; }
+    .btn-icon { font-size: 3.25rem; }
+    .btn-label { font-size: 1.25rem; }
 
     /* Bigger Strength Slider */
     .strength-slider-container {
