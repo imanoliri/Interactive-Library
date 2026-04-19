@@ -512,14 +512,16 @@
     box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
 }
 
-.magic-node.is-target-out, .magic-node.is-target-in, .magic-node.is-double-edged {
+.magic-node.is-target-out, .magic-node.is-target-in, .magic-node.is-double-edged, .magic-node.is-enemy-highlight {
     opacity: 1 !important;
     filter: grayscale(0) !important;
     z-index: 10 !important;
 }
 
-.magic-node.is-target-out { border-color: #22c55e; box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
-.magic-node.is-target-in { border-color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
+.magic-node.is-target-out { border-color: #10b981; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
+.magic-node.is-target-in { border-color: #e11d48; box-shadow: 0 0 15px rgba(225, 29, 72, 0.4); }
+.magic-node.is-target-out.is-target-in { border-color: #f59e0b; box-shadow: 0 0 15px rgba(245, 158, 11, 0.4); }
+.magic-node.is-enemy-highlight { border-color: #f8fafc; box-shadow: 0 0 20px rgba(248, 250, 252, 0.6); animation: pulseNodeGlowWhite 2s infinite ease-in-out; }
 
 .matchup-arrow.is-outgoing {
     stroke: #22c55e;
@@ -810,45 +812,37 @@
 }
 
 .magic-btn.is-counter {
-    animation: pulseGlow 2s infinite ease-in-out;
-    border-color: rgba(96, 165, 250, 0.5);
-    box-shadow: 0 0 15px rgba(96, 165, 250, 0.3);
+    animation: pulseEmerald 2s infinite ease-in-out;
+    border-color: rgba(16, 185, 129, 0.6);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
 }
 
 .magic-btn.is-threatened {
-    animation: pulseThreat 2s infinite ease-in-out;
-    border-color: rgba(239, 68, 68, 0.5);
-    box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+    animation: pulseRuby 2s infinite ease-in-out;
+    border-color: rgba(225, 29, 72, 0.6);
+    box-shadow: 0 0 15px rgba(225, 29, 72, 0.3);
 }
 
 .magic-btn.is-double-edged {
-    animation: pulseMix 2s infinite ease-in-out;
-    border-color: rgba(234, 179, 8, 0.5);
-    box-shadow: 0 0 15px rgba(234, 179, 8, 0.3);
+    border-color: rgba(245, 158, 11, 0.6);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
 }
 
 .magic-node.is-double-edged {
-    animation: pulseNodeMix 2s infinite ease-in-out;
-    border-color: rgba(234, 179, 8, 0.5);
-    box-shadow: 0 0 15px rgba(234, 179, 8, 0.3);
+    border-color: rgba(245, 158, 11, 0.6);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
 }
 
-@keyframes pulseGlow {
-    0% { transform: scale(1); box-shadow: 0 0 5px rgba(96, 165, 250, 0.2); }
-    50% { transform: scale(1.03); box-shadow: 0 0 15px rgba(96, 165, 250, 0.5); }
-    100% { transform: scale(1); box-shadow: 0 0 5px rgba(96, 165, 250, 0.2); }
+@keyframes pulseEmerald {
+    0% { transform: scale(1); box-shadow: 0 0 5px rgba(16, 185, 129, 0.2); }
+    50% { transform: scale(1.03); box-shadow: 0 0 15px rgba(16, 185, 129, 0.5); }
+    100% { transform: scale(1); box-shadow: 0 0 5px rgba(16, 185, 129, 0.2); }
 }
 
-@keyframes pulseThreat {
-    0% { transform: scale(1); box-shadow: 0 0 5px rgba(239, 68, 68, 0.2); }
-    50% { transform: scale(1.03); box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
-    100% { transform: scale(1); box-shadow: 0 0 5px rgba(239, 68, 68, 0.2); }
-}
-
-@keyframes pulseMix {
-    0% { transform: scale(1); box-shadow: 0 0 5px rgba(234, 179, 8, 0.2); }
-    50% { transform: scale(1.03); box-shadow: 0 0 15px rgba(234, 179, 8, 0.5); }
-    100% { transform: scale(1); box-shadow: 0 0 5px rgba(234, 179, 8, 0.2); }
+@keyframes pulseRuby {
+    0% { transform: scale(1); box-shadow: 0 0 5px rgba(225, 29, 72, 0.2); }
+    50% { transform: scale(1.03); box-shadow: 0 0 15px rgba(225, 29, 72, 0.5); }
+    100% { transform: scale(1); box-shadow: 0 0 5px rgba(225, 29, 72, 0.2); }
 }
 
 /* Node-specific versions that preserve the translate centering */
@@ -864,10 +858,16 @@
     100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 5px rgba(239, 68, 68, 0.2); }
 }
 
-@keyframes pulseNodeMix {
-    0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 5px rgba(234, 179, 8, 0.2); }
-    50% { transform: translate(-50%, -50%) scale(1.03); box-shadow: 0 0 15px rgba(234, 179, 8, 0.5); }
-    100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 5px rgba(234, 179, 8, 0.2); }
+@keyframes pulseNodeGlowYellow {
+    0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 5px rgba(250, 204, 21, 0.2); }
+    50% { transform: translate(-50%, -50%) scale(1.03); box-shadow: 0 0 15px rgba(250, 204, 21, 0.5); }
+    100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 5px rgba(250, 204, 21, 0.2); }
+}
+
+@keyframes pulseNodeGlowWhite {
+    0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 10px rgba(248, 250, 252, 0.3); }
+    50% { transform: translate(-50%, -50%) scale(1.03); box-shadow: 0 0 25px rgba(248, 250, 252, 0.7); }
+    100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 10px rgba(248, 250, 252, 0.3); }
 }
 
 .magic-btn.selected {

@@ -496,7 +496,7 @@ function showEnemyMatchupGuide() {
     enemyMagics.forEach((type, idx) => {
         const node = Array.from(nodes).find(n => n.dataset.id === type);
         if (node) {
-            node.classList.add('is-double-edged'); // Orange tactical glow
+            node.classList.add('is-enemy-highlight'); // Orange tactical glow
             
             arrows.forEach(arrow => {
                 // Incoming to enemy = Enemy Weakness = Player Advantage = Green (is-outgoing)
@@ -532,7 +532,7 @@ function clearEnemyMatchupHighlights() {
     if (circleContainer) circleContainer.classList.remove('has-active');
 
     document.querySelectorAll('.magic-node').forEach(node => {
-        node.classList.remove('active', 'is-target-in', 'is-target-out', 'is-double-edged');
+        node.classList.remove('active', 'is-target-in', 'is-target-out', 'is-double-edged', 'is-enemy-highlight');
     });
 
     document.querySelectorAll('.matchup-arrow').forEach(arrow => {

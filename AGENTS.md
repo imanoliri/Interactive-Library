@@ -108,10 +108,10 @@ A crucial, complex visual element inside `toggleMatchupGuide()`:
 A second button (`⛧`) exists in the enemy HUD (next to the `❔` info button).
 *   **Function**: Opens the Magic Matchup Guide with specialized highlights.
     *   **Highlight Logic**: 
-    *   The enemy's own magic types are highlighted with an **Orange tactical glow** (`is-double-edged`).
-    *   **Universal Color Coding**: 
-        *   **Green Arrows**: Highlight all connections representing a **Player Advantage** (Incoming to enemy weaknesses).
-        *   **Red Arrows**: Highlight all connections representing a **Player Threat** (Outgoing from enemy bonuses).
+        *   **Spectral White Glow Nodes** (`is-enemy-highlight`): Highlights the enemy's innate magic types on the Magic Circle with a professional silver aura.
+        *   **Solar Amber Nodes** (`is-double-edged`): Highlights magic types that are both an advantage and a threat (Double-edged sword).
+        *   **Emerald Nodes/Arrows** (`is-target-out`): Represents a **Player Advantage**.
+        *   **Crimson Nodes/Arrows** (`is-target-in`): Represents a **Player Threat**.
     *   **Intensity Logic**: Only connections that actively apply based on `enemy_metadata.json` are bright; non-applicable or latent counters (including generic counters not involving the enemy) are faded.
 *   **Management**: Handled by `showEnemyMatchupGuide()` and `clearEnemyMatchupHighlights()` in `magic_combat_system.js`.
 
