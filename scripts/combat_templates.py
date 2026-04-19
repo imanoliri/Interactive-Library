@@ -1,7 +1,7 @@
 # HTML templates for the combat system components
 
 COMBAT_TEMPLATES = """
-        <button id="fightEnemyBtn" class="game-fight-btn" style="display:none;" onclick="showGameUI()">🔮 Battle!</button>
+        <button id="fightEnemyBtn" class="game-fight-btn" style="display:none;" onclick="showGameUI()" title="Start Battle! (B)">🔮 Battle!</button>
         
         <!-- Game UI -->
         <div id="gameUIContainer" class="game-ui-overlay" style="display:none;">
@@ -11,14 +11,14 @@ COMBAT_TEMPLATES = """
                         <div class="header-top-left">
                             <div class="name-info-row">
                                 <h2 id="enemyName">Enemy</h2>
-                                <button class="enemy-info-btn" onclick="toggleEnemyInfo(true)" title="Enemy Information">❔</button>
-                                <button class="enemy-info-btn" onclick="showEnemyMatchupGuide()" title="Enemy Weaknesses Matchup">⛧</button>
+                                <button class="enemy-info-btn" onclick="toggleEnemyInfo(true)" title="Enemy Information (I)">❔</button>
+                                <button class="enemy-info-btn" onclick="showEnemyMatchupGuide()" title="Enemy Weaknesses Matchup (G)">⛧</button>
                             </div>
                         </div>
                         <div class="header-top-right">
                             <div class="player-energy-display" id="playerEnergyCount" title="Your Energy">🧡 5</div>
-                            <button class="guide-btn" onclick="toggleMatchupGuide()" title="Matchup Guide">📖</button>
-                            <button class="game-close-btn" onclick="hideGameUI()" title="Close">&times;</button>
+                            <button class="guide-btn" onclick="toggleMatchupGuide()" title="Matchup Guide (M)">📖</button>
+                            <button class="game-close-btn" onclick="hideGameUI()" title="Quit Combat (Q)">&times;</button>
                         </div>
                     </div>
                     <div class="header-bottom-row">
@@ -33,16 +33,16 @@ COMBAT_TEMPLATES = """
                 <div class="player-actions HUD-style">
                     <div class="action-row">
                         <div class="magic-btn-grid" id="magicTypeSelector">
-                            <button class="magic-btn water" data-magic="Water" onclick="selectMagic('Water', this)"><span class="btn-icon">💧</span><span class="btn-label">Water</span></button>
-                            <button class="magic-btn trees" data-magic="Trees" onclick="selectMagic('Trees', this)"><span class="btn-icon">🌳</span><span class="btn-label">Trees</span></button>
-                            <button class="magic-btn earth" data-magic="Earth" onclick="selectMagic('Earth', this)"><span class="btn-icon">⛰️</span><span class="btn-label">Earth</span></button>
-                            <button class="magic-btn sun" data-magic="Sun" onclick="selectMagic('Sun', this)"><span class="btn-icon">☀️</span><span class="btn-label">Sun</span></button>
-                            <button class="magic-btn wind" data-magic="Wind" onclick="selectMagic('Wind', this)"><span class="btn-icon">💨</span><span class="btn-label">Wind</span></button>
-                            <button class="magic-btn fire" data-magic="Fire" onclick="selectMagic('Fire', this)"><span class="btn-icon">🔥</span><span class="btn-label">Fire</span></button>
-                            <button class="magic-btn lightning" data-magic="Lightning" onclick="selectMagic('Lightning', this)"><span class="btn-icon">⚡</span><span class="btn-label">Storm</span></button>
-                            <button class="magic-btn lifeforce" data-magic="Lifeforce" onclick="selectMagic('Lifeforce', this)"><span class="btn-icon">✨</span><span class="btn-label">Life</span></button>
+                            <button class="magic-btn water" data-magic="Water" onclick="selectMagic('Water', this)" title="Water (W)"><span class="btn-icon">💧</span><span class="btn-label">Water</span></button>
+                            <button class="magic-btn trees" data-magic="Trees" onclick="selectMagic('Trees', this)" title="Trees (T)"><span class="btn-icon">🌳</span><span class="btn-label">Trees</span></button>
+                            <button class="magic-btn earth" data-magic="Earth" onclick="selectMagic('Earth', this)" title="Earth (E)"><span class="btn-icon">⛰️</span><span class="btn-label">Earth</span></button>
+                            <button class="magic-btn sun" data-magic="Sun" onclick="selectMagic('Sun', this)" title="Sun (S)"><span class="btn-icon">☀️</span><span class="btn-label">Sun</span></button>
+                            <button class="magic-btn wind" data-magic="Wind" onclick="selectMagic('Wind', this)" title="Wind (D)"><span class="btn-icon">💨</span><span class="btn-label">Wind</span></button>
+                            <button class="magic-btn fire" data-magic="Fire" onclick="selectMagic('Fire', this)" title="Fire (F)"><span class="btn-icon">🔥</span><span class="btn-label">Fire</span></button>
+                            <button class="magic-btn lightning" data-magic="Lightning" onclick="selectMagic('Lightning', this)" title="Storm (R)"><span class="btn-icon">⚡</span><span class="btn-label">Storm</span></button>
+                            <button class="magic-btn lifeforce" data-magic="Lifeforce" onclick="selectMagic('Lifeforce', this)" title="Life (L)"><span class="btn-icon">✨</span><span class="btn-label">Life</span></button>
                         </div>
-
+        
                         <div class="strength-slider-container">
                             <div class="strength-slider-header">
                                 <span id="strengthLabel" class="strength-label">Medium</span>
@@ -55,7 +55,7 @@ COMBAT_TEMPLATES = """
                                     <span class="strength-marker"></span>
                                     <span class="strength-marker"></span>
                                 </div>
-                                <input type="range" id="strengthSlider" class="strength-slider" min="1" max="3" step="1" value="2" oninput="updateStrengthFromSlider(this.value)">
+                                <input type="range" id="strengthSlider" class="strength-slider" min="1" max="3" step="1" value="2" oninput="updateStrengthFromSlider(this.value)" title="Attack Strength (1, 2, 3)">
                             </div>
                             <div class="strength-pips">
                                 <div class="strength-pip"></div>
@@ -64,9 +64,9 @@ COMBAT_TEMPLATES = """
                             </div>
                         </div>
                     </div>
-
+        
                     <div class="battle-actions">
-                        <button id="executeAttackBtn" class="execute-btn" onclick="executeAttack()" disabled>Attack!</button>
+                        <button id="executeAttackBtn" class="execute-btn" onclick="executeAttack()" disabled title="Execute Attack (Enter)">Attack!</button>
                         <button id="fleeFightBtn" class="execute-btn flee-btn" onclick="fleeFight()">Flee (-1 🧡)</button>
                     </div>
                 </div>
@@ -77,7 +77,7 @@ COMBAT_TEMPLATES = """
                 <p id="resultDetails">Your attack was successful!</p>
                 <button id="resultActionBtn" class="execute-btn" style="margin-top: 1rem;" onclick="continueBossFight()">Continue</button>
             </div>
-
+        
             <!-- New Battle Popup -->
             <div id="battlePopup" class="battle-popup" style="display:none;">
                 <button class="popup-close" onclick="hideBattlePopup()">&times;</button>
@@ -97,7 +97,7 @@ COMBAT_TEMPLATES = """
                     </div>
                 </div>
             </div>
-
+        
             <!-- Enemy Info Overlay -->
             <div id="enemyInfoOverlay" class="matchup-guide-overlay info-overlay" style="display:none;">
                 <div class="matchup-guide-content">
@@ -108,7 +108,7 @@ COMBAT_TEMPLATES = """
                     <button class="result-continue-btn" onclick="toggleEnemyInfo(false)">Back to Battle</button>
                 </div>
             </div>
-
+        
             <!-- Matchup Guide Overlay -->
             <div id="matchupGuideOverlay" class="matchup-guide-overlay" style="display:none;">
                 <div class="matchup-guide-content magic-circle-ui">
