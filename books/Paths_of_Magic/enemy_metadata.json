@@ -84,6 +84,7 @@
         "name": "Lightning Fury",
         "magicType": ["Lightning", "Wind"],
         "physicality": "Light",
+        "powerBonus": 1,
         "lives": 3,
         "magicConfig": {
             "strengthsCompound": false,
