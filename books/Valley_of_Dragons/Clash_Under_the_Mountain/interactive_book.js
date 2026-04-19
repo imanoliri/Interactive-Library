@@ -321,7 +321,7 @@ function updateModalImage(index) {
                     usedMagics: []
                 };
             }
-            
+
             // Reset strength to default (Medium)
             updateStrengthFromSlider(2);
             if (document.getElementById('strengthSlider')) {
@@ -523,6 +523,21 @@ document.addEventListener("keydown", (e) => {
     const wakesUiKeys = ['s', 'o', 'p', 'b'];
     if (isSlideshowOpen && (wakesUiKeys.includes(e.key.toLowerCase()) || e.code === 'Space')) {
         resetModalHideTimeout();
+    }
+
+    if (e.key.toLowerCase() === "c") {
+        const select = document.getElementById('tab-select');
+        if (select) {
+            e.preventDefault();
+            if (select.size > 1) {
+                select.size = 1;
+                select.blur();
+            } else {
+                const optCount = select.querySelectorAll('option').length;
+                select.size = Math.min(optCount, 10);
+                select.focus();
+            }
+        }
     }
 
     if (e.key.toLowerCase() === "b") {

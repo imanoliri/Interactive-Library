@@ -71,6 +71,7 @@ Beyond standard text parsing, the engine injects rich interactivity directly int
     *   `S`: Toggle the Fullscreen Slideshow mode.
     *   `O`: Toggle the Poem Modal.
     *   `P`: Toggle the background song Play/Pause.
+    *   `C`: Toggle the Chapter Selector.
     *   `B`: Start Combat! (Clicks the 'Battle!' button if you are viewing an active enemy image in Slideshow mode).
     Note: all of these shortcuts are deactivated during combat.
 *   **Extra "Contents" Mini-Games**: As detailed above, the final tab ("Contents") provides direct access to isolated data games (like Word Clouds) built from the aforementioned serialized JSONs.

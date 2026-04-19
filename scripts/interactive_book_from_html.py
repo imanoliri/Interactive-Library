@@ -279,7 +279,7 @@ def generate_static_html(chapters, tab_names, title):
     </div>
     <div class="tab-selector">
         <button class="chapter-nav-btn top-nav prev-chap" onclick="navChapter(-1)" aria-label="Previous Chapter" title="Previous Chapter (Shift+Tab)">&#10094; Prev</button>
-        <select id="tab-select" aria-label="Choose chapter">
+        <select id="tab-select" aria-label="Choose chapter" title="Toggle Chapter Selector (C)">
     {% for i in range(chapters|length) %}
             <option value="{{ i }}">{{ tab_names[i] }}</option>
     {% endfor %}
