@@ -390,7 +390,7 @@ function toggleSlideshow() {
         slideshowIntervalId = null;
         if (btn) {
             btn.textContent = '📽️';
-            btn.title = 'Start Slideshow';
+            btn.title = 'Start Slideshow (Space)';
             btn.style.background = ''; // reset to CSS default
         }
     } else {
@@ -401,7 +401,7 @@ function toggleSlideshow() {
 
         if (btn) {
             btn.textContent = '⏹️';
-            btn.title = 'Stop Slideshow';
+            btn.title = 'Stop Slideshow (Space)';
             btn.style.background = 'rgba(217, 83, 79, 0.9)'; // Stand out red so user knows it is active
         }
     }
