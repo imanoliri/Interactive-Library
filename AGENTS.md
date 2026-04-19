@@ -26,7 +26,8 @@ Additionally, the script will copy and paste certain elements from `scripts` tha
 ### Source of Truth for Interactive Features
 *   **DO NOT manually edit the `books/*/index.html` files!** These are built artifacts.
 *   **The Engine**: The core engine lives in the `scripts/` directory.
-    *   `interactive_book_from_html.py`: The _book-into-interactive-book_ parser + the html template for the interactive book.
+    *   `interactive_book_from_html.py`: The _book-into-interactive-book_ parser.
+    *   `book_template.py`: The HTML templates for the interactive book and contents page.
     *   `interactive_book.js`: The client-side logic for the interactive book.
     *   `interactive_book.css`: The styling rules for the interactive book.
     *   `combat_templates.py`: The html template for the magic combat system.
@@ -51,8 +52,8 @@ Whenever you modify CSS, Javascript, or Python templates, you **MUST** run the b
     *   **Asset Standardization**: Detects `<img>` tags and strictly converts stray `.png` images to `.jpg` via Python's `PIL` to standardise assets and save space.
     *   **DOM Compilation & Output**: Splits text by `h1`/`h2` tags to create tabbed chapters, injects the `game-ui-overlay` (Combat HUD), and fully renders the interactive document.
         *   The final, complete web application is exported and saved locally as `index.html` within the specific book's directory.
-    *   **Contents Propagation**: Copies the `contents/` directory from any other book's directory.
-    *   **Contents Integration**: Generates a dynamic `Contents` tab appended to `index.html`. This tab has a button for each standalone mini-game which each is a separate `.html` file in its own folder in the now copied `contents/` directory.
+    *   **Contents Synchronization**: Syncs the `contents/` directory from `scripts/contents/` to the book's directory.
+    *   **Contents Integration**: Generates a dynamic `Contents` tab appended to `index.html`. This tab provides access to standalone mini-games located in the synced `contents/` directory.
 
 ## 2. Reader Interactivity & Features
 
