@@ -517,9 +517,6 @@ document.addEventListener("keydown", (e) => {
     // If combat is open, we disable most general book shortcuts to avoid collisions
     // Escape should still work to close everything
     if (isCombatOpen) {
-        if (e.key === "Escape") {
-            syncAndCloseModal();
-        }
         return;
     }
 

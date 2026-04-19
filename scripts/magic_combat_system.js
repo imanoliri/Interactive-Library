@@ -446,6 +446,12 @@ function showEnemyMatchupGuide() {
     const guideOverlay = document.getElementById('matchupGuideOverlay');
     if (!guideOverlay) return;
 
+    // Toggle logic: If already showing, close it
+    if (guideOverlay.style.display === 'flex') {
+        guideOverlay.style.display = 'none';
+        return;
+    }
+
     // Open guide
     guideOverlay.style.display = 'flex';
     if (!magicCircleInitialized) {
@@ -741,8 +747,22 @@ document.addEventListener('keydown', (e) => {
         }
     }
 
-    // Action Shortcuts: Enter to Attack
-    if (e.key === 'Enter') {
+    // Action Shortcuts: Enter to Attack, Q to Quit, G/M for Guides, I for Info
+    if (key === 'q') {
+        e.preventDefault();
+        hideGameUI();
+    } else if (key === 'g') {
+        e.preventDefault();
+        showEnemyMatchupGuide();
+    } else if (key === 'm') {
+        e.preventDefault();
+        toggleMatchupGuide();
+    } else if (key === 'i') {
+        e.preventDefault();
+        const infoOverlay = document.getElementById('enemyInfoOverlay');
+        const isShowing = infoOverlay && infoOverlay.style.display !== 'none';
+        toggleEnemyInfo(!isShowing);
+    } else if (e.key === 'Enter') {
         const attackBtn = document.getElementById('executeAttackBtn');
         const battleResult = document.getElementById('battleResult');
         

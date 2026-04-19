@@ -125,7 +125,10 @@ To ensure a fast-paced "action" feel, specialized shortcuts are active **only** 
     *   `1`: Light / `2`: Medium / `3`: Heavy
 *   **Actions**:
     *   `Enter`: Execute Attack (if ready) or Continue (when results screen is visible).
-    *   `Escape`: Close combat interface.
+    *   `Q`: Quit combat.
+    *   `G`: Toggle Enemy Matchup Guide (Pentagram).
+    *   `M`: Toggle Magic Counters Guide (Magic Circle).
+    *   `I`: Toggle Enemy Information (Dossier).
 
 ## 4. UI, CSS, and Responsiveness
 
