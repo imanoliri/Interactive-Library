@@ -696,3 +696,67 @@ function toggleEnemyInfo(show) {
         overlay.style.display = 'flex';
     } else overlay.style.display = 'none';
 }
+
+// Keyboard Shortcuts for Combat
+document.addEventListener('keydown', (e) => {
+    const gameUI = document.getElementById('gameUIContainer');
+    if (!gameUI || gameUI.style.display === 'none') return;
+
+    // Ignore if user is typing elsewhere
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        // But allow if it's our own slider
+        if (e.target.id !== 'strengthSlider') return;
+    }
+
+    const key = e.key.toLowerCase();
+
+    // Magic Type Shortcuts: w=water, t=trees, e=earth, s=sun, d=wind, f=fire, r=storm, l=life
+    const magicKeys = {
+        'w': 'Water',
+        't': 'Trees',
+        'e': 'Earth',
+        's': 'Sun',
+        'd': 'Wind',
+        'f': 'Fire',
+        'r': 'Lightning',
+        'l': 'Lifeforce'
+    };
+
+    if (magicKeys[key]) {
+        e.preventDefault();
+        const type = magicKeys[key];
+        const btn = document.querySelector(`.magic-btn[data-magic="${type}"]`);
+        if (btn && !btn.disabled) {
+            selectMagic(type, btn);
+        }
+    }
+
+    // Power Level Shortcuts: 1-3
+    if (['1', '2', '3'].includes(key)) {
+        e.preventDefault();
+        const slider = document.getElementById('strengthSlider');
+        if (slider) {
+            slider.value = key;
+            updateStrengthFromSlider(key);
+        }
+    }
+
+    // Action Shortcuts: Enter to Attack
+    if (e.key === 'Enter') {
+        const attackBtn = document.getElementById('executeAttackBtn');
+        const battleResult = document.getElementById('battleResult');
+        
+        // If attack button is enabled and we are not showing a result
+        if (attackBtn && !attackBtn.disabled && (!battleResult || battleResult.style.display === 'none')) {
+            e.preventDefault();
+            executeAttack();
+        } else if (battleResult && battleResult.style.display !== 'none') {
+            // If showing result, Enter can trigger the result action button
+            const actionBtn = document.getElementById('resultActionBtn');
+            if (actionBtn) {
+                e.preventDefault();
+                actionBtn.click();
+            }
+        }
+    }
+});

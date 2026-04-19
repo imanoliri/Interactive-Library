@@ -512,6 +512,16 @@ document.addEventListener("keydown", (e) => {
 
     const isSlideshowOpen = modal.style.display === "flex";
     const poemDialog = document.getElementById('poemDialog');
+    const isCombatOpen = document.getElementById('gameUIContainer') && document.getElementById('gameUIContainer').style.display !== 'none';
+
+    // If combat is open, we disable most general book shortcuts to avoid collisions
+    // Escape should still work to close everything
+    if (isCombatOpen) {
+        if (e.key === "Escape") {
+            syncAndCloseModal();
+        }
+        return;
+    }
 
     const wakesUiKeys = ['s', 'o', 'p', 'b'];
     if (isSlideshowOpen && (wakesUiKeys.includes(e.key.toLowerCase()) || e.code === 'Space')) {

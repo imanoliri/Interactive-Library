@@ -72,6 +72,7 @@ Beyond standard text parsing, the engine injects rich interactivity directly int
     *   `O`: Toggle the Poem Modal.
     *   `P`: Toggle the background song Play/Pause.
     *   `B`: Start Combat! (Clicks the 'Battle!' button if you are viewing an active enemy image in Slideshow mode).
+    Note: all of these shortcuts are deactivated during combat.
 *   **Extra "Contents" Mini-Games**: As detailed above, the final tab ("Contents") provides direct access to isolated data games (like Word Clouds) built from the aforementioned serialized JSONs.
 
 ## 3. "Paths of Magic" Combat Logic
@@ -113,6 +114,18 @@ A second button (`⛧`) exists in the enemy HUD (next to the `❔` info button).
         *   **Red Arrows**: Highlight all connections representing a **Player Threat** (Outgoing from enemy bonuses).
     *   **Intensity Logic**: Only connections that actively apply based on `enemy_metadata.json` are bright; non-applicable or latent counters (including generic counters not involving the enemy) are faded.
 *   **Management**: Handled by `showEnemyMatchupGuide()` and `clearEnemyMatchupHighlights()` in `magic_combat_system.js`.
+
+### Combat Keyboard Shortcuts
+To ensure a fast-paced "action" feel, specialized shortcuts are active **only** while the Combat HUD is visible. General book shortcuts (Song, Slideshow, Poem) are automatically deactivated during combat to prevent accidental interference.
+
+*   **Elemental Selection**:
+    *   `W`: Water / `T`: Trees / `E`: Earth / `S`: Sun
+    *   `D`: Wind / `F`: Fire / `R`: Storm (Lightning) / `L`: Life (Lifeforce)
+*   **Attack Strength**:
+    *   `1`: Light / `2`: Medium / `3`: Heavy
+*   **Actions**:
+    *   `Enter`: Execute Attack (if ready) or Continue (when results screen is visible).
+    *   `Escape`: Close combat interface.
 
 ## 4. UI, CSS, and Responsiveness
 
