@@ -6,13 +6,13 @@
         "physicality": "Light"
     },
     "images/image15.jpg": {
-        "description": "An ancient, slow-moving sentinel of the forest that blends perfectly with its surroundings. It is big as a tree and its bark as hard as iron.",
+        "description": "An ancient, slow-moving sentinel of the forest that blends perfectly with its surroundings. It usually stays immobile until someone tries to harm the forest.",
         "name": "Walking Tree",
         "magicType": "Trees",
         "physicality": "Medium"
     },
     "images/image60.jpg": {
-        "description": "An animated but unintelligent mass of rock and clay bound by the magic of the earth. It moves with slow, deliberate force to deliver earth-shaking blows and is very hard to harm.",
+        "description": "An animated but unintelligent mass of rock and clay bound by earth magic. It moves with slow, deliberate force to deliver earth-shaking blows and is very hard to harm.",
         "name": "Earth Golem",
         "magicType": "Earth",
         "physicality": "Heavy"
@@ -41,7 +41,13 @@
         "magicType": "Wind",
         "physicality": "Light"
     },
-    "images/image37.jpg": {
+    "images/image65.jpg": {
+        "description": "A fast and aggressive manifestation of fire magic. Its heat is so intense that simply standing near it can ignite you.",
+        "name": "Fire Elemental",
+        "magicType": "Fire",
+        "physicality": "Medium"
+    },
+        "images/image37.jpg": {
         "description": "Slow-moving molten rock given life by the combined magic of fire and earth. It burns everything it touches and is exceptionally resistant to attacks.",
         "name": "Lava Golem",
         "magicType": ["Fire", "Earth"],
@@ -53,21 +59,15 @@
             "givesWeakness": [true, true]
         }
     },
-    "images/image65.jpg": {
-        "description": "A fast and aggressive manifestation of pure fire. Its heat is so intense that simply standing near it can ignite you.",
-        "name": "Fire Elemental",
-        "magicType": "Fire",
-        "physicality": "Medium"
-    },
     "images/image49.jpg": {
-        "description": "The very personification of the fire element, which, alongside other avatars, helped create the world before even life began. This ancient entity is made entirely of flame and molten rock, wielding a fiery sword and a crackling whip of flame to alter the land to its plan.",
+        "description": "The very embodiment of the fire element, which, alongside the avatars of the other elements, helped create the world before even life began. This ancient entity is made entirely of blinding flame and wields a fiery sword and a crackling whip of flame to alter the land to its plan.",
         "name": "Fire Avatar",
         "magicType": ["Fire", "Sun"],
         "physicality": "Heavy",
         "lives": 2,
         "powerBonus": 1,
         "magicConfig": {
-            "strengthsCompound": false,
+            "strengthsCompound": true,
             "weaknessesCompound": true,
             "givesBonus": [true, true],
             "givesWeakness": [true, false]
@@ -113,7 +113,7 @@
         }
     },
     "images/image78.jpg": {
-        "description": "A nightmare beast capable of enslaving entire worlds. This ancient dragon breathes shadow-fire and is largely immune to the elements.",
+        "description": "A nightmare beast capable of enslaving entire worlds. This ancient dragon breathes shadow-fire and is extremely powerful.",
         "name": "Enderdragon",
         "magicType": ["Darkness", "Fire", "Wind"],
         "physicality": "Heavy",
