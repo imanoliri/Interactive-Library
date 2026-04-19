@@ -249,6 +249,8 @@ function getChapterIndexForImage(imgIndex) {
 function updateModalImage(index) {
     if (index < 0 || index >= images.length) return;
 
+    if (typeof hideGameUI === 'function') hideGameUI();
+
     // Set actual image
     modalImg.src = images[index].src;
     resizeModalImg();
@@ -303,6 +305,32 @@ function updateModalImage(index) {
     setTimeout(() => {
         targetImg.scrollIntoView({ behavior: 'instant', block: 'center' });
     }, 50);
+
+    // Game Integration: check if image is an enemy
+    const fightBtn = document.getElementById('fightEnemyBtn');
+    if (fightBtn && window.enemyMetadata) {
+        const imgSrc = images[index].getAttribute('src');
+        if (window.enemyMetadata[imgSrc]) {
+            fightBtn.style.display = 'block';
+            fightBtn.classList.add('start-animation');
+            const newEnemy = window.enemyMetadata[imgSrc];
+            if (!window.currentEnemy || window.currentEnemy.name !== newEnemy.name) {
+                window.currentEnemy = newEnemy;
+                window.enemyState = {
+                    lives: newEnemy.lives || 1,
+                    usedMagics: []
+                };
+            }
+
+            // Reset strength to default (Medium)
+            updateStrengthFromSlider(2);
+            if (document.getElementById('strengthSlider')) {
+                document.getElementById('strengthSlider').value = 2;
+            }
+        } else {
+            fightBtn.style.display = 'none';
+        }
+    }
 
     if (typeof resetSlideshowTimer === 'function') resetSlideshowTimer();
 }
@@ -362,7 +390,7 @@ function toggleSlideshow() {
         slideshowIntervalId = null;
         if (btn) {
             btn.textContent = '📽️';
-            btn.title = 'Start Slideshow';
+            btn.title = 'Start Slideshow (Space)';
             btn.style.background = ''; // reset to CSS default
         }
     } else {
@@ -373,7 +401,7 @@ function toggleSlideshow() {
 
         if (btn) {
             btn.textContent = '⏹️';
-            btn.title = 'Stop Slideshow';
+            btn.title = 'Stop Slideshow (Space)';
             btn.style.background = 'rgba(217, 83, 79, 0.9)'; // Stand out red so user knows it is active
         }
     }
@@ -385,6 +413,7 @@ function syncAndCloseModal() {
         // Auto-kill the background process so it doesn't leak memory and jump state around
         toggleSlideshow();
     }
+    if (typeof hideGameUI === 'function') hideGameUI();
 }
 
 images.forEach((img, index) => {
@@ -468,21 +497,116 @@ modal.addEventListener("click", (e) => {
     if (e.target !== prevBtn && e.target !== nextBtn &&
         e.target !== prevChapBtn && e.target !== nextChapBtn &&
         e.target !== modalImg &&
+        e.target !== document.getElementById('fightEnemyBtn') &&
         !e.target.closest('.modal-song-banner') &&
-        !e.target.closest('.slideshow-controls')) {
+        !e.target.closest('.slideshow-controls') &&
+        !e.target.closest('#gameUIContainer')) {
         syncAndCloseModal();
     }
 });
 
-// Arrow key navigation
+// Keyboard navigation
 document.addEventListener("keydown", (e) => {
-    if (modal.style.display === "flex") {
+    // Ignore key commands if user is interacting with an input
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+    const isSlideshowOpen = modal.style.display === "flex";
+    const poemDialog = document.getElementById('poemDialog');
+    const isCombatOpen = document.getElementById('gameUIContainer') && document.getElementById('gameUIContainer').style.display !== 'none';
+
+    // If combat is open, we disable most general book shortcuts to avoid collisions
+    // Escape should still work to close everything
+    if (isCombatOpen) {
+        return;
+    }
+
+    const wakesUiKeys = ['s', 'o', 'p', 'b'];
+    if (isSlideshowOpen && (wakesUiKeys.includes(e.key.toLowerCase()) || e.code === 'Space')) {
+        resetModalHideTimeout();
+    }
+
+    if (e.key.toLowerCase() === "c") {
+        const select = document.getElementById('tab-select');
+        if (select) {
+            e.preventDefault();
+            if (select.size > 1) {
+                select.size = 1;
+                select.blur();
+            } else {
+                const optCount = select.querySelectorAll('option').length;
+                select.size = Math.min(optCount, 10);
+                select.focus();
+            }
+        }
+    }
+
+    if (e.key.toLowerCase() === "b") {
+        const fightBtn = document.getElementById('fightEnemyBtn');
+        if (fightBtn && fightBtn.style.display !== 'none') {
+            e.preventDefault();
+            fightBtn.click();
+        }
+    }
+
+    if (e.key.toLowerCase() === "p") {
+        e.preventDefault();
+        playSong();
+    }
+
+    if (e.key.toLowerCase() === "o") {
+        e.preventDefault();
+        if (poemDialog && poemDialog.open) {
+            poemDialog.close();
+        } else {
+            const poemBtn = document.querySelector('.poem-btn');
+            if (poemBtn) openPoem(poemBtn.getAttribute('data-poem'));
+        }
+    }
+
+    if (e.key.toLowerCase() === "s") {
+        e.preventDefault();
+        if (isSlideshowOpen) {
+            syncAndCloseModal();
+        } else {
+            startMainSlideshow();
+        }
+    }
+
+    if (e.code === "Space") {
+        if (isSlideshowOpen && (!poemDialog || !poemDialog.open)) {
+            e.preventDefault();
+            toggleSlideshow();
+        }
+    }
+
+    if (e.key === "Tab") {
+        e.preventDefault();
+        if (isSlideshowOpen) resetModalHideTimeout();
+        if (e.shiftKey) {
+            if (isSlideshowOpen && prevChapBtn) {
+                prevChapBtn.click();
+            } else {
+                navChapter(-1);
+            }
+        } else {
+            if (isSlideshowOpen && nextChapBtn) {
+                nextChapBtn.click();
+            } else {
+                navChapter(1);
+            }
+        }
+    }
+
+    if (isSlideshowOpen) {
         if (e.key === "ArrowLeft") {
+            resetModalHideTimeout();
             prevBtn.click();
         } else if (e.key === "ArrowRight") {
+            resetModalHideTimeout();
             nextBtn.click();
         } else if (e.key === "Escape") {
             syncAndCloseModal();
         }
     }
 });
+

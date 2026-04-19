@@ -1,0 +1,125 @@
+# HTML templates for the combat system components
+
+COMBAT_TEMPLATES = """
+        <button id="fightEnemyBtn" class="game-fight-btn" style="display:none;" onclick="showGameUI()" title="Start Battle! (B)">🔮 Battle!</button>
+        
+        <!-- Game UI -->
+        <div id="gameUIContainer" class="game-ui-overlay" style="display:none;">
+            <div class="game-ui-panel">
+                <div class="game-ui-header">
+                    <div class="header-top-row">
+                        <div class="header-top-left">
+                            <div class="name-info-row">
+                                <h2 id="enemyName">Enemy</h2>
+                                <button class="enemy-info-btn" onclick="toggleEnemyInfo(true)" title="Enemy Information (I)">❔</button>
+                                <button class="enemy-info-btn" onclick="showEnemyMatchupGuide()" title="Enemy Weaknesses Matchup (G)">⛧</button>
+                            </div>
+                        </div>
+                        <div class="header-top-right">
+                            <div class="player-energy-display" id="playerEnergyCount" title="Your Energy">🧡 5</div>
+                            <button class="guide-btn" onclick="toggleMatchupGuide()" title="Matchup Guide (M)">📖</button>
+                            <button class="game-close-btn" onclick="hideGameUI()" title="Quit Combat (Q)">&times;</button>
+                        </div>
+                    </div>
+                    <div class="header-bottom-row">
+                        <div class="enemy-stats">
+                            <span class="stat-badge boss-badge" id="enemyLevelBadge" style="display:none;">Boss (+1)</span>
+                            <span class="stat-badge phys-badge" id="enemyPhysicality">???</span>
+                            <div id="enemyMagicBadges" class="enemy-magic-bagdes-container" style="display: flex; gap: 0.5rem; flex-wrap: wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="player-actions HUD-style">
+                    <div class="action-row">
+                        <div class="magic-btn-grid" id="magicTypeSelector">
+                            <button class="magic-btn water" data-magic="Water" onclick="selectMagic('Water', this)" title="Water (W)"><span class="btn-icon">💧</span><span class="btn-label">Water</span></button>
+                            <button class="magic-btn trees" data-magic="Trees" onclick="selectMagic('Trees', this)" title="Trees (T)"><span class="btn-icon">🌳</span><span class="btn-label">Trees</span></button>
+                            <button class="magic-btn earth" data-magic="Earth" onclick="selectMagic('Earth', this)" title="Earth (E)"><span class="btn-icon">⛰️</span><span class="btn-label">Earth</span></button>
+                            <button class="magic-btn sun" data-magic="Sun" onclick="selectMagic('Sun', this)" title="Sun (S)"><span class="btn-icon">☀️</span><span class="btn-label">Sun</span></button>
+                            <button class="magic-btn wind" data-magic="Wind" onclick="selectMagic('Wind', this)" title="Wind (D)"><span class="btn-icon">💨</span><span class="btn-label">Wind</span></button>
+                            <button class="magic-btn fire" data-magic="Fire" onclick="selectMagic('Fire', this)" title="Fire (F)"><span class="btn-icon">🔥</span><span class="btn-label">Fire</span></button>
+                            <button class="magic-btn lightning" data-magic="Lightning" onclick="selectMagic('Lightning', this)" title="Storm (R)"><span class="btn-icon">⚡</span><span class="btn-label">Storm</span></button>
+                            <button class="magic-btn lifeforce" data-magic="Lifeforce" onclick="selectMagic('Lifeforce', this)" title="Life (L)"><span class="btn-icon">✨</span><span class="btn-label">Life</span></button>
+                        </div>
+        
+                        <div class="strength-slider-container">
+                            <div class="strength-slider-header">
+                                <span id="strengthLabel" class="strength-label">Medium</span>
+                                <span id="strengthCost" class="strength-cost"></span>
+                            </div>
+                            <div class="strength-slider-input-wrapper">
+                                <div class="strength-slider-track-bg"></div>
+                                <div class="strength-marker-container">
+                                    <span class="strength-marker"></span>
+                                    <span class="strength-marker"></span>
+                                    <span class="strength-marker"></span>
+                                </div>
+                                <input type="range" id="strengthSlider" class="strength-slider" min="1" max="3" step="1" value="2" oninput="updateStrengthFromSlider(this.value)" title="Attack Strength (1, 2, 3)">
+                            </div>
+                            <div class="strength-pips">
+                                <div class="strength-pip"></div>
+                                <div class="strength-pip"></div>
+                                <div class="strength-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="battle-actions">
+                        <button id="executeAttackBtn" class="execute-btn" onclick="executeAttack()" disabled title="Execute Attack (Enter)">Attack!</button>
+                        <button id="fleeFightBtn" class="execute-btn flee-btn" onclick="fleeFight()">Flee (-1 🧡)</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="battleResult" class="battle-result-overlay" style="display:none;">
+                <h1 id="resultTitle">Victory!</h1>
+                <p id="resultDetails">Your attack was successful!</p>
+                <button id="resultActionBtn" class="execute-btn" style="margin-top: 1rem;" onclick="continueBossFight()">Continue</button>
+            </div>
+        
+            <!-- New Battle Popup -->
+            <div id="battlePopup" class="battle-popup" style="display:none;">
+                <button class="popup-close" onclick="hideBattlePopup()">&times;</button>
+                <div class="popup-header">
+                    <span id="popupStatus" class="popup-status">Success</span>
+                    <span id="popupEnergyChange" class="popup-energy-change"></span>
+                </div>
+                <div class="popup-comparison">
+                    <div class="score-box player">
+                        <div id="popupPlayerScore" class="score-value">4</div>
+                        <div id="popupPlayerBreakdown" class="score-breakdown">base 2 + 2 bonus</div>
+                    </div>
+                    <div id="popupSymbol" class="score-symbol">&gt;</div>
+                    <div class="score-box enemy">
+                        <div id="popupEnemyScore" class="score-value">2</div>
+                        <div id="popupEnemyBreakdown" class="score-breakdown">base 2</div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Enemy Info Overlay -->
+            <div id="enemyInfoOverlay" class="matchup-guide-overlay info-overlay" style="display:none;">
+                <div class="matchup-guide-content">
+                    <h2 id="infoEnemyName">Enemy Info</h2>
+                    <div id="enemyInfoContent" class="enemy-info-details">
+                        <!-- Content injected via JS -->
+                    </div>
+                    <button class="result-continue-btn" onclick="toggleEnemyInfo(false)">Back to Battle</button>
+                </div>
+            </div>
+        
+            <!-- Matchup Guide Overlay -->
+            <div id="matchupGuideOverlay" class="matchup-guide-overlay" style="display:none;">
+                <div class="matchup-guide-content magic-circle-ui">
+                    <h2>📖 Magic Matchups</h2>
+                    <div id="magicCircleContainer" class="magic-circle-container">
+                        <svg id="magicCircleSvg" class="magic-circle-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"></svg>
+                        <div id="magicNodesContainer" class="magic-nodes-container"></div>
+                    </div>
+                    <div id="tacticalTagsContainer" class="tactical-tags-container"></div>
+                    <button class="execute-btn" style="margin-top: 1.5rem;" onclick="toggleMatchupGuide()">Close Guide</button>
+                </div>
+            </div>
+        </div>
+"""

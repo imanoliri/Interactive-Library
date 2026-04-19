@@ -1,0 +1,130 @@
+{
+    "images/image9.jpg": {
+        "description": "A swift aquatic predator that uses its sword-like snout to strike its prey with surgical precision.",
+        "name": "Swordfish",
+        "magicType": "Water",
+        "physicality": "Light"
+    },
+    "images/image15.jpg": {
+        "description": "An ancient, slow-moving sentinel of the forest that blends perfectly with its surroundings. It usually stays immobile until someone tries to harm the forest.",
+        "name": "Walking Tree",
+        "magicType": "Trees",
+        "physicality": "Medium"
+    },
+    "images/image60.jpg": {
+        "description": "An animated but unintelligent mass of rock and clay bound by earth magic. It moves with slow, deliberate force to deliver earth-shaking blows and is very hard to harm.",
+        "name": "Earth Golem",
+        "magicType": "Earth",
+        "physicality": "Heavy"
+    },
+    "images/image7.jpg": {
+        "description": "A regal beast combining the majesty of a lion and the keen vision of an eagle. It is a proud creature that likes to eat sheep and attacks from above using the sun to blind its victims.",
+        "name": "Gryphon",
+        "magicType": ["Sun", "Wind"],
+        "physicality": "Medium",
+        "magicConfig": {
+            "strengthsCompound": true,
+            "weaknessesCompound": true,
+            "givesBonus": [true, false],
+            "givesWeakness": [true, true]
+        }
+    },
+    "images/image23.jpg": {
+        "description": "Cruel scavengers of the high peaks. Bird-like but with the heads of women, their shrieks can disorient warriors before they swoop in to make them fall from the mountainside.",
+        "name": "Harpy",
+        "magicType": "Wind",
+        "physicality": "Light"
+    },
+    "images/image63.jpg": {
+        "description": "A swirling, human-sized vortex of unstable air born from raw elemental magic. It has no physical form but strikes with the pressure of a localized hurricane.",
+        "name": "Wind Fury",
+        "magicType": "Wind",
+        "physicality": "Light"
+    },
+    "images/image65.jpg": {
+        "description": "A fast and aggressive manifestation of fire magic. Its heat is so intense that simply standing near it can ignite you.",
+        "name": "Fire Elemental",
+        "magicType": "Fire",
+        "physicality": "Medium"
+    },
+        "images/image37.jpg": {
+        "description": "Slow-moving molten rock given life by the combined magic of fire and earth. It burns everything it touches and is exceptionally resistant to attacks.",
+        "name": "Lava Golem",
+        "magicType": ["Fire", "Earth"],
+        "physicality": "Heavy",
+        "magicConfig": {
+            "strengthsCompound": false,
+            "weaknessesCompound": true,
+            "givesBonus": [true, false],
+            "givesWeakness": [true, true]
+        }
+    },
+    "images/image49.jpg": {
+        "description": "The very embodiment of the fire element, which, alongside the avatars of the other elements, helped create the world before even life began. This ancient entity is made entirely of blinding flame and wields a fiery sword and a crackling whip of flame to alter the land to its plan.",
+        "name": "Fire Avatar",
+        "magicType": ["Fire", "Sun"],
+        "physicality": "Heavy",
+        "lives": 2,
+        "powerBonus": 1,
+        "magicConfig": {
+            "strengthsCompound": true,
+            "weaknessesCompound": true,
+            "givesBonus": [true, true],
+            "givesWeakness": [true, false]
+        }
+    },
+    "images/image14.jpg": {
+        "description": "A fast golem composed of floating metallic rocks crackling with electrical energy. It is bound by magnetic forces, making it relatively fast but more susceptible to damage.",
+        "name": "Magnetic Golem",
+        "magicType": "Lightning",
+        "physicality": "Heavy"
+    },
+    "images/image79.jpg": {
+        "description": "A very dangerous spark of high-voltage energy that can leap from one metallic rock to another. It moves faster than the eye can follow, leaving ozone and cinders in its wake.",
+        "name": "Lightning Fury",
+        "magicType": ["Lightning", "Wind"],
+        "physicality": "Light",
+        "powerBonus": 1,
+        "lives": 3,
+        "magicConfig": {
+            "strengthsCompound": false,
+            "weaknessesCompound": true,
+            "givesBonus": [false, false],
+            "givesWeakness": [false, true]
+        }
+    },
+    "images/image31.jpg": {
+        "description": "Slow but relentless fallen soldiers raised by a lingering curse. They fight with a mechanical persistence and have no fear of pain or death.",
+        "name": "Skeletons",
+        "magicType": "Undead",
+        "physicality": "Medium"
+    },
+    "images/image48.jpg": {
+        "description": "The lord of the crypt and commander of the dead in it. He is a highly dangerous swordsman and master of the dark paths of magic.",
+        "name": "Lich King",
+        "magicType": ["Undead", "Darkness"],
+        "physicality": "Heavy",
+        "lives": 2,
+        "powerBonus": 1,
+        "magicConfig": {
+            "strengthsCompound": true,
+            "weaknessesCompound": false,
+            "givesBonus": [true, true],
+            "givesWeakness": [true, true]
+        }
+    },
+    "images/image78.jpg": {
+        "description": "A nightmare beast capable of enslaving entire worlds. This ancient dragon breathes shadow-fire and is extremely powerful.",
+        "name": "Enderdragon",
+        "magicType": ["Darkness", "Fire", "Wind"],
+        "physicality": "Heavy",
+        "lives": 3,
+        "powerBonus": 1,
+        "magicConfig": {
+            "strengthsCompound": true,
+            "weaknessesCompound": false,
+            "givesBonus": [true, true, true],
+            "givesWeakness": [true, true, true]
+        }
+    }
+}
