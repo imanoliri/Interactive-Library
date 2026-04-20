@@ -218,3 +218,26 @@ a.book::before {
     color: #ef4444;
     border-color: #ef4444;
 }
+
+/* Mobile Optimization (Portrait Mode) */
+@media (orientation: portrait) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .progress-info h3 {
+        font-size: 0.7rem;
+    }
+
+    .progress-info p {
+        font-size: 0.9rem;
+    }
+
+    .resume-btn, .clear-btn {
+        padding: 14px;
+        font-size: 0.8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
