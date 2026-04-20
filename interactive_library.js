@@ -5,7 +5,8 @@ const els = {
   grid: $('#grid'),
   breadcrumbs: $('#breadcrumbs'),
   tFolder: $('#tile-folder'),
-  tBook: $('#tile-book')
+  tBook: $('#tile-book'),
+  continueReading: $('#continue-reading')
 };
 
 let ROOT_DATA = null;
@@ -14,6 +15,7 @@ async function init() {
   try {
     const res = await fetch(MANIFEST_URL, { cache: 'no-store' });
     ROOT_DATA = await res.json();
+    renderProgress(); 
     render(); // Initial Render
     window.addEventListener('popstate', render); // Handle back button
   } catch (e) {
@@ -114,6 +116,43 @@ function renderBreadcrumbs(pathStr) {
   });
 
   els.breadcrumbs.innerHTML = html;
+}
+
+function renderProgress() {
+    const savedProgress = localStorage.getItem('reading_progress');
+    if (!savedProgress) return;
+    
+    const progressObj = JSON.parse(savedProgress);
+    const paths = Object.keys(progressObj);
+    if (paths.length === 0) return;
+    
+    const lastPath = paths[paths.length - 1];
+    const chapterIdx = progressObj[lastPath];
+    
+    const segments = lastPath.split('/').filter(Boolean);
+    const bookFolder = segments[segments.length - 2]; 
+    
+    if (!bookFolder) return;
+    
+    els.continueReading.innerHTML = `
+        <div class="progress-card">
+            <div class="progress-info">
+                <h3>Continue Reading</h3>
+                <p>You were at <strong>${prettyName(bookFolder)}</strong>, Chapter ${chapterIdx + 1}</p>
+            </div>
+            <div class="progress-actions">
+                <a href="${lastPath}" class="resume-btn">Resume Adventure →</a>
+                <button onclick="clearProgress()" class="clear-btn" title="Clear all bookmarks">Clear All</button>
+            </div>
+        </div>
+    `;
+    els.continueReading.classList.remove('hidden');
+}
+
+function clearProgress() {
+    localStorage.removeItem('reading_progress');
+    els.continueReading.classList.add('hidden');
+    els.continueReading.innerHTML = '';
 }
 
 const prettyName = s => s.replace(/_/g, ' '); // Simple prettifier

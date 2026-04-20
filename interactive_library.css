@@ -146,3 +146,75 @@ a.book::before {
 .hidden {
     display: none
 }
+
+/* Progress Card */
+#continue-reading {
+    padding: 0 16px;
+    margin-top: 16px;
+}
+
+.progress-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(148, 163, 184, 0.1));
+    border: 1px solid #21315c;
+    padding: 16px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.progress-info h3 {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #93c5fd;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.progress-info p {
+    margin: 4px 0 0;
+    font-size: 1rem;
+    color: #e7ecf4;
+}
+
+.progress-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.resume-btn {
+    background: #3b82f6;
+    color: white;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.resume-btn:hover {
+    transform: scale(1.05);
+    background: #2563eb;
+}
+
+.clear-btn {
+    background: rgba(148, 163, 184, 0.2);
+    color: #94a3b8;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: transform 0.2s, background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.clear-btn:hover {
+    transform: scale(1.05);
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border-color: #ef4444;
+}
