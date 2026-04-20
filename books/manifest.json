@@ -15,10 +15,20 @@
           "path": "Valley_of_Dragons/Attack_of_the_Dark_God",
           "cover": "cover.jpg",
           "meta": {
-            "title": "Attack Of The Dark God",
-            "author": "Unknown",
-            "tags": [],
-            "blurb": "",
+            "title": "Valley of Dragons I: Attack of the Dark God",
+            "author": "Imanol Irizar",
+            "tags": [
+              "fantasy",
+              "dragons",
+              "elves",
+              "knights",
+              "dark god",
+              "origin",
+              "war",
+              "good vs evil",
+              "heroic"
+            ],
+            "blurb": "The peaceful Valley of Dragons is shattered by the attack of the Dark God and his armies, but this spurs the birth of the Dragon Rider Knights and the tragic origin of Alaric, a young boy who will one day rise to become the valley's greatest champion.",
             "children_order": []
           }
         },
@@ -28,10 +38,22 @@
           "path": "Valley_of_Dragons/Winter_of_Wolves",
           "cover": "cover.jpg",
           "meta": {
-            "title": "Winter Of Wolves",
-            "author": "Unknown",
-            "tags": [],
-            "blurb": "",
+            "title": "Valley of Dragons II: Winter of Wolves",
+            "author": "Imanol Irizar",
+            "tags": [
+              "fantasy",
+              "dragons",
+              "knights",
+              "winter",
+              "wolves",
+              "goddess",
+              "ice",
+              "battle",
+              "nature",
+              "order",
+              "freedom"
+            ],
+            "blurb": "An unnatural winter descends upon the Valley of Dragons. Paladin Alaric and his dragon Vaelor must face the frost wolves and the Goddess of Winter herself, Freyja, to save their home from an icy tyranny.",
             "children_order": []
           }
         },
@@ -41,10 +63,21 @@
           "path": "Valley_of_Dragons/Clash_Under_the_Mountain",
           "cover": "cover.jpg",
           "meta": {
-            "title": "Clash Under The Mountain",
-            "author": "Unknown",
-            "tags": [],
-            "blurb": "",
+            "title": "Valley of Dragons III: Clash Under the Mountain",
+            "author": "Imanol Irizar",
+            "tags": [
+              "fantasy",
+              "dragons",
+              "knights",
+              "dwarves",
+              "goblins",
+              "trolls",
+              "mountain",
+              "war",
+              "alliance",
+              "underground"
+            ],
+            "blurb": "The Dwarven Kingdom of Khazad-Throm is under siege by hordes of Goblins and Trolls. The Dragon Rider Knights answer the call for help, forging an unbreakable alliance to defeat the menace.",
             "children_order": []
           }
         }
@@ -56,10 +89,24 @@
       "path": "Paths_of_Magic",
       "cover": "cover.jpg",
       "meta": {
-        "title": "Paths Of Magic",
-        "author": "Unknown",
-        "tags": [],
-        "blurb": "",
+        "title": "The Paths of Magic",
+        "author": "Imanol Irizar",
+        "tags": [
+          "fantasy",
+          "magic",
+          "wizard",
+          "journey",
+          "elements",
+          "water",
+          "trees",
+          "earth",
+          "sun",
+          "wind",
+          "fire",
+          "lightning",
+          "tower"
+        ],
+        "blurb": "The journey of young Magnus to learn all paths of magic and become the greatest wizard of all time. From the coastal Land of Water to the mysterious Mage Tower, Magnus must master the essence of the elements to face the threats of Elysia and beyond.",
         "children_order": []
       }
     }

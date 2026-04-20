@@ -39,10 +39,22 @@ Whenever you modify CSS, Javascript, or Python templates, you **MUST** run the b
 ```powershell
 .\.venv\Scripts\python.exe generate_books.py
 ```
+### Metadata Management (`meta.json`)
+To provide descriptive information for the library hub and control the display order of books, you can use `meta.json` files within any directory in `books/`.
+
+*   **Location**: `books/<directory>/meta.json`
+*   **Fields**:
+    *   `title`: The display name of the book or category.
+    *   `author`: The author of the book.
+    *   `tags`: A list of strings used for filtering/categorizing on the hub.
+    *   `blurb`: A short description or summary of the content.
+    *   `children_order`: A list of strings (folder names or file names) that defines the explicit sorting order for its children. Entries not in this list will be sorted alphabetically after the explicitly ordered ones.
+
 *What happens under the hood?*
-1.  `generate_books.py` traverses the `books/` directory looking for directories containing HTML text files (it specifically picks the first `.html` file it finds that is *not* named `index.html` as the source).
-2.  It copies `interactive_book.css` and `interactive_book.js` into those directories.
-3.  It calls `interactive_book_from_html.py` which performs a robust extraction and compilation process:
+1.  **Automated Manifest Integration**: Before compiling the books, `generate_books.py` actively invokes `generate_manifest.py`. This step automatically scans the `books/` directory, reads any `meta.json` files found, and re-generates `books/manifest.json`. This ensures that any newly added books appear immediately on the main `index.html` library hub with correct metadata and sorting, without requiring manual JSON edits.
+2.  `generate_books.py` traverses the `books/` directory looking for directories containing HTML text files (it specifically picks the first `.html` file it finds that is *not* named `index.html` as the source).
+3.  It copies `interactive_book.css` and `interactive_book.js` into those directories.
+4.  It calls `interactive_book_from_html.py` which performs a robust extraction and compilation process:
     *   **Data Extraction & Serialization**: Before compiling the book, it rigorously extracts book data and serializes it into local JSON files for consumption by additional games/features later. This includes:
         *   `interactive_book_media.json`: Extracts all audio/image/video sources.
         *   `interactive_book_images.json`: Records all image sources.

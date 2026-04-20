@@ -1,6 +1,7 @@
 import os
 import shutil
 from scripts.interactive_book_from_html import generate_interactive_book_from_html
+from scripts.generate_manifest import generate as generate_manifest
 
 
 def first_non_index_html(p):
@@ -19,6 +20,8 @@ TEMPLATE_CONTENTS = "scripts/contents"
 
 def generate_all_books_from_html(booksdir: str = "books"):
     
+    generate_manifest()
+
     for bookdir, dirs, files in os.walk(booksdir):
         bookdir = bookdir.replace("\\", "/")
         html = first_non_index_html(bookdir)
