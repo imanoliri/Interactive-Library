@@ -16,17 +16,6 @@ header {
     padding: 12px 16px
 }
 
-#search {
-    flex: 1;
-    min-width: 160px;
-    padding: 8px 10px;
-    border: 1px solid #21315c;
-    background: #121a33;
-    color: #e7ecf4;
-    border-radius: 10px;
-    outline: none
-}
-
 .crumbs {
     padding: 0 16px 6px;
     color: #9fb1d8;

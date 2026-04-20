@@ -12,7 +12,19 @@ body {
     background-color: #f4f4f9;
     color: #4a4a4a;
     margin: 0 auto;
-    padding: 20px;
+    padding: 24px 20px 20px;
+}
+
+#readingProgressBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(to right, #3b82f6, #64748b);
+    width: 0%;
+    z-index: 2000;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
 }
 
 .reader {

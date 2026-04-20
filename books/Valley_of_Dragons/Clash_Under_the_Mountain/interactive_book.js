@@ -5,9 +5,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const idx = parseInt(e.target.value, 10)
             if (!Number.isNaN(idx)) showTab(idx)
         })
-        // Show first tab by default
-        showTab(0)
+        
+        // Restore progress
+        const savedProgress = localStorage.getItem('reading_progress');
+        const progressObj = savedProgress ? JSON.parse(savedProgress) : {};
+        const currentPath = window.location.pathname;
+        const lastIdx = progressObj[currentPath];
+        
+        showTab(lastIdx !== undefined ? lastIdx : 0);
     }
+    updateProgressBar();
+    window.addEventListener('scroll', updateProgressBar);
 })
 
 function showTab(index) {
@@ -33,6 +41,29 @@ function showTab(index) {
     nextBtns.forEach(btn => {
         btn.style.visibility = index === tabs.length - 1 ? 'hidden' : 'visible';
     });
+
+    // Save Progress
+    const currentPath = window.location.pathname;
+    const savedProgress = localStorage.getItem('reading_progress');
+    const progressObj = savedProgress ? JSON.parse(savedProgress) : {};
+    progressObj[currentPath] = index;
+    localStorage.setItem('reading_progress', JSON.stringify(progressObj));
+    
+    updateProgressBar();
+}
+
+function updateProgressBar() {
+    const bar = document.getElementById('readingProgressBar');
+    if (!bar) return;
+    
+    const tabs = document.querySelectorAll('.tab');
+    const currentIndex = parseInt(document.getElementById('tab-select')?.value || 0, 10);
+    
+    // Percentage based on chapters
+    const chapterPercent = ((currentIndex + 1) / tabs.length) * 100;
+    
+    // Smooth width update
+    bar.style.width = `${chapterPercent}%`;
 }
 
 function navChapter(direction) {

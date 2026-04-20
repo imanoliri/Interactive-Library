@@ -17,6 +17,7 @@ INTERACTIVE_BOOK_TEMPLATE = """
     <link rel="stylesheet" href="magic_combat_system.css">
 </head>
 <body>
+    <div id="readingProgressBar"></div>
     <h1>{{ title }}</h1>
     <div class="song-banner">
         <button id="mainSlideshowBtn" aria-label="Start Slideshow" onclick="startMainSlideshow()" title="Start Slideshow (S)">📽️ Slideshow</button>
