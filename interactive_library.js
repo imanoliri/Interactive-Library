@@ -18,6 +18,11 @@ async function init() {
     renderProgress(); 
     render(); // Initial Render
     window.addEventListener('popstate', render); // Handle back button
+    
+    // Ensure bookmark updates when returning via browser "back" button
+    window.addEventListener('pageshow', (event) => {
+        renderProgress();
+    });
   } catch (e) {
     els.grid.innerHTML = '<div class="error">Failed to load library manifest.</div>';
     console.error(e);
