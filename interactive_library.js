@@ -137,7 +137,14 @@ function renderProgress() {
     const paths = Object.keys(progressObj);
     if (paths.length === 0) return;
     
-    const lastPath = paths[paths.length - 1];
+    // Sort paths by timestamp (descending) to find the most recent one
+    paths.sort((a, b) => {
+        const tsA = progressObj[a].ts || 0;
+        const tsB = progressObj[b].ts || 0;
+        return tsB - tsA;
+    });
+    
+    const lastPath = paths[0];
     const savedVal = progressObj[lastPath];
     
     // Exact chapter title (e.g. "Intro" or "Chapter 5")

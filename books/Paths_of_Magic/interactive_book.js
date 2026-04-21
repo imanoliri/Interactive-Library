@@ -59,10 +59,11 @@ function showTab(index) {
     const savedProgress = localStorage.getItem('reading_progress');
     const progressObj = savedProgress ? JSON.parse(savedProgress) : {};
     
-    // Save both index and title for better display on hub
+    // Save both index and title for better display on hub, plus timestamp for recency
     progressObj[currentPath] = {
         index: index,
-        title: chapterTitle
+        title: chapterTitle,
+        ts: Date.now()
     };
     localStorage.setItem('reading_progress', JSON.stringify(progressObj));
     
