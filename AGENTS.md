@@ -158,3 +158,35 @@ The UI seamlessly adapts for phones by leveraging `@media (orientation: portrait
 
 ### Double-Tap-To-Zoom Prevention
 To ensure a smooth, "native app" combat experience without the screen accidentally zooming or jarring during rapid taps, the `touch-action: manipulation;` style is enforced globally via a `* { ... }` selector in `interactive_book.css`.
+
+## 5. Reading Progress & Library Hub
+
+The library includes a persistent bookmarking system that tracks user progress across books and surfaces it on the main hub.
+
+### Reading Progress System (`interactive_book.js`)
+*   **Storage**: Progress is stored in `localStorage` under the `reading_progress` key.
+*   **Data Format**: A map of absolute paths to progress objects:
+    ```javascript
+    {
+      "/books/Paths_of_Magic/index.html": {
+        "index": 4,          // 0-based tab index
+        "title": "Chapter 5", // Exact text from the dropdown
+        "ts": 1713680000000  // Timestamp for recency sorting
+      }
+    }
+    ```
+*   **Triggers**: Progress is saved every time a user switches chapters (`showTab`) or moves through images in the slideshow.
+*   **Visual Progress Bar**: A fixed bar (`#readingProgressBar`) at the top of the reader updates its width `((currentIndex + 1) / totalTabs) * 100` dynamically during navigation.
+
+### Library Hub logic (`interactive_library.js`)
+*   **The "Continue Reading" Card**: A dynamic card that appears on the library hub (`index.html`) to allow users to jump back into their last-read book.
+*   **Recency Sorting**: The hub sorts all saved bookmarks by their `ts` (timestamp) property in descending order, ensuring the most recently touched book is always featured.
+*   **Official Title Resolution**: To avoid displaying raw folder names (and to fix the "books" folder bug), the hub uses a recursive helper `findBookByPath` to look up the book in `manifest.json` and retrieve its official `meta.json` title.
+*   **BF Cache Fix**: To ensure the bookmark updates immediately when a user hits the "Back" button on their phone, the hub listens for the `pageshow` event and triggers a fresh `renderProgress()` call.
+*   **Clear All**: A "Clear All" button allows users to wipe the `reading_progress` key from `localStorage`, instantly hiding the resume card.
+
+### Design Language & Colors
+The progress-tracking UI follows a strict **Cool Blue/Grey palette** to distinguish "meta" navigation from the "warm" story/combat elements:
+*   **Primary Accent**: Blue (`#3b82f6`)
+*   **Secondary/Gradients**: Slate/Slate-Grey (`#64748b` / `#94a3b8`)
+*   **Neutral Backgrounds**: Dark Navy (`#0b1020` / `#121a33`)
