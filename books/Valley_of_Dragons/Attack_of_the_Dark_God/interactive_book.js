@@ -10,9 +10,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const savedProgress = localStorage.getItem('reading_progress');
         const progressObj = savedProgress ? JSON.parse(savedProgress) : {};
         const currentPath = window.location.pathname;
-        const lastIdx = progressObj[currentPath];
+        const savedVal = progressObj[currentPath];
         
-        showTab(lastIdx !== undefined ? lastIdx : 0);
+        // Handle both old (number) and new ({index, title}) formats
+        let lastIdx = 0;
+        if (typeof savedVal === 'number') {
+            lastIdx = savedVal;
+        } else if (savedVal && typeof savedVal.index === 'number') {
+            lastIdx = savedVal.index;
+        }
+        
+        showTab(lastIdx);
     }
     updateProgressBar();
     window.addEventListener('scroll', updateProgressBar);
@@ -26,8 +34,12 @@ function showTab(index) {
 
     // keep dropdown in sync
     const select = document.getElementById('tab-select')
-    if (select && select.value !== String(index)) {
-        select.value = String(index)
+    let chapterTitle = `Chapter ${index + 1}`;
+    if (select) {
+        if (select.value !== String(index)) {
+            select.value = String(index)
+        }
+        chapterTitle = select.options[index].text;
     }
 
     // Toggle navigation buttons
@@ -46,7 +58,12 @@ function showTab(index) {
     const currentPath = window.location.pathname;
     const savedProgress = localStorage.getItem('reading_progress');
     const progressObj = savedProgress ? JSON.parse(savedProgress) : {};
-    progressObj[currentPath] = index;
+    
+    // Save both index and title for better display on hub
+    progressObj[currentPath] = {
+        index: index,
+        title: chapterTitle
+    };
     localStorage.setItem('reading_progress', JSON.stringify(progressObj));
     
     updateProgressBar();

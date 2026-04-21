@@ -118,6 +118,17 @@ function renderBreadcrumbs(pathStr) {
   els.breadcrumbs.innerHTML = html;
 }
 
+function findBookByPath(root, path) {
+    if (root.path === path && root.type === 'book') return root;
+    if (root.children) {
+        for (const child of root.children) {
+            const found = findBookByPath(child, path);
+            if (found) return found;
+        }
+    }
+    return null;
+}
+
 function renderProgress() {
     const savedProgress = localStorage.getItem('reading_progress');
     if (!savedProgress) return;
@@ -127,18 +138,34 @@ function renderProgress() {
     if (paths.length === 0) return;
     
     const lastPath = paths[paths.length - 1];
-    const chapterIdx = progressObj[lastPath];
+    const savedVal = progressObj[lastPath];
     
-    const segments = lastPath.split('/').filter(Boolean);
-    const bookFolder = segments[segments.length - 2]; 
+    // Exact chapter title (e.g. "Intro" or "Chapter 5")
+    let chapterDisplay = (typeof savedVal === 'object') ? savedVal.title : `Chapter ${savedVal + 1}`;
     
-    if (!bookFolder) return;
+    // Standardize path to find the book in manifest
+    // lastPath looks like "/books/Path/To/index.html"
+    // Manifest paths look like "Path/To"
+    const manifestPath = lastPath.replace('/books/', '').replace('/index.html', '').replace(/\/$/, '');
+    const bookNode = findBookByPath(ROOT_DATA, manifestPath);
+    
+    // Derived Title
+    let bookTitle = 'Unknown Book';
+    if (bookNode) {
+        bookTitle = bookNode.meta.title || prettyName(bookNode.name);
+    } else {
+        // Fallback to path extraction if manifest not yet loaded or doesn't match
+        const segments = lastPath.split('/').filter(s => s && s !== 'index.html');
+        if (segments.length > 0) {
+            bookTitle = prettyName(segments[segments.length - 1]);
+        }
+    }
     
     els.continueReading.innerHTML = `
         <div class="progress-card">
             <div class="progress-info">
                 <h3>Continue Reading</h3>
-                <p>You were at <strong>${prettyName(bookFolder)}</strong>, Chapter ${chapterIdx + 1}</p>
+                <p>You were at <strong>${bookTitle}</strong>, ${chapterDisplay}</p>
             </div>
             <div class="progress-actions">
                 <a href="${lastPath}" class="resume-btn">Resume Adventure →</a>
