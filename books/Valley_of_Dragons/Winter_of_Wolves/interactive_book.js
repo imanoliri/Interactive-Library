@@ -26,6 +26,17 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', updateProgressBar);
 })
 
+// Ensure the visible tab matches the dropdown when returning via browser "back" button
+window.addEventListener('pageshow', (event) => {
+    const select = document.getElementById('tab-select');
+    if (select) {
+        const currentIdx = parseInt(select.value, 10);
+        if (!Number.isNaN(currentIdx)) {
+            showTab(currentIdx);
+        }
+    }
+});
+
 function showTab(index) {
     const tabs = document.querySelectorAll('.tab')
     tabs.forEach((tab, i) => {
