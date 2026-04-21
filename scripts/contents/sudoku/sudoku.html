@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Game</title>
+    <link rel="stylesheet" href="sudoku.css">
+</head>
+<body>
+    <h1>Sudoku Game</h1>
+    <div class="slider-container">
+        <label for="empty-cells-label">Empty Squares: </label>
+        <input type="range" id="empty-cells-slider" min="3" max="30" value="15">
+        <span id="slider-value">15</span>
+    </div>
+    <div class="sudoku-board">
+        <!-- 9x9 grid of cells will be here -->
+    </div>
+    <button id="reset">Reset</button>
+    <button id="check">Check Solution</button>
+    <script src="sudoku.js"></script>
+</body>
+</html>

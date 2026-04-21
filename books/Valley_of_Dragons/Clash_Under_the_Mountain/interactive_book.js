@@ -5,9 +5,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const idx = parseInt(e.target.value, 10)
             if (!Number.isNaN(idx)) showTab(idx)
         })
-        // Show first tab by default
-        showTab(0)
+        
+        // Restore progress
+        const savedProgress = localStorage.getItem('reading_progress');
+        const progressObj = savedProgress ? JSON.parse(savedProgress) : {};
+        const currentPath = window.location.pathname;
+        const savedVal = progressObj[currentPath];
+        
+        // Handle both old (number) and new ({index, title}) formats
+        let lastIdx = 0;
+        if (typeof savedVal === 'number') {
+            lastIdx = savedVal;
+        } else if (savedVal && typeof savedVal.index === 'number') {
+            lastIdx = savedVal.index;
+        }
+        
+        showTab(lastIdx);
     }
+    updateProgressBar();
+    window.addEventListener('scroll', updateProgressBar);
 })
 
 function showTab(index) {
@@ -18,8 +34,12 @@ function showTab(index) {
 
     // keep dropdown in sync
     const select = document.getElementById('tab-select')
-    if (select && select.value !== String(index)) {
-        select.value = String(index)
+    let chapterTitle = `Chapter ${index + 1}`;
+    if (select) {
+        if (select.value !== String(index)) {
+            select.value = String(index)
+        }
+        chapterTitle = select.options[index].text;
     }
 
     // Toggle navigation buttons
@@ -33,6 +53,35 @@ function showTab(index) {
     nextBtns.forEach(btn => {
         btn.style.visibility = index === tabs.length - 1 ? 'hidden' : 'visible';
     });
+
+    // Save Progress
+    const currentPath = window.location.pathname;
+    const savedProgress = localStorage.getItem('reading_progress');
+    const progressObj = savedProgress ? JSON.parse(savedProgress) : {};
+    
+    // Save both index and title for better display on hub, plus timestamp for recency
+    progressObj[currentPath] = {
+        index: index,
+        title: chapterTitle,
+        ts: Date.now()
+    };
+    localStorage.setItem('reading_progress', JSON.stringify(progressObj));
+    
+    updateProgressBar();
+}
+
+function updateProgressBar() {
+    const bar = document.getElementById('readingProgressBar');
+    if (!bar) return;
+    
+    const tabs = document.querySelectorAll('.tab');
+    const currentIndex = parseInt(document.getElementById('tab-select')?.value || 0, 10);
+    
+    // Percentage based on chapters
+    const chapterPercent = ((currentIndex + 1) / tabs.length) * 100;
+    
+    // Smooth width update
+    bar.style.width = `${chapterPercent}%`;
 }
 
 function navChapter(direction) {

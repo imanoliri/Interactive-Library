@@ -26,7 +26,8 @@ Additionally, the script will copy and paste certain elements from `scripts` tha
 ### Source of Truth for Interactive Features
 *   **DO NOT manually edit the `books/*/index.html` files!** These are built artifacts.
 *   **The Engine**: The core engine lives in the `scripts/` directory.
-    *   `interactive_book_from_html.py`: The _book-into-interactive-book_ parser + the html template for the interactive book.
+    *   `interactive_book_from_html.py`: The _book-into-interactive-book_ parser.
+    *   `book_template.py`: The HTML templates for the interactive book and contents page.
     *   `interactive_book.js`: The client-side logic for the interactive book.
     *   `interactive_book.css`: The styling rules for the interactive book.
     *   `combat_templates.py`: The html template for the magic combat system.
@@ -38,10 +39,22 @@ Whenever you modify CSS, Javascript, or Python templates, you **MUST** run the b
 ```powershell
 .\.venv\Scripts\python.exe generate_books.py
 ```
+### Metadata Management (`meta.json`)
+To provide descriptive information for the library hub and control the display order of books, you can use `meta.json` files within any directory in `books/`.
+
+*   **Location**: `books/<directory>/meta.json`
+*   **Fields**:
+    *   `title`: The display name of the book or category.
+    *   `author`: The author of the book.
+    *   `tags`: A list of strings used for filtering/categorizing on the hub.
+    *   `blurb`: A short description or summary of the content.
+    *   `children_order`: A list of strings (folder names or file names) that defines the explicit sorting order for its children. Entries not in this list will be sorted alphabetically after the explicitly ordered ones.
+
 *What happens under the hood?*
-1.  `generate_books.py` traverses the `books/` directory looking for directories containing HTML text files (it specifically picks the first `.html` file it finds that is *not* named `index.html` as the source).
-2.  It copies `interactive_book.css` and `interactive_book.js` into those directories.
-3.  It calls `interactive_book_from_html.py` which performs a robust extraction and compilation process:
+1.  **Automated Manifest Integration**: Before compiling the books, `generate_books.py` actively invokes `generate_manifest.py`. This step automatically scans the `books/` directory, reads any `meta.json` files found, and re-generates `books/manifest.json`. This ensures that any newly added books appear immediately on the main `index.html` library hub with correct metadata and sorting, without requiring manual JSON edits.
+2.  `generate_books.py` traverses the `books/` directory looking for directories containing HTML text files (it specifically picks the first `.html` file it finds that is *not* named `index.html` as the source).
+3.  It copies `interactive_book.css` and `interactive_book.js` into those directories.
+4.  It calls `interactive_book_from_html.py` which performs a robust extraction and compilation process:
     *   **Data Extraction & Serialization**: Before compiling the book, it rigorously extracts book data and serializes it into local JSON files for consumption by additional games/features later. This includes:
         *   `interactive_book_media.json`: Extracts all audio/image/video sources.
         *   `interactive_book_images.json`: Records all image sources.
@@ -51,8 +64,8 @@ Whenever you modify CSS, Javascript, or Python templates, you **MUST** run the b
     *   **Asset Standardization**: Detects `<img>` tags and strictly converts stray `.png` images to `.jpg` via Python's `PIL` to standardise assets and save space.
     *   **DOM Compilation & Output**: Splits text by `h1`/`h2` tags to create tabbed chapters, injects the `game-ui-overlay` (Combat HUD), and fully renders the interactive document.
         *   The final, complete web application is exported and saved locally as `index.html` within the specific book's directory.
-    *   **Contents Propagation**: Copies the `contents/` directory from any other book's directory.
-    *   **Contents Integration**: Generates a dynamic `Contents` tab appended to `index.html`. This tab has a button for each standalone mini-game which each is a separate `.html` file in its own folder in the now copied `contents/` directory.
+    *   **Contents Synchronization**: Syncs the `contents/` directory from `scripts/contents/` to the book's directory.
+    *   **Contents Integration**: Generates a dynamic `Contents` tab appended to `index.html`. This tab provides access to standalone mini-games located in the synced `contents/` directory.
 
 ## 2. Reader Interactivity & Features
 
