@@ -17,9 +17,36 @@ body {
     box-shadow: 0 0 3vh rgba(0, 0, 0, 0.1);
 }
 
+.anagram-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 5vh;
+}
+
 #anagram {
     font-size: 6vh;
-    margin-bottom: 5vh;
+    margin: 0;
+}
+
+#reshuffle {
+    padding: 0;
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+    background-color: rgba(0,0,0,0.05);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#reshuffle:hover {
+    background-color: rgba(0,0,0,0.15);
 }
 
 input {
@@ -56,4 +83,8 @@ input.correct {
 
 input.wrong {
     border: 1vh solid red;
+}
+
+input.partial {
+    border: 1vh solid orange;
 }
