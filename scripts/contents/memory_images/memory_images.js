@@ -7,15 +7,13 @@ async function fetchImages() {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         imageSources = await response.json();
-        console.log("Images fetched:", imageSources);
-
-
     } catch (error) {
-        console.error("Error fetching paragraphs:", error);
+        console.error("Error fetching images:", error);
     }
 }
 
 let imageSources
+let cursorIndex = -1;
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchImages().then(createMemory);
@@ -28,54 +26,80 @@ function createMemory() {
     const increaseButton = document.getElementById('increaseButton');
 
     numImagesSelect = parseInt(slider.value, 10);
-    numImagesLabel.textContent = numImagesSelect;// Initial number of images to display
-
+    numImagesLabel.textContent = numImagesSelect;
 
     decreaseButton.addEventListener('click', () => {
         slider.value = parseInt(slider.value) - 1;
-        slider.dispatchEvent(new Event('input')); // Trigger input event
-
+        slider.dispatchEvent(new Event('input'));
     });
 
     increaseButton.addEventListener('click', () => {
         slider.value = parseInt(slider.value) + 1;
-        slider.dispatchEvent(new Event('input')); // Trigger input event
-
+        slider.dispatchEvent(new Event('input'));
     });
 
-    // Update the number of images based on the slider value
     slider.addEventListener('input', () => {
         numImagesSelect = parseInt(slider.value, 10);
         numImagesLabel.textContent = numImagesSelect;
-        initializeGame(); // Recreate the images with the new number
+        initializeGame();
     });
 
     const gameContainer = document.getElementById('game-container');
     const resetButton = document.getElementById('reset-button');
 
-    // Array of image paths
     let symbols
-
     let cards = [];
     let flippedCards = [];
     let matchedPairs = 0;
 
-
-    // Reset the game
     resetButton.addEventListener('click', initializeGame);
+
+    // QOL: Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+        const allCards = document.querySelectorAll('.card');
+        if (allCards.length === 0) return;
+
+        const cols = getComputedStyle(gameContainer).gridTemplateColumns.split(' ').length;
+
+        if (e.key === 'ArrowRight') {
+            moveCursor(1, allCards);
+        } else if (e.key === 'ArrowLeft') {
+            moveCursor(-1, allCards);
+        } else if (e.key === 'ArrowDown') {
+            moveCursor(cols, allCards);
+        } else if (e.key === 'ArrowUp') {
+            moveCursor(-cols, allCards);
+        } else if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault(); // Prevent page scroll with space
+            if (cursorIndex === -1) {
+                moveCursor(0, allCards); // Activate first card if none selected
+            } else if (cursorIndex >= 0 && cursorIndex < allCards.length) {
+                handleCardClick({ target: allCards[cursorIndex] });
+            }
+        }
+    });
+
+    function moveCursor(step, allCards) {
+        if (cursorIndex === -1) {
+            cursorIndex = 0;
+        } else {
+            allCards[cursorIndex].classList.remove('cursor');
+            cursorIndex = (cursorIndex + step + allCards.length) % allCards.length;
+        }
+        allCards[cursorIndex].classList.add('cursor');
+        allCards[cursorIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
 
     // Start the game on load
     initializeGame();
 
-
-    // Initialize the game
     function initializeGame() {
         gameContainer.innerHTML = '';
         symbols = shuffleSelectArray([...imageSources]);
         cards = createCardDeck();
         shuffleArray(cards);
 
-        cards.forEach(imagePath => {
+        cards.forEach((imagePath, index) => {
             const card = document.createElement('div');
             card.classList.add('card');
             card.dataset.symbol = `${imageDir}/${imagePath}`;
@@ -90,11 +114,12 @@ function createMemory() {
 
         matchedPairs = 0;
         flippedCards = [];
+        cursorIndex = -1; // Reset cursor
     }
 
-    // Handle card click event
     function handleCardClick(event) {
-        const card = event.target.closest('.card');
+        const card = event.target ? event.target.closest('.card') : event;
+        if (!card) return;
 
         if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
         if (flippedCards.length === 2) return;
@@ -107,7 +132,6 @@ function createMemory() {
         }
     }
 
-    // Check if the flipped cards match
     function checkForMatch() {
         const [card1, card2] = flippedCards;
 
@@ -120,34 +144,30 @@ function createMemory() {
                 setTimeout(() => alert('You matched all pairs!'), 300);
             }
         } else {
+            document.body.style.pointerEvents = 'none'; // Prevent clicking while flipping back
             setTimeout(() => {
                 card1.classList.remove('flipped');
                 card2.classList.remove('flipped');
+                document.body.style.pointerEvents = 'auto';
             }, 1000);
         }
 
         flippedCards = [];
     }
 
-    // Create a deck of cards (duplicate image paths for pairs)
     function createCardDeck() {
         return [...symbols, ...symbols];
     }
 
-    // Function to select and shuffle a number of elements from the array
     function shuffleSelectArray(images) {
-        console.log(numImagesSelect)
         shuffleArray(images);
         return images.slice(0, numImagesSelect);
     }
 
-
-    // Shuffle the array of cards
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
     }
-
 }

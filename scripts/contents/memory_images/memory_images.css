@@ -89,6 +89,13 @@ h1 {
     cursor: default;
 }
 
+.card.cursor {
+    outline: 5px solid #007BFF;
+    outline-offset: -5px;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+    z-index: 10;
+}
+
 
 
 button {
