@@ -1,214 +1,122 @@
-const imageDir = "../.."
+const imageDir = "../..";
+let imageSources = [];
+let correctSequence = [];
+let currentIndex = 0;
+let numImages = 6;
 
 async function fetchImages() {
     try {
         const response = await fetch('./../../interactive_book_images.json');
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error("Failed to fetch images");
         imageSources = await response.json();
-        console.log("Images fetched:", imageSources);
-
-
     } catch (error) {
-        console.error("Error fetching paragraphs:", error);
+        console.error("Error:", error);
     }
 }
-
-let imageSources
-let imagesWithIndices;
-
-let numImagesSelect;
-let selectedImages;
-let imagesToSelect;
-
-let slider;
-let numImagesLabel;
-
-let circleContainer;
-let popupSolved;
-let popupFailed;
-
-
-
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetchImages().then(createOrder);
+    const slider = document.getElementById('numImagesSlider');
+    const label = document.getElementById('numImagesLabel');
+    const resetBtn = document.getElementById('reset-btn');
+
+    slider.addEventListener('input', () => {
+        numImages = parseInt(slider.value, 10);
+        label.textContent = numImages;
+        initGame();
+    });
+
+    resetBtn.addEventListener('click', initGame);
+
+    fetchImages().then(initGame);
 });
 
-
-function createOrder() {
-    imagesWithIndices = imageSources.map((src, index) => ({ src, index }));
-
-    slider = document.getElementById('numImagesSlider');
-    numImagesLabel = document.getElementById('numImagesLabel');
-
-    numImagesSelect = parseInt(slider.value, 10);
-    numImagesLabel.textContent = numImagesSelect;// Initial number of images to display
-
-
-    // Update the number of images based on the slider value
-    slider.addEventListener('input', () => {
-        numImagesSelect = parseInt(slider.value, 10);
-        numImagesLabel.textContent = numImagesSelect;
-        createAndPositionImages(); // Recreate the images with the new number
-    });
-
-
-    circleContainer = document.getElementById('circle-container');
-    popupSolved = document.getElementById('popup-solved');
-    popupFailed = document.getElementById('popup-failed');
-
-    console.log(JSON.stringify(imageSources));
-
-    // Initialize the puzzle
-    createAndPositionImages();
-}
-
-// Function to create and position images in a circular pattern
-function createAndPositionImages() {
-
-    // CSS and sizes
-    let containerSize = 0.9 * Math.min(window.innerWidth, window.innerHeight); // Size of the circular container (adaptative)
-    let maxImageRadius = (containerSize * Math.sin(Math.PI / numImagesSelect)) / (1 + Math.sin(Math.PI / numImagesSelect)) / 2;
-    let imageSize = 2 * maxImageRadius * 0.9; // Adjust image size
-    let centerSize = (containerSize - 2 * imageSize) * 0.85;
-    let centerPosition = containerSize / 2;
-
-
-    // Set CSS variables
-    document.documentElement.style.setProperty('--container-size', `${containerSize}px`);
-    document.documentElement.style.setProperty('--image-size', `${imageSize}px`);
-    document.documentElement.style.setProperty('--highlight-size', `${imageSize * 3 / 100}px`);
-    document.documentElement.style.setProperty('--center-size', `${centerSize}px`);
-    document.documentElement.style.setProperty('--center-position', `${centerPosition}px`);
-
-    adjustFontSize()
-
-
-
-    // Clear previous images
-    const images = document.querySelectorAll('.circle-container .image');
-    images.forEach(image => image.remove());
-
-    // Initialize and shuffle the images
-    selectedImages = shuffleSelectArray([...imagesWithIndices]); // Make a copy and shuffle
-    imagesToSelect = [...selectedImages]; // Copy to keep track of user selection
-
-    console.log(JSON.stringify(selectedImages));
-
-    // Initialize the angle and radius for positioning
-    const angleIncrement = (2 * Math.PI) / selectedImages.length;
-    const radius = containerSize / 2 - imageSize / 2;
-
-    selectedImages.forEach((imageObj, position) => {
-        const img = document.createElement('img');
-        img.src = `${imageDir}/${imageObj.src}`;
-        img.alt = `Image ${position + 1}`;
-        img.classList.add('image');
-
-        // Calculate position for the image
-        const angle = angleIncrement * position;
-        const x = radius * Math.cos(angle) + radius;
-        const y = radius * Math.sin(angle) + radius;
-        img.style.left = `${x}px`;
-        img.style.top = `${y}px`;
-
-        // Add click event listener
-        img.addEventListener('click', () => handleImageClick(img, imageObj));
-
-        circleContainer.appendChild(img);
-    });
-}
-
-function handleImageClick(img, imageObj) {
-    let minRemainderIndex = getMinimumIndex(imagesToSelect);
-    console.log(JSON.stringify(imagesToSelect));
-    console.log("imageObj.index:", imageObj.index);
-    console.log("minRemainderIndex:", minRemainderIndex);
-
-    if (imageObj.index === minRemainderIndex) {
-        img.classList.add('highlight');        
-    } else {
-        popupFailed.classList.add('active');
-    }
-
-    imagesToSelect = removeImageByIndex(imagesToSelect, imageObj.index);
-    if (imagesToSelect.length === 0) {
-        popupSolved.classList.add('active');
-    }
-}
-
-// Function to select and shuffle a number of elements from the array
-function shuffleSelectArray(images) {
-    shuffleArray(images);
-    return images.slice(0, numImagesSelect);
-}
-
-// Function to shuffle an array
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
+function initGame() {
+    const container = document.getElementById('circle-container');
+    // Remove existing nodes (keep center content)
+    document.querySelectorAll('.image-node').forEach(n => n.remove());
+    
+    currentIndex = 0;
+    
+    // Select a random slice of the images as our "Story segment"
+    // We assume the JSON is in chronological order
+    const maxStart = Math.max(0, imageSources.length - numImages);
+    const startIdx = Math.floor(Math.random() * (maxStart + 1));
+    correctSequence = imageSources.slice(startIdx, startIdx + numImages);
+    
+    // Shuffle for display
+    const shuffled = [...correctSequence].map((path, id) => ({ path, originalId: id }));
+    for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
+
+    updateProgress();
+    renderNodes(shuffled);
 }
 
-// Function to get the minimum index from imagesToSelect
-function getMinimumIndex(images) {
-    return Math.min(...images.map(imageObj => imageObj.index));
+function renderNodes(shuffled) {
+    const container = document.getElementById('circle-container');
+    const containerSize = container.offsetWidth;
+    const radius = containerSize * 0.38;
+    const center = containerSize / 2;
+    const nodeSize = containerSize * 0.2;
+
+    document.documentElement.style.setProperty('--container-size', `${containerSize}px`);
+    document.documentElement.style.setProperty('--image-size', `${nodeSize}px`);
+
+    shuffled.forEach((item, i) => {
+        const angle = (i / shuffled.length) * (2 * Math.PI) - Math.PI / 2;
+        const x = center + radius * Math.cos(angle) - nodeSize / 2;
+        const y = center + radius * Math.sin(angle) - nodeSize / 2;
+
+        const node = document.createElement('div');
+        node.className = 'image-node';
+        node.style.left = `${x}px`;
+        node.style.top = `${y}px`;
+        node.dataset.path = item.path;
+
+        const img = document.createElement('img');
+        img.src = `${imageDir}/${item.path}`;
+        img.draggable = false;
+        node.appendChild(img);
+
+        node.addEventListener('click', () => handleNodeClick(node, item.path));
+        container.appendChild(node);
+    });
 }
 
-// Function to remove an image by index from imagesToSelect
-function removeImageByIndex(images, targetIndex) {
-    const indexToRemove = findIndexInImageIndexList(images, targetIndex);
-    images.splice(indexToRemove, 1);
-    return images;
-}
+function handleNodeClick(node, path) {
+    if (node.classList.contains('correct')) return;
 
-// Function to find the index of an image in the array
-function findIndexInImageIndexList(pairsArray, targetIndex) {
-    for (let i = 0; i < pairsArray.length; i++) {
-        if (pairsArray[i].index === targetIndex) {
-            return i;
+    if (path === correctSequence[currentIndex]) {
+        node.classList.add('correct');
+        currentIndex++;
+        updateProgress();
+
+        if (currentIndex === correctSequence.length) {
+            setTimeout(() => {
+                alert("The Timeline is Restored! You have remembered it all. ✨");
+            }, 500);
         }
-    }
-    return -1;
-}
-
-// Function to reset the puzzle (deselects images but keeps the same set)
-function resetPuzzle(popupId) {
-    // Remove the 'highlight' class from all images
-    const images = document.querySelectorAll('.circle-container .image');
-    images.forEach(image => image.classList.remove('highlight'));
-
-    // Hide the popup message
-    document.getElementById(popupId).classList.remove('active');
-
-    // Re-initialize the imagesToSelect array to the original selectedImages
-    imagesToSelect = [...selectedImages];
-}
-
-// Function to change to a new puzzle (reshuffles and selects new images)
-function changePuzzle(popupId) {
-    createAndPositionImages();
-    document.getElementById(popupId).classList.remove('active');
-}
-
-function adjustFontSize() {
-    const centerText = document.querySelector('.center-text');
-    const parentWidth = centerText.offsetWidth;
-    const parentHeight = centerText.offsetHeight;
-
-    // Start with a reasonably large font size
-    let fontSize = 100;
-
-    // Reduce the font size until it fits within the container
-    centerText.style.fontSize = `${fontSize}px`;
-    while (
-        centerText.scrollWidth > parentWidth ||
-        centerText.scrollHeight > parentHeight
-    ) {
-        fontSize--;
-        centerText.style.fontSize = `${fontSize}px`;
+    } else {
+        node.classList.add('wrong');
+        setTimeout(() => node.classList.remove('wrong'), 400);
+        
+        // Reset progress on error? Or just highlight error.
+        // Let's be lenient but maybe reset streak if we had one.
     }
 }
+
+function updateProgress() {
+    const indicator = document.getElementById('progress-indicator');
+    indicator.textContent = `${currentIndex} / ${correctSequence.length}`;
+}
+
+window.addEventListener('resize', () => {
+    // Re-render nodes on resize for positioning
+    const shuffled = Array.from(document.querySelectorAll('.image-node')).map(n => ({
+        path: n.dataset.path,
+        // We don't really need originalId here for positioning
+    }));
+    initGame(); // Simpler to just re-init for now
+});

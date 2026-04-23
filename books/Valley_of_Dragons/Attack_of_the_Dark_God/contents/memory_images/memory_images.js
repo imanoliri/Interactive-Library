@@ -1,153 +1,119 @@
-const imageDir = "../.."
+const imageDir = "../..";
+let imageSources = [];
+let cards = [];
+let flippedCards = [];
+let matchedPairs = 0;
+let moves = 0;
+let numImagesSelect = 6;
 
 async function fetchImages() {
     try {
         const response = await fetch('./../../interactive_book_images.json');
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         imageSources = await response.json();
-        console.log("Images fetched:", imageSources);
-
-
     } catch (error) {
-        console.error("Error fetching paragraphs:", error);
+        console.error("Error fetching images:", error);
     }
 }
 
-let imageSources
-
 document.addEventListener('DOMContentLoaded', () => {
-    fetchImages().then(createMemory);
-});
-
-function createMemory() {
     const slider = document.getElementById('slider');
-    const numImagesLabel = document.getElementById('numImagesLabel');
-    const decreaseButton = document.getElementById('decreaseButton');
-    const increaseButton = document.getElementById('increaseButton');
-
-    numImagesSelect = parseInt(slider.value, 10);
-    numImagesLabel.textContent = numImagesSelect;// Initial number of images to display
-
-
-    decreaseButton.addEventListener('click', () => {
-        slider.value = parseInt(slider.value) - 1;
-        slider.dispatchEvent(new Event('input')); // Trigger input event
-
-    });
-
-    increaseButton.addEventListener('click', () => {
-        slider.value = parseInt(slider.value) + 1;
-        slider.dispatchEvent(new Event('input')); // Trigger input event
-
-    });
-
-    // Update the number of images based on the slider value
-    slider.addEventListener('input', () => {
-        numImagesSelect = parseInt(slider.value, 10);
-        numImagesLabel.textContent = numImagesSelect;
-        initializeGame(); // Recreate the images with the new number
-    });
-
-    const gameContainer = document.getElementById('game-container');
+    const label = document.getElementById('numImagesLabel');
     const resetButton = document.getElementById('reset-button');
 
-    // Array of image paths
-    let symbols
+    slider.addEventListener('input', () => {
+        numImagesSelect = parseInt(slider.value, 10);
+        label.textContent = numImagesSelect;
+        initGame();
+    });
 
-    let cards = [];
-    let flippedCards = [];
-    let matchedPairs = 0;
+    resetButton.addEventListener('click', initGame);
 
+    fetchImages().then(initGame);
+});
 
-    // Reset the game
-    resetButton.addEventListener('click', initializeGame);
+function initGame() {
+    const container = document.getElementById('game-container');
+    container.innerHTML = '';
+    
+    // Reset stats
+    moves = 0;
+    matchedPairs = 0;
+    flippedCards = [];
+    updateStats();
 
-    // Start the game on load
-    initializeGame();
+    // Select and shuffle images
+    const symbols = shuffleArray([...imageSources]).slice(0, numImagesSelect);
+    const deck = shuffleArray([...symbols, ...symbols]);
 
+    deck.forEach(imagePath => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.dataset.symbol = imagePath;
 
-    // Initialize the game
-    function initializeGame() {
-        gameContainer.innerHTML = '';
-        symbols = shuffleSelectArray([...imageSources]);
-        cards = createCardDeck();
-        shuffleArray(cards);
+        const inner = `
+            <div class="card-back"></div>
+            <div class="card-front">
+                <img src="${imageDir}/${imagePath}" draggable="false">
+            </div>
+        `;
+        card.innerHTML = inner;
 
-        cards.forEach(imagePath => {
-            const card = document.createElement('div');
-            card.classList.add('card');
-            card.dataset.symbol = `${imageDir}/${imagePath}`;
+        card.addEventListener('click', () => handleCardClick(card));
+        container.appendChild(card);
+    });
+}
 
-            const img = document.createElement('img');
-            img.src = `${imageDir}/${imagePath}`;
-            card.appendChild(img);
+function handleCardClick(card) {
+    if (
+        card.classList.contains('flipped') || 
+        card.classList.contains('matched') || 
+        flippedCards.length === 2
+    ) return;
 
-            card.addEventListener('click', handleCardClick);
-            gameContainer.appendChild(card);
-        });
+    card.classList.add('flipped');
+    flippedCards.push(card);
 
-        matchedPairs = 0;
-        flippedCards = [];
+    if (flippedCards.length === 2) {
+        moves++;
+        updateStats();
+        checkForMatch();
     }
+}
 
-    // Handle card click event
-    function handleCardClick(event) {
-        const card = event.target.closest('.card');
+function checkForMatch() {
+    const [card1, card2] = flippedCards;
 
-        if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
-        if (flippedCards.length === 2) return;
-
-        card.classList.add('flipped');
-        flippedCards.push(card);
-
-        if (flippedCards.length === 2) {
-            checkForMatch();
-        }
-    }
-
-    // Check if the flipped cards match
-    function checkForMatch() {
-        const [card1, card2] = flippedCards;
-
-        if (card1.dataset.symbol === card2.dataset.symbol) {
+    if (card1.dataset.symbol === card2.dataset.symbol) {
+        setTimeout(() => {
             card1.classList.add('matched');
             card2.classList.add('matched');
             matchedPairs++;
-
-            if (matchedPairs === symbols.length) {
-                setTimeout(() => alert('You matched all pairs!'), 300);
+            updateStats();
+            
+            if (matchedPairs === numImagesSelect) {
+                setTimeout(() => alert(`Victory! You found all pairs in ${moves} moves. ✨`), 500);
             }
-        } else {
-            setTimeout(() => {
-                card1.classList.remove('flipped');
-                card2.classList.remove('flipped');
-            }, 1000);
-        }
-
-        flippedCards = [];
+        }, 300);
+    } else {
+        setTimeout(() => {
+            card1.classList.remove('flipped');
+            card2.classList.remove('flipped');
+        }, 1000);
     }
 
-    // Create a deck of cards (duplicate image paths for pairs)
-    function createCardDeck() {
-        return [...symbols, ...symbols];
+    flippedCards = [];
+}
+
+function updateStats() {
+    document.getElementById('moveCount').textContent = moves;
+    document.getElementById('matchCount').textContent = matchedPairs;
+}
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
     }
-
-    // Function to select and shuffle a number of elements from the array
-    function shuffleSelectArray(images) {
-        console.log(numImagesSelect)
-        shuffleArray(images);
-        return images.slice(0, numImagesSelect);
-    }
-
-
-    // Shuffle the array of cards
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    }
-
+    return array;
 }

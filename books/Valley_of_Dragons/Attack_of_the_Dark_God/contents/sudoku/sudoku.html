@@ -3,21 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sudoku Game</title>
+    <title>Magical Sudoku</title>
+    <link rel="stylesheet" href="../shared_game_styles.css">
     <link rel="stylesheet" href="sudoku.css">
 </head>
 <body>
-    <h1>Sudoku Game</h1>
-    <div class="slider-container">
-        <label for="empty-cells-label">Empty Squares: </label>
-        <input type="range" id="empty-cells-slider" min="3" max="30" value="15">
-        <span id="slider-value">15</span>
+    <div class="game-container">
+        <h1>Sudoku</h1>
+        
+        <div class="game-toolbar">
+            <div class="difficulty-control">
+                <label for="empty-cells-slider">Difficulty (Empty Squares): <span id="slider-value">15</span></label>
+                <input type="range" id="empty-cells-slider" min="3" max="50" value="15">
+            </div>
+            <div class="mode-toggle">
+                <button id="notes-toggle" class="btn-toggle">Pencil: OFF</button>
+            </div>
+        </div>
+
+        <div class="sudoku-wrapper">
+            <div class="sudoku-board" id="board">
+                <!-- 9x9 grid -->
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button id="reset" class="btn-secondary">New Game</button>
+            <button id="check">Check Solution</button>
+        </div>
+
+        <a href="javascript:history.back()" class="nav-link">← Return to Book</a>
     </div>
-    <div class="sudoku-board">
-        <!-- 9x9 grid of cells will be here -->
-    </div>
-    <button id="reset">Reset</button>
-    <button id="check">Check Solution</button>
     <script src="sudoku.js"></script>
 </body>
 </html>

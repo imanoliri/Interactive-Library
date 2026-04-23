@@ -1,81 +1,129 @@
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f8f8f8;
-    margin: 0;
-    min-height: 100vh;
+.game-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2rem;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.difficulty-control {
+    flex: 1;
+    min-width: 200px;
+    text-align: left;
+}
+
+.difficulty-control label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.mode-toggle .btn-toggle {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+.mode-toggle .btn-toggle.active {
+    background: var(--primary-glow);
+    border-color: var(--primary-glow);
+    box-shadow: 0 0 15px rgba(96, 165, 250, 0.4);
+}
+
+.sudoku-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.slider-container {
-    display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center items horizontally */
-    margin-bottom: 20px;
-}
-
-#empty-cells-slider {
-    width: 200px;
-    margin-top: 5px; /* Add a small margin above the slider */
+    margin-bottom: 2rem;
 }
 
 .sudoku-board {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
-    grid-template-rows: repeat(9, 1fr);
-    width: 90vw; /* Use viewport width for responsiveness */
-    height: 90vw; /* Match height to width to keep it square */
-    max-width: 450px; /* Maximum width for larger screens */
-    max-height: 450px; /* Maximum height for larger screens */
-    border: 2px solid #333;
-    gap: 2px; /* Small gap between cells */
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 1;
+    background: var(--bg-dark);
+    border: 3px solid var(--primary-glow);
+    box-shadow: var(--shadow-premium);
+    user-select: none;
 }
 
 .cell {
+    position: relative;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #ccc;
-    font-size: calc(1.5vw + 10px); /* Adjust font size for readability */
-    background-color: #fff;
+    font-size: 1.75rem;
+    font-weight: 600;
     cursor: pointer;
-    user-select: none;
-    aspect-ratio: 1 / 1; /* Ensures cells are square */
+    transition: all 0.2s;
 }
 
+.cell:hover {
+    background: rgba(96, 165, 250, 0.15);
+}
+
+/* Thicker borders for 3x3 grids */
+.cell:nth-child(3n) { border-right: 3px solid var(--primary-glow); }
+.cell:nth-child(9n) { border-right: none; }
+.cell:nth-child(n+19):nth-child(-n+27),
+.cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 3px solid var(--primary-glow); }
+
 .cell.fixed {
-    background-color: #ddd;
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--text-muted);
     cursor: default;
 }
 
-.buttons {
-    margin-top: 20px;
+.cell.selected {
+    background: rgba(96, 165, 250, 0.3);
+    box-shadow: inset 0 0 0 2px var(--primary-glow);
 }
 
-button {
-    margin: 5px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    cursor: pointer;
+.cell.conflict {
+    color: var(--wrong-color);
 }
 
-/* Media Query for Smaller Screens */
+.cell.related {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Pencil Marks */
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    height: 100%;
+    padding: 2px;
+}
+
+.note {
+    font-size: 0.7rem;
+    color: var(--primary-glow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+input[type=range] {
+    width: 100%;
+    accent-color: var(--primary-glow);
+}
 @media (max-width: 600px) {
-    .sudoku-board {
-        gap: 1px; /* Reduce gap on smaller screens */
-    }
-
     .cell {
-        font-size: calc(2vw + 8px); /* Increase font size for readability on small screens */
-    }
-
-    button {
-        padding: 8px 16px;
-        font-size: 0.9rem;
+        font-size: 1.25rem;
     }
 }

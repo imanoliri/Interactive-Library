@@ -1,18 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Anagram</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magical Anagrams</title>
+    <link rel="stylesheet" href="../shared_game_styles.css">
     <link rel="stylesheet" href="anagrams.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Anagram</h1>
-        <p id="anagram"></p>
-        <input type="text" id="guess" placeholder="Enter the original word">
-        <div class="buttons">
-            <button id="next">Next</button>
-            <a href="../word_cloud/word_cloud.html" id="wordSalad">Word Salad</a>
+    <div class="game-container">
+        <h1>Anagrams</h1>
+        <div class="stats-bar">
+            <span>Score: <span id="score">0</span></span>
+            <span>Streak: <span id="streak">0</span></span>
         </div>
+        
+        <p>Unscramble the word from the story:</p>
+        
+        <div id="anagram" class="anagram-display"></div>
+        
+        <div class="input-group">
+            <input type="text" id="guess" placeholder="Your guess..." autocomplete="off">
+            <div class="feedback-icon" id="feedbackIcon"></div>
+        </div>
+
+        <div class="buttons">
+            <button id="next">Next Word</button>
+            <button id="hint" class="btn-secondary">Hint ✨</button>
+        </div>
+
+        <a href="javascript:history.back()" class="nav-link">← Return to Book</a>
     </div>
     <script src="anagrams.js"></script>
 </body>

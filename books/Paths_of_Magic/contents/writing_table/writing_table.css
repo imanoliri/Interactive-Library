@@ -1,44 +1,139 @@
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 20px;
+.game-container.wide {
+    max-width: 1200px;
 }
 
-.grid {
+.game-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+.settings {
+    display: flex;
+    gap: 2rem;
+}
+
+.settings label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.workbench-grid {
     display: grid;
-    grid-template-columns: repeat(var(--number-of-columns), 100px);
-    gap: 10px;
-    margin-top: 20px;
+    grid-template-columns: 80px repeat(5, 1fr) 200px;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+    margin-bottom: 2rem;
+    max-height: 70vh;
+    overflow-y: auto;
 }
 
-.grid div {
-    width: 100px;
-    height: 50px;
-    border: 2px solid #333;
+/* Header Row */
+.header-cell {
+    font-family: var(--font-heading);
+    color: var(--accent-gold);
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding: 1rem 0;
+    border-bottom: 2px solid var(--primary-glow);
+}
+
+.letter-source, .droppable, .trash-cell {
+    height: 60px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 2em;
-}
-
-.letter {
-    cursor: pointer;
-}
-
-.delete-cell {
-    background-color: #ffcccc;
-    color: #333;
-    font-size: 2em;
-    display: flex;
     justify-content: center;
-    align-items: center;
-    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    transition: all 0.2s;
 }
 
-.heading {
-    background-color: lightgray;
+.letter-source {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(167, 139, 250, 0.2));
+    border: 1px solid var(--primary-glow);
+    color: var(--primary-glow);
+    cursor: grab;
 }
 
-[draggable="true"] {
-    background-color: lightgray;
+.letter-source:hover {
+    background: var(--primary-glow);
+    color: white;
+    transform: scale(1.05);
+}
+
+.letter-source:active {
+    cursor: grabbing;
+}
+
+.droppable {
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px dashed var(--glass-border);
+}
+
+.droppable.drag-over {
+    border-color: var(--primary-glow);
+    background: rgba(96, 165, 250, 0.1);
+}
+
+.droppable.filled {
+    border-style: solid;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-color: var(--glass-border);
+}
+
+.trash-cell {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--wrong-color);
+    color: var(--wrong-color);
+    cursor: grab;
+}
+
+.trash-cell:hover {
+    background: var(--wrong-color);
+    color: white;
+}
+
+.word-input-cell {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 0 1rem;
+    color: var(--text-muted);
+    font-size: 1rem;
+    text-align: left;
+}
+
+.row-success {
+    animation: successPulse 1.5s ease-out;
+}
+
+@keyframes successPulse {
+    0% { background: transparent; }
+    50% { background: rgba(34, 197, 94, 0.2); }
+    100% { background: transparent; }
+}
+
+/* Custom Scrollbar */
+.workbench-grid::-webkit-scrollbar {
+    width: 8px;
+}
+.workbench-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+.workbench-grid::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 4px;
 }

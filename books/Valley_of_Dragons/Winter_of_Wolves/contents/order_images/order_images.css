@@ -1,137 +1,136 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+.game-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 2rem;
+    width: 100%;
 }
 
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+.difficulty-control {
+    flex: 1;
+    text-align: left;
 }
 
+.instruction-box {
+    flex: 2;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+}
 
-.slider-container {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
+#instruction-text {
+    margin: 0;
     font-size: 1rem;
-    color: #333;
-    gap: 10px;
-    margin-bottom: 20px;
+    color: var(--text-main);
 }
 
-.slider-container label {
-    margin-right: 10px;
-}
-
-#numImagesSlider {
-    width: 200px;
+.circle-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
 }
 
 .circle-container {
     position: relative;
+    width: var(--container-size, 500px);
+    height: var(--container-size, 500px);
+    background: rgba(255, 255, 255, 0.03);
     border-radius: 50%;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
+    border: 2px solid var(--glass-border);
     display: flex;
     justify-content: center;
     align-items: center;
-    width: var(--container-size);
-    height: var(--container-size);
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.2);
 }
 
-.center-text {
+.center-content {
     position: absolute;
-    top: var(--center-position);
-    left: var(--center-position);
-    transform: translate(-50%, -50%);
-    font-size: 1em;
-    text-align: center;
-    font-weight: bold;
-    color: #333;
-    pointer-events: none;
-    width: var(--center-size);
-    height: var(--center-size);
+    width: 120px;
+    height: 120px;
+    background: var(--bg-card);
+    border: 2px solid var(--primary-glow);
+    border-radius: 50%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 10;
+    box-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
+}
+
+#progress-indicator {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+}
+
+.image-node {
+    position: absolute;
+    width: var(--image-size, 100px);
+    height: var(--image-size, 100px);
+    border-radius: 50%;
+    border: 3px solid var(--glass-border);
     overflow: hidden;
-}
-
-.image {
-    position: absolute;
-    border-radius: 50%;
-    object-fit: cover;
     cursor: pointer;
-    transition: transform 0.3s, border-color 0.3s;
-    width: var(--image-size);
-    height: var(--image-size);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: white;
+    box-shadow: var(--shadow-premium);
 }
 
-.image:hover {
-    transform: scale(1.05);
+.image-node:hover {
+    transform: scale(1.1);
+    border-color: var(--primary-glow);
+    z-index: 5;
 }
 
-.image.highlight {
-    border: var(--highlight-size) solid #28a745;
+.image-node img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.popup {
-    position: fixed;
+.image-node.correct {
+    border-color: var(--correct-color);
+    box-shadow: 0 0 20px var(--correct-color);
+    pointer-events: none;
+}
+
+.image-node.correct::after {
+    content: "✓";
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    text-align: center;
-    z-index: 10;
-    display: none;
-}
-
-.popup.active {
-    display: block;
-}
-
-.popup button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
+    background: var(--correct-color);
     color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    flex: 1;
-    max-width: 48%;
+    width: 30px;
     height: 30px;
-}
-
-.popup button[onclick*="resetPuzzle"] {
-    background-color: #FF0000;
-}
-.popup button[onclick*="resetPuzzle"]:hover {
-    background-color: #CC0000;
-}
-
-.popup button[onclick*="changePuzzle"] {
-    background-color: #008000;
-}
-.popup button[onclick*="changePuzzle"]:hover {
-    background-color: #006400;
-}
-
-.button-container {
+    border-radius: 50%;
     display: flex;
-    justify-content: space-between;
-    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.image-node.wrong {
+    border-color: var(--wrong-color);
+    animation: shake 0.4s ease-in-out;
+}
+
+@media (max-width: 600px) {
+    .circle-container {
+        width: 320px;
+        height: 320px;
+    }
+    .center-content {
+        width: 80px;
+        height: 80px;
+    }
+    #progress-indicator {
+        font-size: 1.2rem;
+    }
 }

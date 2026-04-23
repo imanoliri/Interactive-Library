@@ -3,14 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Word Cloud</title>
+    <title>Magical Word Cloud</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3-cloud/build/d3.layout.cloud.min.js"></script>
+    <link rel="stylesheet" href="../shared_game_styles.css">
     <link rel="stylesheet" href="word_cloud.css">
 </head>
 <body>
-    <div id="word-cloud"></div>
-    <div class="tooltip" id="tooltip"></div>
-    <script src="word_cloud.js"></script> <!-- Link to the external JavaScript file -->
+    <div class="game-container full-screen">
+        <h1>Word Cloud</h1>
+        <p>Explore the most common words in this book. Click a word to see its context.</p>
+        
+        <div id="word-cloud-wrapper">
+            <div id="word-cloud"></div>
+            <div class="tooltip" id="tooltip"></div>
+        </div>
+
+        <div id="snippet-container" class="snippet-area hidden">
+            <div class="snippet-header">
+                <span id="selected-word-title">Word</span>
+                <button id="close-snippet">&times;</button>
+            </div>
+            <div id="snippet-content"></div>
+        </div>
+
+        <a href="javascript:history.back()" class="nav-link">← Return to Book</a>
+    </div>
+    <script src="word_cloud.js"></script>
 </body>
 </html>
