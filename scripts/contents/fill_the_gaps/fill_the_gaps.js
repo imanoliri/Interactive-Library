@@ -44,57 +44,112 @@ function createParagraph() {
     });
 
     function showRandomParagraph() {
-        if (paragraphs.length === 0) return;
-        const randomParagraph = paragraphs[Math.floor(Math.random() * paragraphs.length)];
-        const wordsAndPunctuation = randomParagraph.match(/[\w']+|[.,—-]/g); // Match words and punctuation
+        if (!paragraphs || paragraphs.length === 0) return;
+        
+        // QOL: Always go back to the gaps tab before switching
+        showTab('gaps');
 
-        if (numGaps >= wordsAndPunctuation.length) {
-            numGaps = wordsAndPunctuation.length - 1;
-            gapCountLabel.textContent = numGaps;
-            slider.value = numGaps;
+        const randomParagraph = paragraphs[Math.floor(Math.random() * paragraphs.length)];
+        
+        // Smart split: keeps the separators as separate tokens for perfect reconstruction
+        const tokens = randomParagraph.match(/[\w'´`]+|[.,—-]| +/g) || [];
+
+        // Rules: 
+        // 1. Words must be >= 3 chars
+        // 2. No two gaps in sequence
+        const validIndices = [];
+        tokens.forEach((item, idx) => {
+            // Rule 1: Only words with length >= 3
+            if (item.match(/[\w'´`]+/) && item.length >= 3) {
+                validIndices.push(idx);
+            }
+        });
+
+        // Rule 2: Ensure no sequence. We pick them iteratively.
+        const gapIndices = [];
+        const potential = [...validIndices].sort(() => 0.5 - Math.random());
+        
+        for (let idx of potential) {
+            if (gapIndices.length >= numGaps) break;
+            
+            // Check if any nearby word is already a gap
+            // We look at the tokens. The previous word is at the next valid index found in descending order.
+            const isTooClose = gapIndices.some(existingIdx => {
+                // Determine if they are "sequential" words.
+                // In our tokens array, words are separated by space/punctuation.
+                // If they are sequential, there is only whitespace/punctuation between them.
+                // We'll simplify: if the distance between indices is small enough that no other word is between them.
+                const min = Math.min(idx, existingIdx);
+                const max = Math.max(idx, existingIdx);
+                
+                // Check if any word exists between these two indices
+                let wordBetween = false;
+                for (let i = min + 1; i < max; i++) {
+                    if (tokens[i].match(/[\w'´`]+/)) {
+                        wordBetween = true;
+                        break;
+                    }
+                }
+                return !wordBetween; // If no word between, they are sequential
+            });
+
+            if (!isTooClose) {
+                gapIndices.push(idx);
+            }
         }
 
-        const gapIndices = getRandomIndices(wordsAndPunctuation.length, numGaps);
+        gapCountLabel.textContent = gapIndices.length;
 
-        // Show paragraph with gaps
-        paragraphContainer.innerHTML = wordsAndPunctuation.map((word, index) => {
-            if (gapIndices.includes(index) && !wordSeparators.includes(word)) {
-                return `<input type="text" data-correct="${word.toLowerCase()}" class="gap-input">`;
-            } else {
-                return word;
-            }
-        }).join(' ');
-
-        // Show full paragraph
-        fullParagraphContainer.textContent = randomParagraph;
+        renderParagraph(tokens, gapIndices);
 
         setupInputValidation();
+
+        const firstInput = paragraphContainer.querySelector('input');
+        if (firstInput) firstInput.focus();
+    }
+
+    function renderParagraph(tokens, gapIndices) {
+        // Challenge View (Editable Inputs)
+        paragraphContainer.innerHTML = tokens.map((token, index) => {
+            if (gapIndices.includes(index)) {
+                return `<input type="text" data-correct="${token.toLowerCase()}" class="gap-input" style="width: ${token.length + 2}ch">`;
+            }
+            return token;
+        }).join('');
+
+        // Solution View (Read-only pre-filled inputs)
+        fullParagraphContainer.innerHTML = tokens.map((token, index) => {
+            if (gapIndices.includes(index)) {
+                return `<input type="text" value="${token}" class="gap-input correct" readonly style="width: ${token.length + 2}ch">`;
+            }
+            return token;
+        }).join('');
     }
 
     function cleanWord(word) {
+        if (!word) return "";
         return wordSeparators.reduce((cleanedWord, sep) => {
             return cleanedWord.replace(new RegExp(`\\${sep}`, 'g'), '');
-        }, word).toLowerCase();
-    }
-
-    function getRandomIndices(max, count) {
-        const indices = new Set();
-        while (indices.size < count) {
-            indices.add(Math.floor(Math.random() * max));
-        }
-        return Array.from(indices);
+        }, word).toLowerCase().trim();
     }
 
     function setupInputValidation() {
         const inputs = paragraphContainer.querySelectorAll('input');
         inputs.forEach(input => {
             input.addEventListener('input', () => {
-                if (cleanWord(input.value) === cleanWord(input.dataset.correct)) {
+                const val = cleanWord(input.value);
+                const target = cleanWord(input.dataset.correct);
+
+                input.classList.remove('correct', 'incorrect', 'partial');
+
+                if (val === "") {
+                    // neutral
+                } else if (val === target) {
                     input.classList.add('correct');
-                    input.classList.remove('incorrect');
+                } else if (target.startsWith(val)) {
+                    input.classList.add('partial');
                 } else {
                     input.classList.add('incorrect');
-                    input.classList.remove('correct');
                 }
                 checkAllCorrect();
             });
@@ -103,11 +158,14 @@ function createParagraph() {
 
     function checkAllCorrect() {
         const inputs = paragraphContainer.querySelectorAll('input');
-        const allCorrect = Array.from(inputs).every(input => input.value === input.dataset.correct);
+        const allCorrect = Array.from(inputs).every(input => cleanWord(input.value) === cleanWord(input.dataset.correct));
+        
         if (allCorrect) {
-            paragraphContainer.classList.add('correct');
+            nextButton.style.backgroundColor = "#28a745";
+            nextButton.textContent = "Solved! Next Challenge?";
         } else {
-            paragraphContainer.classList.remove('correct');
+            nextButton.style.backgroundColor = "";
+            nextButton.textContent = "Next Challenge";
         }
     }
 
@@ -122,5 +180,7 @@ function showTab(tabName) {
     buttons.forEach(button => button.classList.remove('active'));
 
     document.getElementById(tabName).classList.add('active');
-    document.querySelector(`button[onclick="showTab('${tabName}')"]`).classList.add('active');
+    
+    const clickedButton = Array.from(buttons).find(b => b.getAttribute('onclick').includes(tabName));
+    if (clickedButton) clickedButton.classList.add('active');
 }
