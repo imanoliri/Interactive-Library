@@ -99,6 +99,24 @@ h1 {
 
 
 button {
-    font-size: x-large
+    font-size: x-large;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#reset-button.win-highlight {
+    background-color: #28a745;
+    color: white;
+    box-shadow: 0 0 20px rgba(40, 167, 69, 0.6);
+    animation: pulse-green 1.5s infinite;
+}
+
+@keyframes pulse-green {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 

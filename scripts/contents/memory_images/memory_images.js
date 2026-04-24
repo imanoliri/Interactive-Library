@@ -71,6 +71,13 @@ function createMemory() {
             moveCursor(-cols, allCards);
         } else if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault(); // Prevent page scroll with space
+            
+            // If the game is won and Enter is pressed, reset the game
+            if (e.key === 'Enter' && resetButton.classList.contains('win-highlight')) {
+                initializeGame();
+                return;
+            }
+
             if (cursorIndex === -1) {
                 moveCursor(0, allCards); // Activate first card if none selected
             } else if (cursorIndex >= 0 && cursorIndex < allCards.length) {
@@ -115,6 +122,7 @@ function createMemory() {
         matchedPairs = 0;
         flippedCards = [];
         cursorIndex = -1; // Reset cursor
+        resetButton.classList.remove('win-highlight');
     }
 
     function handleCardClick(event) {
@@ -141,7 +149,7 @@ function createMemory() {
             matchedPairs++;
 
             if (matchedPairs === symbols.length) {
-                setTimeout(() => alert('You matched all pairs!'), 300);
+                resetButton.classList.add('win-highlight');
             }
         } else {
             document.body.style.pointerEvents = 'none'; // Prevent clicking while flipping back
