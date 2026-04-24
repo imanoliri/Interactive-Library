@@ -14,41 +14,136 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     
+    let selectedCellIndex = -1;
+    let fullSolution = [];
+    let showCorrect = true;
+    let showErrors = true;
+
     // Add event listeners for the buttons
-    document.getElementById("reset").addEventListener("click", generateSudokuBoard);
+    const toggleCorrectBtn = document.getElementById("toggle-correct");
+    const toggleErrorsBtn = document.getElementById("toggle-errors");
+
+    toggleCorrectBtn.addEventListener("click", () => {
+        showCorrect = !showCorrect;
+        toggleCorrectBtn.classList.toggle("active", showCorrect);
+        updateFeedback();
+    });
+
+    toggleErrorsBtn.addEventListener("click", () => {
+        showErrors = !showErrors;
+        toggleErrorsBtn.classList.toggle("active", showErrors);
+        updateFeedback();
+    });
+
+    document.getElementById("reset").addEventListener("click", () => {
+        generateSudokuBoard();
+    });
     document.getElementById("check").addEventListener("click", () => {
         if (checkSolution()) {
             alert("Congratulations! The solution is correct!");
         } else {
+            const cells = board.querySelectorAll(".cell");
+            cells.forEach((cell, index) => {
+                if (!cell.classList.contains('fixed') && cell.textContent !== "") {
+                    // Basic validation check could go here if we wanted to show errors
+                }
+            });
             alert("There are mistakes in your solution. Keep trying!");
+        }
+    });
+
+    // QOL: Global Click Listener for Selection
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.sudoku-board')) {
+            clearHighlights();
+            selectedCellIndex = -1;
+        }
+    });
+
+    // QOL: Keyboard Support
+    document.addEventListener('keydown', (e) => {
+        if (selectedCellIndex === -1) return;
+        
+        const key = e.key;
+        const cells = board.querySelectorAll(".cell");
+        const currentCell = cells[selectedCellIndex];
+
+        if (key.startsWith('Arrow')) {
+            e.preventDefault();
+            let row = Math.floor(selectedCellIndex / 9);
+            let col = selectedCellIndex % 9;
+
+            if (key === 'ArrowUp') row = (row - 1 + 9) % 9;
+            else if (key === 'ArrowDown') row = (row + 1) % 9;
+            else if (key === 'ArrowLeft') col = (col - 1 + 9) % 9;
+            else if (key === 'ArrowRight') col = (col + 1) % 9;
+
+            selectCell(row * 9 + col);
+        } else if (key >= '1' && key <= '9' && !currentCell.classList.contains('fixed')) {
+            currentCell.textContent = key;
+            updateFeedback();
+        } else if ((key === 'Backspace' || key === 'Delete') && !currentCell.classList.contains('fixed')) {
+            currentCell.textContent = "";
+            updateFeedback();
         }
     });
 
     // Initialize the game
     generateSudokuBoard();
 
-
-    // Step : Generate the Sudoku board
     function generateSudokuBoard() {
         let boardArray = Array(81).fill(0);
-        createBoard()
+        createBoard();
         fillBoard(boardArray);
+        fullSolution = [...boardArray]; // Store the solved state
         removeNumbers(boardArray);
         populateBoard(boardArray);
+        selectedCellIndex = -1;
+        updateFeedback();
     }
 
-    // Function to create the Sudoku board
     function createBoard() {
-        // Clear the board before adding cells (in case the function is called more than once)
         board.innerHTML = "";
-
-        // Create 81 cells for the 9x9 grid
         for (let i = 0; i < 81; i++) {
             const cell = document.createElement("div");
-            cell.contentEditable = true; // Make cells editable
-            cell.classList.add("cell"); // Add a class for styling
-            board.appendChild(cell); // Append each cell to the board
+            cell.classList.add("cell");
+            cell.addEventListener('click', (e) => {
+                e.stopPropagation();
+                selectCell(i);
+            });
+            board.appendChild(cell);
         }
+    }
+
+    function selectCell(index) {
+        selectedCellIndex = index;
+        updateFeedback();
+    }
+
+    function updateFeedback() {
+        const cells = board.querySelectorAll(".cell");
+        
+        cells.forEach((cell, idx) => {
+            cell.classList.remove('selected', 'correct', 'error');
+
+            if (idx === selectedCellIndex) {
+                cell.classList.add('selected');
+            }
+
+            const userVal = cell.textContent;
+            if (userVal !== "" && !cell.classList.contains('fixed')) {
+                const isCorrect = parseInt(userVal) === fullSolution[idx];
+                if (isCorrect) {
+                    if (showCorrect) cell.classList.add('correct');
+                } else {
+                    if (showErrors) cell.classList.add('error');
+                }
+            }
+        });
+    }
+
+    function clearHighlights() {
+        updateFeedback(); // Just call updateFeedback to refresh the state
     }
 
     // Function to fill the board using backtracking
@@ -72,7 +167,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to remove numbers to create the puzzle
     function removeNumbers(board) {
-        while (numEmptyCells > 0) {
+        let count = numEmptyCells;
+        while (count > 0) {
             let index = Math.floor(Math.random() * 81);
             while (board[index] === 0) {
                 index = Math.floor(Math.random() * 81);
@@ -82,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!hasUniqueSolution([...board])) {
                 board[index] = backup;
             } else {
-                numEmptyCells--;
+                count--;
             }
         }
     }
@@ -150,10 +246,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to populate the board with numbers
     function populateBoard(boardArray) {
-        const cells = board.querySelectorAll("div");
+        const cells = board.querySelectorAll(".cell");
         cells.forEach((cell, index) => {
             cell.textContent = boardArray[index] !== 0 ? boardArray[index] : "";
-            cell.contentEditable = boardArray[index] === 0;
             cell.classList.toggle("fixed", boardArray[index] !== 0);
         });
     }
