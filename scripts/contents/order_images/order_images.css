@@ -83,6 +83,16 @@ body {
     border: var(--highlight-size) solid #28a745;
 }
 
+.image-label {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    color: #888;
+    pointer-events: none;
+    user-select: none;
+    font-weight: bold;
+}
+
 .popup {
     position: fixed;
     top: 50%;
