@@ -135,7 +135,7 @@ function createParagraph() {
 
     function setupInputValidation() {
         const inputs = paragraphContainer.querySelectorAll('input');
-        inputs.forEach(input => {
+        inputs.forEach((input, index) => {
             input.addEventListener('input', () => {
                 const val = cleanWord(input.value);
                 const target = cleanWord(input.dataset.correct);
@@ -146,6 +146,11 @@ function createParagraph() {
                     // neutral
                 } else if (val === target) {
                     input.classList.add('correct');
+                    // Auto-advance to next input with a small delay
+                    const nextInput = inputs[index + 1];
+                    if (nextInput) {
+                        setTimeout(() => nextInput.focus(), 300);
+                    }
                 } else if (target.startsWith(val)) {
                     input.classList.add('partial');
                 } else {
@@ -163,6 +168,7 @@ function createParagraph() {
         if (allCorrect) {
             nextButton.style.backgroundColor = "#28a745";
             nextButton.textContent = "Solved! Next Challenge?";
+            nextButton.focus(); // Jump to next button
         } else {
             nextButton.style.backgroundColor = "";
             nextButton.textContent = "Next Challenge";

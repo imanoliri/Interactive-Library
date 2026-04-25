@@ -87,6 +87,12 @@ body {
     background-color: #0056b3;
   }
 
+  button:focus {
+    outline: 4px solid #ffc107;
+    outline-offset: 2px;
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
+  }
+
   input.gap-input {
     border: 2px solid #ccc;
     padding: 0 4px;
