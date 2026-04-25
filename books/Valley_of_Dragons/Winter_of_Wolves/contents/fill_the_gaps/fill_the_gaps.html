@@ -2,40 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Magical Lore Gaps</title>
-  <link rel="stylesheet" href="../shared_game_styles.css">
   <link rel="stylesheet" href="fill_the_gaps.css">
+  <title>Fill in the Gaps</title>
 </head>
 <body>
-  <div class="game-container scroll-aesthetic">
-    <h1>Fill the Gaps</h1>
+  <div class="container">
+    <h1>Fill in the Gaps</h1>
     
-    <div class="game-toolbar">
-        <label for="gap-slider">Difficulty (Gaps): <span id="gap-count">3</span></label>
-        <input type="range" id="gap-slider" min="1" max="15" value="3">
-    </div>
+    <label for="gap-slider">Number of Gaps:</label>
+    <input type="range" id="gap-slider" min="1" max="10" value="3">
+    <span id="gap-count">3</span>
     
+    <!-- Tab buttons -->
     <div class="tabs">
-      <button class="tab-button active" id="tab-gaps">Gaps</button>
-      <button class="tab-button" id="tab-solution">Solution</button>
+      <button class="tab-button active" onclick="showTab('gaps')">Gaps</button>
+      <button class="tab-button" onclick="showTab('solution')">Solution</button>
     </div>
 
-    <div class="scroll-wrapper">
-        <div id="gaps-content" class="tab-content active">
-            <div id="paragraph" class="content-text"></div>
-        </div>
+    <!-- Tab content -->
+    <div id="gaps" class="tab-content active">
+      <div class="paragraph-container">
+        <p id="paragraph"></p>
+      </div>
+    </div>
 
-        <div id="solution-content" class="tab-content">
-            <div id="full-paragraph" class="content-text"></div>
-        </div>
+    <div id="solution" class="tab-content">
+      <div class="paragraph-container">
+        <p id="full-paragraph"></p>
+      </div>
     </div>
     
-    <div class="action-buttons">
-        <button id="next-button">Next Story</button>
-    </div>
-
-    <a href="javascript:history.back()" class="nav-link">← Return to Book</a>
+    <button id="next-button">Next</button>
   </div>
   <script src="fill_the_gaps.js"></script>
 </body>

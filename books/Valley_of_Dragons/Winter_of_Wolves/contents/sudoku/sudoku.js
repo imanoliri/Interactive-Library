@@ -1,202 +1,307 @@
-let grid = [];
-let solvedGrid = [];
-let initialGrid = [];
-let notes = Array.from({ length: 81 }, () => new Set());
-let selectedCell = -1;
-let isNotesMode = false;
+document.addEventListener("DOMContentLoaded", function () {
 
-document.addEventListener('DOMContentLoaded', () => {
-    const slider = document.getElementById('empty-cells-slider');
-    const sliderValue = document.getElementById('slider-value');
-    const notesToggle = document.getElementById('notes-toggle');
 
-    slider.addEventListener('input', () => {
-        sliderValue.textContent = slider.value;
+    const board = document.querySelector(".sudoku-board");
+    const sliderLabel = document.getElementById('slider-value');
+    const slider = document.getElementById('empty-cells-slider'); // Correctly get the slider element
+    let numEmptyCells = parseInt(slider.value); // Get and convert the slider's value to an integer
+
+
+    // Event listener for the slider to update the label
+    slider.addEventListener("input", () => {
+        numEmptyCells = parseInt(slider.value, 10);
+        sliderLabel.textContent = numEmptyCells;
     });
 
-    notesToggle.addEventListener('click', () => {
-        isNotesMode = !isNotesMode;
-        notesToggle.textContent = `Pencil: ${isNotesMode ? 'ON' : 'OFF'}`;
-        notesToggle.classList.toggle('active', isNotesMode);
+    
+    let selectedCellIndex = -1;
+    let fullSolution = [];
+    let showCorrect = true;
+    let showErrors = true;
+
+    // Add event listeners for the buttons
+    const toggleCorrectBtn = document.getElementById("toggle-correct");
+    const toggleErrorsBtn = document.getElementById("toggle-errors");
+
+    toggleCorrectBtn.addEventListener("click", () => {
+        showCorrect = !showCorrect;
+        toggleCorrectBtn.classList.toggle("active", showCorrect);
+        updateFeedback();
     });
 
-    document.getElementById('reset').addEventListener('click', initGame);
-    document.getElementById('check').addEventListener('click', checkSolution);
+    toggleErrorsBtn.addEventListener("click", () => {
+        showErrors = !showErrors;
+        toggleErrorsBtn.classList.toggle("active", showErrors);
+        updateFeedback();
+    });
 
-    // Keyboard support
-    document.addEventListener('keydown', handleKeyPress);
-
-    initGame();
-});
-
-function initGame() {
-    generateSudoku();
-    const emptyCount = parseInt(document.getElementById('empty-cells-slider').value, 10);
-    initialGrid = createGame(emptyCount);
-    grid = [...initialGrid];
-    notes = Array.from({ length: 81 }, () => new Set());
-    selectedCell = -1;
-    renderBoard();
-}
-
-function handleKeyPress(e) {
-    if (selectedCell === -1 || initialGrid[selectedCell] !== 0) return;
-
-    if (e.key >= '1' && e.key <= '9') {
-        const num = parseInt(e.key, 10);
-        if (isNotesMode) {
-            if (notes[selectedCell].has(num)) notes[selectedCell].delete(num);
-            else notes[selectedCell].add(num);
-            grid[selectedCell] = 0;
+    document.getElementById("reset").addEventListener("click", () => {
+        generateSudokuBoard();
+    });
+    document.getElementById("check").addEventListener("click", () => {
+        if (checkSolution()) {
+            alert("Congratulations! The solution is correct!");
         } else {
-            grid[selectedCell] = grid[selectedCell] === num ? 0 : num;
-            notes[selectedCell].clear();
+            const cells = board.querySelectorAll(".cell");
+            cells.forEach((cell, index) => {
+                if (!cell.classList.contains('fixed') && cell.textContent !== "") {
+                    // Basic validation check could go here if we wanted to show errors
+                }
+            });
+            alert("There are mistakes in your solution. Keep trying!");
         }
-        renderBoard();
-    } else if (e.key === 'Backspace' || e.key === 'Delete') {
-        grid[selectedCell] = 0;
-        notes[selectedCell].clear();
-        renderBoard();
-    } else if (e.key.startsWith('Arrow')) {
-        let row = Math.floor(selectedCell / 9);
-        let col = selectedCell % 9;
-        if (e.key === 'ArrowUp') row = (row + 8) % 9;
-        if (e.key === 'ArrowDown') row = (row + 1) % 9;
-        if (e.key === 'ArrowLeft') col = (col + 8) % 9;
-        if (e.key === 'ArrowRight') col = (col + 1) % 9;
-        selectedCell = row * 9 + col;
-        renderBoard();
-    }
-}
+    });
 
-function renderBoard() {
-    const board = document.getElementById('board');
-    board.innerHTML = '';
-
-    for (let i = 0; i < 81; i++) {
-        const cell = document.createElement('div');
-        cell.className = 'cell';
-        if (initialGrid[i] !== 0) cell.classList.add('fixed');
-        if (i === selectedCell) cell.classList.add('selected');
-
-        const row = Math.floor(i / 9);
-        const col = i % 9;
-        const selRow = selectedCell !== -1 ? Math.floor(selectedCell / 9) : -1;
-        const selCol = selectedCell !== -1 ? selectedCell % 9 : -1;
-
-        if (selRow === row || selCol === col) {
-            cell.classList.add('related');
+    // QOL: Global Click Listener for Selection
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.sudoku-board')) {
+            clearHighlights();
+            selectedCellIndex = -1;
         }
+    });
 
-        if (grid[i] !== 0) {
-            cell.textContent = grid[i];
-            if (grid[i] !== solvedGrid[i] && !cell.classList.contains('fixed') && grid[i] !== 0) {
-                // We don't mark wrong until "Check Solution" is clicked unless we want real-time.
-                // Let's do conflict highlighting instead.
-                if (hasConflict(i)) cell.classList.add('conflict');
-            }
-        } else if (notes[i].size > 0) {
-            const notesGrid = document.createElement('div');
-            notesGrid.className = 'notes-grid';
-            for (let n = 1; n <= 9; n++) {
-                const note = document.createElement('div');
-                note.className = 'note';
-                if (notes[i].has(n)) note.textContent = n;
-                notesGrid.appendChild(note);
-            }
-            cell.appendChild(notesGrid);
-        }
-
-        cell.addEventListener('click', () => {
-            selectedCell = i;
-            renderBoard();
-        });
-
-        board.appendChild(cell);
-    }
-}
-
-function hasConflict(idx) {
-    const val = grid[idx];
-    if (val === 0) return false;
-    const row = Math.floor(idx / 9);
-    const col = idx % 9;
-    const startRow = Math.floor(row / 3) * 3;
-    const startCol = Math.floor(col / 3) * 3;
-
-    for (let i = 0; i < 9; i++) {
-        if (i !== col && grid[row * 9 + i] === val) return true;
-        if (i !== row && grid[i * 9 + col] === val) return true;
+    // QOL: Keyboard Support
+    document.addEventListener('keydown', (e) => {
+        if (selectedCellIndex === -1) return;
         
-        const r = startRow + Math.floor(i / 3);
-        const c = startCol + (i % 3);
-        const innerIdx = r * 9 + c;
-        if (innerIdx !== idx && grid[innerIdx] === val) return true;
+        const key = e.key;
+        const cells = board.querySelectorAll(".cell");
+        const currentCell = cells[selectedCellIndex];
+
+        if (key.startsWith('Arrow')) {
+            e.preventDefault();
+            let row = Math.floor(selectedCellIndex / 9);
+            let col = selectedCellIndex % 9;
+
+            if (key === 'ArrowUp') row = (row - 1 + 9) % 9;
+            else if (key === 'ArrowDown') row = (row + 1) % 9;
+            else if (key === 'ArrowLeft') col = (col - 1 + 9) % 9;
+            else if (key === 'ArrowRight') col = (col + 1) % 9;
+
+            selectCell(row * 9 + col);
+        } else if (key >= '1' && key <= '9' && !currentCell.classList.contains('fixed')) {
+            currentCell.textContent = key;
+            updateFeedback();
+        } else if ((key === 'Backspace' || key === 'Delete') && !currentCell.classList.contains('fixed')) {
+            currentCell.textContent = "";
+            updateFeedback();
+        }
+    });
+
+    // Initialize the game
+    generateSudokuBoard();
+
+    function generateSudokuBoard() {
+        let boardArray = Array(81).fill(0);
+        createBoard();
+        fillBoard(boardArray);
+        fullSolution = [...boardArray]; // Store the solved state
+        removeNumbers(boardArray);
+        populateBoard(boardArray);
+        selectedCellIndex = -1;
+        updateFeedback();
     }
-    return false;
-}
 
-function generateSudoku() {
-    solvedGrid = Array(81).fill(0);
-    fillGrid(solvedGrid);
-}
+    function createBoard() {
+        board.innerHTML = "";
+        for (let i = 0; i < 81; i++) {
+            const cell = document.createElement("div");
+            cell.classList.add("cell");
+            cell.addEventListener('click', (e) => {
+                e.stopPropagation();
+                selectCell(i);
+            });
+            board.appendChild(cell);
+        }
+    }
 
-function fillGrid(g) {
-    for (let i = 0; i < 81; i++) {
-        if (g[i] === 0) {
-            const nums = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-            for (const num of nums) {
-                if (isValid(g, i, num)) {
-                    g[i] = num;
-                    if (fillGrid(g)) return true;
-                    g[i] = 0;
+    function selectCell(index) {
+        selectedCellIndex = index;
+        updateFeedback();
+    }
+
+    function updateFeedback() {
+        const cells = board.querySelectorAll(".cell");
+        
+        cells.forEach((cell, idx) => {
+            cell.classList.remove('selected', 'correct', 'error');
+
+            if (idx === selectedCellIndex) {
+                cell.classList.add('selected');
+            }
+
+            const userVal = cell.textContent;
+            if (userVal !== "" && !cell.classList.contains('fixed')) {
+                const isCorrect = parseInt(userVal) === fullSolution[idx];
+                if (isCorrect) {
+                    if (showCorrect) cell.classList.add('correct');
+                } else {
+                    if (showErrors) cell.classList.add('error');
                 }
             }
-            return false;
+        });
+    }
+
+    function clearHighlights() {
+        updateFeedback(); // Just call updateFeedback to refresh the state
+    }
+
+    // Function to fill the board using backtracking
+    function fillBoard(board) {
+        const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        for (let i = 0; i < 81; i++) {
+            if (board[i] === 0) {
+                shuffleArray(numbers);
+                for (let num of numbers) {
+                    if (isValidMove(board, i, num)) {
+                        board[i] = num;
+                        if (fillBoard(board)) return true;
+                        board[i] = 0; // Backtrack
+                    }
+                }
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Function to remove numbers to create the puzzle
+    function removeNumbers(board) {
+        let count = numEmptyCells;
+        while (count > 0) {
+            let index = Math.floor(Math.random() * 81);
+            while (board[index] === 0) {
+                index = Math.floor(Math.random() * 81);
+            }
+            let backup = board[index];
+            board[index] = 0;
+            if (!hasUniqueSolution([...board])) {
+                board[index] = backup;
+            } else {
+                count--;
+            }
         }
     }
-    return true;
-}
 
-function isValid(g, idx, num) {
-    const row = Math.floor(idx / 9);
-    const col = idx % 9;
-    for (let i = 0; i < 9; i++) {
-        if (g[row * 9 + i] === num) return false;
-        if (g[i * 9 + col] === num) return false;
-        const r = Math.floor(row / 3) * 3 + Math.floor(i / 3);
-        const c = Math.floor(col / 3) * 3 + (i % 3);
-        if (g[r * 9 + c] === num) return false;
+    // Function to check if a move is valid
+    function isValidMove(board, index, num) {
+        const row = Math.floor(index / 9);
+        const col = index % 9;
+
+        for (let i = 0; i < 9; i++) {
+            if (board[row * 9 + i] === num || board[col + i * 9] === num) return false;
+        }
+
+        const boxRow = Math.floor(row / 3) * 3;
+        const boxCol = Math.floor(col / 3) * 3;
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                if (board[(boxRow + i) * 9 + (boxCol + j)] === num) return false;
+            }
+        }
+
+        return true;
     }
-    return true;
-}
 
-function createGame(emptyCount) {
-    const g = [...solvedGrid];
-    let count = 0;
-    while (count < emptyCount) {
-        const idx = Math.floor(Math.random() * 81);
-        if (g[idx] !== 0) {
-            g[idx] = 0;
-            count++;
+    // Function to check if the board has a unique solution
+    function hasUniqueSolution(board) {
+        let solutionCount = 0;
+
+        function solve(board) {
+            for (let i = 0; i < 81; i++) {
+                if (board[i] === 0) {
+                    for (let num = 1; num <= 9; num++) {
+                        if (isValidMove(board, i, num)) {
+                            board[i] = num;
+                            solve(board);
+                            if (solutionCount > 1) return;
+                            board[i] = 0;
+                        }
+                    }
+                    return;
+                }
+            }
+            solutionCount++;
+        }
+
+        solve([...board]);
+        return solutionCount === 1;
+    }
+
+    // Helper function to shuffle an array
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
         }
     }
-    return g;
-}
 
-function checkSolution() {
-    const isCorrect = grid.every((val, i) => val === solvedGrid[i]);
-    if (isCorrect) {
-        alert('Perfect! Magical solution found! ✨');
-    } else {
-        alert('Some numbers are out of place. Keep trying!');
+    // Function to reset the board
+    function resetBoard() {
+        const initialBoard = Array(81).fill(0);
+        fillBoard(initialBoard);
+        removeNumbers(initialBoard);
+        populateBoard(initialBoard);
     }
-}
 
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+    // Function to populate the board with numbers
+    function populateBoard(boardArray) {
+        const cells = board.querySelectorAll(".cell");
+        cells.forEach((cell, index) => {
+            cell.textContent = boardArray[index] !== 0 ? boardArray[index] : "";
+            cell.classList.toggle("fixed", boardArray[index] !== 0);
+        });
     }
-    return array;
-}
+    
+    // Function to check if the user's solution is correct
+    function checkSolution() {
+        const cells = board.querySelectorAll("div");
+
+        function getNumber(index) {
+            const num = parseInt(cells[index].textContent);
+            return isNaN(num) ? 0 : num;
+        }
+
+        function hasUniqueNumbers(numbers) {
+            const seen = new Set();
+            for (let num of numbers) {
+                if (num === 0) continue;
+                if (seen.has(num)) return false;
+                seen.add(num);
+            }
+            return true;
+        }
+
+        for (let row = 0; row < 9; row++) {
+            const numbers = [];
+            for (let col = 0; col < 9; col++) {
+                numbers.push(getNumber(row * 9 + col));
+            }
+            if (!hasUniqueNumbers(numbers)) return false;
+        }
+
+        for (let col = 0; col < 9; col++) {
+            const numbers = [];
+            for (let row = 0; row < 9; row++) {
+                numbers.push(getNumber(row * 9 + col));
+            }
+            if (!hasUniqueNumbers(numbers)) return false;
+        }
+
+        for (let boxRow = 0; boxRow < 3; boxRow++) {
+            for (let boxCol = 0; boxCol < 3; boxCol++) {
+                const numbers = [];
+                for (let row = 0; row < 3; row++) {
+                    for (let col = 0; col < 3; col++) {
+                        const index = (boxRow * 3 + row) * 9 + (boxCol * 3 + col);
+                        numbers.push(getNumber(index));
+                    }
+                }
+                if (!hasUniqueNumbers(numbers)) return false;
+            }
+        }
+
+        return true;
+    }
+
+});

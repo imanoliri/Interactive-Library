@@ -117,10 +117,11 @@ body {
     border-color: #94a3b8;
 }
 
-.droppable.drag-over {
-    background-color: #f1f5f9;
-    border-color: #3b82f6;
-    border-style: solid;
+.droppable.selected {
+    border: 2px solid #3b82f6;
+    background-color: #eff6ff;
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+    z-index: 5;
 }
 
 .delete-cell {

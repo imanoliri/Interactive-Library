@@ -1,141 +1,186 @@
-let paragraphs = [];
-let currentPara = "";
-let gaps = [];
-let numGaps = 3;
-
+// Fetch word counts asynchronously and only then create Grid
 async function fetchParagraphs() {
     try {
         const response = await fetch('./../../interactive_book_parapragh_texts.json');
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
         paragraphs = await response.json();
-        // Filter out very short paragraphs
-        paragraphs = paragraphs.filter(p => p.split(' ').length > 15);
+        console.log("Paragraphs fetched:", paragraphs);
+
+        // Initialize the paragraph
+        document.addEventListener('DOMContentLoaded', createParagraph);
+
     } catch (error) {
         console.error("Error fetching paragraphs:", error);
     }
 }
 
+const wordSeparators = [",", "-", "—", ";", "."];
+let paragraphs
+
+
 document.addEventListener('DOMContentLoaded', () => {
-    const slider = document.getElementById('gap-slider');
-    const gapCount = document.getElementById('gap-count');
-    
-    slider.addEventListener('input', () => {
-        numGaps = parseInt(slider.value, 10);
-        gapCount.textContent = numGaps;
-        initGame();
-    });
-
-    document.getElementById('tab-gaps').addEventListener('click', () => switchTab('gaps'));
-    document.getElementById('tab-solution').addEventListener('click', () => switchTab('solution'));
-    
-    document.getElementById('next-button').addEventListener('click', initGame);
-
-    fetchParagraphs().then(initGame);
+    fetchParagraphs().then(createParagraph);
 });
 
-function initGame() {
-    if (paragraphs.length === 0) return;
-    
-    // Reset buttons
-    const nextBtn = document.getElementById('next-button');
-    nextBtn.classList.remove('solved');
-    nextBtn.textContent = "Next Story";
+function createParagraph() {
+    const slider = document.getElementById('gap-slider');
+    const gapCountLabel = document.getElementById('gap-count');
+    const paragraphContainer = document.getElementById('paragraph');
+    const fullParagraphContainer = document.getElementById('full-paragraph');
+    const nextButton = document.getElementById('next-button');
+    let numGaps = parseInt(slider.value, 10);
 
-    currentPara = paragraphs[Math.floor(Math.random() * paragraphs.length)];
-    createGaps();
-    switchTab('gaps');
-}
+    numGaps = parseInt(slider.value, 10);
+    gapCountLabel.textContent = numGaps; // Initial number of gaps to display
 
-function createGaps() {
-    const rawWords = currentPara.split(' ');
-    gaps = [];
-    
-    // Logic: find words at least 4 chars long to hide
-    const eligibleIndices = [];
-    rawWords.forEach((w, i) => {
-        if (w.length >= 4 && !w.includes('<')) eligibleIndices.push(i);
+    showRandomParagraph();
+
+    slider.addEventListener('input', () => {
+        numGaps = parseInt(slider.value, 10);
+        gapCountLabel.textContent = numGaps;
+        showRandomParagraph();
     });
-    
-    // Pick random indices
-    const selectedIndices = [];
-    const available = [...eligibleIndices];
-    for (let i = 0; i < Math.min(numGaps, available.length); i++) {
-        const randIdx = Math.floor(Math.random() * available.length);
-        selectedIndices.push(available.splice(randIdx, 1)[0]);
-    }
-    
-    selectedIndices.sort((a,b) => a - b);
-    
-    let displayPara = "";
-    let solutionPara = "";
-    
-    rawWords.forEach((w, i) => {
-        if (selectedIndices.includes(i)) {
-            const cleanWord = w.replace(/[.,!?;:]/g, "");
-            const punct = w.substring(cleanWord.length);
-            gaps.push(cleanWord.toLowerCase());
-            
-            // Build the input for the puzzle
-            displayPara += `<input type="text" class="gap-input" data-index="${gaps.length - 1}" data-answer="${cleanWord.toLowerCase()}" style="width: ${cleanWord.length + 1}ch">${punct} `;
-            
-            // Build the highlighted span for the solution
-            solutionPara += `<span class="snippet-reveal">${cleanWord}</span>${punct} `;
-        } else {
-            displayPara += w + " ";
-            solutionPara += w + " ";
-        }
-    });
-    
-    document.getElementById('paragraph').innerHTML = displayPara;
-    document.getElementById('full-paragraph').innerHTML = solutionPara;
 
-    // Add real-time feedback
-    const inputs = document.querySelectorAll('.gap-input');
-    inputs.forEach(input => {
-        input.addEventListener('input', (e) => {
-            const val = e.target.value.trim().toLowerCase();
-            const answer = e.target.dataset.answer;
-            if (val === "") {
-                e.target.className = "gap-input";
-            } else if (val === answer) {
-                e.target.classList.add('correct');
-                e.target.classList.remove('wrong');
-            } else if (answer.startsWith(val)) {
-                e.target.className = "gap-input";
-            } else {
-                e.target.classList.add('wrong');
-                e.target.classList.remove('correct');
+    function showRandomParagraph() {
+        if (!paragraphs || paragraphs.length === 0) return;
+        
+        // QOL: Always go back to the gaps tab before switching
+        showTab('gaps');
+
+        const randomParagraph = paragraphs[Math.floor(Math.random() * paragraphs.length)];
+        
+        // Smart split: keeps the separators as separate tokens for perfect reconstruction
+        const tokens = randomParagraph.match(/[\w'´`]+|[.,—-]| +/g) || [];
+
+        // Rules: 
+        // 1. Words must be >= 3 chars
+        // 2. No two gaps in sequence
+        const validIndices = [];
+        tokens.forEach((item, idx) => {
+            // Rule 1: Only words with length >= 3
+            if (item.match(/[\w'´`]+/) && item.length >= 3) {
+                validIndices.push(idx);
             }
-            checkProgress();
         });
-    });
 
-    // Focus on the first word
-    if (inputs[0]) inputs[0].focus();
-}
+        // Rule 2: Ensure no sequence. We pick them iteratively.
+        const gapIndices = [];
+        const potential = [...validIndices].sort(() => 0.5 - Math.random());
+        
+        for (let idx of potential) {
+            if (gapIndices.length >= numGaps) break;
+            
+            // Check if any nearby word is already a gap
+            // We look at the tokens. The previous word is at the next valid index found in descending order.
+            const isTooClose = gapIndices.some(existingIdx => {
+                // Determine if they are "sequential" words.
+                // In our tokens array, words are separated by space/punctuation.
+                // If they are sequential, there is only whitespace/punctuation between them.
+                // We'll simplify: if the distance between indices is small enough that no other word is between them.
+                const min = Math.min(idx, existingIdx);
+                const max = Math.max(idx, existingIdx);
+                
+                // Check if any word exists between these two indices
+                let wordBetween = false;
+                for (let i = min + 1; i < max; i++) {
+                    if (tokens[i].match(/[\w'´`]+/)) {
+                        wordBetween = true;
+                        break;
+                    }
+                }
+                return !wordBetween; // If no word between, they are sequential
+            });
 
-function checkProgress() {
-    const inputs = document.querySelectorAll('.gap-input');
-    let allCorrect = true;
-    
-    inputs.forEach(input => {
-        if (input.value.trim().toLowerCase() !== input.dataset.answer) {
-            allCorrect = false;
+            if (!isTooClose) {
+                gapIndices.push(idx);
+            }
         }
-    });
-    
-    if (allCorrect) {
-        const nextBtn = document.getElementById('next-button');
-        nextBtn.classList.add('solved');
-        nextBtn.textContent = "Victory! Next Story";
+
+        gapCountLabel.textContent = gapIndices.length;
+
+        renderParagraph(tokens, gapIndices);
+
+        setupInputValidation();
+
+        const firstInput = paragraphContainer.querySelector('input');
+        if (firstInput) firstInput.focus();
     }
+
+    function renderParagraph(tokens, gapIndices) {
+        // Challenge View (Editable Inputs)
+        paragraphContainer.innerHTML = tokens.map((token, index) => {
+            if (gapIndices.includes(index)) {
+                return `<input type="text" data-correct="${token.toLowerCase()}" class="gap-input" style="width: ${token.length + 2}ch">`;
+            }
+            return token;
+        }).join('');
+
+        // Solution View (Read-only pre-filled inputs)
+        fullParagraphContainer.innerHTML = tokens.map((token, index) => {
+            if (gapIndices.includes(index)) {
+                return `<input type="text" value="${token}" class="gap-input correct" readonly style="width: ${token.length + 2}ch">`;
+            }
+            return token;
+        }).join('');
+    }
+
+    function cleanWord(word) {
+        if (!word) return "";
+        return wordSeparators.reduce((cleanedWord, sep) => {
+            return cleanedWord.replace(new RegExp(`\\${sep}`, 'g'), '');
+        }, word).toLowerCase().trim();
+    }
+
+    function setupInputValidation() {
+        const inputs = paragraphContainer.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                const val = cleanWord(input.value);
+                const target = cleanWord(input.dataset.correct);
+
+                input.classList.remove('correct', 'incorrect', 'partial');
+
+                if (val === "") {
+                    // neutral
+                } else if (val === target) {
+                    input.classList.add('correct');
+                } else if (target.startsWith(val)) {
+                    input.classList.add('partial');
+                } else {
+                    input.classList.add('incorrect');
+                }
+                checkAllCorrect();
+            });
+        });
+    }
+
+    function checkAllCorrect() {
+        const inputs = paragraphContainer.querySelectorAll('input');
+        const allCorrect = Array.from(inputs).every(input => cleanWord(input.value) === cleanWord(input.dataset.correct));
+        
+        if (allCorrect) {
+            nextButton.style.backgroundColor = "#28a745";
+            nextButton.textContent = "Solved! Next Challenge?";
+        } else {
+            nextButton.style.backgroundColor = "";
+            nextButton.textContent = "Next Challenge";
+        }
+    }
+
+    nextButton.addEventListener('click', showRandomParagraph);
 }
 
-function switchTab(tabId) {
-    document.querySelectorAll('.tab-button').forEach(btn => {
-        btn.classList.toggle('active', btn.id === `tab-${tabId}`);
-    });
-    document.querySelectorAll('.tab-content').forEach(content => {
-        content.classList.toggle('active', content.id === `${tabId}-content`);
-    });
+function showTab(tabName) {
+    const tabs = document.querySelectorAll('.tab-content');
+    const buttons = document.querySelectorAll('.tab-button');
+
+    tabs.forEach(tab => tab.classList.remove('active'));
+    buttons.forEach(button => button.classList.remove('active'));
+
+    document.getElementById(tabName).classList.add('active');
+    
+    const clickedButton = Array.from(buttons).find(b => b.getAttribute('onclick').includes(tabName));
+    if (clickedButton) clickedButton.classList.add('active');
 }

@@ -5,144 +5,147 @@ async function fetchwWordCount() {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         wordCount = await response.json();
+        console.log("Word counts fetched:", wordCount);
         words = Object.keys(wordCount);
+
     } catch (error) {
         console.error("Error fetching word counts:", error);
     }
 }
 
+
 const charsToIgnore = [" ", ",", "-", "—", ";", ".", "'", "`", "´"];
-let wordCount;
-let words;
+let wordCount
+let words
 let currentWord = "";
 let anagramWord = "";
-let score = parseInt(localStorage.getItem('anagram_score') || '0', 10);
-let streak = 0;
-let hintIndex = 0;
-let isAnswered = false;
+let successTimeout = null;
+
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetchwWordCount().then(init);
+    fetchwWordCount().then(createAnagram);
 });
 
-function init() {
-    document.getElementById('guess').addEventListener('input', checkGuess);
-    document.getElementById('next').addEventListener('click', selectNewWord);
-    document.getElementById('hint').addEventListener('click', giveHint);
-    
-    // Keyboard shortcuts and Auto-focus
-    document.addEventListener('keydown', (e) => {
-        const input = document.getElementById('guess');
-        if (e.ctrlKey || e.altKey || e.metaKey) return;
 
-        // Enter key always triggers Next
+function createAnagram() {
+    const input = document.getElementById('guess');
+    const nextBtn = document.getElementById('next');
+    const reshuffleBtn = document.getElementById('reshuffle');
+    
+    // Event listeners
+    input.addEventListener('input', checkGuess);
+    
+    nextBtn.addEventListener('click', (e) => {
+        if (e.pointerType === "" && !e.detail && e.screenX === 0) return; 
+        selectNewWord();
+    });
+
+    if (reshuffleBtn) {
+        reshuffleBtn.addEventListener('click', () => {
+            reshuffleCurrentWord();
+        });
+    }
+
+    // QOL: Enter for next, and autofocus keys
+    document.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
+            e.stopPropagation();
             selectNewWord();
-            return;
-        }
-
-        // Auto-focus input when the user types a letter (if not already focused)
-        if (
-            document.activeElement !== input && 
-            e.key.length === 1 &&
-            e.key.match(/[a-zA-Z]/)
-        ) {
+        } else if (e.key.toLowerCase() === 'r' && document.activeElement !== input) {
+            reshuffleCurrentWord();
+        } else if (document.activeElement !== input && e.key.length === 1 && e.key.match(/[a-zA-Z]/)) {
             input.focus();
         }
     });
 
-    // Update score display
-    updateStats();
+    // Check for persisted word
+    const saved = sessionStorage.getItem('anagram_current');
+    const savedAnagram = sessionStorage.getItem('anagram_shuffled');
     
-    selectNewWord();
-}
-
-function updateStats() {
-    document.getElementById('score').textContent = score;
-    document.getElementById('streak').textContent = streak;
-    localStorage.setItem('anagram_score', score);
-}
-
-function shuffle(word) {
-    const arr = word.split('');
-    // Fisher-Yates shuffle
-    for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
+    if (saved && savedAnagram && words.includes(saved)) {
+        currentWord = saved;
+        anagramWord = savedAnagram;
+        document.getElementById('anagram').textContent = anagramWord;
+        input.focus();
+    } else {
+        // Initialize the first word
+        selectNewWord();
     }
-    const result = arr.join('');
-    // Ensure we don't return the same word
-    if (result === word && word.length > 1) return shuffle(word);
-    return result;
 }
 
+
+// Function to shuffle letters to create an anagram
+function shuffle(word) {
+    if (!word) return "";
+    let shuffled = word.split('').sort(() => 0.5 - Math.random()).join('');
+    if (shuffled === word && word.length > 1) return shuffle(word);
+    return shuffled;
+}
+
+// Function to reshuffle the current word
+function reshuffleCurrentWord() {
+    if (!currentWord) return;
+    anagramWord = shuffle(currentWord);
+    sessionStorage.setItem('anagram_shuffled', anagramWord); // persist reshuffle
+    document.getElementById('anagram').textContent = anagramWord;
+    const input = document.getElementById('guess');
+    if (!input.disabled) {
+        input.focus();
+    }
+}
+
+// Function to select a new word and create an anagram
 function selectNewWord() {
+    if (successTimeout) {
+        clearTimeout(successTimeout);
+        successTimeout = null;
+    }
+
+    if (!words || words.length === 0) return;
+    
     currentWord = words[Math.floor(Math.random() * words.length)];
     anagramWord = shuffle(currentWord);
     
-    const display = document.getElementById('anagram');
-    display.textContent = anagramWord;
-    display.classList.remove('new-word');
-    void display.offsetWidth; // trigger reflow
-    display.classList.add('new-word');
+    // Persist
+    sessionStorage.setItem('anagram_current', currentWord);
+    sessionStorage.setItem('anagram_shuffled', anagramWord);
+
+    document.getElementById('anagram').textContent = anagramWord;
     
-    document.getElementById('guess').value = "";
-    document.getElementById('guess').className = "";
-    document.getElementById('guess').disabled = false;
-    document.getElementById('guess').focus();
-    
-    hintIndex = 0;
-    isAnswered = false;
+    const input = document.getElementById('guess');
+    input.value = "";
+    input.className = "";
+    input.disabled = false;
+    input.focus(); // QOL: Autofocus
 }
 
+// Function to check if the user's guess is correct
 function checkGuess() {
-    if (isAnswered) return;
-    
-    const guess = document.getElementById('guess').value;
     const input = document.getElementById('guess');
-    
-    if (cleanWord(guess) === cleanWord(currentWord)) {
+    const guess = cleanWord(input.value);
+    const correct = cleanWord(currentWord);
+
+    if (guess === "") {
+        input.className = "";
+    } else if (guess === correct) {
+        // Clear persistence on success
+        sessionStorage.removeItem('anagram_current');
+        sessionStorage.removeItem('anagram_shuffled');
+
         input.className = "correct";
         input.disabled = true;
-        isAnswered = true;
-        
-        // Add points
-        const points = Math.max(10, 50 - (hintIndex * 15));
-        score += points;
-        streak++;
-        updateStats();
-        
-        // Auto-next after a delay
-        setTimeout(selectNewWord, 1500);
-    } else if (guess.length >= currentWord.length) {
-        input.classList.add('wrong');
-        streak = 0;
-        updateStats();
-        setTimeout(() => input.classList.remove('wrong'), 400);
+        successTimeout = setTimeout(selectNewWord, 1500); 
+    } else if (correct.startsWith(guess)) {
+        input.className = "partial"; 
     } else {
-        input.classList.remove('wrong', 'correct');
+        input.className = "wrong";
     }
 }
 
-function giveHint() {
-    if (isAnswered || hintIndex >= currentWord.length - 1) return;
-    
-    const input = document.getElementById('guess');
-    const hintText = currentWord.substring(0, hintIndex + 1);
-    input.value = hintText;
-    hintIndex++;
-    
-    // Streak resets on hint
-    streak = 0;
-    updateStats();
-    
-    checkGuess();
-    input.focus();
-}
-
 function cleanWord(word) {
+    if (!word) return "";
     return charsToIgnore.reduce((cleanedWord, sep) => {
         return cleanedWord.replace(new RegExp(`\\${sep}`, 'g'), '');
-    }, word).toLowerCase();
+    }, word).toLowerCase().trim();
 }

@@ -3,38 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scribe's Workbench</title>
-    <link rel="stylesheet" href="../shared_game_styles.css">
+    <title>Writing Table</title>
     <link rel="stylesheet" href="writing_table.css">
+
 </head>
 <body>
-    <div class="game-container wide">
-        <h1>Scribe's Workbench</h1>
-        
-        <div class="game-toolbar">
-            <div class="settings">
-                <label>
-                    <input type="checkbox" id="checkSpeakLettersWhenDropped"> Speak Letters
-                </label>
-                <label>
-                    <input type="checkbox" id="checkSpeakWordsWhenCorrect"> Speak Words
-                </label>
+    <div class="main-container">
+        <div class="header-bar">
+            <h1>Writing Table</h1>
+            <div class="controls">
+                <button onclick="clearAllCells()">Clear All</button>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="checkSpeakLettersWhenDropped"> Speak Letters</label>
+                    <label><input type="checkbox" id="checkSpeakWordsWhenCorrect"> Speak Words</label>
+                </div>
             </div>
-            <div class="actions">
-                <button id="clear-all" class="btn-secondary">Clear All</button>
-            </div>
+            <p class="instructions">Drag letters to form words. <br/>Double-click to clear.</p>
         </div>
-
-        <p class="instruction">Drag letters into the slots to form words from the book.</p>
-
-        <div id="workbench" class="workbench-grid">
-            <!-- Dynamically generated -->
-        </div>
-
-        <a href="javascript:history.back()" class="nav-link">← Return to Book</a>
+        <div class="grid"></div>
     </div>
-
-    <!-- Hidden audio elements for speech if needed, though we use SpeechSynthesis API -->
     <script src="writing_table.js"></script>
 </body>
 </html>

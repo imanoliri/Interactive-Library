@@ -5,6 +5,7 @@ let speakLettersWhenDropped = true;
 let speakWhenCorrectSolution = true;
 let numberOfColumns = 8;
 let selectedLetter = null;
+let selectedDroppableIndex = -1;
 
 async function fetchwWordCount() {
     try {
@@ -34,7 +35,7 @@ function createTable() {
     document.getElementById("checkSpeakWordsWhenCorrect").addEventListener('change', (e) => speakWhenCorrectSolution = e.target.checked);
 
     numberOfColumns = 8;
-    words = getWordsForGrid(Object.keys(wordCount).map(cleanWord), 6); // 6 is word area width
+    words = getWordsForGrid(Object.keys(wordCount).map(cleanWord), 5); // 5 is word area width
 
     // Render Vowels Row
     const trash = document.createElement("div");
@@ -105,12 +106,27 @@ function addListenersAndRender() {
     });
 
     const droppables = document.querySelectorAll(".droppable");
-    droppables.forEach(d => {
+    droppables.forEach((d, i) => {
         d.addEventListener("dragover", allowDrop);
         d.addEventListener("dragenter", handleDragEnter);
         d.addEventListener("dragleave", handleDragLeave);
         d.addEventListener("drop", drop);
-        d.addEventListener("click", handleClickCell);
+        d.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (selectedLetter) {
+                const text = selectedLetter.classList.contains("delete-cell") ? "" : selectedLetter.textContent;
+                d.textContent = text;
+                if (speakLettersWhenDropped) speak(text);
+                selectedLetter.classList.remove("selected");
+                selectedLetter = null;
+                triggerMatchForCell(d);
+                
+                // Advance selection to next free cell
+                advanceToNextFreeCell();
+            } else {
+                selectDroppable(i);
+            }
+        });
         d.addEventListener("dblclick", handleDoubleClick);
     });
 
@@ -119,14 +135,99 @@ function addListenersAndRender() {
         input.addEventListener("input", (e) => checkMatch(e.target));
     });
 
+    // QOL: Keyboard Support
+    document.addEventListener('keydown', handleKeyDown);
+
+    // QOL: Global Click to deselect
+    document.addEventListener('click', () => selectDroppable(-1));
+
     fillTextBoxes();
+}
+
+function selectDroppable(index) {
+    const droppables = document.querySelectorAll(".droppable");
+    if (selectedDroppableIndex !== -1) {
+        droppables[selectedDroppableIndex].classList.remove("selected");
+    }
+    selectedDroppableIndex = index;
+    if (selectedDroppableIndex !== -1) {
+        droppables[selectedDroppableIndex].classList.add("selected");
+    }
+}
+
+function handleKeyDown(e) {
+    if (selectedDroppableIndex === -1) return;
+
+    const droppables = document.querySelectorAll(".droppable");
+    const current = droppables[selectedDroppableIndex];
+    const key = e.key;
+
+    if (key.startsWith('Arrow')) {
+        e.preventDefault();
+        let row = Math.floor(selectedDroppableIndex / 5);
+        let col = selectedDroppableIndex % 5;
+
+        if (key === 'ArrowUp') row = (row - 1 + 21) % 21;
+        else if (key === 'ArrowDown') row = (row + 1) % 21;
+        else if (key === 'ArrowLeft') col = (col - 1 + 5) % 5;
+        else if (key === 'ArrowRight') col = (col + 1) % 5;
+
+        selectDroppable(row * 5 + col);
+    } else if (key === 'Backspace' || key === 'Delete') {
+        current.textContent = "";
+        triggerMatchForCell(current);
+    } else if (key.length === 1 && /[a-zA-Z]/.test(key)) {
+        current.textContent = key.toUpperCase();
+        if (speakLettersWhenDropped) speak(current.textContent);
+        triggerMatchForCell(current);
+        advanceToNextFreeCell();
+    }
+}
+
+function advanceToNextFreeCell() {
+    if (selectedDroppableIndex === -1) return;
+    
+    const droppables = document.querySelectorAll(".droppable");
+    const inputs = document.querySelectorAll(".word-input");
+    const currentRow = Math.floor(selectedDroppableIndex / 5);
+
+    // 1. Look for next empty cell in current row
+    for (let k = (selectedDroppableIndex % 5) + 1; k < 5; k++) {
+        const idx = currentRow * 5 + k;
+        if (droppables[idx].textContent === "") {
+            selectDroppable(idx);
+            return;
+        }
+    }
+
+    // 2. Look for first empty cell in subsequent unfinished rows
+    for (let i = 1; i <= 21; i++) {
+        const nextRow = (currentRow + i) % 21;
+        if (!inputs[nextRow].classList.contains("match")) {
+            for (let k = 0; k < 5; k++) {
+                const idx = nextRow * 5 + k;
+                if (droppables[idx].textContent === "") {
+                    selectDroppable(idx);
+                    return;
+                }
+            }
+        }
+    }
+}
+
+function triggerMatchForCell(cell) {
+    let input = cell.nextElementSibling;
+    while (input && !input.classList.contains("word-input")) {
+        input = input.nextElementSibling;
+    }
+    if (input) checkMatch(input);
 }
 
 function speak(text) {
     if (!text) return;
+    window.speechSynthesis.cancel(); // Interrupt previous audio
     const utterance = new SpeechSynthesisUtterance(text);
     const voices = window.speechSynthesis.getVoices();
-    // Try to find a female voice
     const femaleVoice = voices.find(v => 
         (v.name.toLowerCase().includes('female') || 
          v.name.includes('Samantha') || 
@@ -138,11 +239,9 @@ function speak(text) {
     window.speechSynthesis.speak(utterance);
 }
 
-// Function to check for matches
 function checkMatch(input) {
     input.value = input.value.toUpperCase();
     
-    // In the new 8-column grid, we need to find the 5 droppable cells before the input
     let current = input.previousElementSibling;
     const rowCells = [];
     
@@ -154,8 +253,9 @@ function checkMatch(input) {
     }
 
     const constructedWord = rowCells.join("");
+    const isCorrect = constructedWord !== "" && constructedWord === input.value;
 
-    if (constructedWord !== "" && constructedWord === input.value) {
+    if (isCorrect) {
         input.classList.add("match");
         if (speakWhenCorrectSolution) speak(constructedWord);
     } else {
@@ -173,7 +273,6 @@ function fillTextBoxes() {
     });
 }
 
-// Rest of the helper functions
 function drag(ev) {
     if (ev.target.classList.contains("delete-cell")) {
         ev.dataTransfer.setData("text", "");
@@ -197,58 +296,44 @@ function drop(ev) {
     ev.preventDefault();
     ev.target.classList.remove("drag-over");
     const data = ev.dataTransfer.getData("text");
-    
     if (speakLettersWhenDropped) speak(data);
-
     ev.target.textContent = data;
     if (data !== "") {
         ev.target.style.transform = "scale(1.1)";
         setTimeout(() => ev.target.style.transform = "scale(1)", 100);
     }
-
-    // Check match for this row
-    let input = ev.target.nextElementSibling;
-    while (input && !input.classList.contains("word-input")) {
-        input = input.nextElementSibling;
-    }
-    if (input) checkMatch(input);
+    triggerMatchForCell(ev.target);
 }
 
 function handleClickLetter(ev) {
+    const text = ev.target.classList.contains("delete-cell") ? "" : ev.target.textContent;
+    
+    // Workflow 1: Cell is already selected
+    if (selectedDroppableIndex !== -1) {
+        const droppables = document.querySelectorAll(".droppable");
+        const cell = droppables[selectedDroppableIndex];
+        cell.textContent = text;
+        if (speakLettersWhenDropped) speak(text);
+        triggerMatchForCell(cell);
+        advanceToNextFreeCell();
+        return;
+    }
+
+    // Workflow 2: Select letter for "letter then cell" click
     if (selectedLetter) selectedLetter.classList.remove("selected");
     selectedLetter = ev.target;
     selectedLetter.classList.add("selected");
 }
 
-function handleClickCell(ev) {
-    if (selectedLetter) {
-        const text = selectedLetter.classList.contains("delete-cell") ? "" : selectedLetter.textContent;
-        ev.target.textContent = text;
-        if (speakLettersWhenDropped) speak(text);
-        
-        selectedLetter.classList.remove("selected");
-        selectedLetter = null;
-
-        let input = ev.target.nextElementSibling;
-        while (input && !input.classList.contains("word-input")) {
-            input = input.nextElementSibling;
-        }
-        if (input) checkMatch(input);
-    }
-}
-
 function handleDoubleClick(ev) {
     ev.target.textContent = "";
-    let input = ev.target.nextElementSibling;
-    while (input && !input.classList.contains("word-input")) {
-        input = input.nextElementSibling;
-    }
-    if (input) checkMatch(input);
+    triggerMatchForCell(ev.target);
 }
 
 function clearAllCells() {
     document.querySelectorAll(".droppable").forEach(c => c.textContent = "");
     document.querySelectorAll(".word-input").forEach(i => i.classList.remove("match"));
+    selectDroppable(-1);
 }
 
 function getWordsForGrid(words, maxLength) {

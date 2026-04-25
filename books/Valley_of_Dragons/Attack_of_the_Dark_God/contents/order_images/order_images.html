@@ -2,38 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magical Chronology</title>
-    <link rel="stylesheet" href="../shared_game_styles.css">
+    <title>Flexible Image Circle Puzzle</title>
     <link rel="stylesheet" href="order_images.css">
 </head>
 <body>
-    <div class="game-container">
-        <h1>Order the Story</h1>
-        
-        <div class="game-toolbar">
-            <div class="difficulty-control">
-                <label for="numImagesSlider">Sequence Length: <span id="numImagesLabel">6</span></label>
-                <input type="range" id="numImagesSlider" min="3" max="10" value="6">
-            </div>
-            <div class="instruction-box">
-                <p id="instruction-text">Click the images in the order they appeared in the story!</p>
-            </div>
+    <div class="slider-container">
+        <label for="numImagesSlider">Number of Images: <span id="numImagesLabel">6</span></label>
+        <input type="range" id="numImagesSlider" min="3" max="7" value="6">
+    </div>
+    <div class="circle-container" id="circle-container">
+        <div class="center-text">Click in the order of the Story!</div>
+    </div>
+    <div class="popup" id="popup-solved">
+        <p>Congratulations! You solved the puzzle!</p>
+        <div class="button-container">
+            <button onclick="resetPuzzle('popup-solved')">Reset Puzzle</button>
+            <button onclick="changePuzzle('popup-solved')">Change Puzzle</button>
         </div>
-
-        <div class="circle-wrapper">
-            <div class="circle-container" id="circle-container">
-                <div class="center-content">
-                    <div id="progress-indicator">0 / 0</div>
-                </div>
-            </div>
+    </div>
+    <div class="popup" id="popup-failed">
+        <p>Wrong image! Try again.</p>
+        <div class="button-container">
+            <button onclick="resetPuzzle('popup-failed')">Reset Puzzle</button>
+            <button onclick="changePuzzle('popup-failed')">Change Puzzle</button>
         </div>
-
-        <div class="action-buttons">
-            <button id="reset-btn" class="btn-secondary">New Timeline</button>
-        </div>
-
-        <a href="javascript:history.back()" class="nav-link">← Return to Book</a>
     </div>
     <script src="order_images.js"></script>
 </body>
