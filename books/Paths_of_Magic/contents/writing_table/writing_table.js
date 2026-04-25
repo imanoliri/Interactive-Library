@@ -102,7 +102,10 @@ function addListenersAndRender() {
     const letters = document.querySelectorAll(".letter, .delete-cell");
     letters.forEach(l => {
         l.addEventListener("dragstart", drag);
-        l.addEventListener("click", handleClickLetter);
+        l.addEventListener("click", (e) => {
+            e.stopPropagation();
+            handleClickLetter(e);
+        });
     });
 
     const droppables = document.querySelectorAll(".droppable");
@@ -191,12 +194,14 @@ function advanceToNextFreeCell() {
     const inputs = document.querySelectorAll(".word-input");
     const currentRow = Math.floor(selectedDroppableIndex / 5);
 
-    // 1. Look for next empty cell in current row
-    for (let k = (selectedDroppableIndex % 5) + 1; k < 5; k++) {
-        const idx = currentRow * 5 + k;
-        if (droppables[idx].textContent === "") {
-            selectDroppable(idx);
-            return;
+    // 1. Look for next empty cell in current row ONLY if not finished
+    if (!inputs[currentRow].classList.contains("match")) {
+        for (let k = (selectedDroppableIndex % 5) + 1; k < 5; k++) {
+            const idx = currentRow * 5 + k;
+            if (droppables[idx].textContent === "") {
+                selectDroppable(idx);
+                return;
+            }
         }
     }
 
@@ -302,7 +307,15 @@ function drop(ev) {
         ev.target.style.transform = "scale(1.1)";
         setTimeout(() => ev.target.style.transform = "scale(1)", 100);
     }
-    triggerMatchForCell(ev.target);
+    
+    // Auto-advance logic for drag-and-drop
+    const droppables = Array.from(document.querySelectorAll(".droppable"));
+    const index = droppables.indexOf(ev.target);
+    if (index !== -1) {
+        selectDroppable(index);
+        triggerMatchForCell(ev.target);
+        advanceToNextFreeCell();
+    }
 }
 
 function handleClickLetter(ev) {
