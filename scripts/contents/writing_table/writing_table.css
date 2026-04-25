@@ -1,44 +1,183 @@
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 20px;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8fafc;
+    min-height: 100vh;
+}
+
+.main-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.header-bar {
+    width: 280px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+    z-index: 100;
+    flex-shrink: 0;
+}
+
+.header-bar h1 {
+    margin: 0 0 20px 0;
+    font-size: 1.8rem;
+    color: #1e293b;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: #64748b;
+}
+
+.instructions {
+    margin-top: auto;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    line-height: 1.6;
 }
 
 .grid {
+    flex-grow: 1;
     display: grid;
-    grid-template-columns: repeat(var(--number-of-columns), 100px);
-    gap: 10px;
-    margin-top: 20px;
+    grid-template-columns: 60px repeat(5, 70px) 150px 60px;
+    grid-auto-rows: 50px;
+    gap: 8px;
+    padding: 40px;
+    background-color: #f1f5f9;
+    overflow-y: auto;
+    align-content: start;
+    justify-content: center;
 }
 
-.grid div {
-    width: 100px;
+.grid > * {
+    box-sizing: border-box;
+    min-width: 0;
     height: 50px;
-    border: 2px solid #333;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2em;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s;
+    font-size: 1.4rem;
+}
+
+.grid > div {
 }
 
 .letter {
-    cursor: pointer;
+    background-color: #f1f5f9;
+    color: #1e293b;
+    font-weight: bold;
+    cursor: grab;
+    user-select: none;
+}
+
+.letter:hover {
+    background-color: #e2e8f0;
+    transform: scale(1.05);
+}
+
+.letter.selected {
+    background-color: #3b82f6;
+    color: white;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.vowel {
+    background-color: #eff6ff;
+    color: #1d4ed8;
+    border-color: #bfdbfe;
+}
+
+.droppable {
+    background-color: white;
+    border: 2px dashed #cbd5e1;
+}
+
+.droppable:hover {
+    border-color: #94a3b8;
+}
+
+.droppable.drag-over {
+    background-color: #f1f5f9;
+    border-color: #3b82f6;
+    border-style: solid;
 }
 
 .delete-cell {
-    background-color: #ffcccc;
-    color: #333;
-    font-size: 2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: #fef2f2;
+    border-color: #fecaca;
     cursor: pointer;
 }
 
-.heading {
-    background-color: lightgray;
+.delete-cell:hover {
+    background-color: #fee2e2;
 }
 
-[draggable="true"] {
-    background-color: lightgray;
+.heading {
+    background-color: transparent !important;
+    border: none !important;
+    font-size: 1rem !important;
+    font-weight: bold;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.word-input {
+    width: 100%;
+    height: 50px;
+    padding: 0 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    background-color: #f8fafc;
+}
+
+.word-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background-color: white;
+}
+
+.word-input.match {
+    background-color: #f0fdf4;
+    border-color: #4ade80;
+    color: #166534;
+}
+
+button {
+    padding: 8px 16px;
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+button:hover {
+    background-color: #f1f5f9;
 }
