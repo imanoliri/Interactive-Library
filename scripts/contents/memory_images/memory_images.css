@@ -13,7 +13,7 @@ body {
     justify-content: center;
     min-height: 100vh;
     margin: 0;
-    padding: 20px;
+    padding: 1.25rem;
 }
 
 .header-bar {
@@ -21,11 +21,11 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    max-width: 900px;
-    margin-bottom: 30px;
-    padding: 10px 20px;
+    max-width: 56.25rem;
+    margin-bottom: 1.875rem;
+    padding: 0.625rem 1.25rem;
     background-color: rgba(0, 0, 0, 0.03);
-    border-radius: 8px;
+    border-radius: 0.5rem;
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
@@ -37,26 +37,26 @@ h1 {
 .slider-container {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 0.9375rem;
 }
 
 .slider-controls {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 0.5rem;
 }
 
 #slider {
-    width: 150px;
+    width: 9.375rem;
     cursor: pointer;
 }
 
 .game-container {
     display: grid;
-    grid-template-columns: repeat(4, minmax(100px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(4, minmax(6.25rem, 1fr));
+    gap: 0.625rem;
     width: 100%;
-    max-width: 800px; /* Limit the width of the game container */
+    max-width: 50rem; /* Limit the width of the game container */
 }
 
 .card {
@@ -66,11 +66,11 @@ h1 {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
     user-select: none;
     position: relative;
     overflow: hidden;
-    transform: perspective(600px) rotateY(0deg);
+    transform: perspective(37.5rem) rotateY(0deg);
     transition: transform 0.4s;
     aspect-ratio: 1 / 1; /* Maintain a square aspect ratio */
 }
@@ -88,7 +88,7 @@ h1 {
 
 .card.flipped {
     background-color: #fff;
-    transform: perspective(600px) rotateY(180deg);
+    transform: perspective(37.5rem) rotateY(180deg);
 }
 
 .card.matched {
@@ -97,18 +97,18 @@ h1 {
 }
 
 .card.cursor {
-    outline: 5px solid #007BFF;
-    outline-offset: -5px;
-    box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+    outline: 0.3125rem solid #007BFF;
+    outline-offset: -0.3125rem;
+    box-shadow: 0 0 0.9375rem rgba(0, 123, 255, 0.5);
     z-index: 10;
 }
 
 button {
     font-size: x-large;
-    padding: 4px 12px;
+    padding: 0.25rem 0.75rem;
     border: 1px solid #ccc;
     background-color: #fff;
-    border-radius: 4px;
+    border-radius: 0.25rem;
     cursor: pointer;
     transition: background-color 0.2s;
 }
@@ -121,5 +121,21 @@ button:hover {
     background-color: #28a745;
     color: white;
     border-color: #1e7e34;
+}
+
+@media (orientation: portrait) {
+    .header-bar {
+        flex-direction: column;
+        padding: 0.9375rem;
+        gap: 0.9375rem;
+    }
+    .slider-container {
+        flex-direction: column;
+        width: 100%;
+    }
+    .game-container {
+        grid-template-columns: repeat(4, 1fr);
+        padding: 0.625rem;
+    }
 }
 

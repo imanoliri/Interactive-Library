@@ -10,16 +10,16 @@ body {
   
   .container {
     background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
     width: 80%;
-    max-width: 600px;
+    max-width: 37.5rem;
   }
   
   h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
   }
   
   label {
@@ -28,26 +28,26 @@ body {
   
   #gap-slider {
     width: 100%;
-    margin: 10px 0;
+    margin: 0.625rem 0;
   }
   
   #gap-count {
     font-weight: bold;
-    margin-left: 10px;
+    margin-left: 0.625rem;
   }
   
   .tabs {
     display: flex;
-    margin: 20px 0;
+    margin: 1.25rem 0;
   }
   
   .tab-button {
     flex: 1;
-    padding: 10px;
+    padding: 0.625rem;
     cursor: pointer;
     background-color: #e0e0e0;
     border: none;
-    border-radius: 5px 5px 0 0;
+    border-radius: 0.3125rem 0.3125rem 0 0;
     text-align: center;
     transition: background-color 0.3s;
   }
@@ -60,7 +60,7 @@ body {
   .tab-content {
     display: none;
     border: 2px solid transparent;
-    padding: 10px;
+    padding: 0.625rem;
   }
   
   .tab-content.active {
@@ -68,19 +68,19 @@ body {
   }
   
   .paragraph-container {
-    margin: 20px 0;
+    margin: 1.25rem 0;
   }
   
   button {
     display: block;
     width: 100%;
-    padding: 10px;
+    padding: 0.625rem;
     background-color: #007BFF;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 0.25rem;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
   }
   
   button:hover {
@@ -88,18 +88,18 @@ body {
   }
 
   button:focus {
-    outline: 4px solid #ffc107;
+    outline: 0.25rem solid #ffc107;
     outline-offset: 2px;
-    box-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
+    box-shadow: 0 0 0.9375rem rgba(255, 193, 7, 0.4);
   }
 
   input.gap-input {
     border: 2px solid #ccc;
-    padding: 0 4px;
+    padding: 0 0.25rem;
     margin: 0 2px;
-    border-radius: 3px;
+    border-radius: 0.1875rem;
     width: auto;
-    max-width: 120px;
+    max-width: 7.5rem;
     height: 1.4em;
     line-height: 1.4em;
     vertical-align: baseline;
@@ -115,19 +115,19 @@ body {
   }
   
   input.gap-input.correct {
-    border: 3px solid #28a745;
+    border: 0.1875rem solid #28a745;
     background-color: #e8f5e9;
     color: #1b5e20;
   }
   
   input.gap-input.incorrect {
-    border: 3px solid #dc3545;
+    border: 0.1875rem solid #dc3545;
     background-color: #ffebee;
     color: #b71c1c;
   }
 
   input.gap-input.partial {
-    border: 3px solid #ffc107;
+    border: 0.1875rem solid #ffc107;
     background-color: #fff8e1;
     color: #f57f17;
   }

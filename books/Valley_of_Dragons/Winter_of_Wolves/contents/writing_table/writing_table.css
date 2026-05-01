@@ -13,20 +13,20 @@ body {
 }
 
 .header-bar {
-    width: 280px;
+    width: 17.5rem;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 30px;
+    padding: 1.875rem;
     background-color: white;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+    box-shadow: 2px 0 0.625rem rgba(0,0,0,0.05);
     z-index: 100;
     flex-shrink: 0;
 }
 
 .header-bar h1 {
-    margin: 0 0 20px 0;
+    margin: 0 0 1.25rem 0;
     font-size: 1.8rem;
     color: #1e293b;
 }
@@ -35,14 +35,14 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 15px;
-    margin-bottom: 25px;
+    gap: 0.9375rem;
+    margin-bottom: 1.5625rem;
 }
 
 .checkbox-group {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0.625rem;
     font-size: 0.95rem;
     color: #64748b;
 }
@@ -57,10 +57,10 @@ body {
 .grid {
     flex-grow: 1;
     display: grid;
-    grid-template-columns: 60px repeat(5, 70px) 150px 60px;
-    grid-auto-rows: 50px;
-    gap: 8px;
-    padding: 40px;
+    grid-template-columns: 3.75rem repeat(5, 4.375rem) 9.375rem 3.75rem;
+    grid-auto-rows: 3.125rem;
+    gap: 0.5rem;
+    padding: 2.5rem;
     background-color: #f1f5f9;
     overflow-y: auto;
     align-content: start;
@@ -70,11 +70,11 @@ body {
 .grid > * {
     box-sizing: border-box;
     min-width: 0;
-    height: 50px;
+    height: 3.125rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     border: 1px solid #e2e8f0;
     transition: all 0.2s;
     font-size: 1.4rem;
@@ -99,7 +99,7 @@ body {
 .letter.selected {
     background-color: #3b82f6;
     color: white;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 0 0.1875rem rgba(59, 130, 246, 0.3);
 }
 
 .vowel {
@@ -120,7 +120,7 @@ body {
 .droppable.selected {
     border: 2px solid #3b82f6;
     background-color: #eff6ff;
-    box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 0 0.5rem rgba(59, 130, 246, 0.4);
     z-index: 5;
 }
 
@@ -146,10 +146,10 @@ body {
 
 .word-input {
     width: 100%;
-    height: 50px;
-    padding: 0 15px;
+    height: 3.125rem;
+    padding: 0 0.9375rem;
     border: 1px solid #e2e8f0;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     font-size: 1rem;
     font-weight: 500;
     text-transform: uppercase;
@@ -170,10 +170,10 @@ body {
 }
 
 button {
-    padding: 8px 16px;
+    padding: 0.5rem 1rem;
     border: 1px solid #e2e8f0;
     background-color: white;
-    border-radius: 6px;
+    border-radius: 0.375rem;
     cursor: pointer;
     transition: all 0.2s;
     font-weight: 500;
@@ -181,4 +181,51 @@ button {
 
 button:hover {
     background-color: #f1f5f9;
+}
+
+@media (orientation: portrait) {
+    .main-container {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+    }
+    .header-bar {
+        width: 100%;
+        height: auto;
+        padding: 1.25rem;
+        box-shadow: 0 2px 0.625rem rgba(0,0,0,0.05);
+        align-items: center;
+        text-align: center;
+    }
+    .header-bar h1 {
+        font-size: 1.5rem;
+        margin-bottom: 0.9375rem;
+    }
+    .controls {
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.625rem;
+        margin-bottom: 0;
+    }
+    .instructions {
+        display: none; /* Save space on mobile */
+    }
+    .grid {
+        padding: 0.9375rem;
+        grid-template-columns: 2.8125rem repeat(5, 3.4375rem) 6.875rem 2.8125rem;
+        gap: 0.3125rem;
+        overflow-x: auto;
+        justify-content: start;
+    }
+    .grid > * {
+        height: 2.8125rem;
+        font-size: 1.1rem;
+    }
+    .word-input {
+        height: 2.8125rem;
+        padding: 0 0.5rem;
+        font-size: 0.9rem;
+    }
 }

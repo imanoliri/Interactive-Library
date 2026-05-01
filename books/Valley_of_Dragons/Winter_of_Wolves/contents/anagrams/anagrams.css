@@ -21,7 +21,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 0.9375rem;
     margin-bottom: 5vh;
 }
 
@@ -32,9 +32,9 @@ body {
 
 #reshuffle {
     padding: 0;
-    width: 35px;
-    height: 35px;
-    font-size: 18px;
+    width: 2.1875rem;
+    height: 2.1875rem;
+    font-size: 1.125rem;
     background-color: rgba(0,0,0,0.05);
     border: none;
     border-radius: 50%;
@@ -87,4 +87,15 @@ input.wrong {
 
 input.partial {
     border: 1vh solid orange;
+}
+
+@media (orientation: portrait) {
+    #reshuffle {
+        width: 3.125rem;
+        height: 3.125rem;
+        font-size: 1.5rem;
+    }
+    .anagram-wrapper {
+        gap: 1.25rem;
+    }
 }
