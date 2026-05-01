@@ -107,10 +107,53 @@ document.addEventListener("DOMContentLoaded", function () {
         for (let i = 0; i < 81; i++) {
             const cell = document.createElement("div");
             cell.classList.add("cell");
+            
+            let pressTimer = null;
+            let wasLongPressed = false;
+
+            cell.addEventListener('pointerdown', (e) => {
+                if (e.button !== 0 && e.pointerType === 'mouse') return;
+                
+                wasLongPressed = false;
+                pressTimer = setTimeout(() => {
+                    wasLongPressed = true;
+                    if (!cell.classList.contains('fixed')) {
+                        cell.textContent = "";
+                        updateFeedback();
+                    }
+                }, 450);
+            });
+
+            const cancelPress = () => {
+                if (pressTimer) {
+                    clearTimeout(pressTimer);
+                    pressTimer = null;
+                }
+            };
+
+            cell.addEventListener('pointerup', cancelPress);
+            cell.addEventListener('pointerleave', cancelPress);
+            cell.addEventListener('pointercancel', cancelPress);
+
+            cell.addEventListener('contextmenu', (e) => e.preventDefault());
+            
             cell.addEventListener('click', (e) => {
                 e.stopPropagation();
                 selectCell(i);
+                
+                if (wasLongPressed) return;
+
+                if (!cell.classList.contains('fixed')) {
+                    if (cell.textContent === "") {
+                        cell.textContent = "1";
+                    } else {
+                        let num = parseInt(cell.textContent);
+                        cell.textContent = num === 9 ? "1" : (num + 1).toString();
+                    }
+                    updateFeedback();
+                }
             });
+
             board.appendChild(cell);
         }
     }
