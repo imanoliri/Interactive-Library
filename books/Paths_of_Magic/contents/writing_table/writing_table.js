@@ -38,12 +38,9 @@ function createTable() {
     words = getWordsForGrid(Object.keys(wordCount).map(cleanWord), 5); // 5 is word area width
 
     // Render Vowels Row
-    const trash = document.createElement("div");
-    trash.className = "delete-cell";
-    trash.innerHTML = "🗑️";
-    trash.draggable = true;
-    trash.title = "Drag me to clear content";
-    grid.appendChild(trash);
+    const empty1 = document.createElement("div");
+    empty1.className = "heading"; // Just empty space
+    grid.appendChild(empty1);
 
     vowels.forEach(v => {
         const div = document.createElement("div");
@@ -53,14 +50,17 @@ function createTable() {
         grid.appendChild(div);
     });
 
+    const trash = document.createElement("div");
+    trash.className = "delete-cell";
+    trash.innerHTML = "🗑️";
+    trash.draggable = true;
+    trash.title = "Drag me to clear content";
+    grid.appendChild(trash);
+
     const wordsHeading = document.createElement("div");
     wordsHeading.className = "heading";
     wordsHeading.textContent = "Words";
     grid.appendChild(wordsHeading);
-
-    const empty = document.createElement("div");
-    empty.className = "heading"; // Just empty space
-    grid.appendChild(empty);
 
     // Render Consonant Rows
     const backwardConsonants = [...consonants].reverse();
@@ -80,19 +80,19 @@ function createTable() {
             grid.appendChild(cell);
         }
 
-        // Word Input
-        const input = document.createElement("input");
-        input.type = "text";
-        input.className = "word-input";
-        input.placeholder = "Type word";
-        grid.appendChild(input);
-
         // Trailing Consonant (Backward)
         const trail = document.createElement("div");
         trail.className = "letter";
         trail.draggable = true;
         trail.textContent = backwardConsonants[i] || "";
         grid.appendChild(trail);
+
+        // Word Input
+        const input = document.createElement("input");
+        input.type = "text";
+        input.className = "word-input";
+        input.placeholder = "Type word";
+        grid.appendChild(input);
     });
 
     addListenersAndRender();
@@ -250,9 +250,11 @@ function checkMatch(input) {
     let current = input.previousElementSibling;
     const rowCells = [];
     
-    for (let i = 0; i < 5; i++) {
-        if (current && current.classList.contains("droppable")) {
+    let count = 0;
+    while (current && count < 5) {
+        if (current.classList.contains("droppable")) {
             rowCells.unshift(current.textContent);
+            count++;
         }
         current = current.previousElementSibling;
     }

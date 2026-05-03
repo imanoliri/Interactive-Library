@@ -57,7 +57,7 @@ body {
 .grid {
     flex-grow: 1;
     display: grid;
-    grid-template-columns: 3.75rem repeat(5, 4.375rem) 9.375rem 3.75rem;
+    grid-template-columns: 3.75rem repeat(5, 4.375rem) 3.75rem 9.375rem;
     grid-auto-rows: 3.125rem;
     gap: 0.5rem;
     padding: 2.5rem;
@@ -214,7 +214,7 @@ button:hover {
     }
     .grid {
         padding: 0.9375rem;
-        grid-template-columns: 2.8125rem repeat(5, 3.4375rem) 6.875rem 2.8125rem;
+        grid-template-columns: 2.8125rem repeat(5, 3.4375rem) 2.8125rem 6.875rem;
         gap: 0.3125rem;
         overflow-x: auto;
         justify-content: start;
