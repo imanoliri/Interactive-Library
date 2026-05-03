@@ -6,6 +6,8 @@ let speakWhenCorrectSolution = true;
 let numberOfColumns = 8;
 let selectedLetter = null;
 let selectedDroppableIndex = -1;
+let kidsHelpVowelsMode = false;
+let kidsHelpConsonantsMode = false;
 
 async function fetchwWordCount() {
     try {
@@ -30,9 +32,21 @@ function createTable() {
 
     document.getElementById("checkSpeakLettersWhenDropped").checked = speakLettersWhenDropped;
     document.getElementById("checkSpeakWordsWhenCorrect").checked = speakWhenCorrectSolution;
+    document.getElementById("checkKidsHelpVowels").checked = kidsHelpVowelsMode;
+    document.getElementById("checkKidsHelpConsonants").checked = kidsHelpConsonantsMode;
+    document.querySelector(".main-container").classList.toggle("kids-mode-vowels", kidsHelpVowelsMode);
+    document.querySelector(".main-container").classList.toggle("kids-mode-consonants", kidsHelpConsonantsMode);
     
     document.getElementById("checkSpeakLettersWhenDropped").addEventListener('change', (e) => speakLettersWhenDropped = e.target.checked);
     document.getElementById("checkSpeakWordsWhenCorrect").addEventListener('change', (e) => speakWhenCorrectSolution = e.target.checked);
+    document.getElementById("checkKidsHelpVowels").addEventListener('change', (e) => {
+        kidsHelpVowelsMode = e.target.checked;
+        document.querySelector(".main-container").classList.toggle("kids-mode-vowels", kidsHelpVowelsMode);
+    });
+    document.getElementById("checkKidsHelpConsonants").addEventListener('change', (e) => {
+        kidsHelpConsonantsMode = e.target.checked;
+        document.querySelector(".main-container").classList.toggle("kids-mode-consonants", kidsHelpConsonantsMode);
+    });
 
     numberOfColumns = 8;
     words = getWordsForGrid(Object.keys(wordCount).map(cleanWord), 5); // 5 is word area width
@@ -47,6 +61,7 @@ function createTable() {
         div.className = "letter vowel";
         div.draggable = true;
         div.textContent = v;
+        div.dataset.letter = v;
         grid.appendChild(div);
     });
 
@@ -71,6 +86,7 @@ function createTable() {
         lead.className = "letter";
         lead.draggable = true;
         lead.textContent = c;
+        lead.dataset.letter = c;
         grid.appendChild(lead);
 
         // 5 Droppable Cells
@@ -85,6 +101,7 @@ function createTable() {
         trail.className = "letter";
         trail.draggable = true;
         trail.textContent = backwardConsonants[i] || "";
+        if (trail.textContent) trail.dataset.letter = trail.textContent;
         grid.appendChild(trail);
 
         // Word Input
@@ -119,6 +136,7 @@ function addListenersAndRender() {
             if (selectedLetter) {
                 const text = selectedLetter.classList.contains("delete-cell") ? "" : selectedLetter.textContent;
                 d.textContent = text;
+                d.dataset.letter = text;
                 if (speakLettersWhenDropped) speak(text);
                 selectedLetter.classList.remove("selected");
                 selectedLetter = null;
@@ -179,15 +197,18 @@ function handleKeyDown(e) {
     } else if (key === 'Backspace' || key === 'Delete') {
         if (current.textContent !== "") {
             current.textContent = "";
+            current.dataset.letter = "";
             triggerMatchForCell(current);
         } else if (key === 'Backspace' && (selectedDroppableIndex % 5) > 0) {
             selectDroppable(selectedDroppableIndex - 1);
             const prev = droppables[selectedDroppableIndex];
             prev.textContent = "";
+            prev.dataset.letter = "";
             triggerMatchForCell(prev);
         }
     } else if (key.length === 1 && /[a-zA-Z]/.test(key)) {
         current.textContent = key.toUpperCase();
+        current.dataset.letter = key.toUpperCase();
         if (speakLettersWhenDropped) speak(current.textContent);
         triggerMatchForCell(current);
         advanceToNextFreeCell();
@@ -314,6 +335,7 @@ function drop(ev) {
     const data = ev.dataTransfer.getData("text");
     if (speakLettersWhenDropped) speak(data);
     ev.target.textContent = data;
+    ev.target.dataset.letter = data;
     if (data !== "") {
         ev.target.style.transform = "scale(1.1)";
         setTimeout(() => ev.target.style.transform = "scale(1)", 100);
@@ -337,6 +359,7 @@ function handleClickLetter(ev) {
         const droppables = document.querySelectorAll(".droppable");
         const cell = droppables[selectedDroppableIndex];
         cell.textContent = text;
+        cell.dataset.letter = text;
         if (speakLettersWhenDropped) speak(text);
         triggerMatchForCell(cell);
         advanceToNextFreeCell();
@@ -351,11 +374,12 @@ function handleClickLetter(ev) {
 
 function handleDoubleClick(ev) {
     ev.target.textContent = "";
+    ev.target.dataset.letter = "";
     triggerMatchForCell(ev.target);
 }
 
 function clearAllCells() {
-    document.querySelectorAll(".droppable").forEach(c => c.textContent = "");
+    document.querySelectorAll(".droppable").forEach(c => { c.textContent = ""; c.dataset.letter = ""; });
     document.querySelectorAll(".word-input").forEach(i => i.classList.remove("match"));
     selectDroppable(-1);
 }
