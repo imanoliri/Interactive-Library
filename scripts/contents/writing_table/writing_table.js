@@ -177,8 +177,15 @@ function handleKeyDown(e) {
 
         selectDroppable(row * 5 + col);
     } else if (key === 'Backspace' || key === 'Delete') {
-        current.textContent = "";
-        triggerMatchForCell(current);
+        if (current.textContent !== "") {
+            current.textContent = "";
+            triggerMatchForCell(current);
+        } else if (key === 'Backspace' && (selectedDroppableIndex % 5) > 0) {
+            selectDroppable(selectedDroppableIndex - 1);
+            const prev = droppables[selectedDroppableIndex];
+            prev.textContent = "";
+            triggerMatchForCell(prev);
+        }
     } else if (key.length === 1 && /[a-zA-Z]/.test(key)) {
         current.textContent = key.toUpperCase();
         if (speakLettersWhenDropped) speak(current.textContent);
