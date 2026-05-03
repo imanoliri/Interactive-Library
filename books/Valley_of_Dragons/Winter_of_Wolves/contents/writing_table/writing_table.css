@@ -139,6 +139,21 @@ body {
     letter-spacing: 0.05em;
 }
 
+.clear-btn {
+    background-color: #f1f5f9;
+    border: 1px solid #94a3b8 !important;
+    color: #64748b;
+    font-size: 0.9rem !important;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+}
+
+.clear-btn:hover {
+    background-color: #e2e8f0;
+}
+
 .word-input {
     width: 100%;
     height: 3.125rem;

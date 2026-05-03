@@ -68,14 +68,15 @@ function createTable() {
     const trash = document.createElement("div");
     trash.className = "delete-cell";
     trash.innerHTML = "🗑️";
-    trash.title = "Click to clear all cells";
-    trash.addEventListener("click", clearAllCells);
+    trash.draggable = true;
+    trash.title = "Drag me to clear content";
     grid.appendChild(trash);
 
-    const wordsHeading = document.createElement("div");
-    wordsHeading.className = "heading";
-    wordsHeading.textContent = "Words";
-    grid.appendChild(wordsHeading);
+    const clearBtn = document.createElement("button");
+    clearBtn.className = "clear-btn";
+    clearBtn.textContent = "Clear All";
+    clearBtn.addEventListener("click", clearAllCells);
+    grid.appendChild(clearBtn);
 
     // Render Consonant Rows
     const backwardConsonants = [...consonants].reverse();
@@ -116,7 +117,7 @@ function createTable() {
 }
 
 function addListenersAndRender() {
-    const letters = document.querySelectorAll(".letter");
+    const letters = document.querySelectorAll(".letter, .delete-cell");
     letters.forEach(l => {
         l.addEventListener("dragstart", drag);
         l.addEventListener("click", (e) => {
