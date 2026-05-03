@@ -177,7 +177,18 @@ function selectDroppable(index) {
 }
 
 function handleKeyDown(e) {
-    if (selectedDroppableIndex === -1) return;
+    // Ignore if typing in a word input field
+    if (e.target.tagName.toLowerCase() === 'input') return;
+
+    // Global Shortcuts (Active when no cell is selected)
+    if (selectedDroppableIndex === -1) {
+        const key = e.key.toLowerCase();
+        if (key === 'l') document.getElementById("checkSpeakLettersWhenDropped").click();
+        else if (key === 'w') document.getElementById("checkSpeakWordsWhenCorrect").click();
+        else if (key === 'v') document.getElementById("checkKidsHelpVowels").click();
+        else if (key === 'c') document.getElementById("checkKidsHelpConsonants").click();
+        return;
+    }
 
     const droppables = document.querySelectorAll(".droppable");
     const current = droppables[selectedDroppableIndex];
