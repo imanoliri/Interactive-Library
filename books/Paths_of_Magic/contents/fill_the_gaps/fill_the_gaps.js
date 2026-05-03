@@ -106,6 +106,10 @@ function createParagraph() {
 
         const firstInput = paragraphContainer.querySelector('input');
         if (firstInput) firstInput.focus();
+
+        // Reset next button state
+        nextButton.style.backgroundColor = "";
+        nextButton.textContent = "Next Challenge";
     }
 
     function renderParagraph(tokens, gapIndices) {
@@ -146,8 +150,14 @@ function createParagraph() {
                     // neutral
                 } else if (val === target) {
                     input.classList.add('correct');
-                    // Auto-advance to next input with a small delay
-                    const nextInput = inputs[index + 1];
+                    // Auto-advance to next unresolved input with a small delay
+                    let nextInput = null;
+                    for (let i = index + 1; i < inputs.length; i++) {
+                        if (!inputs[i].classList.contains('correct')) {
+                            nextInput = inputs[i];
+                            break;
+                        }
+                    }
                     if (nextInput) {
                         setTimeout(() => nextInput.focus(), 300);
                     }
