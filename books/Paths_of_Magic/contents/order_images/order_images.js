@@ -63,6 +63,32 @@ function createOrder() {
 
     // Initialize the puzzle
     createAndPositionImages();
+
+    // QOL: Keyboard selection and control
+    document.addEventListener('keydown', (e) => {
+        const key = e.key;
+        const activePopup = document.querySelector('.popup.active');
+        const popupId = activePopup ? activePopup.id : null;
+
+        if (key >= '1' && key <= '7') {
+            const index = parseInt(key) - 1;
+            const images = document.querySelectorAll('.circle-container .image');
+            if (images[index]) {
+                handleImageClick(images[index], selectedImages[index]);
+            }
+        } else if (key === 'Enter') {
+            if (activePopup) {
+                changePuzzle(popupId);
+            }
+        } else if (key === 'Backspace') {
+            if (activePopup) {
+                resetPuzzle(popupId);
+            } else {
+                // Also allow resetting the current attempt without a popup
+                resetPuzzle('popup-solved'); // This function only uses ID to hide it, so this works safely
+            }
+        }
+    });
 }
 
 // Function to create and position images in a circular pattern
@@ -87,9 +113,11 @@ function createAndPositionImages() {
 
 
 
-    // Clear previous images
+    // Clear previous images and numbers
     const images = document.querySelectorAll('.circle-container .image');
     images.forEach(image => image.remove());
+    const labels = document.querySelectorAll('.image-label');
+    labels.forEach(label => label.remove());
 
     // Initialize and shuffle the images
     selectedImages = shuffleSelectArray([...imagesWithIndices]); // Make a copy and shuffle
@@ -100,6 +128,7 @@ function createAndPositionImages() {
     // Initialize the angle and radius for positioning
     const angleIncrement = (2 * Math.PI) / selectedImages.length;
     const radius = containerSize / 2 - imageSize / 2;
+    const labelRadius = containerSize / 2 + 15; // Slightly outside the circle
 
     selectedImages.forEach((imageObj, position) => {
         const img = document.createElement('img');
@@ -108,16 +137,29 @@ function createAndPositionImages() {
         img.classList.add('image');
 
         // Calculate position for the image
-        const angle = angleIncrement * position;
+        const angle = angleIncrement * position - Math.PI / 2 - Math.PI / 6;
         const x = radius * Math.cos(angle) + radius;
         const y = radius * Math.sin(angle) + radius;
         img.style.left = `${x}px`;
         img.style.top = `${y}px`;
 
+        // Create numerical label
+        const label = document.createElement('div');
+        label.classList.add('image-label');
+        label.textContent = position + 1;
+        
+        // Calculate position for the label (relative to center of container)
+        // The container is centered at centerPosition, centerPosition
+        const labelX = centerPosition + labelRadius * Math.cos(angle);
+        const labelY = centerPosition + labelRadius * Math.sin(angle);
+        label.style.left = `${labelX}px`;
+        label.style.top = `${labelY}px`;
+
         // Add click event listener
         img.addEventListener('click', () => handleImageClick(img, imageObj));
 
         circleContainer.appendChild(img);
+        circleContainer.appendChild(label);
     });
 }
 

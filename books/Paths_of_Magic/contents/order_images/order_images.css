@@ -23,22 +23,22 @@ body {
     align-items: center;
     font-size: 1rem;
     color: #333;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 0.625rem;
+    margin-bottom: 1.25rem;
 }
 
 .slider-container label {
-    margin-right: 10px;
+    margin-right: 0.625rem;
 }
 
 #numImagesSlider {
-    width: 200px;
+    width: 12.5rem;
 }
 
 .circle-container {
     position: relative;
     border-radius: 50%;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
     display: flex;
     justify-content: center;
@@ -83,15 +83,25 @@ body {
     border: var(--highlight-size) solid #28a745;
 }
 
+.image-label {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    color: #888;
+    pointer-events: none;
+    user-select: none;
+    font-weight: bold;
+}
+
 .popup {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding: 20px;
+    border-radius: 0.625rem;
+    box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.2);
+    padding: 1.25rem;
     text-align: center;
     z-index: 10;
     display: none;
@@ -105,15 +115,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 20px;
+    padding: 0.625rem 1.25rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s;
     flex: 1;
     max-width: 48%;
-    height: 30px;
+    height: 1.875rem;
 }
 
 .popup button[onclick*="resetPuzzle"] {
@@ -133,5 +143,5 @@ body {
 .button-container {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
+    gap: 0.625rem;
 }

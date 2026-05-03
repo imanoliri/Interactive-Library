@@ -8,74 +8,151 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 20px;
+    padding: 1.25rem;
     box-sizing: border-box;
+}
+
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 56.25rem;
+    padding: 0.625rem 1.25rem;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.875rem;
+    gap: 1.25rem;
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.5rem;
 }
 
 .slider-container {
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center items horizontally */
-    margin-bottom: 20px;
+    align-items: center;
+    gap: 0.625rem;
 }
 
 #empty-cells-slider {
-    width: 200px;
-    margin-top: 5px; /* Add a small margin above the slider */
+    width: 9.375rem;
 }
 
 .sudoku-board {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
-    grid-template-rows: repeat(9, 1fr);
-    width: 90vw; /* Use viewport width for responsiveness */
-    height: 90vw; /* Match height to width to keep it square */
-    max-width: 450px; /* Maximum width for larger screens */
-    max-height: 450px; /* Maximum height for larger screens */
-    border: 2px solid #333;
-    gap: 2px; /* Small gap between cells */
+    width: 95vw;
+    height: 95vw;
+    max-width: 31.25rem;
+    max-height: 31.25rem;
+    border: 0.1875rem solid #333;
+    background-color: #333;
+    gap: 1px;
 }
 
 .cell {
+    background-color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #ccc;
-    font-size: calc(1.5vw + 10px); /* Adjust font size for readability */
-    background-color: #fff;
+    font-size: 1.5rem;
     cursor: pointer;
     user-select: none;
-    aspect-ratio: 1 / 1; /* Ensures cells are square */
+    transition: background-color 0.15s;
+}
+
+/* 3x3 Block Borders */
+.cell:nth-child(3n) { border-right: 2px solid #333; }
+.cell:nth-child(9n) { border-right: none; }
+.cell:nth-child(n+19):nth-child(-n+27),
+.cell:nth-child(n+46):nth-child(-n+54) {
+    border-bottom: 2px solid #333;
 }
 
 .cell.fixed {
-    background-color: #ddd;
-    cursor: default;
+    background-color: #f0f0f0;
+    color: #333;
+    font-weight: bold;
 }
 
-.buttons {
-    margin-top: 20px;
+.cell.selected {
+    outline: 2px solid #3b82f6;
+    z-index: 5;
+}
+
+.cell.correct {
+    color: #28a745;
+}
+
+.cell.error {
+    color: #fd7e14; /* Orange as requested */
+}
+
+.button-group {
+    display: flex;
+    gap: 0.625rem;
 }
 
 button {
-    margin: 5px;
-    padding: 10px 20px;
+    padding: 0.5rem 1rem;
     font-size: 1rem;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 0.25rem;
     cursor: pointer;
+    transition: all 0.2s;
 }
 
-/* Media Query for Smaller Screens */
-@media (max-width: 600px) {
+button:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-1px);
+}
+
+#check {
+    background-color: #28a745;
+    color: white;
+    border-color: #1e7e34;
+}
+
+#check:hover {
+    background-color: #218838;
+}
+
+button.toggle {
+    font-size: 0.85rem;
+    padding: 0.375rem 0.75rem;
+    opacity: 0.6;
+    background-color: #eee;
+}
+
+button.toggle.active {
+    opacity: 1;
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+    color: #1976d2;
+}
+
+#toggle-correct.active {
+    background-color: #e8f5e9;
+    border-color: #4caf50;
+    color: #2e7d32;
+}
+
+#toggle-errors.active {
+    background-color: #fff3e0;
+    border-color: #ff9800;
+    color: #ef6c00;
+}
+
+@media (orientation: portrait) {
+    .header-bar {
+        flex-direction: column;
+        padding: 0.9375rem;
+    }
     .sudoku-board {
-        gap: 1px; /* Reduce gap on smaller screens */
-    }
-
-    .cell {
-        font-size: calc(2vw + 8px); /* Increase font size for readability on small screens */
-    }
-
-    button {
-        padding: 8px 16px;
-        font-size: 0.9rem;
+        font-size: 1.2rem;
     }
 }

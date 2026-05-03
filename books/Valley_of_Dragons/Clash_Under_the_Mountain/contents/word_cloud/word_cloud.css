@@ -19,9 +19,9 @@ body {
     position: absolute;
     background-color: #ffffff;
     border: 1px solid #cccccc;
-    padding: 8px;
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.2s;
