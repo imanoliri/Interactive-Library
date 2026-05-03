@@ -68,8 +68,8 @@ function createTable() {
     const trash = document.createElement("div");
     trash.className = "delete-cell";
     trash.innerHTML = "🗑️";
-    trash.draggable = true;
-    trash.title = "Drag me to clear content";
+    trash.title = "Click to clear all cells";
+    trash.addEventListener("click", clearAllCells);
     grid.appendChild(trash);
 
     const wordsHeading = document.createElement("div");
@@ -116,7 +116,7 @@ function createTable() {
 }
 
 function addListenersAndRender() {
-    const letters = document.querySelectorAll(".letter, .delete-cell");
+    const letters = document.querySelectorAll(".letter");
     letters.forEach(l => {
         l.addEventListener("dragstart", drag);
         l.addEventListener("click", (e) => {
