@@ -1,0 +1,46 @@
+.drop-zone {
+    min-height: 5rem;
+    border: 2px dashed #ccc;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    color: #666;
+}
+
+.word-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.word-chip {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: grab;
+    font-weight: bold;
+    color: #333;
+}
+
+.word-chip.dragging {
+    opacity: 0.5;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.feedback {
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+.feedback.correct { color: green; }
+.feedback.wrong { color: red; }
