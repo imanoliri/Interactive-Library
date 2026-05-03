@@ -159,7 +159,7 @@ function setupDropZone() {
         var dragging = document.querySelector('.dragging');
         if (!dragging) return;
 
-        var afterEl = getDragAfterElement(zone, e.clientX);
+        var afterEl = getDragAfterElement(zone, e.clientX, e.clientY);
         if (afterEl) {
             zone.insertBefore(dragging, afterEl);
         } else {
@@ -185,20 +185,34 @@ function setupDropZone() {
     });
 }
 
-function getDragAfterElement(container, x) {
+function getDragAfterElement(container, x, y) {
     var children = Array.from(container.querySelectorAll('.word-chip:not(.dragging)'));
-    var closest = null;
-    var closestOffset = Number.POSITIVE_INFINITY;
+    var closest = { distance: Number.POSITIVE_INFINITY, element: null };
 
     for (var i = 0; i < children.length; i++) {
         var box = children[i].getBoundingClientRect();
-        var offset = x - box.left - box.width / 2;
-        if (offset < 0 && offset > -closestOffset) {
-            closestOffset = -offset;
-            closest = children[i];
+        var centerX = box.left + box.width / 2;
+        var centerY = box.top + box.height / 2;
+        
+        // Euclidean distance formula to handle 2D flow correctly
+        var distance = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
+
+        if (distance < closest.distance) {
+            closest.distance = distance;
+            closest.element = children[i];
         }
     }
-    return closest;
+    
+    if (closest.element) {
+        var box = closest.element.getBoundingClientRect();
+        // If the cursor is past the horizontal midpoint of the closest chip, 
+        // we intend to insert AFTER it (which means before its next sibling).
+        if (x > box.left + box.width / 2) {
+            return closest.element.nextElementSibling;
+        }
+    }
+
+    return closest.element;
 }
 
 function checkOrder() {
