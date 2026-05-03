@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Race</title>
+    <link rel="stylesheet" href="../shared_game_styles.css">
+    <link rel="stylesheet" href="typing_race.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Typing Race</h1>
+        
+        <div class="stats">
+            WPM: <span id="wpm">0</span> | Accuracy: <span id="accuracy">100%</span> | Time: <span id="timer">0s</span>
+        </div>
+
+        <div id="text-display" class="text-display"></div>
+        <textarea id="input-area" placeholder="Start typing here..."></textarea>
+        
+        <div id="feedback" class="feedback"></div>
+
+        <div class="controls">
+            <button id="new-text-btn">New Text</button>
+        </div>
+        
+        <a href="../../index.html" class="nav-link">← Back to Book</a>
+    </div>
+    
+    <script src="typing_race.js"></script>
+</body>
+</html>

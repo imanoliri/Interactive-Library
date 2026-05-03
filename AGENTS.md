@@ -146,10 +146,14 @@ To ensure a fast-paced "action" feel, specialized shortcuts are active **only** 
 
 ## 4. UI, CSS, and Responsiveness
 
-The application's aesthetic focuses on a functional, clear, and interactive experience using simple, standard CSS.
+The application's aesthetic focuses on a functional, clear, and interactive experience using simple, standard CSS. 
 
-### Base Styles (Landscape & Desktop)
-By default, the layout utilizes standard sizes and horizontal arrangements suitable for reading on monitors and laptops. The core stylesheets (`interactive_book.css` and `magic_combat_system.css`) are kept intentionally simple and straightforward to ensure maximum readability and robust performance across devices.
+### Classic Simple Design (Mini-Games)
+All mini-games follow a "Classic Simple" aesthetic to ensure visual consistency with the original core applets:
+*   **Theme**: Light theme with white containers on a `#f4f4f4` background.
+*   **Typography**: Clean sans-serif (Arial).
+*   **Interactions**: Flat, functional buttons and clear, high-contrast feedback.
+*   **Consistency**: Avoid modern trends like glassmorphism or vibrant gradients. All new games should be integrated using the "Classic Simple" prompt found in `scripts/contents/CONTENTS_REFERENCE.md`.
 
 ### Mobile Optimization (Portrait Mode)
 The UI seamlessly adapts for phones by leveraging `@media (orientation: portrait)` media queries. Instead of relying on complex viewport formulas or massive component rewrites, mobile responsiveness is achieved through two minimal strategies:
