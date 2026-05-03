@@ -228,9 +228,11 @@ function triggerMatchForCell(cell) {
     if (input) checkMatch(input);
 }
 
-function speak(text) {
+function speak(text, cancelPrevious = true) {
     if (!text) return;
-    window.speechSynthesis.cancel(); // Interrupt previous audio
+    if (cancelPrevious) {
+        window.speechSynthesis.cancel(); // Interrupt previous audio
+    }
     const utterance = new SpeechSynthesisUtterance(text);
     const voices = window.speechSynthesis.getVoices();
     const femaleVoice = voices.find(v => 
@@ -264,7 +266,7 @@ function checkMatch(input) {
 
     if (isCorrect) {
         input.classList.add("match");
-        if (speakWhenCorrectSolution) speak(constructedWord);
+        if (speakWhenCorrectSolution) speak(constructedWord, false);
     } else {
         input.classList.remove("match");
     }
