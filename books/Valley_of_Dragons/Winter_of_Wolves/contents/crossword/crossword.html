@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crossword</title>
+    <link rel="stylesheet" href="../shared_game_styles.css">
+    <link rel="stylesheet" href="crossword.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Crossword</h1>
+        
+        <div id="grid-container" class="grid-container"></div>
+        
+        <div class="clues-container">
+            <div id="across-clues"></div>
+            <div id="down-clues"></div>
+        </div>
+        
+        <div class="controls">
+            <label>Words: <span id="word-count-label">6</span></label>
+            <input type="range" id="word-count-slider" min="3" max="15" value="6">
+            <button id="new-puzzle-btn">New Game</button>
+            <button id="reveal-btn">Reveal All</button>
+        </div>
+        
+        <a href="../../index.html" class="nav-link">← Back to Book</a>
+    </div>
+    
+    <script src="crossword.js"></script>
+</body>
+</html>

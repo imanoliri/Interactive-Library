@@ -1,0 +1,53 @@
+.passage {
+    font-style: italic;
+    background: #f9f9f9;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-left: 3px solid #ccc;
+    text-align: left;
+    color: #333;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.choice-btn {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    font-size: 1rem;
+    color: #333;
+}
+
+.choice-btn:hover:not(.disabled) {
+    background: #f0f0f0;
+}
+
+.choice-btn.disabled {
+    cursor: default;
+}
+
+.choice-btn.correct { background-color: #d4edda; color: #155724; }
+.choice-btn.wrong { background-color: #f8d7da; color: #721c24; }
+
+.controls {
+    margin-top: 1rem;
+}
+
+.feedback {
+    margin: 1rem 0;
+    font-weight: bold;
+}
+
+.quiz-status {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 1rem;
+}
