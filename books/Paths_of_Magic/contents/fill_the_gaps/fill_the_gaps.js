@@ -108,7 +108,7 @@ function createParagraph() {
         if (firstInput) firstInput.focus();
 
         // Reset next button state
-        nextButton.style.backgroundColor = "";
+        nextButton.classList.remove("button-success");
         nextButton.textContent = "Next Challenge";
     }
 
@@ -176,11 +176,11 @@ function createParagraph() {
         const allCorrect = Array.from(inputs).every(input => cleanWord(input.value) === cleanWord(input.dataset.correct));
         
         if (allCorrect) {
-            nextButton.style.backgroundColor = "#28a745";
+            nextButton.classList.add("button-success");
             nextButton.textContent = "Solved! Next Challenge?";
             nextButton.focus(); // Jump to next button
         } else {
-            nextButton.style.backgroundColor = "";
+            nextButton.classList.remove("button-success");
             nextButton.textContent = "Next Challenge";
         }
     }

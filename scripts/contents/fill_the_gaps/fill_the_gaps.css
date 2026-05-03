@@ -131,4 +131,12 @@ body {
     background-color: #fff8e1;
     color: #f57f17;
   }
+
+  button.button-success {
+    background-color: #28a745;
+  }
+
+  button.button-success:hover {
+    background-color: #218838;
+  }
   
