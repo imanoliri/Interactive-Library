@@ -215,6 +215,7 @@ button:hover {
     .grid {
         padding: 2vw;
         grid-template-columns: 8.5vw repeat(5, 10vw) 8.5vw 21.2vw;
+        grid-auto-rows: 7.1vw;
         gap: 1.1vw;
         overflow-x: hidden;
         width: 100%;
