@@ -1,21 +1,30 @@
 .drop-zone {
-    min-height: 5rem;
+    min-height: 8rem;
     border: 2px dashed #ccc;
-    margin-bottom: 1rem;
-    padding: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
+    gap: 0.8rem;
+    justify-content: flex-start;
+    align-content: flex-start;
     color: #666;
+    transition: background-color 0.2s, border-color 0.2s;
+    background-color: #fafafa;
+}
+
+.drop-zone.drag-over {
+    background-color: #f0f7ff;
+    border-color: #007BFF;
 }
 
 .word-bank {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
+    gap: 0.8rem;
+    justify-content: flex-start;
     margin-bottom: 2rem;
+    min-height: 5rem;
 }
 
 .word-chip {
@@ -25,10 +34,23 @@
     cursor: grab;
     font-weight: bold;
     color: #333;
+    user-select: none;
+    touch-action: none;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.word-chip:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.word-chip:active {
+    cursor: grabbing;
 }
 
 .word-chip.dragging {
-    opacity: 0.5;
+    opacity: 0.4;
+    transform: scale(0.95);
 }
 
 .controls {
