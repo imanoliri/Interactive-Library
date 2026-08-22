@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://interactive-library.local/schema/library.schema.json",
+  "title": "Interactive Library Knowledge Record",
+  "type": "object",
+  "required": ["id", "type"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "type": {
+      "type": "string",
+      "enum": ["universe", "series", "story", "chapter", "character", "location", "deity", "faction", "creature", "event", "map", "fact", "decision", "summary", "research", "illustration-plan"]
+    },
+    "name": {"type": "string"},
+    "universe_id": {"type": "string"},
+    "series_id": {"type": "string"},
+    "story_id": {"type": "string"},
+    "status": {
+      "type": "string",
+      "enum": ["draft", "proposed", "accepted", "rejected", "superseded", "published"]
+    },
+    "canon": {"type": "boolean"},
+    "summary": {"type": "string"},
+    "tags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "references": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {"type": "string"},
+        "uniqueItems": true
+      }
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "book_path": {"type": "string"},
+        "google_drive": {"type": "string"},
+        "generated": {"type": "boolean"}
+      },
+      "additionalProperties": true
+    },
+    "notes": {"type": "string"}
+  },
+  "additionalProperties": true
+}
