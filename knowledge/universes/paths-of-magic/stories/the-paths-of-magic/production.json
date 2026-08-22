@@ -1,0 +1,15 @@
+{
+  "story_id":"the-paths-of-magic",
+  "intent":{"target_words":10000,"structure":"1000 words per part plus 1000 words of special scenes","language":"simple","person":"third","tone":["fantastic","wonder-driven"],"ending":"non-ending / open continuation"},
+  "source_roles":[
+    {"source":"The Paths of Magic v2","role":"accepted Drive cross-check"},
+    {"source":"The Paths of Magic - Sketch","role":"early production intent"},
+    {"source":"ChatGPT from sketch 500/1000 words per chapter","role":"generated development drafts; noncanonical unless reflected in published story"},
+    {"source":"ChatGPT rewrite chapter by chapter","role":"editorial draft; noncanonical unless reflected"},
+    {"source":"ChatGPT - correction","role":"editorial notes"},
+    {"source":"ChatGPT - Evaluation by chapter","role":"editorial evaluation"},
+    {"source":"The Paths of Magic - Album","role":"visual/reference production material"},
+    {"source":"The Paths of Magic v2.pdf","role":"redundant rendered artifact"}
+  ],
+  "policy":"Production material records intent and history; it does not override the published repository story."
+}
