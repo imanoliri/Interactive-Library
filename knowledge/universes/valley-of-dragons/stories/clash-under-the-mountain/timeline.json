@@ -1,0 +1,17 @@
+{
+  "story_id":"clash-under-the-mountain",
+  "chronology":[
+    {"order":1,"event":"Roric arrives at Castle Tarn and requests aid for Khazad-Throm."},
+    {"order":2,"event":"The three paladins agree that the Dragon Rider Order will intervene; Alaric leads the expedition."},
+    {"order":3,"event":"A dozen Dragon Riders, Roric, Eloran and Caradoc travel to Khazad-Throm."},
+    {"order":4,"event":"King Thordal hosts the visitors and explains the kingdom's culture and war."},
+    {"order":5,"event":"A formal mutual-defense alliance is negotiated."},
+    {"order":6,"event":"Gawain joins the campaign; allied forces win the Battle of Durin's Chasm."},
+    {"order":7,"event":"Alaric, Caradoc and dwarven sappers flank through Broken Shard Passage and break the enemy line."},
+    {"order":8,"event":"The Valley's larger army and Percival arrive for the final assault on the Goblin Burrow."},
+    {"order":9,"event":"Grishnak is defeated and organized goblin resistance collapses."},
+    {"order":10,"event":"Khazad-Throm and the Valley celebrate together and publicly affirm their alliance."},
+    {"order":11,"event":"Borin Stonehand becomes ambassador in River City."},
+    {"order":12,"event":"Dwarven engineers establish a moderate mine and permanent settlement in the Valley, beginning sustained trade and knowledge exchange."}
+  ]
+}
