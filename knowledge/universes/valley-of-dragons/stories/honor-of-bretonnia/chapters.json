@@ -1,0 +1,18 @@
+{
+  "story_id": "honor-of-bretonnia",
+  "status": "proposed",
+  "source": "Google Drive breakdown",
+  "chapters": [
+    {"number":1,"title":"The Invitation","summary":"Royal herald Gaston invites the world-famous Dragon Rider Order to the Grand Tourney of Bretonnia. The Valley has no prior knowledge of Bretonnia, and Alaric accepts the invitation as a diplomatic opportunity."},
+    {"number":2,"title":"Audience with King Charles","summary":"The riders arrive in Bretonnia's vast capital and encounter its feudal estates, guilds, clergy, nobles, and foreign dignitaries. King Charles warns Alaric that Archbishop Anselm and the Church consider dragons pagan monsters and asks that they be sent away to avoid religious conflict."},
+    {"number":3,"title":"The Vigil and the Knighting","summary":"The riders observe pages, squires, knighting rites, and the spiritual vigil of Bretonnian chivalry. Alaric compares the hereditary and ceremonial culture of Bretonnia with the merit-based traditions of the Dragon Rider Order."},
+    {"number":4,"title":"Their First Jousting","summary":"The dragons return to the Valley. The riders discover that battlefield experience does not translate automatically to lance-and-horse tournament skill. Master Bertrand trains them, and they receive heraldry and shields for the tourney."},
+    {"number":5,"title":"The Capital Markets","summary":"The story explores farmers, merchants, guilds, urban wealth, social privilege, and the power of the clergy estate while the riders learn how knightly status shapes daily life."},
+    {"number":6,"title":"Archbishop Anselm's Quest","summary":"To reduce religious hostility, Alaric and his knights volunteer to recover a major holy relic and return it to the High Cathedral, temporarily earning the Archbishop's favor."},
+    {"number":7,"title":"The Feast and the Conspiracy","summary":"A royal feast celebrates the relic's return and the tournament. Alaric discovers that Count Bernier is organizing a conspiracy against King Charles, and the plot erupts into open action."},
+    {"number":8,"title":"Rescue Mission","summary":"The conspirators kidnap Lord Raymond, the King's cousin. Without dragons, Alaric and the riders pursue them by horse and execute a cavalry rescue."},
+    {"number":9,"title":"Attack!","summary":"Warlord Lothar's army invades and traps Alaric, King Charles, and the royal army in a fortress. With the siege worsening, a courier is sent to the Valley requesting Dragon Rider reinforcements."},
+    {"number":10,"title":"Breaking the Siege","summary":"Dragon Rider reinforcements arrive by air, destroy the besiegers' advantage, and save the kingdom. Archbishop Anselm and the Church are forced to reconsider their judgment of dragons."},
+    {"number":11,"title":"Honor and Reward","summary":"King Charles rewards Alaric and the Order with a duchy in Bretonnia. The Church publicly blesses them, and the Order gains a permanent foothold in the feudal world."}
+  ]
+}

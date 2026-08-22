@@ -1,0 +1,16 @@
+{
+  "story_id": "honor-of-bretonnia",
+  "migration_status": "normalized-prewrite-analysis-complete",
+  "drive_folder": {"name":"The Valley of Dragons/4 - Land of Chivalry","id":"1GpCvUCaW1uXpzjxSNVCJU6Hzd3SpaO_G"},
+  "drive_sources": [
+    {"id":"1thQ4YVClLOxl_y8ThSpe2rsCtX0v5gpxw9HmtfVDG4A","title":"Valley of Dragons 4 - Ideas","role":"brainstorming and thematic research","migrated_as":"production history and idea inventory"},
+    {"id":"1bcHLwLriNi8kNkHjcJoL4rd3JyZ4-bmGkgs0uSlOLf0","title":"Valley of Dragons 4 - Outline","role":"current structural intent","migrated_as":"story plan and chapter structure"},
+    {"id":"1TBjCC9RAiX4ofkhnQZvvnMf6xQwiIjbog9GV_9xwAqg","title":"Valley of Dragons 4 - Breakdown TEXT","role":"detailed current breakdown","migrated_as":"11 chapter summaries, entities, plot dependencies, TODO discovery"},
+    {"id":"1Zkfq-58oW_VRG_aH3C3OqAb8VLC3X_Zp-Ab3rnjjYrg","title":"Valley of Dragons 4 - Breakdown","role":"rich/illustrated breakdown","migrated_as":"provenance only; text counterpart used for semantic normalization"},
+    {"id":"1QO6Mz6Qnx9E8u3YnOm9ficvwx6CsvEF52j3NfA7PCrU","title":"Valley of Dragons 4 - TEXT","role":"partial prose draft (chapters 1-2)","migrated_as":"production evidence only; not canon and not continuation base"}
+  ],
+  "policy": "Do not copy Drive prose into knowledge. Extract structure, entities, intentions, unresolved decisions, and provenance. No VOD4 story prose is currently canonical.",
+  "old_git_branch": "add-valley-of-dragons-4",
+  "old_branch_policy": "Do not build new prose work on the old branch. It may be inspected later only for salvageable facts or implementation assets that are independently accepted.",
+  "next_gate": "Review the normalized VOD4 status and resolve or intentionally defer major plot/worldbuilding TODOs before opening a prose-writing branch."
+}

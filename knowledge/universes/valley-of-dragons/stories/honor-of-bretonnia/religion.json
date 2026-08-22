@@ -1,0 +1,27 @@
+{
+  "story_id": "honor-of-bretonnia",
+  "status": "accepted-development-worldbuilding",
+  "institution": {
+    "id": "church-of-bretonnia",
+    "name": "Church of Bretonnia",
+    "model": "fictional institution inspired structurally by the medieval Catholic Church",
+    "civilizational_role": [
+      "provides religious and cultural cohesion across the politically fragmented Bretonnian Lands",
+      "preserves shared rites, institutions, learning, moral language, and customs across borders",
+      "acts as one of the few genuinely trans-regional institutions in Bretonnian civilization"
+    ],
+    "limitations": [
+      "strongly traditionalist",
+      "institutionally conservative",
+      "slow to accept unfamiliar phenomena",
+      "prone to interpret dragons through inherited categories of danger, paganism, or disorder"
+    ],
+    "dragon_conflict": {
+      "initial_position": "The Church is deeply suspicious of dragons and regards them as symbols or creatures associated with dangerous older traditions outside accepted religious understanding.",
+      "narrative_symbolism": "The Church's distrust of dragons represents the conservative side of an institution that is culturally important and civilizationally cohesive but can resist new realities.",
+      "development": "The Dragon Rider Order demonstrates through conduct and sacrifice that the dragons are loyal defenders of people and political order rather than forces of evil.",
+      "resolution": "The Church reforms its position positively and publicly accepts the dragons after their decisive contribution to resolving the story's political and military crisis.",
+      "theme": "Tradition and institutions can preserve civilization while still needing reform when reality disproves inherited assumptions."
+    }
+  }
+}

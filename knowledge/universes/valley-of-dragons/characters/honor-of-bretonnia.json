@@ -1,0 +1,14 @@
+{
+  "story_id": "honor-of-bretonnia",
+  "characters": [
+    {"id":"gaston","type":"human","name":"Gaston","role":"Royal herald of King Charles III; delivers the tournament invitation and guides the initial diplomatic contact.","status":"proposed"},
+    {"id":"king-charles-iii","type":"human","name":"King Charles III","role":"One of the major kings of the Bretonnian Lands and ruler of the Kingdom of Bretonnia, one of its largest and most influential realms. He is a struggling, idealistic consolidator who sincerely believes greater unity would benefit the related Bretonnian peoples and pursues that goal mainly through prestige, diplomacy, alliances and institutions rather than conquest.","status":"accepted"},
+    {"id":"archbishop-anselm","type":"human","name":"Archbishop Anselm","role":"Powerful senior representative of the religion shared across the Bretonnian Lands; initially suspicious of dragons and central to the religious conflict. Exact institutional jurisdiction remains unresolved.","status":"proposed"},
+    {"id":"master-bertrand","type":"human","name":"Master Bertrand","role":"Riding master who trains the Dragon Riders in horseback jousting and lance technique.","status":"proposed"},
+    {"id":"count-bernier","type":"human","name":"Count Bernier","role":"Internal political antagonist who opposes Charles III's growing influence and unification project and joins forces with Lothar in the story's overarching political crisis.","status":"accepted-development"},
+    {"id":"lord-raymond","type":"human","name":"Lord Raymond","role":"King Charles III's cousin and heir-presumptive. He is also intended to marry into another important Bretonnian realm, making him a key dynastic and diplomatic bridge for Charles III's peaceful unification project. His prospective spouse and her realm remain undecided.","status":"accepted-development"},
+    {"id":"warlord-lothar","type":"human","name":"Warlord Lothar","role":"External military antagonist allied with Count Bernier. His intervention turns the internal political crisis into the open conflict that culminates in the siege of Bellacourt. His exact realm and formal position remain undecided.","status":"accepted-development"}
+  ],
+  "existing_series_characters_reused": ["alaric","vaelor","gawain","percival"],
+  "note": "VOD4-specific characters remain development-level unless marked accepted or accepted-development through explicit worldbuilding decisions."
+}

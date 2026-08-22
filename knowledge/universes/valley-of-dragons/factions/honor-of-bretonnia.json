@@ -1,0 +1,11 @@
+{
+  "story_id": "honor-of-bretonnia",
+  "factions": [
+    {"id":"crown-of-bretonnia","type":"monarchy","name":"Crown of Bretonnia","role":"King Charles's royal authority and court.","status":"proposed"},
+    {"id":"church-of-bretonnia","type":"religious-institution","name":"Church of Bretonnia","role":"Powerful clerical institution represented by Archbishop Anselm; initially hostile or deeply suspicious toward dragons.","status":"proposed"},
+    {"id":"bretonnian-nobility","type":"noble-estate","name":"Bretonnian Nobility","role":"Dukes, counts, knights, and courtly houses who embody the feudal and chivalric social order.","status":"proposed"},
+    {"id":"bretonnian-guilds","type":"guild-network","name":"Bretonnian Guilds","role":"Urban craft and merchant organizations forming a major part of the capital's economic life.","status":"proposed"},
+    {"id":"berniers-conspirators","type":"political-conspiracy","name":"Bernier's Conspirators","role":"Faction seeking to overthrow or destabilize King Charles; membership and aims are not yet defined.","status":"proposed"},
+    {"id":"lothars-invasion-force","type":"invading-army","name":"Lothar's Invasion Force","role":"Army that besieges King Charles and allied defenders; political origin and link to Bernier remain unresolved.","status":"proposed"}
+  ]
+}

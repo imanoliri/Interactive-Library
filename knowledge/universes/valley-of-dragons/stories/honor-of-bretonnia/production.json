@@ -1,0 +1,27 @@
+{
+  "story_id": "honor-of-bretonnia",
+  "development_status": "pre-rewrite",
+  "source_progression": [
+    {"source":"Valley of Dragons 4 - Ideas","role":"brainstorming","status":"production-history","notes":"Explores positive and critical interpretations of feudal/chivalric society, tournament customs, guilds, religion, fiefs, hunts, heraldry, pilgrimage, and siege warfare."},
+    {"source":"Valley of Dragons 4 - Outline","role":"accepted-current-structure","status":"active-plan","notes":"Defines the main sequence from invitation through tournament, religious conflict, conspiracy, siege, dragon intervention, and duchy reward."},
+    {"source":"Valley of Dragons 4 - Breakdown TEXT","role":"detailed-current-plan","status":"active-plan","notes":"Expands the outline to 11 chapters and introduces Gaston, King Charles, Archbishop Anselm, Master Bertrand, Count Bernier, Lord Raymond, and Warlord Lothar."},
+    {"source":"Valley of Dragons 4 - Breakdown","role":"illustrated-or-rich-breakdown","status":"supporting-production-source","notes":"Large Drive document retained as source; normalized text version is preferred for semantic extraction."},
+    {"source":"Valley of Dragons 4 - TEXT","role":"partial-prose-draft","status":"superseded-for-continuation","notes":"Contains Chapters 1 and 2 only. Preserve as historical drafting evidence, but do not continue from its prose style or treat its added details as canon without review."}
+  ],
+  "working_title": "Honor of Bretonnia",
+  "earlier_title_or_folder_label": "Land of Chivalry",
+  "intended_learning_surface": [
+    "feudal hierarchy and estates",
+    "pages, squires, and knighting",
+    "jousting and cavalry skills",
+    "heraldry",
+    "guilds and merchants",
+    "courtly ceremony",
+    "religious institutions",
+    "holy relics and pilgrimage",
+    "fortresses and siege warfare",
+    "the responsibilities and privileges of nobility"
+  ],
+  "creative_tension": "Bretonnia should showcase the appeal, ceremony, social coherence, craftsmanship, and ideals of chivalric culture while still allowing meaningful friction with inherited privilege, clerical power, and prejudice against dragons.",
+  "rewrite_rule": "Before writing new prose, review and explicitly accept or change the current 11-chapter plan and unresolved worldbuilding decisions."
+}

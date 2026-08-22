@@ -57,6 +57,15 @@ If canon is resolved but the published story needs a later correction, record a 
 
 Stories may have technical placeholders for unnamed locations/entities. Technical IDs are not automatically canonical display names.
 
+## Story planning levels
+
+Keep outlines and breakdowns distinct. Do not use one as a substitute for the other.
+
+- **Outline**: the high-level story skeleton. It should preserve broad chapter intent, major beats, sequence, and overall direction without accumulating implementation-level detail. Do not rewrite or over-expand an accepted outline merely because lower-level questions are being resolved.
+- **Breakdown**: the detailed chapter-planning layer. Use it for causal links, political logic, character motivations, scene-level intent, worldbuilding integration, continuity constraints, pacing notes, and other specifics needed before prose.
+
+When new decisions are accepted, prefer updating the breakdown, TODOs, continuity, decisions, or worldbuilding metadata while leaving a still-valid outline intact. Only revise the outline when its high-level structure or chapter purpose actually changes.
+
 ## Story structure
 
 For normalized stories, prefer the established layout:
