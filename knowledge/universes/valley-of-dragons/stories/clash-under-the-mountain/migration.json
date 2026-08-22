@@ -1,0 +1,10 @@
+{
+  "story_id":"clash-under-the-mountain",
+  "migration_status":"normalized",
+  "canonical_repository_source":"books/Valley_of_Dragons/Clash_Under_the_Mountain/story_by_chapters.json",
+  "drive_folder":{"id":"1QzWIDV2GdC7IWVX0TSvSffq9_BSwXmNm","name":"3 - Clash Under the Mountain"},
+  "policy":{"repository_is_live_source":true,"drive_is_provenance_and_import_source":true,"documents_copied_verbatim":false},
+  "normalized_from":["published repository story","Drive clean text","Drive outline","Drive breakdown","Drive variants matrix","Drive mirror/alternate materials"],
+  "excluded_from_canon":["mirror variants","goblin-good variants","alternate moral framing not present in the published reader story","raw document formatting and duplicated prose"],
+  "notes":["The variants spreadsheet is retained only as evidence of explored alternate story directions.","Image assets already present in the reader book remain reader assets; semantic migration does not duplicate them into knowledge."]
+}
