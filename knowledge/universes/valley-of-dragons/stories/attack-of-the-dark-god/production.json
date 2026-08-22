@@ -1,0 +1,13 @@
+{
+  "story_id":"attack-of-the-dark-god",
+  "intent":{"language":"simple","person":"third person","tone":["epic","satisfactory"],"ending":"happy","original_target_words":7500},
+  "editorial_signals":[
+    {"area":"world-building","signal":"Strong setting foundation; dragons, locations, and social customs have room for deeper detail.","source":"chapter evaluation","status":"optional-improvement"},
+    {"area":"character","signal":"Alaric's external progression is strong; some chapters could support more internal reflection or emotional struggle.","source":"chapter evaluation","status":"optional-improvement"},
+    {"area":"pacing","signal":"Action chapters are strong; climactic and reflective moments could sometimes use more breathing room.","source":"chapter evaluation","status":"optional-improvement"},
+    {"area":"magic","signal":"The setting implies substantial magic, but some rules and individual dragon capabilities remain underdefined.","source":"chapter evaluation and story","status":"worldbuilding-gap"},
+    {"area":"culture","signal":"Cross-cultural learning between humans and elves is a strength and could be further developed through customs and rituals.","source":"chapter evaluation","status":"optional-improvement"}
+  ],
+  "production_sources":{"outline":"migrated-to-normalized-outline","breakdown":"migrated-to-chapter-and-entity-data","summary":"used-as-secondary-cross-check","evaluations":"distilled-only","rewrite-draft":"not-canonical-unless-reflected-in-accepted-story","older-versions":"historical-only","pdf-exports":"redundant-for-knowledge-migration"},
+  "policy":"Production artifacts are evidence and creative history, not canon unless confirmed by the accepted story or an explicit decision record."
+}
