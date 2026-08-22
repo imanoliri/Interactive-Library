@@ -1,0 +1,30 @@
+{
+  "id": "valley-of-dragons",
+  "type": "universe",
+  "name": "Valley of Dragons",
+  "status": "active",
+  "description": "A fantasy setting centered on the Valley of Dragons, where humans, elves, and dragons coexist and defend the valley against supernatural threats.",
+  "series": ["valley-of-dragons"],
+  "stories": ["attack-of-the-dark-god"],
+  "canon_policy": {
+    "accepted_story_text_precedence": [
+      "books/Valley_of_Dragons/Attack_of_the_Dark_God/story_by_chapters.json",
+      "drive:The Valley of Dragons 1 - Attack of the Dark God v2"
+    ],
+    "production_material_is_canon": false
+  },
+  "core_facts": [
+    "Humans, elves, and dragons coexist in the Valley of Dragons.",
+    "Dragons are ancient inhabitants and natural guardians of the valley.",
+    "Elves are strongly associated with magic, knowledge, art, and living architecture.",
+    "Humans are associated with craftsmanship, trade, adaptability, and resourcefulness.",
+    "The Dragon Rider Knights are an order formed by elves and dragons to defend the valley."
+  ],
+  "source_provenance": [
+    {
+      "source": "google-drive",
+      "folder": "The Valley of Dragons/1 - Attack of the Dark God",
+      "role": "migration-source"
+    }
+  ]
+}
