@@ -1,0 +1,8 @@
+{
+  "id": "valley-of-dragons",
+  "type": "series",
+  "universe_id": "valley-of-dragons",
+  "name": "Valley of Dragons",
+  "status": "published",
+  "story_ids": ["attack-of-the-dark-god", "winter-of-wolves", "clash-under-the-mountain"]
+}
