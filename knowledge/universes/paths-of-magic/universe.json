@@ -1,0 +1,21 @@
+{
+  "id": "paths-of-magic",
+  "type": "universe",
+  "name": "Paths of Magic",
+  "status": "published",
+  "primary_world": "elysia",
+  "connected_worlds": ["azeroth"],
+  "series": ["paths-of-magic"],
+  "stories": ["the-paths-of-magic"],
+  "core_facts": [
+    "Magic is rare in Elysia.",
+    "Magical power grows through understanding the essence and behavior of things.",
+    "Distinct paths include water, trees, earth, sun, wind, fire, and lightning.",
+    "Ancient magical knowledge survives in books, elemental essence sites, and the Mage Tower.",
+    "The Mage Tower contains a portal connecting Elysia to Azeroth."
+  ],
+  "canon_policy": {
+    "accepted_story_text_precedence": ["books/Paths_of_Magic/story_by_chapters.json", "drive:The Paths of Magic v2"],
+    "production_material_is_canon": false
+  }
+}
