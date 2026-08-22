@@ -1,0 +1,37 @@
+{
+  "id": "attack-of-the-dark-god",
+  "type": "story",
+  "universe": "valley-of-dragons",
+  "series": "valley-of-dragons",
+  "title": "Attack of the Dark God",
+  "number": 1,
+  "status": "complete",
+  "protagonist": "alaric",
+  "chapter_count": 10,
+  "reader_source": "books/Valley_of_Dragons/Attack_of_the_Dark_God/story_by_chapters.json",
+  "summary": "Alaric, orphaned during the Dark God's invasion, grows from a village boy into the first human Dragon Rider Knight and later a paladin. Guided by mentors, allies, and the Lady of the Lake, he ultimately leads the assault on the Dark God's lair and kills him with the Sword of the Dawn.",
+  "chapters": [
+    {"number":1,"title":"Valley of Dragons"},
+    {"number":2,"title":"Attack of the Dark God"},
+    {"number":3,"title":"Alaric"},
+    {"number":4,"title":"The Decision"},
+    {"number":5,"title":"River City"},
+    {"number":6,"title":"Forest City"},
+    {"number":7,"title":"Battle of Greystone Pass"},
+    {"number":8,"title":"Champion"},
+    {"number":9,"title":"Paladin"},
+    {"number":10,"title":"Evil's Lair"}
+  ],
+  "characters": ["alaric","gawain","percival","galahad","eloran","eryndor","kael","mortag","guinevere","brom","torric","igorion"],
+  "dragons": ["alderyth","mythral","tyradon","seralyn","vaelor"],
+  "deities_or_supernatural_beings": ["dark-god","valerion","kordran","lady-of-the-lake"],
+  "locations": ["valley-of-dragons","riventhorn","rhyvall-river","silverdale","forest-of-faron","castle-tarn","mount-doom"],
+  "factions": ["dragon-rider-knights","dark-gods-army"],
+  "major_events": ["dark-god-invasion","war-of-the-lich-king","final-assault-on-mount-doom"],
+  "artifacts": ["sword-of-the-dawn"],
+  "production": {
+    "target_style": ["simple language","third person","epic tone","satisfactory tone","happy ending"],
+    "original_target_words": 7500,
+    "drive_material": ["outline","breakdown","summary","evaluations","rewrite drafts","older story versions","pdf exports","image-reference folders"]
+  }
+}
