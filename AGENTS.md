@@ -39,6 +39,51 @@ Whenever you modify CSS, Javascript, or Python templates, you **MUST** run the b
 ```powershell
 .\.venv\Scripts\python.exe generate_books.py
 ```
+
+### Valley of Dragons Authoring Workflow
+
+Use the completed previous book's real working manuscript as the template. For example, the canonical V3 source is the Google Doc named `Valley of Dragons 3 - TEXT` inside the numbered V3 folder. Do not infer the workflow from a similarly named mirror, breakdown, exported HTML file, or old duplicate.
+
+#### Google Drive organization and names
+
+* Store each project under `The Valley of Dragons/<number> - <working subtitle>/`.
+* Keep the manuscript in that folder beside its outline, ideas, breakdown, and other book-specific assets.
+* Name the working manuscript exactly `Valley of Dragons <number> - TEXT`; `TEXT` identifies the source manuscript and is not the published subtitle.
+* Use related planning names consistently, such as `Valley of Dragons <number> - Breakdown TEXT`, `... - outline`, and `... - Ideas`.
+* Prefer one canonical manuscript. Do not create a second working Doc when the existing `- TEXT` document can be updated.
+* Use Arabic numerals for new books unless the user explicitly requests another convention.
+
+#### Google Doc structure
+
+Match the native structure of the previous `- TEXT` manuscript, not merely its visual appearance:
+
+1. The in-document series title and subtitle are separate paragraphs using the Google Docs `TITLE` style.
+2. Introductory synopsis or contents material, when present in the template or requested for the new book, uses normal paragraphs and native lists.
+3. Every story chapter title uses `HEADING_2`.
+4. Story prose uses `NORMAL_TEXT`, with one native paragraph per story paragraph.
+
+The distinction is parser-critical. Google Docs `TITLE` exports as a `<p>` and belongs to the reader's intro material. `HEADING_2` exports as `<h2>` and creates a chapter boundary. Do not style the book title as `HEADING_1`: an exported title `<h1>` can create a false tab and cause `story_by_chapters.json` to be empty or misaligned.
+
+Before drafting a chapter, read the current outline and breakdown. Treat explicit continuity details there as requirements. If the user establishes a new fact that affects the plot or setting, update the relevant breakdown chapter as well as the manuscript so future chapters cannot accidentally contradict it.
+
+#### Export, build, validation, and PR sequence
+
+For every manuscript update:
+
+1. Edit the canonical `Valley of Dragons <number> - TEXT` Google Doc.
+2. Read the edited paragraphs back and verify their text and named styles.
+3. Export that Doc as HTML and replace the raw non-`index.html` source file in the corresponding `books/` directory.
+4. Run `.\.venv\Scripts\python.exe generate_books.py` before committing.
+5. Validate the generated result before pushing:
+   * the chapter selector in `index.html` contains every expected chapter;
+   * `story_by_chapters.json` is non-empty and contains the same chapter titles;
+   * the new chapter text appears in the raw export, generated reader, and serialized chapter JSON;
+   * chapter word count is in the intended range relative to the previous book;
+   * `git diff --check` reports no newly introduced errors (generated-template whitespace warnings should be understood rather than silently ignored).
+6. Commit both the exported source and generated artifacts, then push to the existing full-book branch/PR.
+
+Use one PR for the complete new book, not one PR per chapter. Keep updating that PR so Netlify can provide a review deployment. Do not merge it until the full book has been reviewed and approved.
+
 ### Metadata Management (`meta.json`)
 To provide descriptive information for the library hub and control the display order of books, you can use `meta.json` files within any directory in `books/`.
 
