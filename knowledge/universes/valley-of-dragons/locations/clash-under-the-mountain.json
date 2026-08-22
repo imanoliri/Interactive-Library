@@ -1,0 +1,13 @@
+{
+  "story_id":"clash-under-the-mountain",
+  "locations":[
+    {"id":"khazad-throm","name":"Khazad-Throm","type":"subterranean-dwarven-kingdom","description":"Ancient dwarven realm beneath a mountain, built around mines, forges, vast halls, magma channels, and deep tunnel systems."},
+    {"id":"durins-chasm","name":"Durin's Chasm","type":"subterranean-chasm","description":"Major defensive chokepoint spanned by two narrow stone bridges."},
+    {"id":"iron-footing","name":"Iron Footing","type":"temporary-fortified-camp","description":"Dwarven defensive encampment established opposite the enemy line near the Broken Shard theater."},
+    {"id":"broken-shard-passage","name":"Broken Shard Passage","type":"abandoned-mining-passage","description":"Unstable, narrow route through fractured stone and crystal near magma flows, used for the decisive flanking maneuver."},
+    {"id":"goblin-burrow","name":"Goblin Burrow","type":"subterranean-stronghold","description":"Labyrinthine goblin stronghold and site of the campaign's final battle."},
+    {"id":"western-dwarven-mine","name":"Western dwarven mine","type":"mine","description":"Moderate mine established after the war in the Valley's western mountains to extract iron ore, silver, granite, and gems.","canonical_name_status":"unnamed-in-source"},
+    {"id":"dwarven-valley-settlement","name":"Dwarven settlement in the Valley","type":"settlement","description":"Permanent dwarven community of granite houses and iron forges near the spring of the Silver River.","canonical_name_status":"unnamed-in-source"},
+    {"id":"dwarven-embassy-river-city","name":"Khazad-Throm embassy in River City","type":"embassy","description":"Permanent dwarven diplomatic office near the docks of River City."}
+  ]
+}
