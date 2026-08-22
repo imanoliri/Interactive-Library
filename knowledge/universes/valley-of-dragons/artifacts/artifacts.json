@@ -1,0 +1,6 @@
+{
+  "universe":"valley-of-dragons",
+  "artifacts":[
+    {"id":"sword-of-the-dawn","name":"Sword of the Dawn","type":"magical-sword","giver":"lady-of-the-lake","recipient":"alaric","properties":["capable of destroying the Dark God when wielded by Alaric"],"origin_claim":"forged in ancient magic","first_story":"attack-of-the-dark-god"}
+  ]
+}
