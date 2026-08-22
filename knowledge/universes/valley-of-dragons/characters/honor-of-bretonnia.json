@@ -1,14 +1,14 @@
 {
   "story_id": "honor-of-bretonnia",
   "characters": [
-    {"id":"gaston","type":"human","name":"Gaston","role":"Royal herald of King Charles; delivers the tournament invitation and guides the initial diplomatic contact.","status":"proposed"},
-    {"id":"king-charles","type":"human","name":"King Charles","role":"King of Bretonnia; tournament host and political patron of the Dragon Rider delegation.","status":"proposed"},
-    {"id":"archbishop-anselm","type":"human","name":"Archbishop Anselm","role":"Powerful head or senior representative of the Bretonnian Church; initially suspicious of dragons and central to the religious conflict.","status":"proposed"},
+    {"id":"gaston","type":"human","name":"Gaston","role":"Royal herald of King Charles III; delivers the tournament invitation and guides the initial diplomatic contact.","status":"proposed"},
+    {"id":"king-charles-iii","type":"human","name":"King Charles III","role":"One of the major kings of Bretonnia and ruler of one of its largest or most influential kingdoms. He hosts the tournament and becomes the Dragon Rider delegation's principal political patron in the region. He is not ruler of Bretonnia as a whole.","status":"accepted"},
+    {"id":"archbishop-anselm","type":"human","name":"Archbishop Anselm","role":"Powerful senior representative of the religion shared across Bretonnia; initially suspicious of dragons and central to the religious conflict. Exact institutional jurisdiction remains unresolved.","status":"proposed"},
     {"id":"master-bertrand","type":"human","name":"Master Bertrand","role":"Riding master who trains the Dragon Riders in horseback jousting and lance technique.","status":"proposed"},
-    {"id":"count-bernier","type":"human","name":"Count Bernier","role":"Noble insider who organizes or leads the political conspiracy against King Charles.","status":"proposed"},
-    {"id":"lord-raymond","type":"human","name":"Lord Raymond","role":"King Charles's cousin and politically important kidnapping victim; exact constitutional importance still undefined.","status":"proposed"},
+    {"id":"count-bernier","type":"human","name":"Count Bernier","role":"Noble insider who organizes or leads the political conspiracy against King Charles III.","status":"proposed"},
+    {"id":"lord-raymond","type":"human","name":"Lord Raymond","role":"King Charles III's cousin and politically important kidnapping victim; exact constitutional importance still undefined.","status":"proposed"},
     {"id":"warlord-lothar","type":"human","name":"Warlord Lothar","role":"Commander of the invading army in the siege arc; relationship to Bernier remains undefined.","status":"proposed"}
   ],
   "existing_series_characters_reused": ["alaric","vaelor","gawain","percival"],
-  "note": "All VOD4-specific characters remain production-level/proposed until the story plan is accepted or prose establishes them."
+  "note": "All VOD4-specific characters remain production-level/proposed unless individually marked accepted through an explicit worldbuilding decision."
 }
