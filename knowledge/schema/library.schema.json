@@ -8,12 +8,12 @@
     "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
     "type": {
       "type": "string",
-      "enum": ["universe", "series", "story", "chapter", "character", "location", "deity", "faction", "creature", "event", "map", "fact", "decision", "summary", "research", "illustration-plan"]
+      "enum": ["universe", "series", "story", "chapter", "character", "location", "deity", "supernatural-being", "faction", "organization", "civilization", "creature", "species", "artifact", "event", "map", "fact", "decision", "summary", "research", "illustration-plan", "magic-system"]
     },
     "name": {"type": "string"},
-    "universe_id": {"type": "string"},
-    "series_id": {"type": "string"},
-    "story_id": {"type": "string"},
+    "universe_id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "series_id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "story_id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
     "status": {
       "type": "string",
       "enum": ["draft", "proposed", "accepted", "rejected", "superseded", "published"]
