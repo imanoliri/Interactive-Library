@@ -1,0 +1,15 @@
+{
+  "story_id":"winter-of-wolves",
+  "chapters":[
+    {"number":1,"title":"Winter is coming","summary":"An unnatural winter arrives early. Alaric coordinates relief while the valley's supplies and livestock begin to fail.","entities":["alaric","vaelor","castle-tarn","silver-river"]},
+    {"number":2,"title":"Attack of the Wolves","summary":"Frost wolves attack River City. Alaric, Vaelor, Brynar, and the River Guard drive them back.","entities":["alaric","vaelor","brynar","river-guard","frost-wolves","river-city"]},
+    {"number":3,"title":"Frozen River","summary":"The frozen river cripples trade and supply. Alaric, Gawain, and Percival conclude the crisis is deliberate and divide responsibilities.","entities":["alaric","gawain","percival","alderyth","silver-river","castle-tarn"]},
+    {"number":4,"title":"The Winter's Voice","summary":"Freyja reveals herself as Goddess of Winter, claims the valley, and demands loyalty before the next full moon.","entities":["freyja","alaric","vaelor"]},
+    {"number":5,"title":"The Council","summary":"Representatives of humans, elves, and dragons reject Freyja's rule and authorize resistance. Alaric is chosen to lead the forward expedition.","entities":["valley-council","alaric","gawain","percival","caradoc","freyja","elven-forest-city"]},
+    {"number":6,"title":"The Expedition","summary":"The mixed expedition leaves the valley, passes Greystone Pass and the Waterfall of Giants, and reaches the marker of Freyja's realm.","entities":["alaric","vaelor","caradoc","eloran","greystone-pass","waterfall-of-giants"]},
+    {"number":7,"title":"Tundra","summary":"Frost wolves attack the expedition. Their alpha challenges Alaric, who defeats it and forces the pack to withdraw.","entities":["alaric","vaelor","caradoc","eloran","frost-wolves","freyjas-tundra"]},
+    {"number":8,"title":"Frozen Forest","summary":"Freyja's troops block the route with fortified hills, siege weapons, Viking warriors, and Mountain Giants. Alaric's flanking force destroys the artillery and the expedition wins the battle.","entities":["alaric","vaelor","caradoc","eloran","frozen-forest","mountain-giants","freyjas-forces"]},
+    {"number":9,"title":"Castle of Ice","summary":"The expedition storms Freyja's castle. Alaric confronts Freyja alone after she separates him from Vaelor and defeats her after a philosophical and physical confrontation.","entities":["alaric","vaelor","freyja","freyjas-ice-castle","varangian-guard","mountain-giants","winter-ravens","frost-wolves"]},
+    {"number":10,"title":"Spring's Return","summary":"Freyja's winter ends, the river flows again, trade resumes, and the peoples of the valley celebrate their restored freedom.","entities":["alaric","vaelor","silver-river","valley-of-dragons"]}
+  ]
+}
