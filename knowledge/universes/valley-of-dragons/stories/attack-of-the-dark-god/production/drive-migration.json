@@ -1,0 +1,25 @@
+{
+  "source_folder": {
+    "name": "The Valley of Dragons/1 - Attack of the Dark God",
+    "drive_folder_id": "1W1Kq24V4w3JSrjs8KPT4bYCQave2LLka"
+  },
+  "policy": "Git is canonical after migration. Drive items are retained as provenance until explicitly archived or deleted.",
+  "items": [
+    {"name":"Valley of Dragons 1 - breakdown","id":"11sjTNg4Ku1toZv5kyBklgqZgZCqPzDIRG-1y5-AIki4","type":"google-doc","role":"production-breakdown","status":"identified"},
+    {"name":"Valley of Dragons 1 - outline","id":"170pG02Af2LpdQJDVn1YZ-PYCbJtYX_vIrAJ79J39ZK0","type":"google-doc","role":"production-outline","status":"migrated"},
+    {"name":"The Valley of Dragons 1 - Attack of the Dark God v2","id":"1XpOokDGw6sRAommvdbyzIWub1Q-4lVnc-znC3pi4XYI","type":"google-doc","role":"accepted-story-reference","status":"represented-by-reader-source"},
+    {"name":"Valley of Dragons 1 - Attack of the Dark God","id":"1aFRobn3TAE7pMImRibCZbAUqx3nBLs6XuI6Ot5l7ScQ","type":"google-doc","role":"older-story-version","status":"pending-archive-migration"},
+    {"name":"Valley of Dragons 1 - Attack of the Dark God (2000)","id":"1PVj8jlr7Q-uGraLWdcG8r2_cNEI62k650cH_2WGPx4c","type":"google-doc","role":"short-version","status":"pending-archive-migration"},
+    {"name":"The Valley of Dragons 1 - Attack of the Dark God v2.pdf","id":"1nfnq3KNFzaHjOjGTHasYk7FlOSUiB8B1","type":"pdf","role":"export","status":"pending-binary-migration"},
+    {"name":"The Valley of Dragons - ChatGPT rewrite chapter by chapter","id":"1sUXg_RAB-ZXPxapuzig89UV6L7G7nXV5vdRw6Ms0zmU","type":"google-doc","role":"rewrite-material","status":"pending-archive-migration"},
+    {"name":"ChatGPT - Evaluation by chapter","id":"1EHz-TIRig_tcX4jPkXkZH3wCNaWyz5u8Js10hFpSdQo","type":"google-doc","role":"evaluation","status":"pending-archive-migration"},
+    {"name":"Valley of Dragons 1 - Attack of the Dark God.pdf","id":"1bBV3O8G9VF0iPijC-IWsQea8fHx9eEMX","type":"pdf","role":"older-export","status":"pending-binary-migration"},
+    {"name":"ChatGPT - Evaluation","id":"1z5HE5kgLIc-vWp9UhlM6RPg_pNTfKryi43rHRae4jM0","type":"google-doc","role":"evaluation","status":"pending-archive-migration"},
+    {"name":"ChatGPT - Summary","id":"1qshusy-BEcIbmf0AcegRtXUY-qyzfx7O1Gim0XjgVmc","type":"google-doc","role":"summary","status":"read-for-curation"},
+    {"name":"castle","id":"1gM9UIM5lT94wvZtNauK-bK7vRkEZaY33","type":"folder","role":"image-reference","status":"pending-binary-migration"},
+    {"name":"dark_god","id":"1MLFcNrRd8S2AyyOmbgO1Y-BzPsJCTXl3","type":"folder","role":"image-reference","status":"pending-binary-migration"},
+    {"name":"dragon_rider_knight","id":"1PhIegMaqoadvofxN0_1J9RyVufp4AZbA","type":"folder","role":"image-reference","status":"pending-binary-migration"},
+    {"name":"necromancer","id":"1ntiubAwwrWQrPiXTn4vpFavMqfwHtJZQ","type":"folder","role":"image-reference","status":"pending-binary-migration"},
+    {"name":"lich_king","id":"10DrYXe96Ty1zorm0_VzPi-iUuFZQi3rG","type":"folder","role":"image-reference","status":"pending-binary-migration"}
+  ]
+}
