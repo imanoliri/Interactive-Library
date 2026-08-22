@@ -80,6 +80,28 @@
             "blurb": "The Dwarven Kingdom of Khazad-Throm is under siege by hordes of Goblins and Trolls. The Dragon Rider Knights answer the call for help, forging an unbreakable alliance to defeat the menace.",
             "children_order": []
           }
+        },
+        {
+          "type": "book",
+          "name": "Honor_of_Bretonnia",
+          "path": "Valley_of_Dragons/Honor_of_Bretonnia",
+          "cover": null,
+          "meta": {
+            "title": "Valley of Dragons IV: Honor of Bretonnia",
+            "author": "Imanol Irizar",
+            "tags": [
+              "fantasy",
+              "dragons",
+              "knights",
+              "chivalry",
+              "Bretonnia",
+              "tournament",
+              "honor",
+              "diplomacy"
+            ],
+            "blurb": "Invited to Bretonnia's grand tournament, Alaric and the Dragon Rider Order must learn the laws of chivalry and defend the honor of the Valley of Dragons in a foreign kingdom.",
+            "children_order": []
+          }
         }
       ]
     },

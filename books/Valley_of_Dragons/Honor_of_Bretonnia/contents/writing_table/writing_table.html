@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing Table</title>
+    <link rel="stylesheet" href="writing_table.css">
+
+</head>
+<body>
+    <div class="main-container">
+        <div class="header-bar">
+            <h1>Writing Table</h1>
+            <div class="controls">
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="checkSpeakLettersWhenDropped"> Speak Letters</label>
+                    <label><input type="checkbox" id="checkSpeakWordsWhenCorrect"> Speak Words</label>
+                    <label><input type="checkbox" id="checkKidsHelpVowels"> Color Vowels</label>
+                    <label><input type="checkbox" id="checkKidsHelpConsonants"> Color Consonants</label>
+                </div>
+            </div>
+            <p class="instructions">Drag letters to form words. <br/>Double-click to clear.</p>
+        </div>
+        <div class="grid"></div>
+    </div>
+    <script src="writing_table.js"></script>
+</body>
+</html>

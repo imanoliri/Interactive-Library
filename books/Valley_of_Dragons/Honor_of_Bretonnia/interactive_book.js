@@ -1,0 +1,672 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const select = document.getElementById('tab-select')
+    if (select) {
+        select.addEventListener('change', e => {
+            const idx = parseInt(e.target.value, 10)
+            if (!Number.isNaN(idx)) showTab(idx)
+        })
+        
+        // Restore progress
+        const savedProgress = localStorage.getItem('reading_progress');
+        const progressObj = savedProgress ? JSON.parse(savedProgress) : {};
+        const currentPath = window.location.pathname;
+        const savedVal = progressObj[currentPath];
+        
+        // Handle both old (number) and new ({index, title}) formats
+        let lastIdx = 0;
+        if (typeof savedVal === 'number') {
+            lastIdx = savedVal;
+        } else if (savedVal && typeof savedVal.index === 'number') {
+            lastIdx = savedVal.index;
+        }
+        
+        showTab(lastIdx);
+    }
+    updateProgressBar();
+    window.addEventListener('scroll', updateProgressBar);
+})
+
+// Ensure the visible tab matches the dropdown when returning via browser "back" button
+window.addEventListener('pageshow', (event) => {
+    const select = document.getElementById('tab-select');
+    if (select) {
+        const currentIdx = parseInt(select.value, 10);
+        if (!Number.isNaN(currentIdx)) {
+            showTab(currentIdx);
+        }
+    }
+});
+
+function showTab(index) {
+    const tabs = document.querySelectorAll('.tab')
+    tabs.forEach((tab, i) => {
+        tab.style.display = i === index ? 'block' : 'none'
+    })
+
+    // keep dropdown in sync
+    const select = document.getElementById('tab-select')
+    let chapterTitle = `Chapter ${index + 1}`;
+    if (select) {
+        if (select.value !== String(index)) {
+            select.value = String(index)
+        }
+        chapterTitle = select.options[index].text;
+    }
+
+    // Toggle navigation buttons
+    const prevBtns = document.querySelectorAll('.prev-chap');
+    const nextBtns = document.querySelectorAll('.next-chap');
+
+    prevBtns.forEach(btn => {
+        btn.style.visibility = index === 0 ? 'hidden' : 'visible';
+    });
+
+    nextBtns.forEach(btn => {
+        btn.style.visibility = index === tabs.length - 1 ? 'hidden' : 'visible';
+    });
+
+    // Save Progress
+    const currentPath = window.location.pathname;
+    const savedProgress = localStorage.getItem('reading_progress');
+    const progressObj = savedProgress ? JSON.parse(savedProgress) : {};
+    
+    // Save both index and title for better display on hub, plus timestamp for recency
+    progressObj[currentPath] = {
+        index: index,
+        title: chapterTitle,
+        ts: Date.now()
+    };
+    localStorage.setItem('reading_progress', JSON.stringify(progressObj));
+    
+    updateProgressBar();
+}
+
+function updateProgressBar() {
+    const bar = document.getElementById('readingProgressBar');
+    if (!bar) return;
+    
+    const tabs = document.querySelectorAll('.tab');
+    const currentIndex = parseInt(document.getElementById('tab-select')?.value || 0, 10);
+    
+    // Percentage based on chapters
+    const chapterPercent = ((currentIndex + 1) / tabs.length) * 100;
+    
+    // Smooth width update
+    bar.style.width = `${chapterPercent}%`;
+}
+
+function navChapter(direction) {
+    const select = document.getElementById('tab-select');
+    if (!select) return;
+
+    const currentIndex = parseInt(select.value, 10);
+    const newIndex = currentIndex + direction;
+
+    const tabs = document.querySelectorAll('.tab');
+    if (newIndex >= 0 && newIndex < tabs.length) {
+        showTab(newIndex);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+async function openPoem(url) {
+    const dlg = document.getElementById('poemDialog')
+    const box = document.getElementById('poemContent')
+
+    // Fetch as text (since your poem.html is just text)
+    const txt = await fetch(url, { cache: 'no-store' }).then(r => r.text())
+
+    // If it's plain text: show with line breaks preserved.
+    // If you actually store real HTML in poem.html, replace the next line with: box.innerHTML = txt;
+    box.innerHTML = txt
+
+    dlg.showModal()
+
+    // Optional: click outside to close
+    dlg.addEventListener(
+        'click',
+        e => {
+            const rect = dlg.getBoundingClientRect()
+            const inDialog =
+                e.clientX >= rect.left &&
+                e.clientX <= rect.right &&
+                e.clientY >= rect.top &&
+                e.clientY <= rect.bottom
+            if (!inDialog) dlg.close()
+        },
+        { once: true }
+    )
+}
+
+// Wire up any poem buttons on the page
+document.addEventListener('click', e => {
+    const btn = e.target.closest('.poem-btn')
+    if (!btn) return
+    const url = btn.getAttribute('data-poem') // e.g., "poem.html" or "./contents/poem.html"
+    openPoem(url)
+})
+
+
+document.querySelector('.poem-close').addEventListener('click', () => {
+    document.getElementById('poemDialog').close()
+})
+
+// Play/Pause toggle
+const playBtn = document.getElementById('songPlayPause')
+const modalPlayBtn = document.getElementById('modalSongPlayPause')
+const songAudio = new Audio(playBtn.getAttribute('data-song'))
+
+function updatePlayPauseBtns(isPlaying) {
+    const textMain = isPlaying ? '⏸️ Pause' : '▶️ Play'
+    const textModal = isPlaying ? '⏸️' : '▶️'
+    const aria = isPlaying ? 'Pause' : 'Play'
+    if (playBtn) {
+        playBtn.textContent = textMain
+        playBtn.setAttribute('aria-label', aria)
+    }
+    if (modalPlayBtn) {
+        modalPlayBtn.textContent = textModal
+        modalPlayBtn.setAttribute('aria-label', aria)
+    }
+}
+
+function playSong() {
+    if (songAudio.paused) {
+        try {
+            songAudio.play()
+            updatePlayPauseBtns(true)
+            console.log('Play')
+        } catch (err) {
+            console.error(err)
+        }
+    } else {
+        songAudio.pause()
+        updatePlayPauseBtns(false)
+        console.log('Pause')
+    }
+}
+
+songAudio.addEventListener('ended', () => {
+    updatePlayPauseBtns(false)
+})
+
+// Volume
+const volSlider = document.getElementById('songVolume')
+const modalVolSlider = document.getElementById('modalSongVolume')
+
+function adjustVolume(volValue) {
+    const value = typeof volValue !== 'undefined' ? volValue : (volSlider ? volSlider.value : 0.8)
+    songAudio.volume = value
+    localStorage.setItem('songVol', value)
+
+    if (volSlider && volSlider.value !== value) volSlider.value = value
+    if (modalVolSlider && modalVolSlider.value !== value) modalVolSlider.value = value
+}
+
+// Spacebar toggles play/pause while modal open
+document.getElementById('poemDialog').addEventListener('keydown', e => {
+    if (e.code === 'Space') {
+        e.preventDefault()
+        playBtn.click()
+    }
+})
+
+
+// Click on images to show them full screen
+const modal = document.getElementById("fullscreenImgModal");
+const modalImg = document.getElementById("modalImg");
+
+let modalUiTimeout = null;
+let lastAwakenTime = 0;
+let isHoveringUi = false;
+
+function resetModalHideTimeout() {
+    if (modal.classList.contains('hide-ui')) {
+        lastAwakenTime = Date.now();
+    }
+    modal.classList.remove('hide-ui');
+
+    if (modalUiTimeout) {
+        clearTimeout(modalUiTimeout);
+    }
+
+    if (isHoveringUi) return;
+
+    modalUiTimeout = setTimeout(() => {
+        if (!isHoveringUi) {
+            modal.classList.add('hide-ui');
+        }
+    }, 2800);
+}
+
+// Ensure hovered controls block the hide timeout
+const uiSelectors = [
+    '.slideshow-controls',
+    '.modal-song-banner',
+    '#modalClose',
+    '.modal-chap-nav',
+    '.modal-nav-btn'
+];
+
+const uiElements = document.querySelectorAll(uiSelectors.join(', '));
+
+uiElements.forEach(el => {
+    el.addEventListener('pointerenter', (e) => {
+        if (e.pointerType === 'mouse') {
+            isHoveringUi = true;
+            resetModalHideTimeout();
+        }
+    });
+    el.addEventListener('pointerleave', (e) => {
+        if (e.pointerType === 'mouse') {
+            isHoveringUi = false;
+            resetModalHideTimeout();
+        }
+    });
+});
+
+modal.addEventListener('mousemove', resetModalHideTimeout);
+modal.addEventListener('click', resetModalHideTimeout);
+modal.addEventListener('touchstart', resetModalHideTimeout, { passive: true });
+
+const modalInfo = document.getElementById("modalInfo");
+const prevBtn = document.getElementById("modalPrev");
+const nextBtn = document.getElementById("modalNext");
+const prevChapBtn = document.getElementById("modalPrevChap");
+const nextChapBtn = document.getElementById("modalNextChap");
+
+const images = Array.from(document.querySelectorAll("img")).filter(img => img.id !== "modalImg");
+let currentImgIndex = 0;
+
+function resizeModalImg() {
+    if (!modalImg || !modalImg.naturalWidth) return;
+    const intrinsicRatio = modalImg.naturalWidth / modalImg.naturalHeight;
+    const windowRatio = window.innerWidth / window.innerHeight;
+
+    // Tightly fit the image to the 95vw / 95vh bounds to maintain the precise click box
+    if (intrinsicRatio > windowRatio) {
+        modalImg.style.width = '95vw';
+        modalImg.style.height = 'auto';
+    } else {
+        modalImg.style.width = 'auto';
+        modalImg.style.height = '95vh';
+    }
+}
+
+if (modalImg) {
+    modalImg.addEventListener('load', resizeModalImg);
+    window.addEventListener('resize', resizeModalImg);
+}
+
+function getChapterIndexForImage(imgIndex) {
+    if (imgIndex < 0 || imgIndex >= images.length) return -1;
+    const parentTab = images[imgIndex].closest('.tab');
+    if (!parentTab) return -1;
+    const tabs = Array.from(document.querySelectorAll('.tab'));
+    return tabs.indexOf(parentTab);
+}
+
+function updateModalImage(index) {
+    if (index < 0 || index >= images.length) return;
+
+    if (typeof hideGameUI === 'function') hideGameUI();
+
+    // Set actual image
+    modalImg.src = images[index].src;
+    resizeModalImg();
+
+    // Determine the chapter info
+    if (modalInfo) {
+        const tabIndex = getChapterIndexForImage(index);
+        if (tabIndex !== -1) {
+            const selectOptions = document.getElementById('tab-select').options;
+            const chapterName = selectOptions[tabIndex] ? selectOptions[tabIndex].text : "Unknown Chapter";
+            modalInfo.textContent = `${chapterName} (Image ${index + 1} of ${images.length})`;
+        } else {
+            modalInfo.textContent = `Image ${index + 1} of ${images.length}`;
+        }
+    }
+
+    // Toggle Modal Chapter skip buttons visibility
+    if (prevChapBtn && nextChapBtn) {
+        const currentChapIndex = getChapterIndexForImage(index);
+
+        let hasPrevChapImg = false;
+        for (let i = index - 1; i >= 0; i--) {
+            if (getChapterIndexForImage(i) < currentChapIndex) {
+                hasPrevChapImg = true;
+                break;
+            }
+        }
+
+        let hasNextChapImg = false;
+        for (let i = index + 1; i < images.length; i++) {
+            if (getChapterIndexForImage(i) > currentChapIndex) {
+                hasNextChapImg = true;
+                break;
+            }
+        }
+
+        prevChapBtn.style.visibility = hasPrevChapImg ? "visible" : "hidden";
+        nextChapBtn.style.visibility = hasNextChapImg ? "visible" : "hidden";
+    }
+
+    // Sync the background DOM silently to exactly where we are
+    const targetImg = images[index];
+    const parentTab = targetImg.closest('.tab');
+    if (parentTab) {
+        const tabs = Array.from(document.querySelectorAll('.tab'));
+        const tabIndex = tabs.indexOf(parentTab);
+        if (tabIndex !== -1) {
+            showTab(tabIndex);
+        }
+    }
+    // Small delay to ensure display: block on the tab is processed before scrolling
+    setTimeout(() => {
+        targetImg.scrollIntoView({ behavior: 'instant', block: 'center' });
+    }, 50);
+
+    // Game Integration: check if image is an enemy
+    const fightBtn = document.getElementById('fightEnemyBtn');
+    if (fightBtn && window.enemyMetadata) {
+        const imgSrc = images[index].getAttribute('src');
+        if (window.enemyMetadata[imgSrc]) {
+            fightBtn.style.display = 'block';
+            fightBtn.classList.add('start-animation');
+            const newEnemy = window.enemyMetadata[imgSrc];
+            if (!window.currentEnemy || window.currentEnemy.name !== newEnemy.name) {
+                window.currentEnemy = newEnemy;
+                window.enemyState = {
+                    lives: newEnemy.lives || 1,
+                    usedMagics: []
+                };
+            }
+
+            // Reset strength to default (Medium)
+            updateStrengthFromSlider(2);
+            if (document.getElementById('strengthSlider')) {
+                document.getElementById('strengthSlider').value = 2;
+            }
+        } else {
+            fightBtn.style.display = 'none';
+        }
+    }
+
+    if (typeof resetSlideshowTimer === 'function') resetSlideshowTimer();
+}
+
+function startMainSlideshow() {
+    // 1. Kick off music if it isn't playing
+    if (songAudio && songAudio.paused) {
+        playSong();
+    }
+
+    // 2. Open the modal explicitly on the very first image
+    if (images.length > 0) {
+        currentImgIndex = 0;
+        lastAwakenTime = Date.now();
+        updateModalImage(currentImgIndex);
+        modal.style.display = "flex";
+        resetModalHideTimeout();
+
+        // 3. Force start the auto-advance interval if not active
+        if (!slideshowIntervalId) {
+            toggleSlideshow();
+        }
+    }
+}
+
+let slideshowIntervalId = null;
+let slideshowIntervalSeconds = 12.0;
+
+function changeSlideshowInterval(delta) {
+    slideshowIntervalSeconds += delta;
+    if (slideshowIntervalSeconds < 1.0) slideshowIntervalSeconds = 1.0; // min 1s
+    if (slideshowIntervalSeconds > 60) slideshowIntervalSeconds = 60; // max 60s
+
+    const display = document.getElementById('slideshowIntervalDisplay');
+    if (display) {
+        display.textContent = slideshowIntervalSeconds.toFixed(1) + 's';
+    }
+
+    // If currently running, restart the interval with the new time
+    resetSlideshowTimer();
+}
+
+function resetSlideshowTimer() {
+    if (slideshowIntervalId) {
+        clearInterval(slideshowIntervalId);
+        slideshowIntervalId = setInterval(() => {
+            const nextArrow = document.getElementById("modalNext");
+            if (nextArrow) nextArrow.click();
+        }, slideshowIntervalSeconds * 1000);
+    }
+}
+
+function toggleSlideshow() {
+    const btn = document.getElementById('modalSlideshowBtn');
+    if (slideshowIntervalId) {
+        clearInterval(slideshowIntervalId);
+        slideshowIntervalId = null;
+        if (btn) {
+            btn.textContent = '📽️';
+            btn.title = 'Start Slideshow (Space)';
+            btn.style.background = ''; // reset to CSS default
+        }
+    } else {
+        slideshowIntervalId = setInterval(() => {
+            const nextArrow = document.getElementById("modalNext");
+            if (nextArrow) nextArrow.click();
+        }, slideshowIntervalSeconds * 1000);
+
+        if (btn) {
+            btn.textContent = '⏹️';
+            btn.title = 'Stop Slideshow (Space)';
+            btn.style.background = 'rgba(217, 83, 79, 0.9)'; // Stand out red so user knows it is active
+        }
+    }
+}
+
+function syncAndCloseModal() {
+    modal.style.display = "none";
+    if (slideshowIntervalId) {
+        // Auto-kill the background process so it doesn't leak memory and jump state around
+        toggleSlideshow();
+    }
+    if (typeof hideGameUI === 'function') hideGameUI();
+}
+
+images.forEach((img, index) => {
+    img.addEventListener("click", () => {
+        currentImgIndex = index;
+        lastAwakenTime = Date.now();
+        modal.style.display = "flex";
+        resetModalHideTimeout();
+        updateModalImage(currentImgIndex);
+    });
+});
+
+if (prevBtn && nextBtn) {
+    prevBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        currentImgIndex = (currentImgIndex - 1 + images.length) % images.length;
+        updateModalImage(currentImgIndex);
+    });
+
+    nextBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        currentImgIndex = (currentImgIndex + 1) % images.length;
+        updateModalImage(currentImgIndex);
+    });
+}
+
+if (prevChapBtn && nextChapBtn) {
+    prevChapBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const currentChapIndex = getChapterIndexForImage(currentImgIndex);
+        let targetImgIndex = -1;
+
+        // Search backwards for the FIRST image of the PREVIOUS chapter
+        for (let i = currentImgIndex - 1; i >= 0; i--) {
+            const lookChapIndex = getChapterIndexForImage(i);
+            if (lookChapIndex < currentChapIndex) {
+                // Keep walking backward as long as it matches this previous chapter
+                targetImgIndex = i;
+                for (let j = i - 1; j >= 0; j--) {
+                    if (getChapterIndexForImage(j) === lookChapIndex) {
+                        targetImgIndex = j;
+                    } else {
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+        if (targetImgIndex !== -1) {
+            currentImgIndex = targetImgIndex;
+            updateModalImage(currentImgIndex);
+        }
+    });
+
+    nextChapBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const currentChapIndex = getChapterIndexForImage(currentImgIndex);
+        let targetImgIndex = -1;
+
+        // Search forwards for the FIRST image of the NEXT chapter
+        for (let i = currentImgIndex + 1; i < images.length; i++) {
+            if (getChapterIndexForImage(i) > currentChapIndex) {
+                targetImgIndex = i;
+                break;
+            }
+        }
+
+        if (targetImgIndex !== -1) {
+            currentImgIndex = targetImgIndex;
+            updateModalImage(currentImgIndex);
+        }
+    });
+}
+
+// Close modal on click anywhere, except the nav buttons
+modal.addEventListener("click", (e) => {
+    // Prevent immediate close if we just woke up the UI from hiding, or just opened the modal
+    if (Date.now() - lastAwakenTime < 500) return;
+
+    if (e.target !== prevBtn && e.target !== nextBtn &&
+        e.target !== prevChapBtn && e.target !== nextChapBtn &&
+        e.target !== modalImg &&
+        e.target !== document.getElementById('fightEnemyBtn') &&
+        !e.target.closest('.modal-song-banner') &&
+        !e.target.closest('.slideshow-controls') &&
+        !e.target.closest('#gameUIContainer')) {
+        syncAndCloseModal();
+    }
+});
+
+// Keyboard navigation
+document.addEventListener("keydown", (e) => {
+    // Ignore key commands if user is interacting with an input
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+    const isSlideshowOpen = modal.style.display === "flex";
+    const poemDialog = document.getElementById('poemDialog');
+    const isCombatOpen = document.getElementById('gameUIContainer') && document.getElementById('gameUIContainer').style.display !== 'none';
+
+    // If combat is open, we disable most general book shortcuts to avoid collisions
+    // Escape should still work to close everything
+    if (isCombatOpen) {
+        return;
+    }
+
+    const wakesUiKeys = ['s', 'o', 'p', 'b'];
+    if (isSlideshowOpen && (wakesUiKeys.includes(e.key.toLowerCase()) || e.code === 'Space')) {
+        resetModalHideTimeout();
+    }
+
+    if (e.key.toLowerCase() === "c") {
+        const select = document.getElementById('tab-select');
+        if (select) {
+            e.preventDefault();
+            if (select.size > 1) {
+                select.size = 1;
+                select.blur();
+            } else {
+                const optCount = select.querySelectorAll('option').length;
+                select.size = Math.min(optCount, 10);
+                select.focus();
+            }
+        }
+    }
+
+    if (e.key.toLowerCase() === "b") {
+        const fightBtn = document.getElementById('fightEnemyBtn');
+        if (fightBtn && fightBtn.style.display !== 'none') {
+            e.preventDefault();
+            fightBtn.click();
+        }
+    }
+
+    if (e.key.toLowerCase() === "p") {
+        e.preventDefault();
+        playSong();
+    }
+
+    if (e.key.toLowerCase() === "o") {
+        e.preventDefault();
+        if (poemDialog && poemDialog.open) {
+            poemDialog.close();
+        } else {
+            const poemBtn = document.querySelector('.poem-btn');
+            if (poemBtn) openPoem(poemBtn.getAttribute('data-poem'));
+        }
+    }
+
+    if (e.key.toLowerCase() === "s") {
+        e.preventDefault();
+        if (isSlideshowOpen) {
+            syncAndCloseModal();
+        } else {
+            startMainSlideshow();
+        }
+    }
+
+    if (e.code === "Space") {
+        if (isSlideshowOpen && (!poemDialog || !poemDialog.open)) {
+            e.preventDefault();
+            toggleSlideshow();
+        }
+    }
+
+    if (e.key === "Tab") {
+        e.preventDefault();
+        if (isSlideshowOpen) resetModalHideTimeout();
+        if (e.shiftKey) {
+            if (isSlideshowOpen && prevChapBtn) {
+                prevChapBtn.click();
+            } else {
+                navChapter(-1);
+            }
+        } else {
+            if (isSlideshowOpen && nextChapBtn) {
+                nextChapBtn.click();
+            } else {
+                navChapter(1);
+            }
+        }
+    }
+
+    if (isSlideshowOpen) {
+        if (e.key === "ArrowLeft") {
+            resetModalHideTimeout();
+            prevBtn.click();
+        } else if (e.key === "ArrowRight") {
+            resetModalHideTimeout();
+            nextBtn.click();
+        } else if (e.key === "Escape") {
+            syncAndCloseModal();
+        }
+    }
+});
+

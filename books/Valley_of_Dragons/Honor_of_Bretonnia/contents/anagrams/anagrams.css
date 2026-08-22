@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 2vh;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    background: #fff;
+    padding: 8vh;
+    border-radius: 1vh;
+    box-shadow: 0 0 3vh rgba(0, 0, 0, 0.1);
+}
+
+.anagram-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9375rem;
+    margin-bottom: 5vh;
+}
+
+#anagram {
+    font-size: 6vh;
+    margin: 0;
+}
+
+#reshuffle {
+    padding: 0;
+    width: 2.1875rem;
+    height: 2.1875rem;
+    font-size: 1.125rem;
+    background-color: rgba(0,0,0,0.05);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#reshuffle:hover {
+    background-color: rgba(0,0,0,0.15);
+}
+
+input {
+    padding: 3vh;
+    width: 40vh;
+    font-size: 3vh;
+    margin-bottom: 3vh;
+}
+
+.buttons {
+    display: flex;
+    gap: 3vh;
+    justify-content: center;
+}
+
+button, a {
+    padding: 2vh 4vh;
+    font-size: 3vh;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 1vh;
+    cursor: pointer;
+}
+
+button:hover, a:hover {
+    background-color: #0056b3;
+}
+
+input.correct {
+    border: 1vh solid green;
+}
+
+input.wrong {
+    border: 1vh solid red;
+}
+
+input.partial {
+    border: 1vh solid orange;
+}
+
+@media (orientation: portrait) {
+    #reshuffle {
+        width: 3.125rem;
+        height: 3.125rem;
+        font-size: 1.5rem;
+    }
+    .anagram-wrapper {
+        gap: 1.25rem;
+    }
+}
