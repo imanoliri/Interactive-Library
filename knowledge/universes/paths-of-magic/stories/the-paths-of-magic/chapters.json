@@ -1,0 +1,14 @@
+{
+  "story_id": "the-paths-of-magic",
+  "chapters": [
+    {"number":1,"title":"Introduction","summary":"Magnus discovers rare magical ability in childhood, learns that deeper understanding increases control, reads the book The Paths of Magic, and resolves to master every path."},
+    {"number":2,"title":"Land of Water","summary":"Magnus studies tides, currents and a dangerous whirlpool, reaches an underwater essence crystal, and gains deep control over water."},
+    {"number":3,"title":"Land of Trees","summary":"Magnus enters a living forest, reaches an ancient tree and green essence shard, and learns the interconnected ecological nature of tree magic."},
+    {"number":4,"title":"Land of Earth","summary":"Magnus crosses rocky canyons, evades earth golems, reaches an earth essence stone, and learns the slow geological forces shaping the world."},
+    {"number":5,"title":"Land of Sun","summary":"Magnus crosses bright grasslands, survives a gryphon attack, reaches a refracting sun stone, and learns to manipulate light and solar energy."},
+    {"number":6,"title":"Land of Wind","summary":"Magnus climbs into high mountains, overcomes harpies and wind furies, reaches twin peaks, and learns the fluid dynamics and pressure behavior of air."},
+    {"number":7,"title":"Land of Fire","summary":"Magnus ascends an active volcano, battles fire creatures and a Fire Avatar, reaches the fire essence, and learns combustion and the storage of magical energy in gemstones."},
+    {"number":8,"title":"Land of Lightning","summary":"Magnus enters a perpetual storm, confronts magnetic golems and lightning furies, reaches Tximistarri in the storm's eye, and masters lightning and electricity."},
+    {"number":9,"title":"Mage Tower","summary":"Magnus discovers the abandoned Mage Tower, studies ancient knowledge, defeats a sealed Lich King, enchants the Longsword of the Lifeforce of Elysia, crosses a portal to Azeroth, defeats the Enderdragon, and becomes master of the tower."}
+  ]
+}
