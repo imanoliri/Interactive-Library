@@ -1,0 +1,17 @@
+{
+  "universe":"valley-of-dragons",
+  "locations":[
+    {"id":"valley-of-dragons","name":"Valley of Dragons","type":"region","description":"Shared homeland of humans, elves, and dragons."},
+    {"id":"rhyvall-river","name":"Rhyvall River","type":"river","description":"Major trade artery carrying stone, timber, and metals from highlands toward the river cities."},
+    {"id":"riventhorn","name":"Riventhorn","type":"human-river-city","description":"A major human city where Alaric settles, works, and studies trades."},
+    {"id":"silverdale","name":"Silverdale","type":"city","description":"City containing a pantheon associated with Kordran and the pilgrimage that leads Alaric to Eloran."},
+    {"id":"elven-forest-city","name":"Elven Forest City","type":"elven-city","description":"A city shaped from living trees where Alaric trains with Eloran and Eryndor.","canonical_name_status":"unnamed-in-source"},
+    {"id":"greystone-pass","name":"Greystone Pass","type":"mountain-pass","description":"Pass where Mortag's invasion is confronted before the battle reaches Castle Tarn."},
+    {"id":"castle-tarn","name":"Castle Tarn","type":"fortress","description":"Fortress where the defense against Mortag culminates."},
+    {"id":"forest-of-faron","name":"Forest of Faron","type":"forest","description":"Forest containing the hidden magical lake of the Lady of the Lake."},
+    {"id":"lady-of-the-lake-lake","name":"Lady of the Lake's lake","type":"magical-lake","description":"Hidden silvery lake where Alaric receives the Sword of the Dawn.","canonical_name_status":"unnamed-in-source"},
+    {"id":"mount-doom","name":"Mount Doom","type":"volcanic-mountain","description":"Dark God's domain and site of the final assault."},
+    {"id":"dark-gods-throne-room","name":"Dark God's throne room","type":"interior-location","parent":"mount-doom","description":"Final confrontation site inside the Dark God's lair."},
+    {"id":"alarics-adoptive-village","name":"Alaric's adoptive village","type":"village","description":"Village where Alaric grows up and later returns as a knight.","canonical_name_status":"unnamed-in-source"}
+  ]
+}
