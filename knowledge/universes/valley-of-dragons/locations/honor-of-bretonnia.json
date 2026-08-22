@@ -1,0 +1,13 @@
+{
+  "story_id": "honor-of-bretonnia",
+  "locations": [
+    {"id":"bretonnia","type":"realm","name":"Bretonnia","role":"Distant western feudal/chivalric realm or region; exact political scope still unresolved.","status":"proposed"},
+    {"id":"bretonnian-capital","type":"capital-city","name":null,"role":"Large capital hosting the royal court, tournament, markets, guilds, and cathedral.","status":"proposed"},
+    {"id":"bretonnian-royal-castle","type":"royal-castle","name":null,"role":"Seat of King Charles and initial lodging/audience site for the Dragon Rider delegation.","status":"proposed"},
+    {"id":"high-cathedral-of-bretonnia","type":"cathedral","name":null,"role":"Center of the Church's authority and destination of the recovered Holy Relic.","status":"proposed"},
+    {"id":"tournament-grounds","type":"tournament-ground","name":null,"role":"Site of jousts and associated ceremonial events.","status":"proposed"},
+    {"id":"holy-relic-site","type":"quest-location","name":null,"role":"Undecided location where the Holy Relic is recovered.","status":"proposed"},
+    {"id":"siege-fortress","type":"fortress","name":null,"role":"Fortress in which King Charles, Alaric, and allied forces are trapped during Lothar's siege.","status":"proposed"},
+    {"id":"proposed-bretonnian-duchy","type":"duchy","name":null,"role":"Territory proposed as a final royal reward to Alaric and the Dragon Rider Order; not yet accepted canon.","status":"proposed"}
+  ]
+}
