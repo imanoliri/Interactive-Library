@@ -1,0 +1,16 @@
+{
+  "universe":"paths-of-magic",
+  "locations":[
+    {"id":"elysia","name":"Elysia","type":"world","description":"Magnus's homeworld and the primary setting."},
+    {"id":"coastal-village","name":"Magnus's coastal village","type":"village","canonical_name_status":"unnamed-in-source"},
+    {"id":"land-of-water","name":"Land of Water","type":"region"},
+    {"id":"land-of-trees","name":"Land of Trees","type":"region"},
+    {"id":"land-of-earth","name":"Land of Earth","type":"region"},
+    {"id":"land-of-sun","name":"Land of Sun","type":"grassland-region"},
+    {"id":"land-of-wind","name":"Land of Wind","type":"mountain-region"},
+    {"id":"land-of-fire","name":"Land of Fire","type":"volcanic-region"},
+    {"id":"land-of-lightning","name":"Land of Lightning","type":"storm-region"},
+    {"id":"mage-tower","name":"Mage Tower","type":"magical-tower","subareas":["library","enchantment-room","dungeon","crypt","cemetery"]},
+    {"id":"azeroth","name":"Azeroth","type":"other-world","description":"A world connected to Elysia by a portal and ruled by the Enderdragon until Magnus defeats it."}
+  ]
+}
