@@ -1,0 +1,28 @@
+{
+  "id": "honor-of-bretonnia",
+  "type": "story",
+  "universe_id": "valley-of-dragons",
+  "series_id": "valley-of-dragons",
+  "name": "Honor of Bretonnia",
+  "number": 4,
+  "status": "proposed",
+  "canon": false,
+  "protagonist": "alaric",
+  "planned_chapter_count": 11,
+  "development_stage": "outline-and-breakdown-complete-partial-draft-exists",
+  "premise": "The now-famous Dragon Rider Order is invited to the distant feudal kingdom of Bretonnia for its grand jousting tournament. Forced to operate without their dragons amid religious suspicion, the riders learn the customs, institutions, strengths, and tensions of medieval chivalric society before a political conspiracy and siege transform the ceremonial visit into a real test of loyalty and courage.",
+  "core_themes": [
+    "chivalry and honor",
+    "merit versus inherited status",
+    "religious prejudice and reconciliation",
+    "diplomacy between unfamiliar cultures",
+    "adaptation",
+    "loyalty",
+    "the difference between ceremonial and practical courage"
+  ],
+  "planned_characters": ["alaric", "vaelor", "gawain", "percival", "gaston", "king-charles", "archbishop-anselm", "master-bertrand", "count-bernier", "lord-raymond", "warlord-lothar"],
+  "planned_locations": ["bretonnia", "bretonnian-capital", "bretonnian-royal-castle", "high-cathedral-of-bretonnia", "tournament-grounds", "holy-relic-site", "siege-fortress", "proposed-bretonnian-duchy"],
+  "planned_factions": ["dragon-rider-knights", "crown-of-bretonnia", "church-of-bretonnia", "bretonnian-nobility", "bretonnian-guilds", "berniers-conspirators", "lothars-invasion-force"],
+  "normalized_data": ["chapters.json", "production.json", "continuity.json", "migration.json"],
+  "notes": "No VOD4 prose is accepted as canonical yet. The Google Drive outline and breakdown define current intent; the partial draft is retained only as production evidence because the current writing approach has been rejected for continuation."
+}
