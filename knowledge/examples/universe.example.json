@@ -1,0 +1,23 @@
+{
+  "id": "example-universe",
+  "type": "universe",
+  "name": "Example Universe",
+  "status": "draft",
+  "canon": true,
+  "summary": "Example showing how shared world knowledge can be represented independently from a rendered book.",
+  "references": {
+    "series_ids": ["example-series"],
+    "character_ids": ["example-hero"],
+    "location_ids": ["example-valley"],
+    "deity_ids": ["example-deity"]
+  },
+  "facts": [
+    {
+      "id": "example-fact-1",
+      "type": "fact",
+      "status": "accepted",
+      "canon": true,
+      "summary": "The Example Valley lies north of the old forest."
+    }
+  ]
+}
