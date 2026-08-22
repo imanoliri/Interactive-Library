@@ -3,8 +3,8 @@
   "locations": [
     {"id":"bretonnian-lands","type":"cultural-region","name":"Bretonnian Lands","role":"Broad western cultural-geographic region analogous to medieval Europe: politically fragmented into kingdoms, duchies, counties, free cities, ecclesiastical territories, marches and lordships, but linked by chivalric culture, religion, related language, customs, heraldry and social institutions.","status":"accepted"},
     {"id":"kingdom-of-bretonnia","type":"kingdom","name":"Kingdom of Bretonnia","role":"One of the largest, richest and most prestigious realms within the Bretonnian Lands, ruled by King Charles III. Its use of the name Bretonnia is itself a claim to primacy and representative leadership over the wider Bretonnian world.","status":"accepted"},
-    {"id":"bretonnian-capital","type":"capital-city","name":null,"role":"Capital of the Kingdom of Bretonnia and host of Charles III's royal court, Grand Tourney, markets, guilds and cathedral.","status":"proposed"},
-    {"id":"bretonnian-royal-castle","type":"royal-castle","name":null,"role":"Seat of King Charles III and initial lodging/audience site for the Dragon Rider delegation.","status":"proposed"},
+    {"id":"bellacourt","type":"capital-city","name":"Bellacourt","role":"Capital of the Kingdom of Bretonnia and host of Charles III's royal court, Grand Tourney, markets, guilds and cathedral.","status":"accepted"},
+    {"id":"cote-de-lille","type":"royal-palace-or-citadel","name":"Côte de Lille","role":"Working-name candidate for King Charles III's royal palace or citadel in Bellacourt.","status":"proposed"},
     {"id":"high-cathedral-of-bretonnia","type":"cathedral","name":null,"role":"Major center of Church authority within Charles III's kingdom and destination of the recovered Holy Relic.","status":"proposed"},
     {"id":"tournament-grounds","type":"tournament-ground","name":null,"role":"Site of the Grand Tourney, which also functions as a display of Charles III's prestige and diplomatic influence.","status":"accepted"},
     {"id":"holy-relic-site","type":"quest-location","name":null,"role":"Undecided location where the Holy Relic is recovered.","status":"proposed"},
