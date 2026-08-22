@@ -1,0 +1,21 @@
+{
+  "universe":"valley-of-dragons",
+  "relationships":[
+    {"from":"alaric","type":"rides","to":"vaelor"},
+    {"from":"gawain","type":"rides","to":"alderyth"},
+    {"from":"percival","type":"rides","to":"mythral"},
+    {"from":"galahad","type":"rides","to":"tyradon"},
+    {"from":"eryndor","type":"formerly-rode","to":"seralyn"},
+    {"from":"eryndor","type":"mentors","to":"alaric"},
+    {"from":"kael","type":"knight-master-of","to":"alaric"},
+    {"from":"eloran","type":"guides","to":"alaric"},
+    {"from":"gawain","type":"rescues","to":"alaric"},
+    {"from":"lady-of-the-lake","type":"gives","to":"sword-of-the-dawn"},
+    {"from":"sword-of-the-dawn","type":"wielded-by","to":"alaric"},
+    {"from":"dragon-rider-knights","type":"defend","to":"valley-of-dragons"},
+    {"from":"dark-gods-forces","type":"serve","to":"dark-god"},
+    {"from":"mortag","type":"serves","to":"dark-god"},
+    {"from":"forest-of-faron","type":"contains","to":"lady-of-the-lake-lake"},
+    {"from":"mount-doom","type":"contains","to":"dark-gods-throne-room"}
+  ]
+}
