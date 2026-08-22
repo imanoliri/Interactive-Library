@@ -1,0 +1,13 @@
+{
+  "story_id":"clash-under-the-mountain",
+  "chapters":[
+    {"number":1,"title":"A Call for Help","summary":"Dwarven messenger Roric asks the Dragon Rider Order to aid Khazad-Throm; after debate, the Order accepts and Alaric is chosen to lead."},
+    {"number":2,"title":"Kingdom under the Mountain","summary":"Alaric, Caradoc, Eloran and a dozen Dragon Riders reach Khazad-Throm, meet King Thordal, and learn the character and scale of dwarven civilization."},
+    {"number":3,"title":"The Problem","summary":"Khazad-Throm explains the goblin and troll war; Alaric and Eloran negotiate a formal mutual-defense alliance and prepare for a joint campaign."},
+    {"number":4,"title":"Battle of Durin's Chasm","summary":"Dwarven shield walls and Dragon Riders combine their different strengths to hold a major chokepoint and defeat a goblin assault."},
+    {"number":5,"title":"Battle of Broken Shard Passage","summary":"Alaric leads a dangerous flanking force through an abandoned mining passage, turning a goblin counterattack into a rout."},
+    {"number":6,"title":"Battle of the Goblin Burrow","summary":"The allied army assaults the goblin stronghold in small tunnel-fighting formations; Alaric kills Goblin King Grishnak with help from Bhor and Gawain."},
+    {"number":7,"title":"Victory","summary":"Khazad-Throm celebrates its survival and King Thordal visits the Valley, where the alliance is publicly affirmed."},
+    {"number":8,"title":"Steel and Stone","summary":"The alliance becomes permanent through an embassy, trade, mining cooperation, a dwarven settlement in the Valley, and mutual exchange of expertise."}
+  ]
+}
