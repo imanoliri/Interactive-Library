@@ -1,0 +1,29 @@
+{
+  "id":"valley-of-dragons",
+  "type":"universe",
+  "name":"Valley of Dragons",
+  "status":"published",
+  "description":"A fantasy setting centered on the Valley of Dragons, where humans, elves, and dragons coexist and build alliances with other free peoples while confronting military and supernatural threats.",
+  "series":["valley-of-dragons"],
+  "stories":["attack-of-the-dark-god","winter-of-wolves","clash-under-the-mountain"],
+  "canon_policy":{
+    "primary_source":"published reader story in books/Valley_of_Dragons/*/story_by_chapters.json",
+    "secondary_sources":"current manuscript/clean-text Drive material when needed for provenance or clarification",
+    "production_material_is_canon":false,
+    "alternate_variants_are_canon":false
+  },
+  "core_facts":[
+    "Humans, elves, and dragons coexist in the Valley of Dragons.",
+    "Dragons are ancient inhabitants and natural guardians and allies of the valley's peoples.",
+    "Elves are strongly associated with magic, knowledge, art, living architecture, and plantsmithing.",
+    "Humans are strongly associated with craftsmanship, trade, adaptability, and political and commercial life in River City.",
+    "The Dragon Rider Knights are a military order created in the era of the Dark God's invasion and led by three paladins.",
+    "After the events of Clash Under the Mountain, the Valley maintains a formal mutual-defense, diplomatic, trade, and knowledge-sharing alliance with the dwarven Kingdom of Khazad-Throm.",
+    "A permanent dwarven diplomatic and settlement presence exists in the Valley after Clash Under the Mountain."
+  ],
+  "source_provenance":[
+    {"source":"google-drive","folder":"The Valley of Dragons/1 - Attack of the Dark God","role":"migration-source"},
+    {"source":"google-drive","folder":"The Valley of Dragons/2 - Winter of Wolves","role":"migration-source"},
+    {"source":"google-drive","folder":"The Valley of Dragons/3 - Clash Under the Mountain","role":"migration-source"}
+  ]
+}

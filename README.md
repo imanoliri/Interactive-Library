@@ -1,57 +1,90 @@
 # Interactive Library
 
-A static web-based library viewer designed to organize and display a collection of digital books in HTML format. This project functions as a lightweight, fast "bookshelf" application.
+A static web-based interactive library that combines rendered storybooks with structured story/world knowledge and curator tooling.
 
 ## Project Overview
 
-This tool provides a clean interface for browsing and searching through a library of converted HTML books. It is designed to be hosted on any static file server (like GitHub Pages) with minimal dependencies.
+The repository has three complementary layers:
+
+1. **Reader surface** — browsable interactive books, images, audio, games, navigation, and reading progress.
+2. **Knowledge base** — structured universes, stories, characters, locations, deities, factions, creatures, events, maps, facts, summaries, decisions, research, and illustration plans.
+3. **Curator** — reusable AI-facing procedures for continuity review, editorial checks, illustration planning, fact checking, catalog maintenance, and progress review.
+
+The goal is to preserve not only the final stories but also the internal logic and development context needed to maintain and extend them consistently.
 
 ## Key Features
 
--   **Single Page Interface:** A seamless browsing experience that renders content dynamically without page reloads.
--   **Real-time Search:** Instantly filter books by title, author, tags, or description.
--   **Zero Dependencies:** Built with Vanilla JavaScript and standard Web APIs—no heavy frameworks like React, Vue, or Angular.
--   **Automated Tooling:** Includes Python scripts to standardise and "interactivize" HTML books for the viewer.
+- **Single Page Interface:** Browse and search the library dynamically.
+- **Interactive Books:** Convert story HTML into a richer reading experience with media and game systems.
+- **Structured Story Knowledge:** Represent universes, stories, entities, canon, and production metadata as machine-readable data.
+- **Canon / Production Separation:** Keep accepted fictional truth separate from outlines, alternatives, TODOs, and rejected ideas.
+- **Curator Skill:** Review continuity, editorial quality, illustration coverage, facts, and production state using repository evidence.
+- **Automated Tooling:** Python scripts standardise and compile source HTML and generate derived per-book JSON.
+- **Static Deployment:** The reader remains deployable on a static host such as GitHub Pages.
+
+## Repository Architecture
+
+```text
+Interactive-Library/
+├── books/                 # Reader-facing source books and generated book artifacts
+├── scripts/               # Compilation and interactive-book engine
+├── knowledge/             # Canon + structured story/world/production knowledge
+│   ├── schema/
+│   └── examples/
+├── curator/               # AI curator skill and reusable review prompts
+│   ├── SKILL.md
+│   └── prompts/
+├── generate_books.py
+├── interactive_library.js
+├── interactive_library.css
+└── index.html
+```
+
+### Reader Surface
+
+`interactive_library.js` loads the generated manifest and renders the library hub. Individual books are generated from their source HTML and supporting assets. Generated `books/*/index.html` files are build artifacts and should not be edited manually.
+
+### Knowledge Base
+
+`knowledge/` contains human- or agent-maintained source knowledge. Durable entities use stable IDs so stories can reference shared characters, locations, deities, maps, factions, creatures, and events without duplicating definitions.
+
+The most important rule is the distinction between:
+
+- **Canon:** accepted facts in the fictional universe.
+- **Production metadata:** outlines, summaries, decisions, alternatives, research, TODOs, prompts, and illustration plans.
+
+Production ideas do not become canon merely because they exist in the repository.
+
+See `knowledge/README.md` and `knowledge/schema/library.schema.json`.
+
+### Curator
+
+`curator/SKILL.md` defines how an AI curator should reason over the reader surface and knowledge base. Its responsibilities include:
+
+- catalog and metadata maintenance;
+- canon and continuity checks;
+- targeted editorial review;
+- missing-illustration identification and image briefs;
+- production decision tracking;
+- factual/research review;
+- progress and next-action recommendations.
+
+Reusable scheduled-review prompts live under `curator/prompts/`.
+
+## Existing Build Pipeline
+
+The Python build process scans `books/`, compiles source HTML into interactive books, and serializes useful derived data such as chapter text, media, image references, and word counts. This generated material can serve as evidence for curator reviews but should remain distinct from human-authored canon and production knowledge.
 
 ## How to Add a New Book
 
-1.  Download the Google Doc story as a zipped HTML.
-2.  Create a new directory for the new story in the correct place (e.g., inside `books/`).
-3.  Unzip the story zipped HTML there. Then delete the zip file
-4.  Copy the `contents` directory from another story. It will automatically reference the automatically generated data from this story.
-5.  Execute `python generate_books.py`.
-6.  Copy an image JPG file and name it `cover.jpg` in the directory of the story, where the newly generated `index.html` is.
-7.  Copy the poem file from another story and edit its contents to the correct text for this new story.
-8.  Add a `song.mp3` file to be played as music.
-9.  Execute `scripts/generate_manifest.py`. If the book is in a series directory and it has a `meta.json` you will need to add the book to the `children_order` array previously.
+1. Download the Google Doc story as zipped HTML.
+2. Create a directory for the story under `books/` in the appropriate series/category.
+3. Unzip the source there and remove the zip file.
+4. Add required supporting assets such as `cover.jpg`, `poem.html`, and `song.mp3`.
+5. Add or update the directory's `meta.json`.
+6. Run the book generation pipeline.
+7. Add structured knowledge for the story/universe when useful, referencing stable entity IDs rather than duplicating shared facts.
 
-## Architecture
+## Development Reference
 
-### Frontend (The Viewer)
--   **Core Logic:** `interactive_library.js` handles the application state. It fetches a `manifest.json` to build a navigable directory tree.
--   **Routing:** Uses client-side routing with query parameters (`?path=...`) to support deep linking and navigation history.
--   **Rendering:** Utilizes modern HTML `<template>` tags for efficient DOM manipulation.
-
-### Backend / Tooling (The Generator)
--   **Generator Script:** `generate_books.py` scans the `books/` directory.
--   **Transformation:** It identifies HTML book files and injects specific visual styles and scripts (`interactive_book.js`/`.css`) to ensure a consistent reading experience across all books.
--   **Smart Processing:** The script efficiently processes "book" directories, avoiding unnecessary recursion once a valid book is identified.
-
-## Code Analysis & Rating
-
-**Rating: 8/10** (for a small, personal utility)
-
-### Strengths
--   **Clean & Lightweight:** The codebase is very lean. No heavy frameworks (React/Vue/Angular) are used, making it extremely fast and easy to deploy (it can be hosted on any static file server like GitHub Pages).
--   **Modern Practices:** The JavaScript uses modern ES6+ features (`async/await`, `fetch`, arrow functions) and standard Web APIs (`URLSearchParams`, `<template>`).
--   **Separation of Concerns:** Data normalization, state navigation, and DOM rendering are well-separated in the JS functions.
--   **Efficient:** The usage of `dirs[:] = []` in the Python script is a smart way to prune the directory walk once a book is found, preventing unnecessary recursion.
-
-### Weaknesses / Observations
--   **Implicit Variable Declaration:** In `interactive_library.js` (line 122), `html = ...` is missing a `const` or `let` declaration, which implicitly makes it a global variable.
--   **Terse Naming:** Variable names like `n`, `p`, `q`, `r` in the JavaScript are very short. While common in small algorithms, slightly more descriptive names (e.g., `node`, `path`, `query`) would improve readability.
--   **Missing Manifest Generation:** The JavaScript *heavily* relies on `/books/manifest.json` to function, but `generate_books.py` does not appear to generate this file (it only processes individual books). Unless I missed a file in `scripts/`, there is a missing link in the automation pipeline between "processing books" and "listing them for the frontend."
-
-### Verdict
-A solid, well-written minimalistic project. It achieves its goal with zero bloat, though the tooling pipeline for the `manifest.json` generation seems to be the only missing context.
-
+See `AGENTS.md` for detailed build instructions, interactive-book engine behavior, combat logic, keyboard controls, responsive design rules, and other implementation constraints.

@@ -1,0 +1,18 @@
+{
+  "universe":"valley-of-dragons",
+  "facts":[
+    {"id":"three-peoples-coexist","category":"society","statement":"Humans, elves, and dragons coexist in the Valley of Dragons and exchange knowledge and skills.","status":"canon"},
+    {"id":"dragons-first-inhabitants","category":"history","statement":"Dragons are described as the first of the three peoples to inhabit the valley.","status":"canon"},
+    {"id":"elves-arrived-before-humans","category":"history","statement":"Elves arrived after dragons and before humans.","status":"canon"},
+    {"id":"river-cities-economic-role","category":"economy","statement":"Human river cities process raw resources from highlands and exchange manufactured goods for food from outer agricultural regions.","status":"canon"},
+    {"id":"plantsmithing","category":"craft","statement":"Elven plantsmithing shapes living plants into useful forms such as furniture and shelters.","status":"canon"},
+    {"id":"dragon-rider-order-purpose","category":"organization","statement":"The Dragon Rider Knights defend the valley using dragons, weapons, and magic.","status":"canon"},
+    {"id":"paladin-count","category":"organization","statement":"The order is led by three paladins at a time.","status":"canon"},
+    {"id":"alaric-first-human-knight","category":"organization","statement":"Alaric becomes the first human Dragon Rider Knight.","status":"canon"},
+    {"id":"dragon-rider-bond","category":"culture","statement":"A dragon and rider form a deep personal bond extending beyond a purely military partnership.","status":"canon"},
+    {"id":"dark-god-origin-unknown","category":"history","statement":"The Dark God's origin is not known to the valley's people.","status":"canon"},
+    {"id":"old-elven-warnings","category":"lore","statement":"Old elven songs contain warnings or references associated with the Dark God.","status":"canon"},
+    {"id":"sword-dawn-special-role","category":"magic","statement":"The Sword of the Dawn enables Alaric to destroy the Dark God.","status":"canon"},
+    {"id":"kordran-guidance","category":"religion","statement":"Kordran is considered the more appropriate deity for Alaric's martial mission than Valerion.","status":"canon-but-domain-not-fully-defined"}
+  ]
+}

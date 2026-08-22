@@ -1,0 +1,9 @@
+{
+  "universe":"valley-of-dragons",
+  "introduced_in":"winter-of-wolves",
+  "creatures":[
+    {"id":"frost-wolves","name":"Frost Wolves","aliases":["Ice Wolves"],"type":"supernatural-wolf","traits":["roughly twice natural wolf size","white coat","glowing blue eyes","freezing breath","unusual agility","coordinated pack behavior"],"association":"freyja","terminology_status":"alias relationship not yet confirmed"},
+    {"id":"mountain-giants","name":"Mountain Giants","type":"giant","traits":["enormous size","great physical strength","use massive clubs"],"association":"freyjas-forces"},
+    {"id":"winter-ravens","name":"Winter Ravens","type":"supernatural-bird","traits":["aerial harassment","attack siege crews"],"association":"freyja"}
+  ]
+}

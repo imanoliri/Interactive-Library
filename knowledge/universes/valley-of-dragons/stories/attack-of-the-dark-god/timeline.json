@@ -1,0 +1,20 @@
+{
+  "story_id": "attack-of-the-dark-god",
+  "events": [
+    {"id":"dark-god-invasion","order":1,"alaric_age":2,"summary":"The Dark God invades the valley; Alaric's village is destroyed."},
+    {"id":"alaric-adopted","order":2,"alaric_age":2,"summary":"Gawain finds Alaric alive and arranges his adoption in a neighboring settlement."},
+    {"id":"alaric-leaves-home","order":3,"alaric_age":16,"summary":"Alaric leaves his adoptive family to pursue the path toward the Dragon Rider Order."},
+    {"id":"alaric-learns-trades","order":4,"alaric_age":null,"summary":"Alaric works with caravans and learns blacksmithing and weaponsmithing."},
+    {"id":"pilgrimage-to-silverdale","order":5,"alaric_age":null,"summary":"Religious counsel sends Alaric to Silverdale, where he is connected with Eloran."},
+    {"id":"alaric-trained-by-eryndor","order":6,"alaric_age":null,"summary":"Alaric learns plantsmithing and Dragon Rider combat disciplines in the elven city."},
+    {"id":"battle-of-greystone-pass","order":7,"alaric_age":null,"summary":"Mortag's army enters the valley and the decisive defense culminates at Castle Tarn."},
+    {"id":"alaric-knighted","order":8,"alaric_age":null,"summary":"Alaric is knighted as the first human Dragon Rider Knight after his intervention against Mortag."},
+    {"id":"alaric-bonds-with-vaelor","order":9,"alaric_age":null,"summary":"By the Champion period Alaric rides the sapphire-blue dragon Vaelor."},
+    {"id":"alaric-becomes-paladin","order":10,"alaric_age":28,"summary":"Galahad retires and Alaric becomes one of the three paladins alongside Gawain and Percival."},
+    {"id":"alarics-vision","order":11,"alaric_age":null,"summary":"Alaric sees a future in which passive defense leads to the valley's destruction."},
+    {"id":"sword-of-the-dawn-received","order":12,"alaric_age":null,"summary":"The Lady of the Lake gives Alaric the Sword of the Dawn in the Forest of Faron."},
+    {"id":"final-assault-on-mount-doom","order":13,"alaric_age":null,"summary":"The Dragon Rider Knights launch a direct airborne assault on the Dark God's domain."},
+    {"id":"dark-god-defeated","order":14,"alaric_age":null,"summary":"Alaric kills the Dark God with the Sword of the Dawn in the throne room."}
+  ],
+  "uncertainties": ["Exact elapsed years between several middle-story milestones are not stated explicitly."]
+}

@@ -1,0 +1,20 @@
+{
+  "story_id":"the-paths-of-magic",
+  "events":[
+    {"order":1,"event":"Magnus is born in an unnamed coastal village in Elysia."},
+    {"order":2,"age":10,"event":"Magnus first publicly demonstrates water magic."},
+    {"order":3,"age":null,"event":"As a young adult, Magnus reads The Paths of Magic and begins his quest."},
+    {"order":4,"event":"Magnus masters water."},
+    {"order":5,"event":"Magnus masters tree magic."},
+    {"order":6,"event":"Magnus masters earth."},
+    {"order":7,"event":"Magnus masters sun/light."},
+    {"order":8,"event":"Magnus masters wind."},
+    {"order":9,"event":"Magnus defeats the Fire Avatar and masters fire."},
+    {"order":10,"event":"Magnus reaches Tximistarri and masters lightning."},
+    {"order":11,"event":"Magnus discovers the Mage Tower and studies there for weeks."},
+    {"order":12,"event":"Magnus defeats the Lich King sealed beneath the tower."},
+    {"order":13,"event":"Magnus enchants the Longsword of the Lifeforce of Elysia."},
+    {"order":14,"event":"Magnus crosses the portal to Azeroth and defeats the Enderdragon."},
+    {"order":15,"event":"Magnus returns to Elysia and becomes master of the Mage Tower."}
+  ]
+}

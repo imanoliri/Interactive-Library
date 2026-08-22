@@ -1,0 +1,9 @@
+{
+  "universe":"valley-of-dragons",
+  "factions":[
+    {"id":"dragon-rider-knights","name":"Dragon Rider Knights","type":"military-order","founding_context":"Formed by elves and dragons in response to the Dark God's invasion.","leadership":"Three paladins","known_paladins":["gawain","percival","galahad","alaric"],"membership_notes":"Initially described as an elven-led order; Alaric becomes its first human knight."},
+    {"id":"dark-gods-forces","name":"Dark God's forces","type":"hostile-coalition","hierarchy":{"lower":["goblins","orcs"],"middle":["undead","necromancers"],"higher":["gargoyles","demons"]},"additional_units":["specter-kings","dark-dragon-riders","hell-wolves"]},
+    {"id":"human-river-cities","name":"Human river cities","type":"economic-network","role":"Trade and manufacturing hubs linked by the Rhyvall River."},
+    {"id":"elven-society","name":"Elven society","type":"civilization","traits":["magic","art","knowledge","plantsmithing","martial training"]}
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "the-paths-of-magic",
+  "type": "story",
+  "universe_id": "paths-of-magic",
+  "series_id": "paths-of-magic",
+  "name": "The Paths of Magic",
+  "status": "published",
+  "protagonist": "magnus",
+  "chapter_count": 9,
+  "reader_source": "books/Paths_of_Magic/story_by_chapters.json",
+  "normalized_data": ["chapters.json", "summary.json", "timeline.json", "continuity.json", "production.json", "migration.json"],
+  "major_entities": ["magnus", "fire-avatar", "lich-king", "enderdragon"],
+  "major_locations": ["coastal-village", "land-of-water", "land-of-trees", "land-of-earth", "land-of-sun", "land-of-wind", "land-of-fire", "land-of-lightning", "mage-tower", "azeroth"],
+  "core_arc": "Magnus travels through elemental regions, learning each path of magic through observation and direct contact with elemental essences, then claims the Mage Tower and protects Elysia from threats within and beyond his world."
+}

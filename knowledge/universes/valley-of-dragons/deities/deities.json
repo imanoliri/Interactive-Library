@@ -1,0 +1,9 @@
+{
+  "universe":"valley-of-dragons",
+  "entities":[
+    {"id":"kordran","name":"Kordran","type":"deity","known_associations":["warrior matters","guidance for Alaric's mission"],"certainty":"partially-described"},
+    {"id":"valerion","name":"Valerion","type":"deity","known_associations":["Riventhorn temple/city worship"],"certainty":"partially-described"},
+    {"id":"lady-of-the-lake","name":"Lady of the Lake","type":"ancient-supernatural-being","known_associations":["Forest of Faron","hidden lake","Sword of the Dawn","prophetic guidance"],"age_claim":"older than mountains, rivers, and dragons","certainty":"self-described-in-story"},
+    {"id":"dark-god","name":"Dark God","type":"supernatural-antagonist","known_associations":["invasion","necromancy","dark forces","Mount Doom"],"origin":"unknown","status_at_story_end":"defeated"}
+  ]
+}

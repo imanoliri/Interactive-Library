@@ -1,0 +1,19 @@
+{
+  "id": "winter-of-wolves",
+  "type": "story",
+  "universe_id": "valley-of-dragons",
+  "series_id": "valley-of-dragons",
+  "name": "Winter of Wolves",
+  "number": 2,
+  "status": "published",
+  "protagonist": "alaric",
+  "chapter_count": 10,
+  "reader_source": "books/Valley_of_Dragons/Winter_of_Wolves/story_by_chapters.json",
+  "premise": "An unnatural winter descends on the Valley of Dragons. Freyja, Goddess of Winter, claims the valley and demands submission. Alaric leads a united expedition of humans, elves, dragons, and Dragon Rider Knights to resist her rule and restore the seasons.",
+  "core_themes": ["freedom versus authoritarian rule", "legitimate authority by consent", "unity", "resilience", "shared civic responsibility"],
+  "primary_characters": ["alaric","gawain","percival","eloran","caradoc","brynar","freyja"],
+  "primary_creatures": ["vaelor","alderyth","frost-wolves","mountain-giants","winter-ravens"],
+  "primary_locations": ["valley-of-dragons","castle-tarn","river-city","silver-river","elven-forest-city","greystone-pass","waterfall-of-giants","freyjas-tundra","frozen-forest","freyjas-ice-castle"],
+  "primary_factions": ["dragon-rider-knights","river-guard","valley-council","freyjas-forces","varangian-guard"],
+  "production": {"target_words":8500,"target_style":["medium language","third person","epic tone","righteous tone","happy ending"]}
+}

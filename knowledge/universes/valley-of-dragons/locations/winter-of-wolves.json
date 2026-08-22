@@ -1,0 +1,13 @@
+{
+  "universe":"valley-of-dragons",
+  "introduced_in":"winter-of-wolves",
+  "locations":[
+    {"id":"river-city","name":"River City","type":"human-river-city","identity_status":"unresolved relative to Riventhorn"},
+    {"id":"silver-river","name":"Silver River","type":"river","role":"valley's major transport, trade, mill, forge, and supply artery","identity_status":"unresolved relative to Rhyvall River"},
+    {"id":"waterfall-of-giants","name":"Waterfall of Giants","type":"waterfall","description":"Point where the river cascades from isolated peaks toward lower northern plains and hills."},
+    {"id":"freyjas-tundra","name":"Freyja's Tundra","type":"tundra","canonical_name_status":"descriptive technical name","description":"Harsh region beyond an ancient elven boundary marker in Freyja's realm."},
+    {"id":"frozen-forest","name":"Frozen Forest","type":"forest","description":"Glacial forest of crystalline trees and site of a major battle against Freyja's field forces."},
+    {"id":"freyjas-ice-castle","name":"Freyja's Ice Castle","type":"fortified-palace-complex","description":"Freyja's seat, consisting of outer walls, courtyard, defenses, and a central palace."},
+    {"id":"freyjas-palace","name":"Freyja's Palace","type":"palace","parent":"freyjas-ice-castle","description":"Central palace where Alaric confronts Freyja."}
+  ]
+}

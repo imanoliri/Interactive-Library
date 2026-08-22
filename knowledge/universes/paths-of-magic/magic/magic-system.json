@@ -1,0 +1,15 @@
+{
+  "universe":"paths-of-magic",
+  "principle":"The more deeply a mage understands the essence, structure, behavior and relationships of something, the more effectively it can be manipulated through magic.",
+  "rarity":"Magic exists in Elysia but only a tiny fraction of people can harness it.",
+  "paths":[
+    {"id":"water","learned_from":"water-essence-crystal","knowledge":["tides","waves","currents","flow","fluid displacement"],"capabilities":["move water","redirect currents","form breathing air space underwater","increase swimming efficiency"]},
+    {"id":"trees","learned_from":"tree-essence-shard","knowledge":["ecosystem interdependence","roots","nutrient sharing","competition and cooperation","life cycles"],"capabilities":["manipulate plant growth","use roots and vines"]},
+    {"id":"earth","learned_from":"earth-essence-stone","knowledge":["geological time","rock and soil layers","erosion","mountain formation"],"capabilities":["move rocks","shift earth and soil","alter terrain"]},
+    {"id":"sun","learned_from":"sun-essence-stone","knowledge":["solar energy","light","reflection","refraction","water cycle","heating of air"],"capabilities":["manipulate light","blind targets","concentrate light energy"]},
+    {"id":"wind","learned_from":"twin-peaks-wind-site","knowledge":["air as fluid","pressure","temperature-driven circulation","updrafts","turbulence"],"capabilities":["control wind","accelerate movement","glide on air currents","form air barriers"]},
+    {"id":"fire","learned_from":"fire-essence-stone","knowledge":["combustion","fuel","oxygen","heat","energy release"],"capabilities":["control fire","use heat as an energy source"]},
+    {"id":"lightning","learned_from":"tximistarri","knowledge":["electrical charge","discharge","conductors","magnetism","lightning paths"],"capabilities":["manipulate electricity","direct lightning","electrically charge objects"]}
+  ],
+  "energy_model":{"evidence":["Magnus draws energy from sunlight, heat, gemstones and other magical sources.","Crystalline gemstones can store large amounts of magical energy."],"todo":"Define a consistent quantitative or qualitative rule for magical energy cost, storage and replenishment if future stories need tighter mechanics."}
+}

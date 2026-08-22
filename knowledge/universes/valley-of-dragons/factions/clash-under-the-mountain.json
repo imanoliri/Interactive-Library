@@ -1,0 +1,9 @@
+{
+  "story_id":"clash-under-the-mountain",
+  "factions":[
+    {"id":"khazad-throm","name":"Kingdom of Khazad-Throm","type":"dwarven-kingdom","traits":["industrial","honor-bound","militarily-disciplined","subterranean"]},
+    {"id":"dwarven-army","name":"Army of Khazad-Throm","type":"military-force","doctrine":["shield walls","defensive lines","attrition","sappers","ballistae"]},
+    {"id":"goblin-horde","name":"Grishnak's Goblin Horde","type":"hostile-army","leader":"grishnak","associated_forces":["goblins","trolls"],"status_at_story_end":"organized resistance broken"},
+    {"id":"valley-khazad-alliance","name":"Valley–Khazad-Throm Alliance","type":"mutual-defense-alliance","members":["valley-of-dragons","khazad-throm"],"commitments":["mutual defense","embassy","trade","knowledge exchange"],"status":"active-at-story-end"}
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "story_id":"clash-under-the-mountain",
+  "characters":[
+    {"id":"roric","name":"Roric","type":"dwarf","roles":["messenger","representative-of-khazad-throm"],"traits":["proud","loyal","worried-for-his-kingdom"]},
+    {"id":"king-thordal","name":"King Thordal","type":"dwarf","roles":["king-of-khazad-throm"],"traits":["honorable","resolute","hospitable"],"story_outcome":"survives and leads the postwar alliance visit to the Valley"},
+    {"id":"general-bhor","name":"General Bhor","type":"dwarf","roles":["senior-military-commander","defensive-warfare-specialist"],"traits":["disciplined","skeptical","pragmatic"],"notable_actions":["co-plans Durin's Chasm defense","commands the main army","helps defeat Grishnak"]},
+    {"id":"borin-stonehand","name":"Borin Stonehand","type":"dwarf","roles":["ambassador","negotiator","mineral-expert"],"story_outcome":"becomes Khazad-Throm's permanent representative in River City"},
+    {"id":"grishnak","name":"Grishnak","type":"goblin","roles":["goblin-king","enemy-leader"],"traits":["large","cunning","physically-powerful"],"status_at_story_end":"dead"}
+  ],
+  "returning_characters":["alaric","gawain","percival","eloran","caradoc","vaelor"]
+}

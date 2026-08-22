@@ -1,0 +1,18 @@
+{
+  "id":"clash-under-the-mountain",
+  "type":"story",
+  "universe_id":"valley-of-dragons",
+  "series_id":"valley-of-dragons",
+  "title":"Clash Under the Mountain",
+  "number":3,
+  "status":"published",
+  "chapter_count":8,
+  "protagonist":"alaric",
+  "reader_source":"books/Valley_of_Dragons/Clash_Under_the_Mountain/story_by_chapters.json",
+  "summary":"The Dragon Rider Order answers a desperate request from the dwarven kingdom of Khazad-Throm, helps defeat a goblin and troll war beneath the mountain, and forges a lasting military, diplomatic, and economic alliance between the dwarves and the Valley of Dragons.",
+  "core_characters":["alaric","gawain","percival","eloran","caradoc","roric","king-thordal","general-bhor","borin-stonehand","grishnak"],
+  "core_locations":["valley-of-dragons","castle-tarn","khazad-throm","durins-chasm","iron-footing","broken-shard-passage","goblin-burrow","river-city","western-dwarven-mine","dwarven-valley-settlement"],
+  "core_factions":["dragon-rider-knights","khazad-throm","dwarven-army","goblin-horde","valley-khazad-alliance"],
+  "themes":["mutual defense","duty to help free peoples","alliance","adaptation","brotherhood","trade and cultural exchange"],
+  "production":{"target_words":7500,"target_style":["medium language","third person","epic","militaristic","happy brotherly ending"]}
+}

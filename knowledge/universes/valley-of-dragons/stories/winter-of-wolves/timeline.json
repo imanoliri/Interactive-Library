@@ -1,0 +1,17 @@
+{
+  "story_id":"winter-of-wolves",
+  "relative_chronology":[
+    {"order":1,"event":"Unnatural winter begins early and intensifies across the valley."},
+    {"order":2,"event":"Frost wolves attack settlements including River City."},
+    {"order":3,"event":"Silver River freezes completely, disrupting trade, food, and troop movement."},
+    {"order":4,"event":"Freyja reveals herself and gives the valley until the next full moon to submit."},
+    {"order":5,"event":"Valley Council rejects Freyja's demand and authorizes resistance."},
+    {"order":6,"event":"Alaric leads an expedition north through Greystone Pass and beyond the valley."},
+    {"order":7,"event":"Expedition crosses Freyja's tundra and survives a frost-wolf attack."},
+    {"order":8,"event":"Expedition defeats Freyja's field army in the Frozen Forest."},
+    {"order":9,"event":"Expedition storms the Ice Castle and Alaric defeats Freyja."},
+    {"order":10,"event":"The unnatural winter ends and spring returns."}
+  ],
+  "absolute_date_status":"not specified",
+  "duration_notes":"The final chapter describes the valley as having endured the unnatural winter for weeks. Exact duration is not canonicalized."
+}

@@ -1,0 +1,18 @@
+{
+  "story_id":"clash-under-the-mountain",
+  "source_role":"production-metadata",
+  "target":{"words":7500,"chapter_count":8,"style":["medium language","third person","epic","militaristic","happy brotherly ending"]},
+  "drive_material":[
+    {"id":"12ivkLT0RSCJ1vzvD7LpL0UMfLB0tJNA4VgZZ8GHfqRw","name":"Valley of Dragons 3","role":"illustrated/current manuscript source"},
+    {"id":"1Kf10NZmwNH1zlJwZGk8nOS7_ja5KcyRDuIfIImS8sjw","name":"Valley of Dragons 3 - TEXT","role":"clean text source"},
+    {"id":"1ZjZjSqW6ZNti15HJnKIzF3hLxR4p23-PQANXBlGdLXY","name":"Valley of Dragons 3 - breakdown","role":"production breakdown"},
+    {"id":"1YIBnQAYh6-k1EK_wke8JrFmGWHSFB-zUtDBVJ33Y4jY","name":"Valley of Dragons 3 - Breakdown TEXT","role":"text-only breakdown"},
+    {"id":"1wznQJQruYgklMznQCsrQJW5J6OEs_GvKtrUIcmkh-xQ","name":"Valley of Dragons 3 - outline","role":"production outline"},
+    {"id":"1J3sxQslplZvt8mB7XfGF4HgRe41HzjFt9A4OuQbIGWM","name":"Valley of Dragons 3 - Variants","role":"alternate-story design matrix"},
+    {"id":"1GTd-Lk-aZKCirJlHreCWi_gJxv5NbX75EzXvb3_FEs4","name":"Valley of Dragons 3 Mirror","role":"alternate mirrored version; noncanonical unless explicitly promoted"},
+    {"id":"1_ZZ-P0iND1-YerROxyWTUI6fV5SEQ5fe5Dvc3pyDMrI","name":"Valley of Dragons 3 Mirror - breakdown","role":"alternate mirrored production material"},
+    {"id":"1occQiRmROsa1cRqCxEdMEZxCykjUIk20ykKuqtu-BgE","name":"Valley of Dragons 3 Mirror - outline","role":"alternate mirrored production material"}
+  ],
+  "variant_history":{"published_variant":"Dwarves good / Dragon Riders ally with dwarves","alternate_variants":["Goblins good / dwarves as aggressors","Dragon Riders ally with goblins","Goblin emissary requests help against dwarves"],"canon_policy":"Alternate variants are production history only and must not be imported as canonical facts unless later explicitly selected."},
+  "important_design_evolution":["The story deliberately explores underground warfare that constrains the Dragon Riders' normal aerial advantage.","The ending expands from military victory into diplomacy, trade, settlement, mining, and institutional alliance."]
+}

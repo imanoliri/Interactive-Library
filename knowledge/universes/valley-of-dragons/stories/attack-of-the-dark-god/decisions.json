@@ -1,0 +1,11 @@
+{
+  "story_id":"attack-of-the-dark-god",
+  "decisions":[
+    {"id":"protagonist-motivation","decision":"Alaric's motivation is protective duty rather than revenge.","status":"accepted","evidence":"Repeatedly stated in accepted story.","confidence":"high"},
+    {"id":"first-human-dragon-rider","decision":"Alaric becomes the first human Dragon Rider Knight.","status":"accepted","evidence":"Accepted story and breakdown.","confidence":"high"},
+    {"id":"paladin-succession","decision":"Alaric replaces retiring Galahad as one of three paladins at age twenty-eight.","status":"accepted","evidence":"Accepted story and outline.","confidence":"high"},
+    {"id":"final-solution","decision":"The war is ended by taking the offensive against the Dark God rather than continuing indefinite defensive warfare.","status":"accepted","evidence":"Chapter 9 vision and final assault.","confidence":"high"},
+    {"id":"dark-god-defeat-mechanism","decision":"Alaric defeats the Dark God with the Sword of the Dawn provided by the Lady of the Lake.","status":"accepted","evidence":"Accepted story.","confidence":"high"}
+  ],
+  "note":"Only decisions clearly recoverable from source material are recorded. Rationale is omitted where it was not explicitly preserved."
+}

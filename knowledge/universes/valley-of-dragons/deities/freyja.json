@@ -1,0 +1,14 @@
+{
+  "id":"freyja",
+  "name":"Freyja",
+  "universe":"valley-of-dragons",
+  "type":"goddess",
+  "titles":["Goddess of Winter","Winter Goddess"],
+  "domain":["winter","cold","ice","order"],
+  "claims":{"political":"claims dominion over the Valley of Dragons","ideological":"argues that stability and order justify coercive rule"},
+  "known_powers":["causes unnatural winter","freezes rivers","controls blizzards and icy mist","projects voice and image across great distance","summons frost and ice weapons","separates Alaric and Vaelor with a storm"],
+  "associated_creatures":["frost-wolves","winter-ravens"],
+  "associated_forces":["freyjas-forces","varangian-guard","mountain-giants"],
+  "residence":"freyjas-ice-castle",
+  "post_defeat_status":"unresolved; dissolves into melting snowflakes"
+}

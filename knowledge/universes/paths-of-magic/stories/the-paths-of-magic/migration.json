@@ -1,0 +1,17 @@
+{
+  "story_id":"the-paths-of-magic",
+  "migration_status":"normalized-complete",
+  "canonical_repo_source":"books/Paths_of_Magic/story_by_chapters.json",
+  "drive_folder":{"name":"The Paths of Magic","id":"1R8l0EX4CQmle0jaTLdreWdgLKNwDjQDp"},
+  "drive_sources":[
+    {"id":"1s6sgYVpQqic9qPyQayax8t0ic55OkqEiHJnthsuvKjc","name":"The Paths of Magic v2","role":"accepted story cross-check"},
+    {"id":"1jP6irbFBR4AgWMB1kW9HOYiGGYfQgJzFt4ya7Gl5aC4","name":"The Paths of Magic","role":"older story version"},
+    {"id":"1cF9NPoCLvjo0-N8x84loLvKOYIUaOylZicxnD1rZzVY","name":"The Paths of Magic - Sketch","role":"production intent"},
+    {"id":"1zTIpiO2wZUIoUIV7dmyDWyRz2iCtNAVPhkA299sy5mI","name":"ChatGPT from sketch (1000 words per chapter)","role":"development draft"},
+    {"id":"1CeDaIQjMUXghCy7CuhwNMEQmtiM5JCyVfllQ6Ph81pE","name":"ChatGPT from sketch (500 words per chapter)","role":"development draft"},
+    {"id":"1F5eQoBJqhDf1HJtazapafcXijItsQP1dPC9byDL5-GQ","name":"ChatGPT rewrite chapter by chapter","role":"editorial draft"},
+    {"id":"11UJu8lSVw9jnQSWt63vN6FcMl7NEoJDSUFBmVhFoxXc","name":"ChatGPT - Evaluation by chapter","role":"editorial evaluation"},
+    {"id":"1QBJ2yNK3xhwaenl8A3nXQGF1vysZ_Pzo3frVDriB_zk","name":"The Paths of Magic - Album","role":"visual/reference material"}
+  ],
+  "policy":"Drive documents are not copied into Git knowledge. Structured canon, production metadata, provenance and TODOs are extracted instead."
+}

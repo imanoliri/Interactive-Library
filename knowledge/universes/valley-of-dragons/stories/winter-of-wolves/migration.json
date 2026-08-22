@@ -1,0 +1,17 @@
+{
+  "story_id":"winter-of-wolves",
+  "migration_status":"normalized",
+  "canonical_live_source":"books/Valley_of_Dragons/Winter_of_Wolves/story_by_chapters.json",
+  "drive_folder_id":"1BeIGUGT9x0qIKuJXBD1OWqK6O5V4WLhc",
+  "drive_inputs":[
+    {"id":"1jw-Q1ZXc2_FYmgOh3o_fqxp3AkonlgGxM5csON3ouFQ","title":"Valley of Dragons 2","role":"rich source document / historical presentation","copied_verbatim":false},
+    {"id":"1wLED2ol-XMAqPAE7PVdwb5Gnn9IkuWgvcmrK1SE0PDY","title":"Valley of Dragons 2__TEXT","role":"story-text migration reference","copied_verbatim":false},
+    {"id":"1wfkQfgTukCOMjfFxGkOkYAnPcysI5zkPLtYkoc8PXnM","title":"Valley of Dragons 2 - outline","role":"production intent and alternatives","copied_verbatim":false},
+    {"id":"1-VhEjat5iKUsiUcsjRVxXR2OpsGIp5eP3Uhm-C30s9A","title":"Valley of Dragons 2 - breakdown","role":"derived structural evidence","copied_verbatim":false},
+    {"id":"1In2RmZG7gatKfevou5Zsbeb37aYaZnWt","title":"Valley of Dragons 2.pdf","role":"export artifact","copied_verbatim":false},
+    {"id":"18F2IKnjTWYLcEMFTbVcxuokr8OqOd0vX","title":"images","role":"asset source","copied_verbatim":false}
+  ],
+  "normalized_outputs":["story.json","chapters.json","summary.json","timeline.json","continuity.json","production.json","universe character additions","Freyja entity","winter creatures","winter locations","winter factions"],
+  "drive_required_for_future_curator_work":false,
+  "note":"Google Drive remains provenance/archive only for this migrated story; repository knowledge is the active normalized source."
+}

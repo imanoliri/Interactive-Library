@@ -1,0 +1,10 @@
+{
+  "universe":"valley-of-dragons",
+  "introduced_in":"winter-of-wolves",
+  "factions":[
+    {"id":"river-guard","name":"River Guard","type":"city-guard","location":"river-city","leader":"brynar","relationship":"trained in part by Dragon Rider Knights"},
+    {"id":"valley-council","name":"Valley Council","type":"representative-council","members":["human mayors","elven elders","dragon delegation","three paladins"],"decision":"rejects Freyja's demand and supports armed resistance"},
+    {"id":"freyjas-forces","name":"Freyja's Forces","type":"hostile-coalition","leader":"freyja","known_components":["frost-wolves","viking-warriors","mountain-giants","winter-ravens","varangian-guard","archers","siege-crews"]},
+    {"id":"varangian-guard","name":"Varangian Guard","type":"elite-viking-guard","leader":"freyja","equipment":["heavy axes","shields"],"role":"defends the Ice Castle courtyard"}
+  ]
+}

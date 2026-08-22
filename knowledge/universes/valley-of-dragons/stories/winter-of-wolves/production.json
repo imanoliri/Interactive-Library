@@ -1,0 +1,18 @@
+{
+  "story_id":"winter-of-wolves",
+  "source_material_roles": {
+    "repo_story":"canonical reader text",
+    "drive_text":"migration/reference copy of story text; not duplicated into knowledge",
+    "drive_outline":"production intent and superseded alternatives",
+    "drive_breakdown":"derived structural metadata",
+    "drive_pdf":"presentation/export artifact; not migrated as knowledge",
+    "drive_images_folder":"asset source only; not treated as canon metadata by itself"
+  },
+  "original_targets":{"chapter_count":10,"words_per_chapter":750,"battle_scene_extra_words":1000,"total_words":8500,"language":"medium","person":"third","tone":["epic","righteous"],"ending":"happy"},
+  "superseded_outline_elements":[
+    "Frozen Forest outline proposed bears as a challenge.",
+    "Frozen Forest outline proposed deer/reindeer as a fresh meat source.",
+    "Finished story instead uses a fortified field battle with Viking warriors, siege weapons, and Mountain Giants."
+  ],
+  "migration_policy":"Distill durable story knowledge and production intent; do not copy source documents verbatim."
+}

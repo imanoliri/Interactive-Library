@@ -1,0 +1,10 @@
+{
+  "universe":"paths-of-magic",
+  "characters":[
+    {"id":"magnus","name":"Magnus","type":"human","roles":["protagonist","mage","master-of-mage-tower"],"traits":["solitary","curious","observant","self-directed","persistent"],"milestones":[{"age":10,"event":"first publicly observed water magic"},{"age":null,"event":"young adult begins journey through the paths of magic"}],"status_at_story_end":"alive"},
+    {"id":"magnus-father","name":"Magnus's father","type":"human","roles":["fisherman","supportive-parent"]},
+    {"id":"fire-avatar","name":"Fire Avatar","type":"elemental-avatar","roles":["guardian-of-fire-essence","antagonist"],"status_at_story_end":"defeated"},
+    {"id":"lich-king","name":"Lich King","type":"undead-mage","roles":["sealed-threat","crypt-antagonist"],"status_at_story_end":"destroyed"},
+    {"id":"enderdragon","name":"Enderdragon","type":"dragon","roles":["ruler-of-azeroth","world-threatening-antagonist"],"status_at_story_end":"defeated"}
+  ]
+}

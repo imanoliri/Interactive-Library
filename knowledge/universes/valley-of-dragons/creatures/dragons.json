@@ -1,0 +1,12 @@
+{
+  "universe":"valley-of-dragons",
+  "species":"dragon",
+  "species_facts":{"traits":["ancient","wise","close to nature","capable of flight"],"social_role":"guardians and allies of the valley's peoples"},
+  "individuals":[
+    {"id":"alderyth","name":"Alderyth","color":"silver","rider":"gawain"},
+    {"id":"mythral","name":"Mythral","color":"green","rider":"percival"},
+    {"id":"tyradon","name":"Tyradon","color":"red","rider":"galahad"},
+    {"id":"seralyn","name":"Seralyn","traits":["fierce","loyal"],"rider":"eryndor","status":"deceased-before-main-training-period"},
+    {"id":"vaelor","name":"Vaelor","color":"sapphire-blue","rider":"alaric","relationship":"trusted companion and friend"}
+  ]
+}

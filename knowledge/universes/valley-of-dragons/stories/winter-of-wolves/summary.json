@@ -1,0 +1,8 @@
+{
+  "story_id":"winter-of-wolves",
+  "short":"Freyja, Goddess of Winter, imposes an unnatural winter on the Valley of Dragons and demands submission. Alaric leads a united expedition to reject her rule, defeat her forces, and restore spring.",
+  "arc":"The crisis progresses from humanitarian emergency to supernatural revelation, political decision, expedition, military confrontation, and final ideological duel.",
+  "ending_state":["Freyja defeated or dispersed","unnatural winter ends","Silver River flows again","trade and travel resume","valley remains politically free","Alaric and Vaelor survive"],
+  "themes":["authority requires consent","freedom carries responsibility","unity across peoples","resistance to coercive rule","hope after hardship"],
+  "continuity_from_story_1":["Alaric is a paladin","Vaelor is Alaric's dragon","Gawain and Percival remain active paladins","Castle Tarn and Greystone Pass remain strategically important","Eloran remains Alaric's friend"]
+}

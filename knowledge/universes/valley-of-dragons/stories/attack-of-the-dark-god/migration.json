@@ -1,0 +1,18 @@
+{
+  "story_id":"attack-of-the-dark-god",
+  "migration_status":"normalized-pilot-complete",
+  "canonical_repo_source":"books/Valley_of_Dragons/Attack_of_the_Dark_God/story_by_chapters.json",
+  "drive_sources":[
+    {"id":"1XpOokDGw6sRAommvdbyzIWub1Q-4lVnc-znC3pi4XYI","title":"The Valley of Dragons 1 - Attack of the Dark God v2","role":"accepted-story-cross-check","migrated_as":"normalized knowledge only"},
+    {"id":"170pG02Af2LpdQJDVn1YZ-PYCbJtYX_vIrAJ79J39ZK0","title":"Valley of Dragons 1 - outline","role":"production-outline","migrated_as":"outline and chapter intent"},
+    {"id":"11sjTNg4Ku1toZv5kyBklgqZgZCqPzDIRG-1y5-AIki4","title":"Valley of Dragons 1 - breakdown","role":"production-breakdown","migrated_as":"chapter events, entities, continuity cross-check"},
+    {"id":"1qshusy-BEcIbmf0AcegRtXUY-qyzfx7O1Gim0XjgVmc","title":"ChatGPT - Summary","role":"secondary-summary","migrated_as":"cross-check only"},
+    {"id":"1EHz-TIRig_tcX4jPkXkZH3wCNaWyz5u8Js10hFpSdQo","title":"ChatGPT - Evaluation by chapter","role":"editorial-review","migrated_as":"distilled editorial signals only","excluded_content":"unrelated Paths of Magic material"},
+    {"title":"older story versions and 2000-word version","role":"historical-production","migrated_as":"not copied; superseded unless unique data is later identified"},
+    {"title":"PDF exports","role":"render/export","migrated_as":"not copied; redundant with story data"},
+    {"title":"image/reference folders","role":"visual references","migrated_as":"not yet copied; candidate for later asset-specific migration if not already represented in repo"}
+  ],
+  "outputs":["story.json","chapters.json","summary.json","timeline.json","decisions.json","continuity.json","production.json","universe character registry","dragon registry","location registry","deity registry","faction registry","artifact registry","world facts","relationship graph"],
+  "policy":"Drive text is not duplicated. Only normalized facts, relationships, production intent, continuity findings, and provenance are retained.",
+  "remaining_followups":["check whether Drive-only visual reference assets contain unique reusable material","validate records against later Valley of Dragons stories before promoting shared universe facts to series-wide certainty"]
+}

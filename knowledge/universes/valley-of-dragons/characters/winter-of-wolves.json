@@ -1,0 +1,9 @@
+{
+  "universe":"valley-of-dragons",
+  "introduced_in":"winter-of-wolves",
+  "characters":[
+    {"id":"caradoc","name":"Caradoc","type":"dragon-rider-knight","roles":["forward-expedition commander","infantry commander"],"dragon":{"color":"blue","name_status":"unnamed"},"traits":["capable","trusted","strategic"]},
+    {"id":"brynar","name":"Brynar","type":"human","roles":["captain of the River Guard"],"notable_actions":["reports frost-wolf attacks","fights alongside Alaric","helps rally River Guard"]}
+  ],
+  "unnamed_roles":["young knight in training","silver-haired elven elder","mayor of River City","granite-scaled elder dragon","younger expedition knight"]
+}

@@ -1,0 +1,12 @@
+{
+  "story_id":"winter-of-wolves",
+  "findings":[
+    {"id":"percival-survival-confirmation","severity":"low","type":"cross-story-confirmation","status":"resolved","finding":"Percival appears as an active paladin throughout Winter of Wolves, confirming he survived the final battle of Attack of the Dark God."},
+    {"id":"river-name-variance","severity":"medium","type":"cross-story-naming-variance","status":"open-todo","finding":"Story 1 calls the major trade river the Rhyvall River, while Winter of Wolves consistently calls it the Silver River.","todo":"Decide whether Silver River replaces Rhyvall River, is an alternate/common name, or refers to a different river. Do not rewrite prose until decided."},
+    {"id":"river-city-name-variance","severity":"medium","type":"cross-story-naming-variance","status":"open-todo","finding":"Story 1 names Riventhorn as an important river city, while Winter of Wolves repeatedly uses generic 'River City' as though it were a specific city.","todo":"Decide whether River City is Riventhorn, another city, or an intentionally generic/civic name."},
+    {"id":"freyja-status-after-defeat","severity":"medium","type":"canon-ambiguity","status":"open-todo","finding":"Freyja dissolves into melting snowflakes after defeat, but the story does not establish whether she dies, is banished, loses corporeal form, or can return.","todo":"Define Freyja's post-defeat status later."},
+    {"id":"caradoc-dragon-name","severity":"low","type":"missing-name","status":"open-todo","finding":"Caradoc rides a blue dragon whose proper name is never given.","todo":"Optionally name Caradoc's dragon later."},
+    {"id":"frost-wolf-terminology","severity":"low","type":"naming-variance","status":"open-todo","finding":"The finished story uses both 'frost wolves' and 'ice wolves' for apparently the same supernatural wolf type.","todo":"Decide whether these are synonyms or distinct creatures."},
+    {"id":"outline-frozen-forest-divergence","severity":"none","type":"production-evolution","status":"resolved","finding":"The outline proposed bears, deer, reindeer, and giants in the Frozen Forest; the finished story instead centers on Viking warriors, siege weapons, and Mountain Giants.","resolution":"Treat the finished story as canon and the outline version as superseded production history."}
+  ]
+}
