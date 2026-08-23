@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>The Valley of Dragons 4 - Honor of Bretonnia</title>
+    <link rel="stylesheet" href="interactive_book.css">
+    <link rel="stylesheet" href="magic_combat_system.css">
+</head>
+<body>
+    <div id="readingProgressBar"></div>
+    <h1>The Valley of Dragons 4 - Honor of Bretonnia</h1>
+    <div class="song-banner">
+        <button id="mainSlideshowBtn" aria-label="Start Slideshow" onclick="startMainSlideshow()" title="Start Slideshow (S)">📽️ Slideshow</button>
+        <button id="songPlayPause" aria-label="Play/Pause" onclick="playSong()" data-song="song.mp3" title="Play/Pause Music (P)">▶️ Play</button>
+        <button class="poem-btn" data-poem="poem.html" title="Read the Poem (O)">📜 Read the Poem</button>
+        <label class="vol">
+        <span>Volume</span>
+        <input id="songVolume" type="range" min="0" max="1" step="0.01" value="0.8" oninput="adjustVolume()"/>
+        </label>
+    </div>
+    <dialog id="poemDialog">
+        <button class="poem-close" aria-label="Close">&times;</button>
+        <article id="poemContent"></article>
+    </dialog>
+    <div id="fullscreenImgModal">
+        <button id="modalClose" aria-label="Close" onclick="syncAndCloseModal()" title="Close Fullscreen (S)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 32px; height: 32px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <div id="modalInfo" class="modal-info"></div>
+        <div class="modal-song-banner">
+            <button id="modalSongPlayPause" class="modal-audio-btn round-btn" aria-label="Play/Pause" onclick="playSong()" title="Play/Pause Music (P)">▶️</button>
+            <button class="poem-btn modal-audio-btn round-btn" data-poem="poem.html" aria-label="Poem" title="Read the Poem (O)">📜</button>
+            <div class="modal-vol">
+                <input id="modalSongVolume" type="range" class="vertical-slider" min="0" max="1" step="0.01" value="0.8" oninput="adjustVolume(this.value)"/>
+            </div>
+        </div>
+        <button id="modalPrev" class="modal-nav-btn" aria-label="Previous image" title="Previous Image (Left Arrow)">&#10094;</button>
+        <img id="modalImg" style="max-width:90%; max-height:90%;">
+        <button id="modalNext" class="modal-nav-btn" aria-label="Next image" title="Next Image (Right Arrow)">&#10095;</button>
+        
+        
+        <button id="fightEnemyBtn" class="game-fight-btn" style="display:none;" onclick="showGameUI()" title="Start Battle! (B)">🔮 Battle!</button>
+        
+        <!-- Game UI -->
+        <div id="gameUIContainer" class="game-ui-overlay" style="display:none;">
+            <div class="game-ui-panel">
+                <div class="game-ui-header">
+                    <div class="header-top-row">
+                        <div class="header-top-left">
+                            <div class="name-info-row">
+                                <h2 id="enemyName">Enemy</h2>
+                                <button class="enemy-info-btn" onclick="toggleEnemyInfo(true)" title="Enemy Information (I)">❔</button>
+                                <button class="enemy-info-btn" onclick="showEnemyMatchupGuide()" title="Enemy Weaknesses Matchup (G)">⛧</button>
+                            </div>
+                        </div>
+                        <div class="header-top-right">
+                            <div class="player-energy-display" id="playerEnergyCount" title="Your Energy">🧡 5</div>
+                            <button class="guide-btn" onclick="toggleMatchupGuide()" title="Matchup Guide (M)">📖</button>
+                            <button class="game-close-btn" onclick="hideGameUI()" title="Quit Combat (Q)">&times;</button>
+                        </div>
+                    </div>
+                    <div class="header-bottom-row">
+                        <div class="enemy-stats">
+                            <span class="stat-badge boss-badge" id="enemyLevelBadge" style="display:none;">Boss (+1)</span>
+                            <span class="stat-badge phys-badge" id="enemyPhysicality">???</span>
+                            <div id="enemyMagicBadges" class="enemy-magic-bagdes-container" style="display: flex; gap: 0.5rem; flex-wrap: wrap;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="player-actions HUD-style">
+                    <div class="action-row">
+                        <div class="magic-btn-grid" id="magicTypeSelector">
+                            <button class="magic-btn water" data-magic="Water" onclick="selectMagic('Water', this)" title="Water (W)"><span class="btn-icon">💧</span><span class="btn-label">Water</span></button>
+                            <button class="magic-btn trees" data-magic="Trees" onclick="selectMagic('Trees', this)" title="Trees (T)"><span class="btn-icon">🌳</span><span class="btn-label">Trees</span></button>
+                            <button class="magic-btn earth" data-magic="Earth" onclick="selectMagic('Earth', this)" title="Earth (E)"><span class="btn-icon">⛰️</span><span class="btn-label">Earth</span></button>
+                            <button class="magic-btn sun" data-magic="Sun" onclick="selectMagic('Sun', this)" title="Sun (S)"><span class="btn-icon">☀️</span><span class="btn-label">Sun</span></button>
+                            <button class="magic-btn wind" data-magic="Wind" onclick="selectMagic('Wind', this)" title="Wind (D)"><span class="btn-icon">💨</span><span class="btn-label">Wind</span></button>
+                            <button class="magic-btn fire" data-magic="Fire" onclick="selectMagic('Fire', this)" title="Fire (F)"><span class="btn-icon">🔥</span><span class="btn-label">Fire</span></button>
+                            <button class="magic-btn lightning" data-magic="Lightning" onclick="selectMagic('Lightning', this)" title="Storm (R)"><span class="btn-icon">⚡</span><span class="btn-label">Storm</span></button>
+                            <button class="magic-btn lifeforce" data-magic="Lifeforce" onclick="selectMagic('Lifeforce', this)" title="Life (L)"><span class="btn-icon">✨</span><span class="btn-label">Life</span></button>
+                        </div>
+        
+                        <div class="strength-slider-container">
+                            <div class="strength-slider-header">
+                                <span id="strengthLabel" class="strength-label">Medium</span>
+                                <span id="strengthCost" class="strength-cost"></span>
+                            </div>
+                            <div class="strength-slider-input-wrapper">
+                                <div class="strength-slider-track-bg"></div>
+                                <div class="strength-marker-container">
+                                    <span class="strength-marker"></span>
+                                    <span class="strength-marker"></span>
+                                    <span class="strength-marker"></span>
+                                </div>
+                                <input type="range" id="strengthSlider" class="strength-slider" min="1" max="3" step="1" value="2" oninput="updateStrengthFromSlider(this.value)" title="Attack Strength (1, 2, 3)">
+                            </div>
+                            <div class="strength-pips">
+                                <div class="strength-pip"></div>
+                                <div class="strength-pip"></div>
+                                <div class="strength-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="battle-actions">
+                        <button id="executeAttackBtn" class="execute-btn" onclick="executeAttack()" disabled title="Execute Attack (Enter)">Attack!</button>
+                        <button id="fleeFightBtn" class="execute-btn flee-btn" onclick="fleeFight()">Flee (-1 🧡)</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="battleResult" class="battle-result-overlay" style="display:none;">
+                <h1 id="resultTitle">Victory!</h1>
+                <p id="resultDetails">Your attack was successful!</p>
+                <button id="resultActionBtn" class="execute-btn" style="margin-top: 1rem;" onclick="continueBossFight()">Continue</button>
+            </div>
+        
+            <!-- New Battle Popup -->
+            <div id="battlePopup" class="battle-popup" style="display:none;">
+                <button class="popup-close" onclick="hideBattlePopup()">&times;</button>
+                <div class="popup-header">
+                    <span id="popupStatus" class="popup-status">Success</span>
+                    <span id="popupEnergyChange" class="popup-energy-change"></span>
+                </div>
+                <div class="popup-comparison">
+                    <div class="score-box player">
+                        <div id="popupPlayerScore" class="score-value">4</div>
+                        <div id="popupPlayerBreakdown" class="score-breakdown">base 2 + 2 bonus</div>
+                    </div>
+                    <div id="popupSymbol" class="score-symbol">&gt;</div>
+                    <div class="score-box enemy">
+                        <div id="popupEnemyScore" class="score-value">2</div>
+                        <div id="popupEnemyBreakdown" class="score-breakdown">base 2</div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Enemy Info Overlay -->
+            <div id="enemyInfoOverlay" class="matchup-guide-overlay info-overlay" style="display:none;">
+                <div class="matchup-guide-content">
+                    <h2 id="infoEnemyName">Enemy Info</h2>
+                    <div id="enemyInfoContent" class="enemy-info-details">
+                        <!-- Content injected via JS -->
+                    </div>
+                    <button class="result-continue-btn" onclick="toggleEnemyInfo(false)">Back to Battle</button>
+                </div>
+            </div>
+        
+            <!-- Matchup Guide Overlay -->
+            <div id="matchupGuideOverlay" class="matchup-guide-overlay" style="display:none;">
+                <div class="matchup-guide-content magic-circle-ui">
+                    <h2>📖 Magic Matchups</h2>
+                    <div id="magicCircleContainer" class="magic-circle-container">
+                        <svg id="magicCircleSvg" class="magic-circle-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"></svg>
+                        <div id="magicNodesContainer" class="magic-nodes-container"></div>
+                    </div>
+                    <div id="tacticalTagsContainer" class="tactical-tags-container"></div>
+                    <button class="execute-btn" style="margin-top: 1.5rem;" onclick="toggleMatchupGuide()">Close Guide</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slideshow-controls" id="slideshowControls">
+            <button id="modalSlideshowBtn" class="slideshow-btn round-btn" aria-label="Toggle Slideshow" onclick="toggleSlideshow()" title="Toggle Slideshow (Space)">📽️</button>
+            <div class="slideshow-interval-controls">
+                <button class="interval-btn" onclick="changeSlideshowInterval(-1.0)" aria-label="Decrease time">-</button>
+                <span id="slideshowIntervalDisplay">12.0s</span>
+                <button class="interval-btn" onclick="changeSlideshowInterval(1.0)" aria-label="Increase time">+</button>
+            </div>
+        </div>
+        <div class="modal-chap-nav">
+            <button id="modalPrevChap" class="modal-chap-nav-btn" aria-label="Previous Chapter" title="Previous Chapter (Shift+Tab)">« Prev Chapter</button>
+            <button id="modalNextChap" class="modal-chap-nav-btn" aria-label="Next Chapter" title="Next Chapter (Tab)">Next Chapter »</button>
+        </div>
+    </div>
+    <div class="tab-selector">
+        <button class="chapter-nav-btn top-nav prev-chap" onclick="navChapter(-1)" aria-label="Previous Chapter" title="Previous Chapter (Shift+Tab)">&#10094; Prev</button>
+        <select id="tab-select" aria-label="Choose chapter" title="Toggle Chapter Selector (C)">
+    
+            <option value="0">Intro</option>
+    
+            <option value="1">Chapter 1 – The Invitation</option>
+    
+            <option value="2">Chapter 2 – Audience with King Charles</option>
+    
+            <option value="3">Contents</option>
+    
+        </select>
+        <button class="chapter-nav-btn top-nav next-chap" onclick="navChapter(1)" aria-label="Next Chapter" title="Next Chapter (Tab)">Next &#10095;</button>
+    </div>
+    <div class="tab-content">
+        
+        <div class="tab"><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>Valley of Dragons 4: Honor of Bretonnia</span></p></div>
+        
+        <div class="tab"><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>Spring had returned to the Valley of Dragons with clear skies, green fields, and the sound of work happily resumed. From Castle Tarn, the Dragon Rider Order watched over River City, the elven forests, and the new dwarven settlement beneath the western hills. The old terror of the Dark God, the Winter of Wolves caused by Freya’s Winteran Staff, and the hard war beneath Khazad-Throm had passed into song, but their memory had not faded. It reminded every knight why the Order existed: not for glory alone, but to defend the free peoples wherever danger rose.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>Paladin Alaric stood in the castle courtyard beside Vaelor, his sapphire-blue dragon. Vaelor had lowered his great head so that a group of children from River City could touch the smooth scales on his neck. Their laughter carried between the stone walls. Nearby, squires cleaned saddles, elves prepared healing herbs for the infirmary, and dwarven smiths inspected a shipment of newly forged lanceheads. The valley had become stronger since the alliance with Khazad-Throm. Its people did not all live alike, yet they had learned to trust one another.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>That calm morning was interrupted by the sharp cry of a watchman on the eastern tower.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>“Riders on the southern road!” he called. “One bears a royal banner!”</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>Alaric looked toward the gate. A small procession approached through the bright fields: six horsemen in polished mail, two banner-bearers, and, at their head, a tall man in a red-and-gold tabard. His horse moved with measured pride, and a silver trumpet hung at his side. The banner above him showed a golden crown surrounded by white lilies.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>Gawain and Percival came down from the council hall as the gate opened. The three paladins met the visitors in the courtyard. Vaelor remained still behind Alaric, immense but calm, while the herald dismounted and bowed with perfect ceremony.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>“I am Gaston, royal herald of His Majesty King Charles of Bretonnia,” the stranger declared. His voice was trained to carry over a crowd. “I bring greetings from the western kingdoms, whose courts have heard of the Dragon Rider Order: of your victory against the Dark God, of your defense of the Valley, and of your aid to the dwarves of Khazad-Throm.”</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>The gathered squires exchanged excited looks. The name Bretonnia was unknown in the valley. No rider had traveled beyond the familiar mountains and forests to its distant western lands, and none could say what manner of kingdom awaited them there.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>Gaston removed a sealed parchment from a leather case. The wax bore the same crown-and-lily emblem as his banner. “By command of King Charles, I invite Paladin Alaric and a chosen company of the Dragon Rider Order to the Grand Tourney of Bretonnia. There, before kings, dukes, bishops, and knights from many realms, you are invited to prove your valor in contests of skill and honor.”</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>He offered the parchment to Alaric. The paladin broke the seal and read the elaborate script. The invitation promised safe conduct, royal hospitality, and a place in the summer tournament held in the capital. It spoke of jousts, contests of arms, feasts, and a ceremonial gathering of the greatest lords of the west.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>“A tournament?” Percival asked, with a thoughtful smile. “Our riders know battle, but not all of us have ridden a warhorse beneath a jousting lance.”</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>“That is precisely why the invitation matters,” said Gawain. He studied the herald and then the road beyond the gates. “Bretonnia is far away and its politics are not our own. Still, an invitation from a king is more than a contest. It is a chance to make friends, learn the strength of distant realms, and show that the valley does not hide from the wider world.”</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>Alaric looked again at the royal seal. He remembered arriving at Khazad-Throm as a stranger and leaving it with allies. The Order had been founded in hardship, but peace had given it a new responsibility: to carry the valley’s good name beyond its borders. Yet he also knew that a journey so far required care. Castle Tarn could not be left unguarded, and a proud foreign court might judge them before it understood them.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>“Tell King Charles that we receive his invitation with gratitude,” Alaric said at last. “The Dragon Rider Order will send a delegation worthy of the Valley of Dragons. We will come in friendship, honor his laws, and meet his knights with courage.”</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>Gaston bowed again, satisfied. “My king will welcome those words. The roads to Bretonnia are long, but they lead to a land that remembers every guest and every deed.”</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>That evening, the council gathered in the great hall. Maps were spread across the long oak table. Gawain traced the route westward: through the plains beyond the dwarven mountains, across river crossings and border towns, and finally to the broad kingdom of Bretonnia. Percival considered which knights should travel and which should remain to protect the valley. Alaric listened to them both, while Vaelor rested outside beneath the stars.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>“We should not mistake ceremony for weakness,” Gawain warned. “A land of many lords has many rivalries. We will need discipline, not merely bravery.”</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>“And humility,” Percival added. “We are guests. Their customs may be strange to us, but honor requires that we first understand them.”</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>Alaric nodded. “Then we shall learn. We have fought for the valley; now we will represent it. Let our people see that strength and courtesy can travel together.”</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>Beyond the windows, the bells of River City rang the evening hour. In the courtyard, Gaston’s banner stirred in the warm wind beside the blue standard of the Dragon Rider Order. Far to the west waited a kingdom of bright shields, proud castles, and ancient laws. The invitation had opened a new road before them, and the riders of the valley were ready to follow it.</span></p></div>
+        
+        <div class="tab"><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>At dawn the Dragon Rider Order rode out from Castle Tarn. Alaric led Vaelor along the western road with Gawain, Percival, and six chosen knights beside him. They travelled on horseback where the road was narrow and let the dragons take the sky only when the plains opened before them. The royal herald Gaston rode ahead, his red-and-gold banner bright against the morning mist. Every mile carried the riders farther from the valley than any of them had ever gone.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>For seven days they crossed country that grew steadily stranger. The familiar forests thinned into fields divided by hedges and stone walls. Villages gathered around small churches, and each bridge bore the colors of some local lord. Farmers stopped their work to stare at the dragons. Some waved with wonder; others made signs against evil and hurried their children indoors. Alaric noticed every reaction. The valley had taught him that fear could become friendship, but only if people were given time to see the truth.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>On the eighth day they crested a long ridge, and Gaston raised his trumpet. Below lay the capital of Bretonnia. It spread across both banks of a broad river, larger than River City by many times. Great walls enclosed crowded districts of tiled roofs, busy quays, workshops, gardens, and towers. At its center stood the royal castle, its white stone walls catching the sun. Beyond it rose the High Cathedral, so tall that its bells seemed to speak directly to the clouds.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>“No map in Castle Tarn had prepared Alaric for this,” Percival said quietly.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>“The kingdom is old,” Gaston replied. “Every stone has a lord, a guild, a saint, or a story attached to it. You will learn to tell them apart.”</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>As they approached the gates, the order saw the many layers of Bretonnian life. Merchants in bright wool argued over carts of spices and cloth. Apprentices carried tools through the open doors of smithies. Priests in dark robes moved among the poor beside noble ladies in silks. Armed men wearing the badges of different dukes kept watch over their own quarters. The city did not move as one body, Alaric thought. It moved as many bodies bound together by custom, obligation, and the authority of the crown.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>The gate captain studied Gaston’s seal, then stared for a long moment at Vaelor. The blue dragon had folded his wings and lowered his head, making himself as small as a creature of his size could. Even so, the horses on the road shied and the crowd drew back. Gaston spoke calmly to the captain, and at last the great gates opened. A cheer rose from some of the people, while others fell silent. The Order entered Bretonnia beneath eyes that measured them with curiosity, admiration, and fear.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>They were lodged in a guest court inside the royal castle. Grooms led the horses away, and royal attendants brought water, bread, and rooms overlooking the river. Vaelor and the other dragons were given an open field beyond the outer wall, watched by guards who tried not to appear nervous. Alaric thanked them, but he understood that hospitality could also be a careful kind of distance.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>That afternoon a chamberlain came to summon the delegation to the throne room. Alaric wore the polished armor of the Order rather than the elaborate fashion of Bretonnian court. Gawain advised him to bow deeply and speak plainly. Percival reminded the younger knights that they were guests, not champions on a field. Together they crossed halls crowded with tapestries of kings, crusades, marriages, and old victories.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>King Charles awaited them beneath a canopy of blue embroidered with white lilies. He was not an old man, but his hair had silver at the temples and his expression had the patient gravity of someone accustomed to hearing difficult news. Around him stood dukes, ladies, captains, scribes, and envoys from neighboring lands. Alaric could feel their attention settle upon the strangers from the unknown valley.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>Alaric knelt and offered the Order’s greetings. “Your Majesty, we thank you for your invitation and your welcome. We have come to learn your customs, to honor your laws, and to meet your knights in friendship.”</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>Charles descended one step from the dais. “Then you are welcome,” he said. “Bretonnia has heard tales of dragon riders, but tales become clearer when their subjects stand before us.” He spoke warmly, and the court relaxed. He asked after the valley, the elves, the dwarves, and the battles against the Dark God and Freya’s winter. Alaric answered carefully, never claiming more than he knew, and the king listened with genuine interest.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>After the formal audience, Charles asked Alaric to walk with him along a gallery that overlooked the cathedral square. Gawain and Percival followed at a respectful distance. Below, bells rang for the evening service, and hundreds of people gathered beneath the cathedral doors. The king’s expression changed when he looked from the worshippers to Vaelor’s distant blue shape beyond the walls.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>“There is a matter I must speak of plainly,” Charles said. “My kingdom is not united in its view of your dragons. Archbishop Anselm, who guides the Church here, sees them as creatures from an older and darker age. He fears that the people will call them pagan monsters, and that fear can become violence more quickly than any king can command it to stop.”</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>Alaric’s hand tightened around the rail. “Vaelor has defended children and farmers. The dragons fought beside us against darkness.”</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>“I do not doubt you,” Charles replied. “But trust is not yet knowledge, and knowledge is not yet peace. If you wish to remain in the tournament, send the dragons back to your valley for a time. Let the people meet the riders before they must decide what they think of the dragons.”</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>The request struck Alaric like a cold wind. Vaelor was not a horse to be dismissed from a stable; he was a friend, a guardian, and part of every oath Alaric had made. Yet the king had not insulted him. Charles had warned him of a danger that could engulf the guests as well as the kingdom. Alaric looked toward the cathedral and thought of the frightened faces at the gate.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>That night the Order gathered beside the dragons’ field. Vaelor listened as Alaric explained the king’s warning. The great dragon’s eyes reflected the torchlight, and for a moment no one spoke. Then Vaelor lowered his head until his brow touched Alaric’s shoulder. The gesture was neither anger nor surrender. It was trust.</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>“We will return,” Alaric promised. “Not because we are ashamed of you, but because we must give this kingdom a chance to know us before it judges you.”</span></p><p style='padding-top:12pt;margin:0;color:#000000;padding-left:0;font-size:11pt;padding-bottom:12pt;font-family:"Arial";line-height:1.15;orphans:2;widows:2;text-align:justify;padding-right:0'><span style='color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal'>At first light the dragons rose over the river and turned east toward the distant valley. Citizens watched from roofs and bridges. Some prayed; some cheered; many simply stared. Alaric remained in the courtyard until Vaelor was only a sapphire glint in the morning sky. Then he fastened his sword belt, faced the royal castle, and understood that the tournament would test more than strength. In Bretonnia, honor would have to be earned before it could be trusted..</span></p></div>
+        
+        <div class="tab">
+            <!-- <h1>Contents</h1> -->
+            <div class="contents-grid">
+                <button onclick="window.location.href='contents/anagrams/anagrams.html'">Anagrams</button>
+				<button onclick="window.location.href='contents/battle/battle.html'">Battle</button>
+				<button onclick="window.location.href='contents/fill_the_gaps/fill_the_gaps.html'">Fill The Gaps</button>
+				<button onclick="window.location.href='contents/memory_images/memory_images.html'">Memory Images</button>
+				<button onclick="window.location.href='contents/order_images/order_images.html'">Order Images</button>
+				<button onclick="window.location.href='contents/sudoku/sudoku.html'">Sudoku</button>
+				<button onclick="window.location.href='contents/word_cloud/word_cloud.html'">Word Cloud</button>
+				<button onclick="window.location.href='contents/writing_table/writing_table.html'">Writing Table</button>
+            </div>
+</div>
+        
+    </div>
+    <div class="chapter-footer">
+        <button class="chapter-nav-btn btm-nav prev-chap" onclick="navChapter(-1)" aria-label="Previous Chapter" title="Previous Chapter (Shift+Tab)">&#10094; Previous Chapter</button>
+        <button class="chapter-nav-btn btm-nav next-chap" onclick="navChapter(1)" aria-label="Next Chapter" title="Next Chapter (Tab)">Next Chapter &#10095;</button>
+    </div>
+    <script src="interactive_book.js"></script>
+    <script src="magic_combat_system.js"></script>
+</body>
+</html>
