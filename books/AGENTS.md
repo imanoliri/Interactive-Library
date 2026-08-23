@@ -1,0 +1,59 @@
+# Book Publication Rules
+
+These instructions apply to every book under `books/` and supplement the repository-root `AGENTS.md`.
+
+## Complete Book Asset Workflow
+
+A book is not publication-complete until it has all three presentation assets below in its book directory:
+
+- `cover.jpg`
+- `poem.html`
+- `song.mp3`
+
+### 1. Cover
+
+- Generate or prepare several suitable cover concepts based on the book's accepted story, tone, setting, and major characters.
+- Present meaningful alternatives to the user when a cover has not already been selected.
+- The user's selected image is authoritative. Do not silently substitute a different generated option.
+- Convert the selected image to JPEG if required and save the final asset as `cover.jpg` in the book directory.
+- The cover may be resized/compressed for the web, but its composition must not be materially changed without review.
+
+### 2. Poem
+
+- Before drafting a new book poem, inspect the poems of the closest existing books in the same series, or otherwise similar books in the Interactive Library.
+- Use those poems as structural inspiration: stanza count and length, cadence, rhyme approach, refrain/chorus pattern, narrative progression, and overall tone where applicable.
+- The new poem must remain original and specific to the new story; do not copy lines from earlier poems.
+- Draft the poem and present it to the user for review **before** treating it as final.
+- Incorporate the user's corrections or requested changes.
+- Only after the poem is approved should it be saved as `poem.html`, preserving the intended stanza and line breaks.
+
+### 3. Song
+
+- The song is generated only **after the poem has been reviewed and approved**.
+- Use the approved poem as the lyrics for the song-generation step.
+- The normal production workflow is to create the song in **Suno using the user's account**.
+- Choose a musical style that fits both the story and the established tone of the series; if materially different style choices exist, let the user review/select them.
+- Do not silently rewrite approved lyrics merely to make them easier for Suno to sing. Any substantial lyric changes require user review.
+- Once the user selects/approves the generated song, export/download the chosen track and save it in the book directory as `song.mp3`.
+
+## Build and Publication Order
+
+The intended new-book workflow is:
+
+1. Finalize the story text in its source document.
+2. Export the source document to the book's raw source HTML.
+3. Generate/select and save `cover.jpg`.
+4. Draft the poem from the established library/series poem patterns.
+5. Obtain user review and approval of the poem.
+6. Save the approved poem as `poem.html`.
+7. Generate the song in Suno from the approved poem lyrics, using the user's account.
+8. Obtain user selection/approval of the song and save it as `song.mp3`.
+9. Run `generate_books.py`.
+10. Verify the generated reader, chapter navigation, cover, poem modal, audio playback, metadata, and library-hub entry.
+11. Commit the raw source and required assets together with the script-generated outputs.
+
+## Generated Output Guard
+
+- `books/*/index.html` and other generated reader artifacts are outputs of the Python build pipeline.
+- **Never hand-edit generated `index.html` to patch book content.** Correct the raw source HTML, engine/template, metadata, or assets as appropriate, then rerun the generator.
+- It is acceptable to publish a work-in-progress preview before `poem.html` and `song.mp3` exist, but it must be clearly treated as incomplete and must not be represented as a finished book release.
