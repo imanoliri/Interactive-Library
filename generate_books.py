@@ -19,9 +19,6 @@ TEMPLATE_CONTENTS = "scripts/contents"
 
 
 def generate_all_books_from_html(booksdir: str = "books"):
-    
-    generate_manifest()
-
     for bookdir, dirs, files in os.walk(booksdir):
         bookdir = bookdir.replace("\\", "/")
         html = first_non_index_html(bookdir)
@@ -60,6 +57,10 @@ def generate_all_books_from_html(booksdir: str = "books"):
         shutil.copy("scripts/magic_combat_system.css", bookdir)
         shutil.copy("scripts/magic_combat_system.js", bookdir)
         dirs[:] = []
+
+    # Build the landing-page manifest after all books have been generated so
+    # newly added books are visible immediately on the first build.
+    generate_manifest()
 
 
 generate_all_books_from_html()
