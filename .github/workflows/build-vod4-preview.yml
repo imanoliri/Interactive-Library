@@ -1,0 +1,43 @@
+name: Build VoD4 preview
+
+on:
+  push:
+    branches:
+      - rewrite/valley-of-dragons-4-prose
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: rewrite/valley-of-dragons-4-prose
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install build dependencies
+        run: python -m pip install -r requirements_python_local.txt
+      - name: Assemble the already-exported source HTML
+        shell: bash
+        run: |
+          set -euo pipefail
+          BOOK='books/Valley_of_Dragons/Land_of_Chivalry'
+          cat "$BOOK"/.source_parts/part* > "$BOOK/Valley_of_Dragons_IV_-_Land_of_Chivalry.html"
+          rm -rf "$BOOK/.source_parts"
+      - name: Generate books using repository pipeline
+        run: python generate_books.py
+      - name: Commit generated book to PR branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -f .github/workflows/build-vod4-preview.yml
+          git add -A
+          git commit -m 'Build Land of Chivalry preview [skip ci]'
+          git push origin HEAD:rewrite/valley-of-dragons-4-prose
