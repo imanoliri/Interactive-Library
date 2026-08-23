@@ -1,0 +1,52 @@
+name: Build VoD4 preview
+
+on:
+  push:
+    branches:
+      - rewrite/valley-of-dragons-4-prose
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: rewrite/valley-of-dragons-4-prose
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install build dependencies
+        run: python -m pip install -r requirements_python_local.txt
+      - name: Prepare VoD4 source and temporary preview cover
+        shell: bash
+        run: |
+          set -euo pipefail
+          BOOK='books/Valley_of_Dragons/Land_of_Chivalry'
+          if [ -d "$BOOK/.source_parts" ]; then
+            cat "$BOOK"/.source_parts/part* > "$BOOK/Valley_of_Dragons_IV_-_Land_of_Chivalry.html"
+            rm -rf "$BOOK/.source_parts"
+          fi
+          if [ ! -f "$BOOK/cover.jpg" ]; then
+            cp books/Valley_of_Dragons/cover.jpg "$BOOK/cover.jpg"
+          fi
+      - name: Generate all books and manifest
+        run: python generate_books.py
+      - name: Commit generated preview back to PR branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -f .github/workflows/build-vod4-preview.yml
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No generated changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Build Land of Chivalry preview [skip ci]'
+          git push origin HEAD:rewrite/valley-of-dragons-4-prose
