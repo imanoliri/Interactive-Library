@@ -1,0 +1,36 @@
+{
+  "story_id": "honor-of-bretonnia",
+  "status": "accepted-development-worldbuilding",
+  "bretonnian_lands": {
+    "political_model": "decentralized cultural region",
+    "description": "The Bretonnian Lands are not a unified state. They consist of numerous kingdoms, duchies, counties, free cities, ecclesiastical territories, marches and lordships with overlapping alliances, rivalries and feudal obligations.",
+    "shared_bonds": ["chivalric culture", "religion", "related language and courtly vocabulary", "customs", "heraldry", "tournament culture", "feudal institutions"],
+    "central_authority": null
+  },
+  "kingdom_of_bretonnia": {
+    "ruler": "King Charles III",
+    "position": "one of the largest, richest and most prestigious realms in the Bretonnian Lands",
+    "naming_claim": "Calling Charles III's realm the Kingdom of Bretonnia is a deliberate political statement: it implies that his crown is the natural center, representative and potential leader of the wider Bretonnian world.",
+    "claim_status": "prestige claim rather than recognized sovereignty over all Bretonnian Lands"
+  },
+  "charles_iii": {
+    "political_character": "ambitious consolidator rather than straightforward conqueror",
+    "goal": "Increase the Crown of Bretonnia's prestige and establish Charles as first among Bretonnian rulers, with the possibility of greater future political unity under his leadership.",
+    "possible_future_titles": ["protector of the Bretonnian Lands", "first among Bretonnian kings", "high king"],
+    "method": ["diplomacy", "prestige", "court ceremony", "alliances", "religious relationships", "marriages", "tournaments", "international recognition"],
+    "ambiguity": "Charles does not need to openly announce a plan to rule all Bretonnia. His ambition should emerge through titles, protocol, invitations, alliances and the behavior of his court."
+  },
+  "grand_tourney": {
+    "surface_function": "celebration of chivalry and martial excellence",
+    "political_function": "soft-power gathering that places Charles III's court at the center of Bretonnian diplomatic and knightly life",
+    "participants": ["knights", "dukes and counts", "representatives of neighboring realms", "Church dignitaries", "foreign envoys", "Dragon Rider Order"],
+    "dragon_rider_implication": "By accepting Charles III's invitation and appearing publicly at his court, the Dragon Rider Order may unintentionally lend international prestige to Charles's claim of primacy. Rival Bretonnian rulers may interpret the visit as political recognition rather than mere participation in a tournament."
+  },
+  "story_opportunities": [
+    "Alaric initially believes he is attending a tournament but gradually realizes every ceremonial act carries political meaning.",
+    "Foreign nobles can interpret the Order's presence differently from Charles's stated intentions.",
+    "The Church can operate across political borders and serve as one of the few genuinely pan-Bretonnian institutions.",
+    "Charles can be sympathetic and capable while still pursuing greater power, creating political complexity without making him a villain.",
+    "The story can explore legitimate leadership, political unity, prestige and consent in a fragmented world."
+  ]
+}

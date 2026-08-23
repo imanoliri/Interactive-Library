@@ -6,6 +6,7 @@
   "description":"A fantasy setting centered on the Valley of Dragons, where humans, elves, and dragons coexist and build alliances with other free peoples while confronting military and supernatural threats.",
   "series":["valley-of-dragons"],
   "stories":["attack-of-the-dark-god","winter-of-wolves","clash-under-the-mountain"],
+  "development_stories":["honor-of-bretonnia"],
   "canon_policy":{
     "primary_source":"published reader story in books/Valley_of_Dragons/*/story_by_chapters.json",
     "secondary_sources":"current manuscript/clean-text Drive material when needed for provenance or clarification",
@@ -24,6 +25,7 @@
   "source_provenance":[
     {"source":"google-drive","folder":"The Valley of Dragons/1 - Attack of the Dark God","role":"migration-source"},
     {"source":"google-drive","folder":"The Valley of Dragons/2 - Winter of Wolves","role":"migration-source"},
-    {"source":"google-drive","folder":"The Valley of Dragons/3 - Clash Under the Mountain","role":"migration-source"}
+    {"source":"google-drive","folder":"The Valley of Dragons/3 - Clash Under the Mountain","role":"migration-source"},
+    {"source":"google-drive","folder":"The Valley of Dragons/4 - Land of Chivalry","role":"development-source","status":"normalized-prewrite-analysis"}
   ]
 }

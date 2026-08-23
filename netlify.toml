@@ -1,0 +1,3 @@
+[build]
+  publish = "."
+  command = """bash -lc 'set -euo pipefail; BOOK=books/Valley_of_Dragons/Land_of_Chivalry; if [ -d "$BOOK/.source_parts" ]; then cat "$BOOK"/.source_parts/part* > "$BOOK/Valley_of_Dragons_IV_-_Land_of_Chivalry.html"; fi; mkdir -p "$BOOK/images"; python -m pip install --disable-pip-version-check beautifulsoup4==4.12.3 Jinja2==3.1.4 pillow==10.4.0; python generate_books.py'"""
