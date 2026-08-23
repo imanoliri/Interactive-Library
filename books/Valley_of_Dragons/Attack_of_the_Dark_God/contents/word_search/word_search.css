@@ -1,0 +1,53 @@
+.ws-grid {
+    display: inline-grid;
+    gap: 1px;
+    background-color: #ccc;
+    border: 1px solid #ccc;
+    margin-bottom: 2rem;
+    user-select: none;
+}
+
+.ws-cell {
+    width: 2.2rem;
+    height: 2.2rem;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: #000;
+}
+
+.ws-cell.selecting {
+    background-color: #007BFF;
+    color: white;
+}
+
+.ws-cell.found {
+    background-color: #f0f0f0;
+    color: #ccc;
+}
+
+.ws-word-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.ws-word {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.ws-word.found {
+    text-decoration: line-through;
+    color: #ccc;
+}
+
+.controls {
+    margin-top: 2rem;
+}

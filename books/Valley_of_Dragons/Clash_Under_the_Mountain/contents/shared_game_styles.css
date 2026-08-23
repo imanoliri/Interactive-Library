@@ -1,146 +1,84 @@
-/* 
-   Shared Design System for Mini-Games 
-   Theme: Modern Magical / Interactive Library
-*/
-
-:root {
-    /* Colors */
-    --primary-glow: #60a5fa;
-    --secondary-glow: #a78bfa;
-    --correct-color: #22c55e;
-    --wrong-color: #ef4444;
-    --accent-gold: #f59e0b;
-    
-    --bg-dark: #0f172a;
-    --bg-card: rgba(30, 41, 59, 0.7);
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    
-    /* Effects */
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --shadow-premium: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.37);
-    
-    /* Typography */
-    --font-heading: 'Outfit', 'Inter', system-ui, sans-serif;
-    --font-body: 'Inter', system-ui, sans-serif;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@500;700&display=swap');
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    -webkit-tap-highlight-color: transparent;
-}
-
 body {
-    font-family: var(--font-body);
-    background-color: var(--bg-dark);
-    color: var(--text-main);
-    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 2rem;
-    overflow-x: hidden;
+    min-height: 100vh;
+    margin: 0;
 }
 
-/* Glassmorphism Containers */
-.game-container {
-    background: var(--bg-card);
-    backdrop-filter: blur(0.5rem);
-    -webkit-backdrop-filter: blur(0.5rem);
-    border: 1px solid var(--glass-border);
-    border-radius: 1.5rem;
-    padding: 3rem;
-    box-shadow: var(--shadow-premium);
-    max-width: 56.25rem;
-    width: 100%;
+.container {
     text-align: center;
-    animation: fadeIn 0.6s ease-out;
+    background: #fff;
+    padding: 3rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.05);
+    width: 90%;
+    max-width: 40rem;
+    color: #333;
+}
+
+h1, h2, h3, h4, h5, h6, p, div, span, label, input, textarea {
+    color: inherit;
 }
 
 h1 {
-    font-family: var(--font-heading);
-    font-size: 3rem;
-    margin-bottom: 2rem;
-    background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: -0.02em;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #000;
 }
 
-p {
-    color: var(--text-muted);
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-}
-
-/* Premium Buttons */
-button, .btn {
-    font-family: var(--font-heading);
-    background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1.25rem;
-    font-weight: 600;
-    border-radius: 0.75rem;
+button {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    background-color: #eee;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0.25rem 0.375rem -1px rgba(0, 0, 0, 0.1), 0 2px 0.25rem -1px rgba(0, 0, 0, 0.06);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
+    font-family: inherit;
 }
 
-button:hover, .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0.625rem 0.9375rem -0.1875rem rgba(0, 0, 0, 0.1), 0 0.25rem 0.375rem -2px rgba(0, 0, 0, 0.05);
-    filter: brightness(1.1);
+button:hover {
+    background-color: #ddd;
 }
 
-button:active, .btn:active {
-    transform: translateY(0);
+/* Primary Action Buttons (Blue) */
+button#new-puzzle-btn,
+button#new-word-btn,
+button#new-grid-btn,
+button#check-btn,
+button#next-btn,
+button#restart-btn,
+button#new-text-btn,
+button.primary {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
 }
 
-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    filter: grayscale(1);
+button#new-puzzle-btn:hover,
+button#new-word-btn:hover,
+button#new-grid-btn:hover,
+button#check-btn:hover,
+button#next-btn:hover,
+button#restart-btn:hover,
+button#new-text-btn:hover,
+button.primary:hover {
+    background-color: #0056b3;
 }
 
-/* Back Link Style */
 .nav-link {
-    display: inline-block;
-    margin-top: 2rem;
-    color: var(--text-muted);
+    display: block;
+    margin-top: 1.5rem;
+    color: #666;
     text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
+    font-size: 0.9rem;
 }
 
 .nav-link:hover {
-    color: var(--primary-glow);
-}
-
-/* Common Keyframes */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(1.25rem); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pulse-success {
-    0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-    70% { box-shadow: 0 0 0 1.25rem rgba(34, 197, 94, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-0.625rem); }
-    75% { transform: translateX(0.625rem); }
+    text-decoration: underline;
+    color: #333;
 }

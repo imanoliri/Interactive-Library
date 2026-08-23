@@ -15,13 +15,13 @@ When `generate_books.py` processes a source HTML file, it extracts specific meta
 *   `interactive_book_parapragh_texts.json`: An array of strings representing narrative paragraphs (used by Fill the Gaps and Word Cloud snippets).
 
 ### Design System
-All mini-games inherit from a unified design system defined in `scripts/contents/shared_game_styles.css`. This ensures visual consistency (the "Modern Magical" aesthetic) while drastically reducing CSS duplication across the 8 applets.
+All mini-games follow a unified "Classic Simple" design system. This ensures visual consistency with the library's original applets while maintaining a clean, professional appearance.
 
 **Core Tokens (`shared_game_styles.css`):**
-*   **Layout**: Flexbox/Grid centering within a `.game-container` wrapper.
-*   **Colors**: A "Cool Dark" palette (`--bg-dark: #0f172a`) with vibrant magical accents (`--primary-glow: #60a5fa`).
-*   **Glassmorphism**: Backdrop blur filters (`backdrop-filter: blur(8px)`) on semi-transparent backgrounds to simulate magical UI cards.
-*   **Animations**: Pre-defined `@keyframes` for common states (e.g., `pulse-success`, `shake` for errors, `fadeIn` for initialization).
+*   **Theme**: Light theme (#f4f4f4 background).
+*   **Layout**: Centered card (`.container`) with simple shadows.
+*   **Typography**: System sans-serif (Arial).
+*   **Colors**: Minimalist palette (White/Grey/Blue).
 
 ---
 
@@ -91,6 +91,54 @@ All mini-games inherit from a unified design system defined in `scripts/contents
     *   **Data Loading**: Uses complex `Promise.all()` structures to deeply scan the directory structure (`auto_data/nodes.json`, `<faction>_interactions.json`) to programmatically load the state of specific battle campaigns.
     *   **D3 Visualization**: Uses extensive SVG manipulation to plot relational "networks" (representing the magic circle combat mechanics) layered over a geographic map coordinate system `(X,Y)` defined in the master metadata.
 
+### 2.9 Crossword Puzzle (`/crossword`)
+*   **Concept**: A dynamic crossword generator using vocabulary from the book.
+*   **Data Source**: `interactive_book_word_count.json`.
+*   **Core Logic**:
+    *   **Grid Placement**: Implements a recursive intersection-first placement algorithm. It starts with the longest word and attempts to cross subsequent words at shared characters, maintaining a valid grid structure.
+    *   **Bounding Box**: Dynamically calculates the minimum bounding box of placed words to crop the grid for rendering.
+    *   **Input Handling**: Supports auto-advancing focus to the next cell upon typing and backspace-driven reversal.
+
+### 2.10 Quote Scramble (`/quote_scramble`)
+*   **Concept**: A drag-and-drop game to reconstruct scrambled sentences from the book.
+*   **Data Source**: `interactive_book_parapragh_texts.json`.
+*   **Core Logic**:
+    *   **Sentence Extraction**: Parses paragraphs into sentences using punctuation markers, filtering for those within a specific word count range (6-14 words).
+    *   **Drag-and-Drop**: Uses the HTML5 Drag and Drop API with a "ghost" element to allow reordering words in a target drop zone.
+    *   **Validation**: Compares the final stringified order of the DOM nodes against the original extracted sentence array.
+
+### 2.11 Chapter Quiz (`/chapter_quiz`)
+*   **Concept**: A reading comprehension game where players identify which chapter a specific snippet belongs to.
+*   **Data Source**: `story_by_chapters.json`.
+*   **Core Logic**:
+    *   **Snippet Selection**: Randomly selects a chapter and extracts a 1-2 sentence snippet from its HTML content (stripping tags).
+    *   **Distractor Generation**: Fetches other chapter titles to serve as incorrect multiple-choice options.
+    *   **Scoring**: Tracks session-based score and total attempts in local memory.
+
+### 2.12 Hangman (`/hangman`)
+*   **Concept**: A vocabulary-guessing game where failed attempts deplete "magical energy".
+*   **Data Source**: `interactive_book_word_count.json`.
+*   **Core Logic**:
+    *   **State**: Tracks `guessedLetters[]` and `livesLeft`.
+    *   **Keyboard Integration**: Listens for physical keyboard `keydown` events in addition to virtual on-screen buttons.
+    *   **Visual Feedback**: Uses CSS classes (`revealed`, `correct`, `wrong`) to style the letter slots and virtual keys dynamically.
+
+### 2.13 Word Search (`/word_search`)
+*   **Concept**: A classic hidden word grid populated with book vocabulary.
+*   **Data Source**: `interactive_book_word_count.json`.
+*   **Core Logic**:
+    *   **Grid Population**: Randomly places words in 8 possible directions (horizontal, vertical, diagonal). It uses a collision-detection check before committing a word to the grid.
+    *   **Selection Logic**: Implements a "drag-to-select" interface. It calculates the vector between the mouse-down and current hover position to lock the selection to a straight line.
+    *   **Reverse Matching**: Validates selections in both forward and reverse directions to support backwards-placed words.
+
+### 2.14 Typing Race (`/typing_race`)
+*   **Concept**: A speed-typing challenge using narrative blocks from the text.
+*   **Data Source**: `interactive_book_parapragh_texts.json`.
+*   **Core Logic**:
+    *   **Real-time Analytics**: Calculates WPM (Words Per Minute) using the standard 5-character-per-word formula and live accuracy percentage.
+    *   **Visual Diffing**: Renders the target text with character-by-character color-coding (green for correct, red for wrong) as the user types.
+    *   **Accessibility**: Auto-focuses the input area and supports re-starting with new text blocks.
+
 ---
 
 ## 3. General Principles and Best Practices
@@ -98,3 +146,22 @@ All mini-games inherit from a unified design system defined in `scripts/contents
 *   **Responsive Fallbacks**: When calculations (like word cloud fonts) are screen-dependent, `window.addEventListener('resize')` is used carefully in tandem with debouncing or complete re-initialization routines to prevent UI distortion.
 *   **Asset Paths**: Due to the build step moving scripts to explicit internal book folders (`books/<BookName>/index.html`), all asset fetching paths are structurally relative (`./../../`) referencing the compiled root artifacts.
 *   **Native Modals**: Rather than relying on external libraries like Bootstrap/SweetAlert, modals use a custom, accessible overlay system driven by `z-index` and basic flex centering.
+
+---
+
+## 4. Design & Styling (Classic Simple)
+
+The mini-games follow a **Classic Simple** aesthetic. This design language prioritizes functional clarity and minimalist layout over modern decorative effects.
+
+### AI CSS Generation Prompt
+Use the following prompt to generate new game styles that match this aesthetic:
+
+> "Generate a CSS file for a mini-game that follows a 'Classic Simple' aesthetic. The style must be minimalist and functional, avoiding glassmorphism, heavy glows, or vibrant gradients.
+> 
+> Key Requirements:
+> 1. **Body**: Light grey background (`#f4f4f4`), centered layout using flexbox.
+> 2. **Container**: White background card, centered, with `3rem` padding, `0.5rem` radius, and a very faint shadow (`0 0 2rem rgba(0,0,0,0.05)`).
+> 3. **Typography**: Arial or sans-serif, standard weights.
+> 4. **Buttons**: Flat Blue (#007BFF) with darker blue hover (#0056b3), `0.25rem` radius.
+> 5. **Interactive Elements**: Use `1px solid #ccc` for borders, `#f9f9f9` for secondary backgrounds (like code blocks or displays), and standard semantic colors for feedback (Green for success, Red for error).
+> 6. **Navigation**: Simple text links (`.nav-link`) in grey (#666) with underline on hover."
