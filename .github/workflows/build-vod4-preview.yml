@@ -1,16 +1,16 @@
 name: Build VoD4 preview
 
 on:
-  push:
+  pull_request:
     branches:
-      - rewrite/valley-of-dragons-4-prose
+      - main
 
 permissions:
   contents: write
 
 jobs:
   build:
-    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    if: ${{ github.event.pull_request.number == 22 }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
