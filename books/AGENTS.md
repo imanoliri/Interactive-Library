@@ -54,6 +54,22 @@ Everything else that belongs to the interactive reader/build output is owned by 
 - Do **not** manually assemble, copy, move, reconstruct, or patch generated reader files just to make a book preview work.
 - If generated output is wrong or missing, fix the source HTML, intentional assets/metadata, generator, or templates, then rerun `generate_books.py`.
 
+## Local Build First — Hard Rule
+
+For normal publication work, the build must be performed **locally/by the acting agent before pushing**. GitHub Actions or Netlify must not be used as the primary mechanism for creating a missing book.
+
+The required order is:
+
+1. Export the completed source document directly to one real source HTML file in the book directory.
+2. Do not split the source into temporary `.source_parts`, chunk files, or similar staging files.
+3. Put the intentional assets/metadata in the book directory.
+4. Run `generate_books.py` locally.
+5. Inspect the local generated output and confirm the book has the expected chapters and files.
+6. Commit/push the source, assets/metadata, and the generator outputs together to the **existing PR branch**.
+7. Only after that push, use the PR/Netlify build as external verification.
+
+Do not create an Actions workflow, Netlify build workaround, temporary branch, or hand-built generated artifact merely because uploading/building the normal local result is inconvenient. Solve the normal local build/push path first.
+
 ## PR / Netlify Preview Rule
 
 For book work performed on a feature/publication branch with an open pull request:
@@ -61,9 +77,10 @@ For book work performed on a feature/publication branch with an open pull reques
 - Always commit/push each meaningful book-publication change to the **existing PR branch**. Do not leave relevant work only in a local workspace or an unrelated branch.
 - Do not create extra publication/rewrite branches merely to test book output when an active PR branch already exists.
 - Treat the Netlify deploy preview for that PR as part of the normal validation loop, not as an optional final check.
+- Netlify is a **verification layer**, not the source-of-truth build system for normal publication. The PR branch should already contain the complete locally generated book before Netlify is asked to validate it.
 - After pushing a change that affects the library hub, book source, assets, metadata, generator, or generated output, verify that the PR/Netlify build has run successfully.
 - Open/check the deployed preview when accessible and validate the user-visible result there: the library tile, navigation into the book, chapter structure, cover, poem modal, audio, responsive reader behavior, and any changed functionality relevant to that update.
-- If the preview is wrong, fix the appropriate source/asset/metadata/generator input, rerun `generate_books.py` when required, push the correction to the same PR branch, and re-check the preview.
+- If the preview is wrong, fix the appropriate source/asset/metadata/generator input, rerun `generate_books.py` locally, push the correction to the same PR branch, and re-check the preview.
 - Do not report a publication change as verified merely because files look correct in Git. For user-visible book changes, verification means the PR preview has been checked whenever the preview is available.
 
 ## Build and Publication Order
@@ -71,7 +88,7 @@ For book work performed on a feature/publication branch with an open pull reques
 The intended new-book workflow is:
 
 1. Finalize the story text in its source document.
-2. Export the source document as the raw source HTML and place that source HTML in the book directory.
+2. Export the source document directly as one raw source HTML file and place that source HTML in the book directory.
 3. Generate/select and save `cover.jpg`.
 4. Draft the poem from the established library/series poem patterns.
 5. Obtain user review and approval of the poem.
@@ -79,11 +96,13 @@ The intended new-book workflow is:
 7. Generate the song in Suno from the approved poem lyrics, using the user's account.
 8. Obtain user selection/approval of the song and save it as `song.mp3`.
 9. Add/update only intentional book metadata such as `meta.json` where needed.
-10. Run `generate_books.py` once the source/assets are ready.
-11. Commit/push the source HTML, intentional assets/metadata, and the script-generated outputs to the active PR branch.
-12. Verify the PR/Netlify build and inspect the deployed preview.
-13. Validate the script-generated reader, chapter navigation, cover, poem modal, audio playback, generated JSONs, responsive behavior, and library-hub entry in the preview.
-14. If anything is wrong, correct the source or pipeline, rebuild, push to the same PR, and repeat the preview check.
+10. Run `generate_books.py` locally once the source/assets are ready.
+11. Verify the locally generated `index.html`, chapter navigation, generated JSONs, copied reader assets, manifest entry, and expected chapter count.
+12. Commit/push the source HTML, intentional assets/metadata, and the script-generated outputs to the active PR branch.
+13. Confirm that the PR head actually contains that commit; do not confuse a local commit with a pushed PR update.
+14. Verify the PR/Netlify build and inspect the deployed preview.
+15. Validate the library tile, navigation into the book, chapter structure, cover, poem modal, audio playback, responsive behavior, and any changed functionality in the preview.
+16. If anything is wrong, correct the source or pipeline, rebuild locally, push to the same PR, and repeat the preview check.
 
 ## Generated Output Guard
 
