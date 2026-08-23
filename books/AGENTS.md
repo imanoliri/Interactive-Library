@@ -54,6 +54,18 @@ Everything else that belongs to the interactive reader/build output is owned by 
 - Do **not** manually assemble, copy, move, reconstruct, or patch generated reader files just to make a book preview work.
 - If generated output is wrong or missing, fix the source HTML, intentional assets/metadata, generator, or templates, then rerun `generate_books.py`.
 
+## PR / Netlify Preview Rule
+
+For book work performed on a feature/publication branch with an open pull request:
+
+- Always commit/push each meaningful book-publication change to the **existing PR branch**. Do not leave relevant work only in a local workspace or an unrelated branch.
+- Do not create extra publication/rewrite branches merely to test book output when an active PR branch already exists.
+- Treat the Netlify deploy preview for that PR as part of the normal validation loop, not as an optional final check.
+- After pushing a change that affects the library hub, book source, assets, metadata, generator, or generated output, verify that the PR/Netlify build has run successfully.
+- Open/check the deployed preview when accessible and validate the user-visible result there: the library tile, navigation into the book, chapter structure, cover, poem modal, audio, responsive reader behavior, and any changed functionality relevant to that update.
+- If the preview is wrong, fix the appropriate source/asset/metadata/generator input, rerun `generate_books.py` when required, push the correction to the same PR branch, and re-check the preview.
+- Do not report a publication change as verified merely because files look correct in Git. For user-visible book changes, verification means the PR preview has been checked whenever the preview is available.
+
 ## Build and Publication Order
 
 The intended new-book workflow is:
@@ -68,8 +80,10 @@ The intended new-book workflow is:
 8. Obtain user selection/approval of the song and save it as `song.mp3`.
 9. Add/update only intentional book metadata such as `meta.json` where needed.
 10. Run `generate_books.py` once the source/assets are ready.
-11. Verify the script-generated reader, chapter navigation, cover, poem modal, audio playback, generated JSONs, and library-hub entry.
-12. Commit the source HTML, intentional assets/metadata, and the script-generated outputs produced by that build.
+11. Commit/push the source HTML, intentional assets/metadata, and the script-generated outputs to the active PR branch.
+12. Verify the PR/Netlify build and inspect the deployed preview.
+13. Validate the script-generated reader, chapter navigation, cover, poem modal, audio playback, generated JSONs, responsive behavior, and library-hub entry in the preview.
+14. If anything is wrong, correct the source or pipeline, rebuild, push to the same PR, and repeat the preview check.
 
 ## Generated Output Guard
 
