@@ -36,24 +36,44 @@ A book is not publication-complete until it has all three presentation assets be
 - Do not silently rewrite approved lyrics merely to make them easier for Suno to sing. Any substantial lyric changes require user review.
 - Once the user selects/approves the generated song, export/download the chosen track and save it in the book directory as `song.mp3`.
 
+## Build Ownership
+
+For a normal book publication, humans/agents provide only the authored source and intentional book assets:
+
+- the exported raw source `.html` file (not named `index.html`),
+- `cover.jpg`,
+- `poem.html`,
+- `song.mp3`,
+- and any intentional book-specific metadata such as `meta.json`.
+
+Everything else that belongs to the interactive reader/build output is owned by the build pipeline.
+
+- Run `generate_books.py` and let it create/update `index.html` and the generated JSON files.
+- Let the script copy/synchronize the interactive reader CSS/JS and `contents/` assets as designed.
+- Let the script regenerate `books/manifest.json`; do not manually maintain the library landing-page manifest for ordinary new-book publication.
+- Do **not** manually assemble, copy, move, reconstruct, or patch generated reader files just to make a book preview work.
+- If generated output is wrong or missing, fix the source HTML, intentional assets/metadata, generator, or templates, then rerun `generate_books.py`.
+
 ## Build and Publication Order
 
 The intended new-book workflow is:
 
 1. Finalize the story text in its source document.
-2. Export the source document to the book's raw source HTML.
+2. Export the source document as the raw source HTML and place that source HTML in the book directory.
 3. Generate/select and save `cover.jpg`.
 4. Draft the poem from the established library/series poem patterns.
 5. Obtain user review and approval of the poem.
 6. Save the approved poem as `poem.html`.
 7. Generate the song in Suno from the approved poem lyrics, using the user's account.
 8. Obtain user selection/approval of the song and save it as `song.mp3`.
-9. Run `generate_books.py`.
-10. Verify the generated reader, chapter navigation, cover, poem modal, audio playback, metadata, and library-hub entry.
-11. Commit the raw source and required assets together with the script-generated outputs.
+9. Add/update only intentional book metadata such as `meta.json` where needed.
+10. Run `generate_books.py` once the source/assets are ready.
+11. Verify the script-generated reader, chapter navigation, cover, poem modal, audio playback, generated JSONs, and library-hub entry.
+12. Commit the source HTML, intentional assets/metadata, and the script-generated outputs produced by that build.
 
 ## Generated Output Guard
 
 - `books/*/index.html` and other generated reader artifacts are outputs of the Python build pipeline.
 - **Never hand-edit generated `index.html` to patch book content.** Correct the raw source HTML, engine/template, metadata, or assets as appropriate, then rerun the generator.
+- Do not create temporary chunk files, reconstructed generated files, or manually copied engine assets as a substitute for running the generator.
 - It is acceptable to publish a work-in-progress preview before `poem.html` and `song.mp3` exist, but it must be clearly treated as incomplete and must not be represented as a finished book release.
