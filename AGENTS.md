@@ -190,3 +190,17 @@ The progress-tracking UI follows a strict **Cool Blue/Grey palette** to distingu
 *   **Primary Accent**: Blue (`#3b82f6`)
 *   **Secondary/Gradients**: Slate/Slate-Grey (`#64748b` / `#94a3b8`)
 *   **Neutral Backgrounds**: Dark Navy (`#0b1020` / `#121a33`)
+
+## 6. Storybook Studio Team Workflow (LifeOS)
+
+When producing a new book via the LifeOS **Storybook Studio** agent team, obey these repo-level contracts alongside [`knowledge/AGENTS.md`](knowledge/AGENTS.md) and [`curator/AGENTS.md`](curator/AGENTS.md):
+
+*   **Canonical Lore & Team Roles:** Read [`docs/STORY_BIBLE.md`](docs/STORY_BIBLE.md) first before drafting outlines, art prompts, or enemy configs. Only the Team Lead (`editor`) resolves open continuity/scope questions via operator checkpoints.
+*   **3-Level Writing Templates:** Author and evaluate progressive drafts strictly against [`docs/templates/`](docs/templates/):
+    1. [`docs/templates/ideas-brief-template.md`](docs/templates/ideas-brief-template.md)
+    2. [`docs/templates/outline-template.md`](docs/templates/outline-template.md) (`Level 1` — layout & chapter arc)
+    3. [`docs/templates/breakdown-template.md`](docs/templates/breakdown-template.md) (`Level 2` — locations, characters, events, tone cap & `[IMG:]` cues)
+    4. [`docs/templates/prose-example.md`](docs/templates/prose-example.md) (`Level 3` — source `<Book>.html`, `poem.html`, `meta.json`)
+    5. [`docs/templates/art-album-template.md`](docs/templates/art-album-template.md), [`docs/templates/song-game-template.md`](docs/templates/song-game-template.md), and [`docs/templates/book-qa-checklist.md`](docs/templates/book-qa-checklist.md).
+*   **Public Repo Safety:** Never commit secrets, API keys, local machine paths, private Drive IDs, or generated binaries outside approved book assets, and always compile books via `generate_books.py` (never edit built `books/*/index.html` manually).
+
