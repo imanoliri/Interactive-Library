@@ -2,24 +2,25 @@
 
 > **Owner:** `illustrator` · **Engine:** Gemini Image API (host-side adapter, zero secrets in repo) or approved manual `.jpg` drop
 
-## 1. Character & Style Lock Sheet
+## 1. Character, Creature & Architecture Visual Lock Sheet
 
-Copy and fill per protagonist before generating any spread so all frames share one silhouette and palette:
+Lock every recurring hero, companion, antagonist, faction crest, and setting palette before generating any plate:
 
-- **Protagonist Lock:** e.g. *Pip — small round-snouted cloud-dragon, soft sky-blue scales (`#7DB8E8`), warm amber wingtips and tail lantern (`#F0AE52`), expressive gentle eyes.*
-- **Visual Style:** Soft storybook watercolor & gouache wash, rounded shapes, diffused warm light, zero harsh black ink shadows, zero neon gradients, no embedded text inside images.
-- **Aspect & Framing:**
-  - `cover.jpg`: Portrait storybook ratio (e.g. `3:4` or `1000×1333` JPEG), leaving **clean open sky/breathing space in the top 25%** for library card title overlays.
-  - Scene plates (`images/chNN_*.jpg`): Standardized `.jpg` (avoid `.png`; `generate_books.py` / `images_png_to_jpg()` strips transparency to white JPEG).
+- **Art Style Lock (`heroic-saga` / `elemental-wonder` default):** Rich **painterly high-fantasy RPG illustration** — crisp forged armor, weathered stone and timber, distinct facial proportions, dramatic chiaroscuro lighting (warm firelight/amber torches vs. deep cobalt cavern shadows or sunlit valley greens). **Zero embedded text, zero signatures, zero watermarks, zero neon sci-fi glow.** *(Use warm storybook gouache only when preset is `shorter-kids-tale`.)*
+- **Hero & Companion Lock:** e.g. *Alaric — battle-worn silver steel plate with red dragon crest on chest/pauldrons, practical dark leather cloak; Vaelor — lean sapphire-blue dragon with broad leathery wings and golden-amber eyes.*
+- **Allies & Factions Lock:** e.g. *Dwarven warriors of Khazad-Throm — stout proportions, heavy iron/bronze engraved pauldrons, braided copper or white beards bound with iron rings; elven envoys — silver-filigree robes of forest blue.*
+- **Cover Framing (`cover.jpg`):** Portrait/square high-drama centerpiece (iconic villain on stone throne, dragon-knight silhouette before burning ruins, or glowing arcane tome/artifact). Leave the top `20–25%` clean of busy detail with **zero text overlays**.
+- **Format Standard:** Save directly as `.jpg` inside `books/<Book_Dir>/images/` (`generate_books.py` converts stray `.png` against white backgrounds).
 
-## 2. Scene Shot List (Traceable to Breakdown `[IMG:]` Cues)
+## 2. Chapter Scene Shot List (`2–5` plates/ch for `heroic-saga`; `4–8` for `elemental-wonder`)
 
 | Filename | Chapter | Action & Composition | Continuity Lock |
 |---|---|---|---|
-| `cover.jpg` | Cover | Wide heroic/cozy cover portrait with protagonist in lower-middle third | Sky/top 25% uncluttered |
-| `images/ch01_nest.jpg` | Ch. 1 | Hero peeking from fluffy cloud blanket under dawn mist | Matches Ch. 1 Breakdown props |
-| `images/ch02_valley.jpg` | Ch. 2 | Rain clouds drifting peacefully above blooming valley flowers | Consistent scale & colors |
+| `cover.jpg` | Cover | Iconic dramatic cover composition (2–3 candidate options at Gate) | Zero text/watermarks; top margin clean |
+| `images/ch01_council_arrival.jpg` | Ch. 1 | Knights in Dragon Crest armor seated with envoy around Castle Tarn hall | Matching crests, stained glass, torches |
+| `images/ch02_mountain_gate.jpg` | Ch. 2 | Dwarven king welcoming knights and elf envoy inside crystal-lit obsidian halls | Consistent armor/robes & rune doorway |
+| `images/ch04_chasm_strike.jpg` | Ch. 4 | Sapphire dragon plunging into subterranean chasm over narrow stone bridges | Consistent Vaelor scale color & dwarf shield wall |
 
-## 3. Cover Selection Mockup Gate (Gate G5)
+## 3. Cover Selection Mockup Gate
 - Generate **2–3 distinct cover candidates** (`cover_A.jpg`, `cover_B.jpg`, `cover_C.jpg`) before finalizing `cover.jpg` so the operator can pick the winner in one tap from LifeOS `Runs` / `Today`.
-- Any operator tweak feedback is saved automatically into Illustrator's persistent corrections memory.
+- Any operator tweak feedback saves automatically into Illustrator's persistent `memory.md` corrections.
