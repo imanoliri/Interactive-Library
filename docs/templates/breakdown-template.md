@@ -1,36 +1,43 @@
 # Level 2 · Chapter Breakdown Template
 
-> Expand every chapter from `1. Outline` with explicit **Locations**, **Characters**, **Key Events**, **Tone Cap**, and **`[IMG:]` Art Cues** before writing prose.
+> Expand every chapter from `1. Outline` with **Locations**, **Relevant Characters**, **Key Events**, **Tactical / Cultural Beats**, **Target Words**, and **`[IMG:]` Art Cues** before drafting prose.
 
-## Chapter Breakdown Example
+## Chapter Breakdown Example (`heroic-saga`)
 
-### Chapter 1: The Smallest Puff
-- **Locations:** Silver Peaks Cloud Nest — soft dawn-blue mist ledges, warm moss cushions, distant rolling valley clouds.
-- **Characters:**
-  - **Pip** — Tiny sky-blue cloud-dragon with amber wingtips and a glowing tail lantern.
-  - **Mama Gale** — Calm elder dragon whose wingbeats weave morning breezes.
+### Chapter 4: Battle of Durin's Chasm
+- **Target Words:** `~1,150 words` (battle chapter with extra tactical budget)
+- **Locations:** Subterranean fortified ledge overlooking Durin's Chasm — cold mineral air, deep abyss, two narrow stone bridges linking the mine approaches to the capital defenses.
+- **Relevant Characters:**
+  - **Alaric & Vaelor** — Adapting aerial dragon tactics to confined cavern airspaces.
+  - **Gawain** — Senior strategist analyzing chokepoint timing.
+  - **General Bhor** — Skeptical veteran dwarven commander defending the bridgehead with shield walls.
 - **Key Events:**
-  1. Dawn settles softly over the nest while younger dragons practice puffing cumulus rings.
-  2. A distant thunderstorm rumbles; Pip hides beneath a pillow-cloud while his tail lantern flickers.
-  3. Mama Gale explains that valley wildflowers depend on thunderclouds for rain, sparking Pip's curiosity.
-- **Tone Cap:** Warm, reassuring, curious — no menacing monsters or sudden fright spikes.
+  1. War preparation and candid debate between Bhor and Alaric over whether dragons can fight underground without open skies.
+  2. Opening wave of the goblin swarm surges across the two narrow stone bridges; Vaelor and the riders dive to scatter the vanguard.
+  3. **Enemy Counter-Move:** Goblin bowmen surge behind lines and drive the dragons upward, forcing dwarven infantry to hold the chokepoint on foot.
+  4. **Tactical Pivot:** When enemy archers overcommit onto the crowded bridge to suppress dwarven battlements, Gawain spots the opening; Bhor and Alaric launch the decisive second pass.
+- **Tone & Dialogue:** Crisp military councils (`~35%` dialogue), earned mutual respect between dwarves and riders, sensory cavern acoustics.
 - **Visual Cues (`Illustrator`):**
-  - `[IMG: ch01_nest.jpg | Wide shot of small sky-blue dragon Pip peeking from behind a fluffy white cloud blanket at dawn, soft warm amber tail glow, gentle watercolor picture-book style]`
+  - `[IMG: ch04_war_council.jpg | Painterly high-fantasy RPG illustration of knights in red-crest steel armor and a braided-beard dwarven general leaning over a stone map inside a torchlit cavern hall, dramatic warm-cool contrast, no text]`
+  - `[IMG: ch04_chasm_strike.jpg | Wide dramatic fantasy painting of a sapphire-blue dragon diving through a colossal underground chasm breathing flame onto two stone bridges defended by dwarven shield walls, no text]`
 
 ---
 
-### Chapter 2: `<Title>`
-- **Locations:** `<Primary setting & sensory details>`
-- **Characters:** `<Character IDs and emotional states>`
+### Chapter N: `<Title>`
+- **Target Words:** `<~800–1,400 words>`
+- **Locations:** `<Primary setting, sensory atmosphere, geography/architecture>`
+- **Relevant Characters:** `<Named canon & new roles, emotional stakes, tactical/diplomatic stances>`
 - **Key Events:**
   1. `<Beat 1>`
   2. `<Beat 2>`
-  3. `<Beat 3>`
-- **Tone Cap:** `<Target mood & vocabulary ceiling>`
+  3. `<Enemy counter-move or complication>`
+  4. `<Resolution or chapter turn>`
+- **Tactical / Cultural / Thematic Beats:** `<What world detail, dilemma, or reflection grounds the chapter>`
 - **Visual Cues (`Illustrator`):**
-  - `[IMG: ch02_scene.jpg | Concrete scene composition matching breakdown props and palette]`
+  - `[IMG: chNN_scene_a.jpg | Painterly RPG composition locked to Visual Lock Sheet, no text]`
+  - `[IMG: chNN_scene_b.jpg | Concrete dramatic scene matching breakdown props, no text]`
 
 ## Level 2 Review Checklist (`reviewer`)
-- [ ] Every chapter explicitly lists Locations, Characters, Key Events, and Tone Cap
-- [ ] Visual `[IMG:]` filenames are unique lowercase `.jpg` paths under `images/`
-- [ ] No continuity contradictions against `knowledge/` or earlier chapters
+- [ ] Every chapter explicitly lists Target Words, Locations, Relevant Characters, Key Events, and Cultural/Tactical Beats
+- [ ] Every chapter carries `2–5` unique lowercase `chNN_slug.jpg` `[IMG:]` cues (`4–8` for `elemental-wonder`)
+- [ ] Zero continuity contradictions against `knowledge/` or prior published books
